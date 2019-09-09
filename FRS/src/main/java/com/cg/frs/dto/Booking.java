@@ -7,19 +7,19 @@ import java.util.List;
 public class Booking {
 	
 	private BigInteger bookingId;
-	private User userId;
+	private BigInteger userId;
 	private LocalDateTime bookingDate;
 	private List<Passenger> passengerList;
 	private Double ticketCost;
-	private Flight flight;
+	private ScheduleFlight flight;
 	private Integer noOfPassengers;
 	
 	public Booking() {
 		super();
 	}
 	
-	public Booking(BigInteger bookingId, User userId, LocalDateTime bookingDate, List<Passenger> passengerList,
-			Double ticketCost, Flight flight, Integer noOfPassengers) {
+	public Booking(BigInteger bookingId, BigInteger userId, LocalDateTime bookingDate, List<Passenger> passengerList,
+			Double ticketCost, ScheduleFlight flight, Integer noOfPassengers) {
 		super();
 		this.bookingId = bookingId;
 		this.userId = userId;
@@ -38,11 +38,11 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 	
-	public User getUserId() {
+	public BigInteger getUserId() {
 		return userId;
 	}
 	
-	public void setUserId(User userId) {
+	public void setUserId(BigInteger userId) {
 		this.userId = userId;
 	}
 	
@@ -62,11 +62,11 @@ public class Booking {
 		this.ticketCost = ticketCost;
 	}
 	
-	public Flight getFlight() {
+	public ScheduleFlight getFlight() {
 		return flight;
 	}
 	
-	public void setFlight(Flight flight) {
+	public void setFlight(ScheduleFlight flight) {
 		this.flight = flight;
 	}
 	

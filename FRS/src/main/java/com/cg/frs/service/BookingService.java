@@ -11,7 +11,7 @@ public interface BookingService {
 	
 	public List<Booking> viewBooking();
 	
-	public Booking viewBooking(BigInteger bookingId);
+	public List<Booking> viewBooking(BigInteger id);
 	
 	public Booking modifyBooking(Booking booking);
 	

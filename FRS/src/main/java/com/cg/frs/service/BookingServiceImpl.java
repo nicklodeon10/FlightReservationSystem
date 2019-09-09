@@ -1,6 +1,7 @@
-package com.cg.frs.service;
+	package com.cg.frs.service;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cg.frs.dao.BookingDao;
@@ -22,13 +23,14 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public Booking viewBooking(BigInteger bookingId) {
+	public List<Booking> viewBooking(BigInteger id) {
 		List<Booking> bookingList=bookingDao.showBooking();
+		List<Booking> extractedList=new ArrayList<Booking>();
 		for(Booking booking: bookingList) {
-			if(booking.getBookingId()==bookingId)
-				return booking;
+			if(booking.getBookingId()==id || booking.getUserId()==id)
+				extractedList.add(booking);
 		}
-		return null;
+		return bookingList;
 	}
 
 	@Override

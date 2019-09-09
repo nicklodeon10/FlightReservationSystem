@@ -5,11 +5,7 @@ import java.util.List;
 import com.cg.frs.dto.Airport;
 
 public interface AirportDao {
-
-	
-	
-	
-	List<Airport> viewAirport();
-    Airport viewAirport(String s);
+    
+	public List<Airport> viewAirport(String s);
 	
 }

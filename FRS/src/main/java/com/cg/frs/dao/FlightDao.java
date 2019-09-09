@@ -7,14 +7,10 @@ import com.cg.frs.dto.Flight;
 
 public interface FlightDao {
 
-	
-	
-	
-	 Flight addFlightService(Flight flight);
-     Flight modifyFlightService(Flight flight);
-     List<Flight> viewFlight();
-     List<Flight> viewFlight(BigInteger flightId);
-     void deleteFlight(BigInteger flightId);
+	public Flight addFlight(Flight flight);
      
+	public List<Flight> viewFlight();
+     
+	public void deleteFlight(BigInteger flightId);   
 	
 }

@@ -1,24 +1,16 @@
 package com.cg.frs.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cg.frs.dto.Airport;
 
 public class AirportDaoImpl implements AirportDao{
 
-	public List<Airport> viewAirport() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private List<Airport> airportList=new ArrayList<Airport>();
 
-	public Airport viewAirport(String s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	
-	
+	public List<Airport> viewAirport(String s) {
+		return airportList;
+	}	
 	
 }

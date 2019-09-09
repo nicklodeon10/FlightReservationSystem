@@ -7,28 +7,34 @@ import com.cg.frs.dao.UserDao;
 import com.cg.frs.dao.UserDaoImpl;
 import com.cg.frs.dto.User;
 
-public class UserServiceImpl implements UserService
-{
-	UserDao userdao=new UserDaoImpl();
-	public User addUser(User user)
-	{
-		return userdao.addUser(user);
+public class UserServiceImpl implements UserService{
+	
+	UserDao userDao=new UserDaoImpl();
+	
+	public User addUser(User user) {
+		return userDao.addUser(user);
 	}
-	public List<User> viewUser()
-	{
-		return userdao.showUser();
+	
+	public List<User> viewUser() {
+		return userDao.showUser();
 	}
-	public User viewUser(BigInteger userId)
-	{
-		return userdao.showUser(userId);
+	
+	public User viewUser(BigInteger userId)	{
+		List<User> userList=userDao.showUser();
+		for(User user: userList) {
+			if(user.getUserId()==userId) {
+				return user;
+			}
+		}
+		return null;
 	}
-	public User updateUser(User user)
-	{
-		return userdao.updateUser(user);
+	
+	public User updateUser(User user) {
+		return userDao.addUser(user);
 	}
-	public void deleteUser(BigInteger user)
-	{
-		userdao.removeUser(user);
+	
+	public void deleteUser(BigInteger user) {
+		userDao.removeUser(user);
 	}
-	//validation is to be done
+
 }

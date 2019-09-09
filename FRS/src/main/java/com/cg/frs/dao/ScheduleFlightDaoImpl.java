@@ -11,7 +11,12 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao{
 	private List<ScheduleFlight> scheduleFlightList=new ArrayList<ScheduleFlight>();
 	
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleFlight) {
-		scheduleFlightList.add(scheduleFlight);
+		if(scheduleFlightList.indexOf(scheduleFlight)== -1) {
+			scheduleFlightList.add(scheduleFlight);
+		}else {
+			int modifyIndex=scheduleFlightList.indexOf(scheduleFlight);
+			scheduleFlightList.set(modifyIndex, scheduleFlight);
+		}
 		return scheduleFlight;
 	}
 

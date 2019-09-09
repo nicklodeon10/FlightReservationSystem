@@ -6,9 +6,8 @@ import com.cg.frs.dto.Airport;
 
 public interface AirportService {
 
-	
-	
-	List<Airport> viewAirport();
-    Airport viewAirport(String s);
+	public List<Airport> viewAirport();
+    
+	public Airport viewAirport(String airportCode);
 	
 }

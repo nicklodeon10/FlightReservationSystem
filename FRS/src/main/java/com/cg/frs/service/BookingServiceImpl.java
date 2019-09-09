@@ -9,26 +9,37 @@ import com.cg.frs.dto.Booking;
 
 public class BookingServiceImpl implements BookingService
 {
-	BookingDao bookingdao=new BookingDaoImpl();
-	public Booking addBooking(Booking booking)
-	{
-		return bookingdao.addBooking(booking);
+	BookingDao bookingDao=new BookingDaoImpl();
+
+	@Override
+	public Booking addBooking(Booking booking) {
+		return bookingDao.addBooking(booking);
 	}
-	public List<Booking> viewBooking()
-	{
-		return bookingdao.showBooking();
+
+	@Override
+	public List<Booking> viewBooking() {
+		return bookingDao.showBooking();
 	}
-	public Booking viewBooking(BigInteger bookingId)
-	{
-		return bookingdao.showBooking(bookingId);
+
+	@Override
+	public Booking viewBooking(BigInteger bookingId) {
+		List<Booking> bookingList=bookingDao.showBooking();
+		for(Booking booking: bookingList) {
+			if(booking.getBookingId()==bookingId)
+				return booking;
+		}
+		return null;
 	}
-	public Booking modifyBooking(Booking booking)
-	{
-		return bookingdao.updateBooking(booking);
+
+	@Override
+	public Booking modifyBooking(Booking booking) {
+		return bookingDao.addBooking(booking);
 	}
-	public void deleteBooking(BigInteger bookingId)
-	{
-		bookingdao.removeBooking(bookingId);
+
+	@Override
+	public void deleteBooking(BigInteger bookingId) {
+		bookingDao.removeBooking(bookingId);
 	}
+
 	//validate for booking and passenger
 }

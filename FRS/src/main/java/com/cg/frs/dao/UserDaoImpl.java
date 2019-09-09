@@ -11,7 +11,12 @@ public class UserDaoImpl implements UserDao {
 	private List<User> userList=new ArrayList<User>();
 	
 	public User addUser(User user) {
-		userList.add(user);
+		if(userList.indexOf(user)== -1) {
+			userList.add(user);
+		}else {
+			int modifyIndex=userList.indexOf(user);
+			userList.set(modifyIndex, user);
+		}
 		return user;
 	}
 	

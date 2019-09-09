@@ -9,7 +9,7 @@ public class AirportDaoImpl implements AirportDao{
 
 	private List<Airport> airportList=new ArrayList<Airport>();
 
-	public List<Airport> viewAirport(String s) {
+	public List<Airport> viewAirport() {
 		return airportList;
 	}	
 	

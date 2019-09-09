@@ -11,7 +11,12 @@ public class BookingDaoImpl implements BookingDao {
 	private List<Booking> bookingList=new ArrayList<Booking>();
 	
 	public Booking addBooking(Booking booking) {
-		bookingList.add(booking);
+		if(bookingList.indexOf(booking)== -1) {
+			bookingList.add(booking);
+		}else {
+			int modifyIndex=bookingList.indexOf(booking);
+			bookingList.set(modifyIndex, booking);
+		}
 		return booking;
 	}
 	

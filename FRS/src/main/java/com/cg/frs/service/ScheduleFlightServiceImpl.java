@@ -1,55 +1,58 @@
 package com.cg.frs.service;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.cg.frs.dto.*;
+import com.cg.frs.dto.Airport;
+import com.cg.frs.dto.ScheduleFlight;
 
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
-	ScheduleFlightServiceImpl dao=new ScheduleFlightServiceImpl();
-	
-	
-
-	public List<com.cg.frs.dto.ScheduleFlight> viewScheduleFlights(Airport source, Airport destination,
-			LocalDate flightDate) {
-		// TODO Auto-generated method stub
-		return dao.viewScheduleFlights(source,destination,flightDate);
-	}
-
-	public com.cg.frs.dto.ScheduleFlight viewScheduleFlights(BigInteger flightId) {
-		// TODO Auto-generated method stub
-		return dao.viewScheduleFlights(flightId);
-	}
-
-	public List<com.cg.frs.dto.ScheduleFlight> viewScheduleFlight() {
-		// TODO Auto-generated method stub
-		return dao.viewScheduleFlight();
-	}
-
-	public com.cg.frs.dto.ScheduleFlight modifyScheduleFlight(Flight flight, Schedule schedule, Integer number) {
-		// TODO Auto-generated method stub
-		return dao.modifyScheduleFlight(flight, schedule, number);
-	}
-
-	public void deleteScheduleFlight(BigInteger flightId) {
-		// TODO Auto-generated method stub
-		
-	}
+	ScheduleFlightServiceImpl scheduleFlightDao=new ScheduleFlightServiceImpl();
 
 	@Override
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {
-		// TODO Auto-generated method stub
-		return dao.addScheduleFlight(scheduleflight);
+		return scheduleFlightDao.addScheduleFlight(scheduleflight);
 	}
 
-	
+	@Override
+	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate) {
+		List<ScheduleFlight> scheduleFlightList=scheduleFlightDao.viewScheduleFlight();
+		List<ScheduleFlight> extractedFlightList=new ArrayList<ScheduleFlight>();
+		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
+			if(scheduleFlight.getSchedule().getSourceAirport().equals(source) 
+					&& scheduleFlight.getSchedule().getDestinationAirport().equals(destination)
+					&& scheduleFlight.getSchedule().getDepartureDateTime().toLocalDate().equals(flightDate)) {
+				extractedFlightList.add(scheduleFlight);
+			}
+		}
+		return extractedFlightList;
+	}
 
-	
-	
-	
-	
-	
-	
+	@Override
+	public ScheduleFlight viewScheduleFlights(BigInteger flightId) {
+		List<ScheduleFlight> scheduleFlightList=scheduleFlightDao.viewScheduleFlight();
+		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
+			if(scheduleFlight.getFlight().getFlightNumber()==flightId)
+				return scheduleFlight;
+		}
+		return null;
+	}
+
+	@Override
+	public List<ScheduleFlight> viewScheduleFlight() {
+		return scheduleFlightDao.viewScheduleFlight();
+	}
+
+	@Override
+	public ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight) {
+		return scheduleFlightDao.addScheduleFlight(scheduleFlight);
+	}
+
+	@Override
+	public void deleteScheduleFlight(BigInteger flightId) {
+		scheduleFlightDao.deleteScheduleFlight(flightId);
+	}
 	
 }

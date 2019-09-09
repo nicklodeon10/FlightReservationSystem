@@ -7,37 +7,36 @@ import com.cg.frs.dto.Flight;
 
 public class FlightServiceImpl implements FlightService{
 
-	FlightServiceImpl dao=new FlightServiceImpl();
-	
-	
+	FlightServiceImpl flightDao=new FlightServiceImpl();
+
+	@Override
 	public Flight addFlightService(Flight flight) {
-		// TODO Auto-generated method stub
-		return dao.addFlightService(flight);
+		return flightDao.addFlightService(flight);
 	}
 
+	@Override
 	public Flight modifyFlightService(Flight flight) {
-		// TODO Auto-generated method stub
-		return dao.modifyFlightService(flight);
+		return flightDao.addFlightService(flight);
 	}
 
+	@Override
 	public List<Flight> viewFlight() {
-		// TODO Auto-generated method stub
-		return dao.viewFlight();
+		return flightDao.viewFlight();
 	}
 
-	public List<Flight> viewFlight(BigInteger flightId) {
-		// TODO Auto-generated method stub
-		return dao.viewFlight(flightId);
+	@Override
+	public Flight viewFlight(BigInteger flightId) {
+		List<Flight> flightList=flightDao.viewFlight();
+		for(Flight flight: flightList) {
+			if(flight.getFlightNumber()==flightId)
+				return flight;
+		}
+		return null;
 	}
 
+	@Override
 	public void deleteFlight(BigInteger flightId) {
-		// TODO Auto-generated method stub
-		
+		flightDao.deleteFlight(flightId);
 	}
 	
-	
-	
-	
-	
-
 }

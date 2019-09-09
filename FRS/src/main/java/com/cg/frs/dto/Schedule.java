@@ -1,24 +1,24 @@
 package com.cg.frs.dto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Schedule{	
 
 	private Airport sourceAirport;
 	private Airport destinationAirport;
-	private LocalTime departureTime;
-	private LocalTime arrivalTime;
+	private LocalDateTime departureDateTime;
+	private LocalDateTime arrivalDateTime;
 	
 	public Schedule() {
 		super();
 	}
 	
-	public Schedule(Airport sourceAirport, Airport destinationAirport, LocalTime departureTime, LocalTime arrivalTime) {
+	public Schedule(Airport sourceAirport, Airport destinationAirport, LocalDateTime departureDateTime, LocalDateTime arrivalDateTime) {
 		super();
 		this.sourceAirport = sourceAirport;
 		this.destinationAirport = destinationAirport;
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
+		this.departureDateTime = departureDateTime;
+		this.arrivalDateTime = arrivalDateTime;
 	}
 	
 	public Airport getSourceAirport() {
@@ -37,26 +37,26 @@ public class Schedule{
 		this.destinationAirport = destinationAirport;
 	}
 	
-	public LocalTime getDepartureTime() {
-		return departureTime;
+	public LocalDateTime getDepartureDateTime() {
+		return departureDateTime;
 	}
 	
-	public void setDepartureTime(LocalTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDepartureDateTime(LocalDateTime departureDateTime) {
+		this.departureDateTime = departureDateTime;
 	}
 	
-	public LocalTime getArrivalTime() {
-		return arrivalTime;
+	public LocalDateTime getArrivalDateTime() {
+		return arrivalDateTime;
 	}
 	
-	public void setArrivalTime(LocalTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
+		this.arrivalDateTime = arrivalDateTime;
 	}
 	
 	@Override
 	public String toString() {
 		return "Schedule [sourceAirport=" + sourceAirport + ", destinationAirport=" + destinationAirport
-				+ ", departureTime=" + departureTime + ", arrivalTime=" + arrivalTime + "]";
+				+ ", departureDateTime=" + departureDateTime + ", arrivalDateTime=" + arrivalDateTime + "]";
 	}
 	
 }

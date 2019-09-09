@@ -11,7 +11,12 @@ public class FlightDaoImpl implements FlightDao {
 	private List<Flight> flightList=new ArrayList<Flight>();
 	
 	public Flight addFlight(Flight flight) {		
-		flightList.add(flight);
+		if(flightList.indexOf(flight)== -1) {
+			flightList.add(flight);
+		}else {
+			int modifyIndex=flightList.indexOf(flight);
+			flightList.set(modifyIndex, flight);
+		}
 		return flight;
 	}
 

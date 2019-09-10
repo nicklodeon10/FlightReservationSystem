@@ -2,7 +2,7 @@ package com.cg.frs.dto;
 
 public class ScheduleFlight  {
 
-	private Flight flight=new Flight();
+	private Flight flight;
 	private Integer availableSeats;
 	private Schedule schedule;
 	private Double ticketCost; 

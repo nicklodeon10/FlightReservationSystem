@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
+import com.cg.frs.dto.Flight;
 import com.cg.frs.dto.Passenger;
+import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
 import com.cg.frs.service.AirportService;
@@ -186,6 +188,10 @@ public class Application {
 					int adminChoice=scanner.nextInt();
 					switch(adminChoice) {
 						case 1:
+							List<User> userList=userService.viewUser();
+							for(User printUser: userList) {
+								System.out.println(printUser);
+							}System.out.println("--------------");
 							break;
 						case 2:
 							System.out.println("Enter 1 to Add a Flight.");
@@ -196,14 +202,44 @@ public class Application {
 							int adminFlightManageChoice=scanner.nextInt();
 							switch(adminFlightManageChoice) {
 								case 1:
+									System.out.print("Enter Flight Number: ");
+									BigInteger flightNumber=scanner.nextBigInteger();
+									System.out.print("Enter Carrier Name: ");
+									String carrierName=scanner.next();
+									System.out.print("Enter Flight Model: ");
+									String flightModel=scanner.next();
+									System.out.print("Enter the Flight Capacity: ");
+									Integer seatCapacity=scanner.nextInt();
+									Flight flight=new Flight(flightNumber, flightModel, carrierName, seatCapacity);
+									flightService.addFlight(flight);
 									break;
 								case 2:
+									List<Flight> flightList=flightService.viewFlight();
+									for(Flight viewFlight: flightList) {
+										System.out.println(viewFlight);
+									}System.out.println("--------------");
 									break;
 								case 3:
+									System.out.print("Enter Flight Number: ");
+									BigInteger flightId=scanner.nextBigInteger();
+									System.out.println(flightService.viewFlight(flightId));
 									break;
 								case 4:
+									System.out.print("Enter Flight Number: ");
+									BigInteger modifyFlightNumber=scanner.nextBigInteger();
+									System.out.print("Enter Carrier Name: ");
+									String modifyCarrierName=scanner.next();
+									System.out.print("Enter Flight Model: ");
+									String modifyFlightModel=scanner.next();
+									System.out.print("Enter Seat Capacity: ");
+									Integer modifySeatCapacity=scanner.nextInt();
+									Flight modifyFlight=new Flight(modifyFlightNumber, modifyFlightModel, modifyCarrierName, modifySeatCapacity);
+									flightService.addFlight(modifyFlight);
 									break;
 								case 5:
+									System.out.print("Enter Flight Number: ");
+									BigInteger deleteFlightNumber=scanner.nextBigInteger();
+									flightService.deleteFlight(deleteFlightNumber);
 									break;
 							}
 							break;
@@ -216,14 +252,68 @@ public class Application {
 							int adminScheduleChoice=scanner.nextInt();
 							switch(adminScheduleChoice) {
 								case 1:
+									System.out.print("Enter Flight Number: ");
+									BigInteger scheduleFlightId=scanner.nextBigInteger();
+									System.out.println("Enter Available Seats: ");
+									Integer availableSeats=scanner.nextInt();
+									System.out.println("Enter Source Airport Code: ");
+									String sourceAirportCode=scanner.next();
+									Airport sourceAirport=airportService.viewAirport(sourceAirportCode);
+									System.out.println("Enter Destination Airport Code: ");
+									String destinationAirportCode=scanner.next();
+									Airport destinationAirport=airportService.viewAirport(destinationAirportCode);
+									DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+									System.out.print("Enter Departure Time (dd-MM-yyyy HH:mm:ss) :");
+									String departureTimeString=scanner.nextLine();
+									LocalDateTime departureDateTime=LocalDateTime.parse(departureTimeString, dateTimeFormatter);
+									System.out.print("Enter Arrival Time (dd-MM-yyyy HH:mm:ss) :");
+									String arrivalTimeString=scanner.nextLine();
+									LocalDateTime arrivalDateTime=LocalDateTime.parse(arrivalTimeString, dateTimeFormatter);
+									Schedule schedule=new Schedule(sourceAirport, destinationAirport, departureDateTime, arrivalDateTime);
+									System.out.print("Enter Ticket Cost: ");
+									Double ticketCost=scanner.nextDouble();
+									ScheduleFlight scheduleFlight=new ScheduleFlight(flightService.viewFlight(scheduleFlightId), availableSeats, schedule, ticketCost);
+									scheduleFlightService.addScheduleFlight(scheduleFlight);
 									break;
 								case 2:
+									List<ScheduleFlight> scheduleFlightList=scheduleFlightService.viewScheduleFlight();
+									for(ScheduleFlight scheduleFlightView: scheduleFlightList) {
+										System.out.println(scheduleFlightView);
+									}System.out.println("--------------");
 									break;
 								case 3:
+									System.out.print("Enter Flight Number: ");
+									BigInteger searchScheduleFlightId=scanner.nextBigInteger();
+									System.out.println(scheduleFlightService.viewScheduleFlights(searchScheduleFlightId));
 									break;
 								case 4:
+									System.out.print("Enter Flight Number: ");
+									BigInteger modifyScheduleFlightId=scanner.nextBigInteger();
+									System.out.println("Enter Available Seats: ");
+									Integer modifyAvailableSeats=scanner.nextInt();
+									System.out.println("Enter Source Airport Code: ");
+									String modifySourceAirportCode=scanner.next();
+									Airport modifySourceAirport=airportService.viewAirport(modifySourceAirportCode);
+									System.out.println("Enter Destination Airport Code: ");
+									String modifyDestinationAirportCode=scanner.next();
+									Airport modifyDestinationAirport=airportService.viewAirport(modifyDestinationAirportCode);
+									DateTimeFormatter modifyDateTimeFormatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+									System.out.print("Enter Departure Time (dd-MM-yyyy HH:mm:ss) :");
+									String modifyDepartureTimeString=scanner.nextLine();
+									LocalDateTime modifyDepartureDateTime=LocalDateTime.parse(modifyDepartureTimeString, modifyDateTimeFormatter);
+									System.out.print("Enter Arrival Time (dd-MM-yyyy HH:mm:ss) :");
+									String modifyArrivalTimeString=scanner.nextLine();
+									LocalDateTime modifyArrivalDateTime=LocalDateTime.parse(modifyArrivalTimeString, modifyDateTimeFormatter);
+									Schedule modifySchedule=new Schedule(modifySourceAirport, modifyDestinationAirport, modifyDepartureDateTime, modifyArrivalDateTime);
+									System.out.print("Enter Ticket Cost: ");
+									Double modifyTicketCost=scanner.nextDouble();
+									ScheduleFlight modifyScheduleFlight=new ScheduleFlight(flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats, modifySchedule, modifyTicketCost);
+									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
 									break;
 								case 5:
+									System.out.print("Enter Flight Number: ");
+									BigInteger deleteScheduleFlightId=scanner.nextBigInteger();
+									scheduleFlightService.deleteScheduleFlight(deleteScheduleFlightId);
 									break;
 							}
 							break;

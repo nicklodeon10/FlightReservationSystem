@@ -7,9 +7,9 @@ import com.cg.frs.dto.Flight;
 
 public interface FlightService {   
    
-	Flight addFlightService(Flight flight);
+	Flight addFlight(Flight flight);
     
-	Flight modifyFlightService(Flight flight);
+	Flight modifyFlight(Flight flight);
     
 	List<Flight> viewFlight();
     

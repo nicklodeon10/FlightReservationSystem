@@ -1,4 +1,4 @@
-	package com.cg.frs.service;
+package com.cg.frs.service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import com.cg.frs.dao.BookingDao;
 import com.cg.frs.dao.BookingDaoImpl;
 import com.cg.frs.dto.Booking;
+import com.cg.frs.dto.Passenger;
 import com.cg.frs.exception.FRSException;
 
 public class BookingServiceImpl implements BookingService
@@ -51,5 +52,23 @@ public class BookingServiceImpl implements BookingService
 		return bookingId;
 	}
 
-	//validate for booking and passenger
+	@Override
+	public Passenger validateBooking(Passenger passenger) throws FRSException {
+		String passUIN=passenger.getPassengerUIN().toString();
+		String name=passenger.getPassengerName();
+		Double luggage=passenger.getLuggage();
+		if(passUIN.length()!=12) {
+			throw new FRSException("Invalid Passenger UIN.");
+		}
+		if(luggage<0 || luggage>18) {
+			throw new FRSException("Luggage Limit Exceeded.");
+		}
+		for(int i=0; i<name.length(); i++) {
+			char current=name.charAt(i);
+			if(!((current>'a' && current<'z') || (current>'A' && current<'Z') || current==' '))
+				throw new FRSException("Invalid Passenger Name.");
+		}
+		return passenger;
+	}
+
 }

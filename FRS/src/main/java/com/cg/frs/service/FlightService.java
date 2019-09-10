@@ -16,5 +16,7 @@ public interface FlightService {
 	Flight viewFlight(BigInteger flightId);
     
 	void deleteFlight(BigInteger flightId);
+	
+	boolean validateFlightWithId(BigInteger flightId);
       
 }

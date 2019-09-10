@@ -37,4 +37,11 @@ public class UserServiceImpl implements UserService{
 		userDao.removeUser(user);
 	}
 
+	@Override
+	public boolean validateUserWithId(BigInteger userId) {
+		if(viewUser(userId)==null)
+			return false;
+		return true;
+	}
+
 }

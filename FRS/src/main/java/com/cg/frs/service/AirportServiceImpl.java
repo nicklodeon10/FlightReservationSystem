@@ -25,4 +25,11 @@ public class AirportServiceImpl implements AirportService {
 		return null;
 	}
 
+	@Override
+	public boolean validateAirportWithCode(String airportCode) {
+		if(viewAirport(airportCode)==null)
+			return false;
+		return true;
+	}
+
 }

@@ -43,5 +43,12 @@ public class BookingServiceImpl implements BookingService
 		bookingDao.removeBooking(bookingId);
 	}
 
+	@Override
+	public boolean validateBookingWithId(BigInteger bookingId) {
+		if(viewBooking(bookingId)==null)
+			return false;
+		return true;
+	}
+
 	//validate for booking and passenger
 }

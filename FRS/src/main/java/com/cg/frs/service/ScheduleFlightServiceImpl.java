@@ -56,5 +56,12 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	public void deleteScheduleFlight(BigInteger flightId) {
 		scheduleFlightDao.deleteScheduleFlight(flightId);
 	}
+
+	@Override
+	public boolean validateScheduleFlightWithId(BigInteger flightId) {
+		if(viewScheduleFlights(flightId)==null)
+			return false;
+		return true;
+	}
 	
 }

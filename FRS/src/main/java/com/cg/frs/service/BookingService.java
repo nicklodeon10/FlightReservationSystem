@@ -17,4 +17,6 @@ public interface BookingService {
 	
 	public void deleteBooking(BigInteger bookingId);
 	
+	public boolean validateBookingWithId(BigInteger bookingId);
+	
 }

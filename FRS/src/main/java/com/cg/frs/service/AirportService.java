@@ -10,4 +10,6 @@ public interface AirportService {
     
 	public Airport viewAirport(String airportCode);
 	
+	public boolean validateAirportWithCode(String airportCode);
+	
 }

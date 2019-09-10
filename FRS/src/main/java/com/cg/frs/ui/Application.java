@@ -68,25 +68,37 @@ public class Application {
 				case 2:
 					System.out.print("Enter User Id: ");
 					BigInteger showUserId=scanner.nextBigInteger();
-					System.out.println(userService.viewUser(showUserId));
+					if(userService.validateUserWithId(showUserId)) {
+						System.out.println(userService.viewUser(showUserId));
+					}else {
+						System.err.println("InvalidUserId.");
+					}
 					break;
 				case 3:
 					System.out.print("Enter User Id: ");
 					BigInteger editUserId=scanner.nextBigInteger();
-					String editUserName=scanner.next();
-					System.out.print("Enter User Password: ");
-					String editUserPassword=scanner.next();
-					System.out.print("Enter User Phone Number: ");
-					BigInteger editUserPhone=scanner.nextBigInteger();
-					System.out.print("Enter User Email: ");
-					String editUserEmail=scanner.next();
-					User editUser=new User(userService.viewUser(editUserId).getUserType(), editUserId, editUserName, editUserPassword, editUserPhone, editUserEmail);
-					userService.addUser(editUser);
+					if(userService.validateUserWithId(editUserId)) {
+						String editUserName=scanner.next();
+						System.out.print("Enter User Password: ");
+						String editUserPassword=scanner.next();
+						System.out.print("Enter User Phone Number: ");
+						BigInteger editUserPhone=scanner.nextBigInteger();
+						System.out.print("Enter User Email: ");
+						String editUserEmail=scanner.next();
+						User editUser=new User(userService.viewUser(editUserId).getUserType(), editUserId, editUserName, editUserPassword, editUserPhone, editUserEmail);
+						userService.addUser(editUser);
+					}else {
+						System.err.println("InvalidUserId.");
+					}
 					break;
 				case 4:
 					System.out.println("Enter User Id: ");
 					BigInteger deleteUserId=scanner.nextBigInteger();
-					userService.deleteUser(deleteUserId);
+					if(userService.validateUserWithId(deleteUserId)) {
+						userService.deleteUser(deleteUserId);
+					}else {
+						System.err.println("InvalidUserId.");
+					}
 					break;
 				case 5:
 					System.out.println("Enter 1 to Create a Booking.");
@@ -121,65 +133,81 @@ public class Application {
 							}System.out.println("--------------");
 							System.out.println("Enter User Id: ");
 							BigInteger bookingUserId=scanner.nextBigInteger();
-							System.out.print("Enter Chosen Flight Number: ");
-							BigInteger bookingFlightNumber=scanner.nextBigInteger();
-							BigInteger bookingId=BigDecimal.valueOf(Math.random()*1000000000).toBigInteger();
-							List<Passenger> bookingPassengerList=new ArrayList<Passenger>();
-							System.out.println("Enter No. of Passengers:");
-							Integer noOfPassengers=scanner.nextInt();
-							for(int i=0; i<noOfPassengers; i++) {
-								BigInteger pnr=BigDecimal.valueOf(Math.random()*10000000).toBigInteger();
-								System.out.print("Enter Passenger Name: ");
-								String passengerName=scanner.next();
-								System.out.print("Enter Passenger Age: ");
-								Integer passengerAge=scanner.nextInt();
-								System.out.println("Enter 12-digit Passenger UIN: ");
-								BigInteger passengerUin=scanner.nextBigInteger();
-								System.out.println("Enter luggage weight: ");
-								Double passengerLuggage=scanner.nextDouble();
-								Passenger passenger=new Passenger(pnr, passengerName, passengerAge, passengerUin, passengerLuggage);
-								bookingPassengerList.add(passenger);
+							if(userService.validateUserWithId(bookingUserId)) {
+								System.out.print("Enter Chosen Flight Number: ");
+								BigInteger bookingFlightNumber=scanner.nextBigInteger();
+								BigInteger bookingId=BigDecimal.valueOf(Math.random()*1000000000).toBigInteger();
+								List<Passenger> bookingPassengerList=new ArrayList<Passenger>();
+								System.out.println("Enter No. of Passengers:");
+								Integer noOfPassengers=scanner.nextInt();
+								for(int i=0; i<noOfPassengers; i++) {
+									BigInteger pnr=BigDecimal.valueOf(Math.random()*10000000).toBigInteger();
+									System.out.print("Enter Passenger Name: ");
+									String passengerName=scanner.next();
+									System.out.print("Enter Passenger Age: ");
+									Integer passengerAge=scanner.nextInt();
+									System.out.println("Enter 12-digit Passenger UIN: ");
+									BigInteger passengerUin=scanner.nextBigInteger();
+									System.out.println("Enter luggage weight: ");
+									Double passengerLuggage=scanner.nextDouble();
+									Passenger passenger=new Passenger(pnr, passengerName, passengerAge, passengerUin, passengerLuggage);
+									bookingPassengerList.add(passenger);
+								}
+								Booking booking=new Booking(bookingId, bookingUserId, LocalDateTime.now(), bookingPassengerList, scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()*noOfPassengers, scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
+								bookingService.addBooking(booking);
+								scheduleFlightService.viewScheduleFlights(bookingFlightNumber).setAvailableSeats(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getAvailableSeats()-noOfPassengers);
+								System.out.println("Booking Successful with Booking Id: "+bookingId);
+							}else {
+								System.err.println("InvalidUserId.");
 							}
-							Booking booking=new Booking(bookingId, bookingUserId, LocalDateTime.now(), bookingPassengerList, scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()*noOfPassengers, scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
-							bookingService.addBooking(booking);
-							scheduleFlightService.viewScheduleFlights(bookingFlightNumber).setAvailableSeats(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getAvailableSeats()-noOfPassengers);
-							System.out.println("Booking Successful with Booking Id: "+bookingId);
 							break;
 						case 2:
 							System.out.println("Enter Search Id(userId or bookingId): ");
 							BigInteger bookingSearchId=scanner.nextBigInteger();
-							List<Booking> userBookingsList=bookingService.viewBooking(bookingSearchId);
-							for(Booking userBooking: userBookingsList) {
-								System.out.println(userBooking);   //expand
-								System.out.println("--------------");
-							}System.out.println("--------------");
+							if(userService.validateUserWithId(bookingSearchId) || bookingService.validateBookingWithId(bookingSearchId)) {
+								List<Booking> userBookingsList=bookingService.viewBooking(bookingSearchId);
+								for(Booking userBooking: userBookingsList) {
+									System.out.println(userBooking);   //expand
+									System.out.println("--------------");
+								}System.out.println("--------------");
+							}else {
+								System.err.println("InvalidSearchId.");
+							}
 							break;
 						case 3:
 							System.out.println("Enter Booking Id: ");
 							BigInteger bookingEditId=scanner.nextBigInteger();
-							Booking modifyBooking=bookingService.viewBooking(bookingEditId).get(0);
-							List<Passenger> modifyPassengerList=modifyBooking.getPassengerList();
-							System.out.println("Enter the no of passengers to remove: ");
-							int removePassengerCount=scanner.nextInt();
-							for(int i=0; i<removePassengerCount; i++) {
-								System.out.println("Enter passenger pnr: ");
-								BigInteger removePnr=scanner.nextBigInteger();
-								for(Passenger passenger: modifyPassengerList) {
-									if(passenger.getPnrNumber()==removePnr) {
-										modifyPassengerList.remove(passenger);
-										break;
+							if(bookingService.validateBookingWithId(bookingEditId)) {
+								Booking modifyBooking=bookingService.viewBooking(bookingEditId).get(0);
+								List<Passenger> modifyPassengerList=modifyBooking.getPassengerList();
+								System.out.println("Enter the no of passengers to remove: ");
+								int removePassengerCount=scanner.nextInt();
+								for(int i=0; i<removePassengerCount; i++) {
+									System.out.println("Enter passenger pnr: ");
+									BigInteger removePnr=scanner.nextBigInteger();
+									for(Passenger passenger: modifyPassengerList) {
+										if(passenger.getPnrNumber()==removePnr) {
+											modifyPassengerList.remove(passenger);
+											break;
+										}
 									}
 								}
+								modifyBooking.setPassengerList(modifyPassengerList);
+								bookingService.addBooking(modifyBooking);
+							}else {
+								System.err.println("InvalidBookingId.");
 							}
-							modifyBooking.setPassengerList(modifyPassengerList);
-							bookingService.addBooking(modifyBooking);
 							break;
 						case 4:
 							System.out.println("Enter Booking Id: ");
 							BigInteger bookingDeleteId=scanner.nextBigInteger();
-							Booking removeBooking=bookingService.viewBooking(bookingDeleteId).get(0);
-							scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).setAvailableSeats(scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).getAvailableSeats()+removeBooking.getNoOfPassengers());
-							bookingService.deleteBooking(removeBooking.getBookingId());
+							if(bookingService.validateBookingWithId(bookingDeleteId)) {
+								Booking removeBooking=bookingService.viewBooking(bookingDeleteId).get(0);
+								scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).setAvailableSeats(scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).getAvailableSeats()+removeBooking.getNoOfPassengers());
+								bookingService.deleteBooking(removeBooking.getBookingId());
+							}else {
+								System.err.println("InvalidBookingId.");
+							}
 							break;
 					}
 					break;
@@ -224,24 +252,36 @@ public class Application {
 								case 3:
 									System.out.print("Enter Flight Number: ");
 									BigInteger flightId=scanner.nextBigInteger();
-									System.out.println(flightService.viewFlight(flightId));
+									if(flightService.validateFlightWithId(flightId)) {
+										System.out.println(flightService.viewFlight(flightId));
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 								case 4:
 									System.out.print("Enter Flight Number: ");
 									BigInteger modifyFlightNumber=scanner.nextBigInteger();
-									System.out.print("Enter Carrier Name: ");
-									String modifyCarrierName=scanner.next();
-									System.out.print("Enter Flight Model: ");
-									String modifyFlightModel=scanner.next();
-									System.out.print("Enter Seat Capacity: ");
-									Integer modifySeatCapacity=scanner.nextInt();
-									Flight modifyFlight=new Flight(modifyFlightNumber, modifyFlightModel, modifyCarrierName, modifySeatCapacity);
-									flightService.addFlight(modifyFlight);
+									if(flightService.validateFlightWithId(modifyFlightNumber)) {
+										System.out.print("Enter Carrier Name: ");
+										String modifyCarrierName=scanner.next();
+										System.out.print("Enter Flight Model: ");
+										String modifyFlightModel=scanner.next();
+										System.out.print("Enter Seat Capacity: ");
+										Integer modifySeatCapacity=scanner.nextInt();
+										Flight modifyFlight=new Flight(modifyFlightNumber, modifyFlightModel, modifyCarrierName, modifySeatCapacity);
+										flightService.addFlight(modifyFlight);
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 								case 5:
 									System.out.print("Enter Flight Number: ");
 									BigInteger deleteFlightNumber=scanner.nextBigInteger();
-									flightService.deleteFlight(deleteFlightNumber);
+									if(flightService.validateFlightWithId(deleteFlightNumber)) {
+										flightService.deleteFlight(deleteFlightNumber);
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 							}
 							break;
@@ -286,36 +326,48 @@ public class Application {
 								case 3:
 									System.out.print("Enter Flight Number: ");
 									BigInteger searchScheduleFlightId=scanner.nextBigInteger();
-									System.out.println(scheduleFlightService.viewScheduleFlights(searchScheduleFlightId));
+									if(scheduleFlightService.validateScheduleFlightWithId(searchScheduleFlightId)) {
+										System.out.println(scheduleFlightService.viewScheduleFlights(searchScheduleFlightId));
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 								case 4:
 									System.out.print("Enter Flight Number: ");
 									BigInteger modifyScheduleFlightId=scanner.nextBigInteger();
-									System.out.println("Enter Available Seats: ");
-									Integer modifyAvailableSeats=scanner.nextInt();
-									System.out.println("Enter Source Airport Code: ");
-									String modifySourceAirportCode=scanner.next();
-									Airport modifySourceAirport=airportService.viewAirport(modifySourceAirportCode);
-									System.out.println("Enter Destination Airport Code: ");
-									String modifyDestinationAirportCode=scanner.next();
-									Airport modifyDestinationAirport=airportService.viewAirport(modifyDestinationAirportCode);
-									DateTimeFormatter modifyDateTimeFormatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-									System.out.print("Enter Departure Time (dd-MM-yyyy HH:mm:ss) :");
-									String modifyDepartureTimeString=scanner.nextLine();
-									LocalDateTime modifyDepartureDateTime=LocalDateTime.parse(modifyDepartureTimeString, modifyDateTimeFormatter);
-									System.out.print("Enter Arrival Time (dd-MM-yyyy HH:mm:ss) :");
-									String modifyArrivalTimeString=scanner.nextLine();
-									LocalDateTime modifyArrivalDateTime=LocalDateTime.parse(modifyArrivalTimeString, modifyDateTimeFormatter);
-									Schedule modifySchedule=new Schedule(modifySourceAirport, modifyDestinationAirport, modifyDepartureDateTime, modifyArrivalDateTime);
-									System.out.print("Enter Ticket Cost: ");
-									Double modifyTicketCost=scanner.nextDouble();
-									ScheduleFlight modifyScheduleFlight=new ScheduleFlight(flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats, modifySchedule, modifyTicketCost);
-									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
+									if(scheduleFlightService.validateScheduleFlightWithId(modifyScheduleFlightId)) {
+										System.out.println("Enter Available Seats: ");
+										Integer modifyAvailableSeats=scanner.nextInt();
+										System.out.println("Enter Source Airport Code: ");
+										String modifySourceAirportCode=scanner.next();
+										Airport modifySourceAirport=airportService.viewAirport(modifySourceAirportCode);
+										System.out.println("Enter Destination Airport Code: ");
+										String modifyDestinationAirportCode=scanner.next();
+										Airport modifyDestinationAirport=airportService.viewAirport(modifyDestinationAirportCode);
+										DateTimeFormatter modifyDateTimeFormatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+										System.out.print("Enter Departure Time (dd-MM-yyyy HH:mm:ss) :");
+										String modifyDepartureTimeString=scanner.nextLine();
+										LocalDateTime modifyDepartureDateTime=LocalDateTime.parse(modifyDepartureTimeString, modifyDateTimeFormatter);
+										System.out.print("Enter Arrival Time (dd-MM-yyyy HH:mm:ss) :");
+										String modifyArrivalTimeString=scanner.nextLine();
+										LocalDateTime modifyArrivalDateTime=LocalDateTime.parse(modifyArrivalTimeString, modifyDateTimeFormatter);
+										Schedule modifySchedule=new Schedule(modifySourceAirport, modifyDestinationAirport, modifyDepartureDateTime, modifyArrivalDateTime);
+										System.out.print("Enter Ticket Cost: ");
+										Double modifyTicketCost=scanner.nextDouble();
+										ScheduleFlight modifyScheduleFlight=new ScheduleFlight(flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats, modifySchedule, modifyTicketCost);
+										scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 								case 5:
 									System.out.print("Enter Flight Number: ");
 									BigInteger deleteScheduleFlightId=scanner.nextBigInteger();
-									scheduleFlightService.deleteScheduleFlight(deleteScheduleFlightId);
+									if(bookingService.validateBookingWithId(deleteScheduleFlightId)) {
+										scheduleFlightService.deleteScheduleFlight(deleteScheduleFlightId);
+									}else {
+										System.err.println("InvalidFlightId.");
+									}
 									break;
 							}
 							break;

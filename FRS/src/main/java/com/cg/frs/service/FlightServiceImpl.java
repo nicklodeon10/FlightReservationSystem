@@ -40,5 +40,12 @@ public class FlightServiceImpl implements FlightService{
 	public void deleteFlight(BigInteger flightId) {
 		flightDao.deleteFlight(flightId);
 	}
+
+	@Override
+	public boolean validateFlightWithId(BigInteger flightId) {
+		if(viewFlight(flightId)==null)
+			return false;
+		return true;
+	}
 	
 }

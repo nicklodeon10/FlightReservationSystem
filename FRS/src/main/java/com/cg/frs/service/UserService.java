@@ -16,5 +16,7 @@ public interface UserService {
 	public User updateUser(User user);
 	
 	public void deleteUser(BigInteger user);
+	
+	public boolean validateUserWithId(BigInteger userId);
 
 }

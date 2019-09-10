@@ -1,4 +1,5 @@
 package com.cg.frs.service;
+
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,5 +20,7 @@ public interface ScheduleFlightService {
 	ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight);
     
 	void deleteScheduleFlight(BigInteger flightId);
+	
+	boolean validateScheduleFlightWithId(BigInteger flightId);
 	
 }

@@ -2,7 +2,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.cg.frs.dto.Flight;
+import com.cg.frs.service.FlightService;
+import com.cg.frs.service.FlightServiceImpl;
 
 class FlightServiceTest {
 

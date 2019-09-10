@@ -63,6 +63,7 @@ public class Application {
 					String userEmail=scanner.next();
 					User user=new User(userType, userId, userName, userPassword, userPhone, userEmail);
 					userService.addUser(user);
+					System.out.println("User Created with UserId: "+userId);
 					break;
 				case 2:
 					System.out.print("Enter User Id: ");
@@ -142,6 +143,7 @@ public class Application {
 							Booking booking=new Booking(bookingId, bookingUserId, LocalDateTime.now(), bookingPassengerList, scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()*noOfPassengers, scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
 							bookingService.addBooking(booking);
 							scheduleFlightService.viewScheduleFlights(bookingFlightNumber).setAvailableSeats(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getAvailableSeats()-noOfPassengers);
+							System.out.println("Booking Successful with Booking Id: "+bookingId);
 							break;
 						case 2:
 							System.out.println("Enter Search Id(userId or bookingId): ");

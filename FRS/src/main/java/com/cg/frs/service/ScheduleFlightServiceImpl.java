@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cg.frs.dao.ScheduleFlightDao;
+import com.cg.frs.dao.ScheduleFlightDaoImpl;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
 
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
-	ScheduleFlightServiceImpl scheduleFlightDao=new ScheduleFlightServiceImpl();
+	ScheduleFlightDao scheduleFlightDao=new ScheduleFlightDaoImpl();
 
 	@Override
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {

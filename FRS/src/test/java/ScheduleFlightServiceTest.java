@@ -1,10 +1,9 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.cg.frs.dto.Flight;
+import com.cg.frs.service.ScheduleFlightService;
+import com.cg.frs.service.ScheduleFlightServiceImpl;
 
 class ScheduleFlightServiceTest {
 
@@ -12,7 +11,7 @@ class ScheduleFlightServiceTest {
 	
 	@BeforeAll
 	public void beforeTest() {
-		scheduleFlightService=new Flight();
+		scheduleFlightService=new ScheduleFlightServiceImpl();
 	}
 	
 	@Test

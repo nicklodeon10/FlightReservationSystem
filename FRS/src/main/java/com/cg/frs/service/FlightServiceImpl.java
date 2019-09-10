@@ -3,11 +3,13 @@ package com.cg.frs.service;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.cg.frs.dao.FlightDao;
+import com.cg.frs.dao.FlightDaoImpl;
 import com.cg.frs.dto.Flight;
 
 public class FlightServiceImpl implements FlightService{
 
-	FlightServiceImpl flightDao=new FlightServiceImpl();
+	FlightDao flightDao=new FlightDaoImpl();
 
 	@Override
 	public Flight addFlight(Flight flight) {

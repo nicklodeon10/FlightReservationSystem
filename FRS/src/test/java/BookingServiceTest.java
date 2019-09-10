@@ -1,10 +1,9 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.cg.frs.dto.Flight;
+import com.cg.frs.service.BookingService;
+import com.cg.frs.service.BookingServiceImpl;
 
 class BookingServiceTest {
 

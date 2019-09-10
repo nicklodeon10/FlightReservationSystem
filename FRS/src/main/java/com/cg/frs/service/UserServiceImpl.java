@@ -45,4 +45,22 @@ public class UserServiceImpl implements UserService{
 		return userId;
 	}
 
+	@Override
+	public BigInteger validateCustomerWithId(BigInteger userId) throws FRSException {
+		if(viewUser(userId)==null)
+			throw new FRSException("Invalid User Id.");
+		if(!(viewUser(userId).getUserType().equals("customer")))
+			throw new FRSException("Unable to Access.");
+		return userId;
+	}
+
+	@Override
+	public BigInteger validateAdminWithId(BigInteger userId) throws FRSException {
+		if(viewUser(userId)==null)
+			throw new FRSException("Invalid User Id.");
+		if(!(viewUser(userId).getUserType().equals("admin")))
+			throw new FRSException("Unable to Access.");
+		return userId;
+	}
+
 }

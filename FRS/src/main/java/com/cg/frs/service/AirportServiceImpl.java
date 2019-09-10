@@ -20,7 +20,7 @@ public class AirportServiceImpl implements AirportService {
 	public Airport viewAirport(String airportCode) {
 		List<Airport> airportList=airportDao.viewAirport();
 		for(Airport airport: airportList) {
-			if(airport.getAirportCode()==airportCode)
+			if(airport.getAirportCode().equals(airportCode))
 				return airport;
 		}
 		return null;
@@ -31,6 +31,18 @@ public class AirportServiceImpl implements AirportService {
 		if(viewAirport(airportCode)==null)
 			throw new FRSException("InvalidAirportCode.");
 		return airportCode;
+	}
+
+	@Override
+	public int compareAirport(Airport src, Airport dest) throws FRSException {
+		if(src==dest && src.equals(dest))
+			throw new FRSException("Source and Destination Airports cannot be the Same.");
+		return 0;
+	}
+
+	@Override
+	public void addAirport() {
+		airportDao.addAirport();
 	}
 
 }

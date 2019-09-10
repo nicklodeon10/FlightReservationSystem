@@ -19,5 +19,8 @@ public interface UserService {
 	public void deleteUser(BigInteger user);
 	
 	public BigInteger validateUserWithId(BigInteger userId) throws FRSException;
+	
+	public BigInteger validateCustomerWithId(BigInteger userId) throws FRSException;
 
+	public BigInteger validateAdminWithId(BigInteger userId) throws FRSException;
 }

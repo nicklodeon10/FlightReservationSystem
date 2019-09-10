@@ -6,6 +6,8 @@ import com.cg.frs.dto.Airport;
 
 public interface AirportDao {
     
+	public void addAirport();
+	
 	public List<Airport> viewAirport();
 	
 }

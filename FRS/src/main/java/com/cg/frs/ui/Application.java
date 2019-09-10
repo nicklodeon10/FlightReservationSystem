@@ -34,6 +34,7 @@ public class Application {
 		
 		Scanner scanner=new Scanner(System.in);
 		AirportService airportService=new AirportServiceImpl();
+		airportService.addAirport();
 		BookingService bookingService=new BookingServiceImpl();
 		FlightService flightService=new FlightServiceImpl();
 		ScheduleFlightService scheduleFlightService=new ScheduleFlightServiceImpl();
@@ -127,16 +128,38 @@ public class Application {
 					int userChoice=scanner.nextInt();
 					switch(userChoice) {
 						case 1:
-							System.out.print("Enter Source Airport Code: ");
-							String bookingSourceAirportCode=scanner.next(); //validate
-							Airport sourceAirport=airportService.viewAirport(bookingSourceAirportCode);
-							System.out.print("Enter Destination Airport Code: ");
-							String bookingDestinationAirportCode=scanner.next();
-							Airport destinationAirport=airportService.viewAirport(bookingDestinationAirportCode);
-							System.out.print("Enter the Date of Journey (DD/MM/YYYY):");
+							String bookingSourceAirportCode;
+							Airport sourceAirport;
+							Airport destinationAirport;
+							while(true) {
+								try {
+									System.out.print("Enter Source Airport Code: ");
+									bookingSourceAirportCode=scanner.next();
+									airportService.validateAirportWithCode(bookingSourceAirportCode);
+									sourceAirport=airportService.viewAirport(bookingSourceAirportCode);
+									break;
+								}catch(FRSException exception) {
+									System.err.println(exception.getMessage());
+									continue;
+								}
+							} 
+							String bookingDestinationAirportCode;
+							while(true) {
+								try {
+									System.out.print("Enter Destination Airport Code: ");
+									bookingDestinationAirportCode=scanner.next();
+									airportService.validateAirportWithCode(bookingDestinationAirportCode);
+									destinationAirport=airportService.viewAirport(bookingDestinationAirportCode);
+									airportService.compareAirport(sourceAirport, destinationAirport);
+									break;
+								}catch(FRSException exception) {
+									System.err.println(exception.getMessage());
+									continue;
+								}
+							}							
+							System.out.print("Enter the Date of Journey (YYYY-MM-DD):");
 							String bookingDateString=scanner.next();
-							DateTimeFormatter dateFormatter=DateTimeFormatter.ofPattern("dd/mm/yyyy");
-							LocalDate bookingDate=LocalDate.parse(bookingDateString, dateFormatter);
+							LocalDate bookingDate = LocalDate.parse(bookingDateString);
 							System.out.println("Scheduled Flights: ");
 							List<ScheduleFlight> searchScheduledFlights=scheduleFlightService.viewScheduleFlights(sourceAirport, destinationAirport, bookingDate);
 							for(ScheduleFlight scheduleFlight: searchScheduledFlights) {
@@ -155,7 +178,7 @@ public class Application {
 								try {
 									System.out.println("Enter User Id: ");
 									bookingUserId=scanner.nextBigInteger();
-									userService.validateUserWithId(bookingUserId);
+									userService.validateCustomerWithId(bookingUserId);
 									break;
 								}catch(FRSException exception) {
 									System.err.println(exception.getMessage());
@@ -267,6 +290,18 @@ public class Application {
 					}
 					break;
 				case 6:
+					BigInteger adminActionId;
+					while(true) {
+						try {
+							System.out.print("Enter Admin Id: ");
+							adminActionId=scanner.nextBigInteger();
+							userService.validateAdminWithId(adminActionId);
+							break;
+						}catch(FRSException exception) {
+							System.err.println(exception.getMessage());
+							continue;
+						}
+					}
 					System.out.println("Enter 1 to View User List.");
 					System.out.println("Enter 2 for Flight Management.");
 					System.out.println("Enter 3 for Flight Schedule Management.");

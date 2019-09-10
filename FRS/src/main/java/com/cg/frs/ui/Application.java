@@ -67,10 +67,11 @@ public class Application {
 					System.out.println("User Created with UserId: "+userId);
 					break;
 				case 2:
-					System.out.print("Enter User Id: ");
-					BigInteger showUserId=scanner.nextBigInteger();
+					BigInteger showUserId;
 					while(true) {
 						try {
+							System.out.print("Enter User Id: ");
+							showUserId=scanner.nextBigInteger();
 							userService.validateUserWithId(showUserId);
 							break;
 						}catch(FRSException exception) {
@@ -81,10 +82,11 @@ public class Application {
 					System.out.println(userService.viewUser(showUserId));
 					break;
 				case 3:
-					System.out.print("Enter User Id: ");
-					BigInteger editUserId=scanner.nextBigInteger();
+					BigInteger editUserId;
 					while(true) {
 						try {
+							System.out.print("Enter User Id: ");
+							editUserId=scanner.nextBigInteger();
 							userService.validateUserWithId(editUserId);
 							break;
 						}catch(FRSException exception) {
@@ -103,10 +105,11 @@ public class Application {
 					userService.addUser(editUser);
 					break;
 				case 4:
-					System.out.println("Enter User Id: ");
-					BigInteger deleteUserId=scanner.nextBigInteger();
+					BigInteger deleteUserId;
 					while(true) {
 						try {
+							System.out.println("Enter User Id: ");
+							deleteUserId=scanner.nextBigInteger();
 							userService.validateUserWithId(deleteUserId);
 							break;
 						}catch(FRSException exception) {
@@ -147,10 +150,11 @@ public class Application {
 								System.out.println(scheduleFlight.getAvailableSeats());
 								System.out.println("--------------");
 							}System.out.println("--------------");
-							System.out.println("Enter User Id: ");
-							BigInteger bookingUserId=scanner.nextBigInteger();
+							BigInteger bookingUserId;
 							while(true) {
 								try {
+									System.out.println("Enter User Id: ");
+									bookingUserId=scanner.nextBigInteger();
 									userService.validateUserWithId(bookingUserId);
 									break;
 								}catch(FRSException exception) {
@@ -183,10 +187,11 @@ public class Application {
 							System.out.println("Booking Successful with Booking Id: "+bookingId);
 							break;
 						case 2:
-							System.out.println("Enter Search Id(userId or bookingId): ");
-							BigInteger bookingSearchId=scanner.nextBigInteger();
+							BigInteger bookingSearchId;
 							while(true) {
 								try {
+									System.out.println("Enter Search Id(userId or bookingId): ");
+									bookingSearchId=scanner.nextBigInteger();
 									bookingService.validateBookingWithId(bookingSearchId);
 									break;
 								}catch(FRSException exception) {
@@ -213,10 +218,11 @@ public class Application {
 							}System.out.println("--------------");
 							break;
 						case 3:
-							System.out.println("Enter Booking Id: ");
-							BigInteger bookingEditId=scanner.nextBigInteger();
+							BigInteger bookingEditId;
 							while(true) {
 								try {
+									System.out.println("Enter Booking Id: ");
+									bookingEditId=scanner.nextBigInteger();
 									bookingService.validateBookingWithId(bookingEditId);
 									break;
 								}catch(FRSException exception) {
@@ -242,10 +248,11 @@ public class Application {
 							bookingService.addBooking(modifyBooking);
 							break;
 						case 4:
-							System.out.println("Enter Booking Id: ");
-							BigInteger bookingDeleteId=scanner.nextBigInteger();
+							BigInteger bookingDeleteId;
 							while(true) {
 								try {
+									System.out.println("Enter Booking Id: ");
+									bookingDeleteId=scanner.nextBigInteger();
 									bookingService.validateBookingWithId(bookingDeleteId);
 									break;
 								}catch(FRSException exception) {
@@ -298,10 +305,11 @@ public class Application {
 									}System.out.println("--------------");
 									break;
 								case 3:
-									System.out.print("Enter Flight Number: ");
-									BigInteger flightId=scanner.nextBigInteger();
+									BigInteger flightId;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											flightId=scanner.nextBigInteger();
 											flightService.validateFlightWithId(flightId);
 											break;
 										}catch(FRSException exception) {
@@ -312,10 +320,11 @@ public class Application {
 									System.out.println(flightService.viewFlight(flightId));
 									break;
 								case 4:
-									System.out.print("Enter Flight Number: ");
-									BigInteger modifyFlightNumber=scanner.nextBigInteger();
+									BigInteger modifyFlightNumber;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											modifyFlightNumber=scanner.nextBigInteger();
 											flightService.validateFlightWithId(modifyFlightNumber);
 											break;
 										}catch(FRSException exception) {
@@ -333,10 +342,11 @@ public class Application {
 									flightService.addFlight(modifyFlight);
 									break;
 								case 5:
-									System.out.print("Enter Flight Number: ");
-									BigInteger deleteFlightNumber=scanner.nextBigInteger();
+									BigInteger deleteFlightNumber;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											deleteFlightNumber=scanner.nextBigInteger();
 											flightService.validateFlightWithId(deleteFlightNumber);
 											break;
 										}catch(FRSException exception) {
@@ -387,10 +397,11 @@ public class Application {
 									}System.out.println("--------------");
 									break;
 								case 3:
-									System.out.print("Enter Flight Number: ");
-									BigInteger searchScheduleFlightId=scanner.nextBigInteger();
+									BigInteger searchScheduleFlightId;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											searchScheduleFlightId=scanner.nextBigInteger();
 											scheduleFlightService.validateScheduleFlightWithId(searchScheduleFlightId);
 											break;
 										}catch(FRSException exception) {
@@ -401,10 +412,11 @@ public class Application {
 									System.out.println(scheduleFlightService.viewScheduleFlights(searchScheduleFlightId));
 									break;
 								case 4:
-									System.out.print("Enter Flight Number: ");
-									BigInteger modifyScheduleFlightId=scanner.nextBigInteger();
+									BigInteger modifyScheduleFlightId;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											modifyScheduleFlightId=scanner.nextBigInteger();
 											scheduleFlightService.validateScheduleFlightWithId(modifyScheduleFlightId);
 											break;
 										}catch(FRSException exception) {
@@ -434,10 +446,11 @@ public class Application {
 									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
 									break;
 								case 5:
-									System.out.print("Enter Flight Number: ");
-									BigInteger deleteScheduleFlightId=scanner.nextBigInteger();
+									BigInteger deleteScheduleFlightId;
 									while(true) {
 										try {
+											System.out.print("Enter Flight Number: ");
+											deleteScheduleFlightId=scanner.nextBigInteger();
 											scheduleFlightService.validateScheduleFlightWithId(deleteScheduleFlightId);
 											break;
 										}catch(FRSException exception) {

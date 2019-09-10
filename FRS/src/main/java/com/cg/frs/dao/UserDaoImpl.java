@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
 
 	public void removeUser(BigInteger userId) {
 		for(User u:userList) {
-			if(u.getUserId()==userId){
+			if(u.getUserId().equals(userId)){
 				userList.remove(u);
 				break;
 			}

@@ -26,7 +26,7 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao{
 
 	public void deleteScheduleFlight(BigInteger flightId) {
 		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
-			if(scheduleFlight.getFlight().getFlightNumber()==flightId){
+			if(scheduleFlight.getFlight().getFlightNumber().equals(flightId)){
 				scheduleFlightList.remove(scheduleFlight);
 				break;
 			}

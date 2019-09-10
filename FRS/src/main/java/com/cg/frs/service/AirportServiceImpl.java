@@ -28,7 +28,7 @@ public class AirportServiceImpl implements AirportService {
 
 	@Override
 	public String validateAirportWithCode(String airportCode) throws FRSException {
-		if(viewAirport(airportCode)==null)
+		if(viewAirport(airportCode).equals(null))
 			throw new FRSException("InvalidAirportCode.");
 		return airportCode;
 	}

@@ -31,7 +31,7 @@ public class FlightServiceImpl implements FlightService{
 	public Flight viewFlight(BigInteger flightId) {
 		List<Flight> flightList=flightDao.viewFlight();
 		for(Flight flight: flightList) {
-			if(flight.getFlightNumber()==flightId)
+			if(flight.getFlightNumber().equals(flightId))
 				return flight;
 		}
 		return null;
@@ -44,7 +44,7 @@ public class FlightServiceImpl implements FlightService{
 
 	@Override
 	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException{
-		if(viewFlight(flightId)==null)
+		if(viewFlight(flightId).equals(null))
 			throw new FRSException("InvalidFlightId.");
 		return flightId;
 	}

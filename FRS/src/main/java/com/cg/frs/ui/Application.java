@@ -59,7 +59,7 @@ public class Application {
 							String userType=scanner.next();
 							BigInteger userId=BigDecimal.valueOf(Math.random()*100000).toBigInteger();
 							System.out.print("Enter User Name: ");
-							String userName=scanner.nextLine();
+							String userName=scanner.next();
 							System.out.print("Enter User Password: ");
 							String userPassword=scanner.next();
 							System.out.print("Enter User Phone Number: ");
@@ -228,7 +228,7 @@ public class Application {
 									try {
 										BigInteger pnr=BigDecimal.valueOf(Math.random()*10000000).toBigInteger();
 										System.out.print("Enter Passenger Name: ");
-										String passengerName=scanner.next();
+										String passengerName=scanner.nextLine();
 										System.out.print("Enter Passenger Age: ");
 										Integer passengerAge=scanner.nextInt();
 										System.out.println("Enter 12-digit Passenger UIN: ");

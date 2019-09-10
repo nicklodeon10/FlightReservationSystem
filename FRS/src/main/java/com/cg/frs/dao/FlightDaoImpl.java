@@ -26,7 +26,7 @@ public class FlightDaoImpl implements FlightDao {
 
 	public void deleteFlight(BigInteger flightId) {
          for(Flight flight:flightList) {
-			if(flight.getFlightNumber()==flightId) {
+			if(flight.getFlightNumber().equals(flightId)) {
 				flightList.remove(flight);
 				break;
 			}

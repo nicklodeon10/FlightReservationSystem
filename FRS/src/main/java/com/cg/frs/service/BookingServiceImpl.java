@@ -29,7 +29,7 @@ public class BookingServiceImpl implements BookingService
 		List<Booking> bookingList=bookingDao.showBooking();
 		List<Booking> extractedList=new ArrayList<Booking>();
 		for(Booking booking: bookingList) {
-			if(booking.getBookingId()==id || booking.getUserId()==id)
+			if(booking.getBookingId().equals(id) || booking.getUserId().equals(id))
 				extractedList.add(booking);
 		}
 		return bookingList;
@@ -47,7 +47,7 @@ public class BookingServiceImpl implements BookingService
 
 	@Override
 	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException {
-		if(viewBooking(bookingId)==null)
+		if(viewBooking(bookingId).equals(null))
 			throw new FRSException("Invalid Booking Id.");
 		return bookingId;
 	}

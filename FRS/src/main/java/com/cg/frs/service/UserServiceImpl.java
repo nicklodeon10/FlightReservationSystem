@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
 	public User viewUser(BigInteger userId)	{
 		List<User> userList=userDao.showUser();
 		for(User user: userList) {
-			if(user.getUserId()==userId) {
+			if(user.getUserId().equals(userId)) {
 				return user;
 			}
 		}
@@ -41,14 +41,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public BigInteger validateUserWithId(BigInteger userId) throws FRSException {
-		if(viewUser(userId)==null)
+		if(viewUser(userId).equals(null))
 			throw new FRSException("Invalid User Id.");
 		return userId;
 	}
 
 	@Override
 	public BigInteger validateCustomerWithId(BigInteger userId) throws FRSException {
-		if(viewUser(userId)==null)
+		if(viewUser(userId).equals(null))
 			throw new FRSException("Invalid User Id.");
 		if(!(viewUser(userId).getUserType().equalsIgnoreCase("customer")))
 			throw new FRSException("Unable to Access.");
@@ -57,14 +57,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public BigInteger validateAdminWithId(BigInteger userId) throws FRSException {
-		if(viewUser(userId)==null)
+		if(viewUser(userId).equals(null))
 			throw new FRSException("Invalid User Id.");
 		if(!(viewUser(userId).getUserType().equalsIgnoreCase("admin")))
 			throw new FRSException("Unable to Access.");
 		return userId;
 	}
 
-	@Override//userType userPhone userEmail
+	@Override
 	public User validateUser(User user) throws FRSException {
 		String userType=user.getUserType();
 		String userPhone=user.getUserPhone().toString();

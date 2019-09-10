@@ -26,7 +26,7 @@ public class BookingDaoImpl implements BookingDao {
 
 	public void removeBooking(BigInteger bookingId)	{
 		for(Booking booking:bookingList) {
-			if(booking.getBookingId()==bookingId) {
+			if(booking.getBookingId().equals(bookingId)) {
 				bookingList.remove(booking);
 				break;
 			}

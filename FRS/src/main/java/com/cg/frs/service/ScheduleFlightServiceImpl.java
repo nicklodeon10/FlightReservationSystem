@@ -37,7 +37,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	public ScheduleFlight viewScheduleFlights(BigInteger flightId) {
 		List<ScheduleFlight> scheduleFlightList=scheduleFlightDao.viewScheduleFlight();
 		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
-			if(scheduleFlight.getFlight().getFlightNumber()==flightId)
+			if(scheduleFlight.getFlight().getFlightNumber().equals(flightId))
 				return scheduleFlight;
 		}
 		return null;
@@ -60,7 +60,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
 	@Override
 	public BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException{
-		if(viewScheduleFlights(flightId)==null)
+		if(viewScheduleFlights(flightId).equals(null))
 			throw new FRSException("InvalidFlightId.");
 		return flightId;
 	}

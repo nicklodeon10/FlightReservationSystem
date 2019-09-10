@@ -52,20 +52,30 @@ public class Application {
 			userTypeChoice=scanner.nextInt();
 			switch(userTypeChoice) {
 				case 1:
-					System.out.print("Enter user type (admin/customer): ");
-					String userType=scanner.next();
-					BigInteger userId=BigDecimal.valueOf(Math.random()*100000).toBigInteger();
-					System.out.print("Enter User Name: ");
-					String userName=scanner.next();
-					System.out.print("Enter User Password: ");
-					String userPassword=scanner.next();
-					System.out.print("Enter User Phone Number: ");
-					BigInteger userPhone=scanner.nextBigInteger();
-					System.out.print("Enter User Email: ");
-					String userEmail=scanner.next();
-					User user=new User(userType, userId, userName, userPassword, userPhone, userEmail);
+					User user;
+					while(true) {
+						try {
+							System.out.print("Enter user type (admin/customer): ");
+							String userType=scanner.next();
+							BigInteger userId=BigDecimal.valueOf(Math.random()*100000).toBigInteger();
+							System.out.print("Enter User Name: ");
+							String userName=scanner.nextLine();
+							System.out.print("Enter User Password: ");
+							String userPassword=scanner.next();
+							System.out.print("Enter User Phone Number: ");
+							BigInteger userPhone=scanner.nextBigInteger();
+							System.out.print("Enter User Email: ");
+							String userEmail=scanner.next();
+							user=new User(userType, userId, userName, userPassword, userPhone, userEmail);
+							userService.validateUser(user);
+							break;
+						}catch(FRSException exception) {
+							System.err.println(exception.getMessage());
+							continue;
+						}
+					}
 					userService.addUser(user);
-					System.out.println("User Created with UserId: "+userId);
+					System.out.println("User Created with UserId: "+user.getUserId());
 					break;
 				case 2:
 					BigInteger showUserId;
@@ -95,14 +105,25 @@ public class Application {
 							continue;
 						}
 					}
-					String editUserName=scanner.next();
-					System.out.print("Enter User Password: ");
-					String editUserPassword=scanner.next();
-					System.out.print("Enter User Phone Number: ");
-					BigInteger editUserPhone=scanner.nextBigInteger();
-					System.out.print("Enter User Email: ");
-					String editUserEmail=scanner.next();
-					User editUser=new User(userService.viewUser(editUserId).getUserType(), editUserId, editUserName, editUserPassword, editUserPhone, editUserEmail);
+					User editUser;
+					while(true) {
+						try {
+							System.out.print("Enter User Name:");
+							String editUserName=scanner.next();
+							System.out.print("Enter User Password: ");
+							String editUserPassword=scanner.next();
+							System.out.print("Enter User Phone Number: ");
+							BigInteger editUserPhone=scanner.nextBigInteger();
+							System.out.print("Enter User Email: ");
+							String editUserEmail=scanner.next();
+							editUser=new User(userService.viewUser(editUserId).getUserType(), editUserId, editUserName, editUserPassword, editUserPhone, editUserEmail);
+							userService.validateUser(editUser);
+							break;
+						}catch(FRSException exception) {
+							System.err.println(exception.getMessage());
+							continue;
+						}
+					}
 					userService.addUser(editUser);
 					break;
 				case 4:
@@ -185,23 +206,43 @@ public class Application {
 									continue;
 								}
 							}
-							System.out.print("Enter Chosen Flight Number: ");
-							BigInteger bookingFlightNumber=scanner.nextBigInteger();
+							BigInteger bookingFlightNumber;
+							while(true) {
+								try {
+									System.out.print("Enter Chosen Flight Number: ");
+									bookingFlightNumber=scanner.nextBigInteger();
+									scheduleFlightService.validateScheduleFlightWithId(bookingFlightNumber);
+									break;
+								}catch(FRSException exception) {
+									System.err.println(exception);
+									continue;
+								}
+							}
 							BigInteger bookingId=BigDecimal.valueOf(Math.random()*1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList=new ArrayList<Passenger>();
 							System.out.println("Enter No. of Passengers:");
 							Integer noOfPassengers=scanner.nextInt();
 							for(int i=0; i<noOfPassengers; i++) {
-								BigInteger pnr=BigDecimal.valueOf(Math.random()*10000000).toBigInteger();
-								System.out.print("Enter Passenger Name: ");
-								String passengerName=scanner.next();
-								System.out.print("Enter Passenger Age: ");
-								Integer passengerAge=scanner.nextInt();
-								System.out.println("Enter 12-digit Passenger UIN: ");
-								BigInteger passengerUin=scanner.nextBigInteger();
-								System.out.println("Enter luggage weight: ");
-								Double passengerLuggage=scanner.nextDouble();
-								Passenger passenger=new Passenger(pnr, passengerName, passengerAge, passengerUin, passengerLuggage);
+								Passenger passenger;
+								while(true) {
+									try {
+										BigInteger pnr=BigDecimal.valueOf(Math.random()*10000000).toBigInteger();
+										System.out.print("Enter Passenger Name: ");
+										String passengerName=scanner.next();
+										System.out.print("Enter Passenger Age: ");
+										Integer passengerAge=scanner.nextInt();
+										System.out.println("Enter 12-digit Passenger UIN: ");
+										BigInteger passengerUin=scanner.nextBigInteger();
+										System.out.println("Enter luggage weight: ");
+										Double passengerLuggage=scanner.nextDouble();
+										passenger=new Passenger(pnr, passengerName, passengerAge, passengerUin, passengerLuggage);
+										bookingService.validateBooking(passenger);
+										break;
+									}catch(FRSException exception) {
+										System.err.println(exception.getMessage());
+										continue;
+									}
+								}
 								bookingPassengerList.add(passenger);
 							}
 							Booking booking=new Booking(bookingId, bookingUserId, LocalDateTime.now(), bookingPassengerList, scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()*noOfPassengers, scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
@@ -258,8 +299,18 @@ public class Application {
 							System.out.println("Enter the no of passengers to remove: ");
 							int removePassengerCount=scanner.nextInt();
 							for(int i=0; i<removePassengerCount; i++) {
-								System.out.println("Enter passenger pnr: ");
-								BigInteger removePnr=scanner.nextBigInteger();
+								BigInteger removePnr;
+								while(true) {
+									try {
+										System.out.println("Enter passenger pnr: ");
+										removePnr=scanner.nextBigInteger();
+										bookingService.validatePnr(modifyBooking, removePnr);
+										break;
+									}catch(FRSException exception) {
+										System.err.println(exception);
+										continue;
+									}
+								}
 								for(Passenger passenger: modifyPassengerList) {
 									if(passenger.getPnrNumber()==removePnr) {
 										modifyPassengerList.remove(passenger);

@@ -71,4 +71,14 @@ public class BookingServiceImpl implements BookingService
 		return passenger;
 	}
 
+	@Override
+	public Booking validatePnr(Booking booking, BigInteger pnr) throws FRSException {
+		List<Passenger> passengerList=new ArrayList<Passenger>();
+		for(Passenger passenger: passengerList) {
+			if(passenger.getPnrNumber().equals(pnr))
+				return booking;
+		}
+		throw new FRSException("PNR Not Found.");
+	}
+
 }

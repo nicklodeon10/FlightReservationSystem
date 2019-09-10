@@ -23,4 +23,6 @@ public interface BookingService {
 	
 	public Passenger validateBooking(Passenger passenger) throws FRSException;
 	
+	public Booking validatePnr(Booking booking, BigInteger pnr) throws FRSException;
+	
 }

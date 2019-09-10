@@ -187,8 +187,7 @@ public class Application {
 							BigInteger bookingSearchId=scanner.nextBigInteger();
 							while(true) {
 								try {
-									userService.validateUserWithId(bookingSearchId);
-									bookingService.validateBookingWithId(bookingSearchId);  //Modify
+									bookingService.validateBookingWithId(bookingSearchId);
 									break;
 								}catch(FRSException exception) {
 									System.err.println(exception.getMessage());
@@ -197,7 +196,19 @@ public class Application {
 							}
 							List<Booking> userBookingsList=bookingService.viewBooking(bookingSearchId);
 							for(Booking userBooking: userBookingsList) {
-								System.out.println(userBooking);   //expand
+								System.out.println(userBooking.getBookingId());
+								System.out.println(userBooking.getBookingDate());
+								System.out.println(userBooking.getUserId());
+								System.out.println(userBooking.getFlight().getSchedule().getDepartureDateTime());
+								System.out.println(userBooking.getFlight().getSchedule().getSourceAirport());
+								System.out.println(userBooking.getFlight().getSchedule().getArrivalDateTime());
+								System.out.println(userBooking.getFlight().getSchedule().getDestinationAirport());
+								System.out.println(userBooking.getTicketCost());
+								System.out.println("Passengers:");
+								List<Passenger> bookingPassengerList1=userBooking.getPassengerList();
+								for(Passenger passenger: bookingPassengerList1) {
+									System.out.println(passenger);
+								}
 								System.out.println("--------------");
 							}System.out.println("--------------");
 							break;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FRSException;
 
 public interface ScheduleFlightService {
 	
@@ -21,6 +22,6 @@ public interface ScheduleFlightService {
     
 	void deleteScheduleFlight(BigInteger flightId);
 	
-	boolean validateScheduleFlightWithId(BigInteger flightId);
+	BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException;
 	
 }

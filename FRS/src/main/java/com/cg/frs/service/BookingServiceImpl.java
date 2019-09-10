@@ -7,6 +7,7 @@ import java.util.List;
 import com.cg.frs.dao.BookingDao;
 import com.cg.frs.dao.BookingDaoImpl;
 import com.cg.frs.dto.Booking;
+import com.cg.frs.exception.FRSException;
 
 public class BookingServiceImpl implements BookingService
 {
@@ -44,10 +45,10 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public boolean validateBookingWithId(BigInteger bookingId) {
+	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException {
 		if(viewBooking(bookingId)==null)
-			return false;
-		return true;
+			throw new FRSException("Invalid Booking Id.");
+		return bookingId;
 	}
 
 	//validate for booking and passenger

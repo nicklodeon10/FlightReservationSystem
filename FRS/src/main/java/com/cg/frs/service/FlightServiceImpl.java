@@ -6,6 +6,7 @@ import java.util.List;
 import com.cg.frs.dao.FlightDao;
 import com.cg.frs.dao.FlightDaoImpl;
 import com.cg.frs.dto.Flight;
+import com.cg.frs.exception.FRSException;
 
 public class FlightServiceImpl implements FlightService{
 
@@ -42,10 +43,10 @@ public class FlightServiceImpl implements FlightService{
 	}
 
 	@Override
-	public boolean validateFlightWithId(BigInteger flightId) {
+	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException{
 		if(viewFlight(flightId)==null)
-			return false;
-		return true;
+			throw new FRSException("InvalidFlightId.");
+		return flightId;
 	}
 	
 }

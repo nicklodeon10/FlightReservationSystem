@@ -6,6 +6,7 @@ import java.util.List;
 import com.cg.frs.dao.UserDao;
 import com.cg.frs.dao.UserDaoImpl;
 import com.cg.frs.dto.User;
+import com.cg.frs.exception.FRSException;
 
 public class UserServiceImpl implements UserService{
 	
@@ -38,10 +39,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean validateUserWithId(BigInteger userId) {
+	public BigInteger validateUserWithId(BigInteger userId) throws FRSException {
 		if(viewUser(userId)==null)
-			return false;
-		return true;
+			throw new FRSException("Invalid User Id.");
+		return userId;
 	}
 
 }

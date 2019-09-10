@@ -5,6 +5,7 @@ import java.util.List;
 import com.cg.frs.dao.AirportDao;
 import com.cg.frs.dao.AirportDaoImpl;
 import com.cg.frs.dto.Airport;
+import com.cg.frs.exception.FRSException;
 
 public class AirportServiceImpl implements AirportService {
 
@@ -26,10 +27,10 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public boolean validateAirportWithCode(String airportCode) {
+	public String validateAirportWithCode(String airportCode) throws FRSException {
 		if(viewAirport(airportCode)==null)
-			return false;
-		return true;
+			throw new FRSException("InvalidAirportCode.");
+		return airportCode;
 	}
 
 }

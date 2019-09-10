@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import com.cg.frs.dto.Booking;
+import com.cg.frs.exception.FRSException;
 
 public interface BookingService {
 	
@@ -17,6 +18,6 @@ public interface BookingService {
 	
 	public void deleteBooking(BigInteger bookingId);
 	
-	public boolean validateBookingWithId(BigInteger bookingId);
+	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException;
 	
 }

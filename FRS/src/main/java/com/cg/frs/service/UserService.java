@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import com.cg.frs.dto.User;
+import com.cg.frs.exception.FRSException;
 
 public interface UserService {
 	
@@ -17,6 +18,6 @@ public interface UserService {
 	
 	public void deleteUser(BigInteger user);
 	
-	public boolean validateUserWithId(BigInteger userId);
+	public BigInteger validateUserWithId(BigInteger userId) throws FRSException;
 
 }

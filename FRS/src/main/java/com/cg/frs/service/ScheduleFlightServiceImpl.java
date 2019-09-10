@@ -8,6 +8,7 @@ import com.cg.frs.dao.ScheduleFlightDao;
 import com.cg.frs.dao.ScheduleFlightDaoImpl;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FRSException;
 
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
@@ -58,10 +59,10 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	}
 
 	@Override
-	public boolean validateScheduleFlightWithId(BigInteger flightId) {
+	public BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException{
 		if(viewScheduleFlights(flightId)==null)
-			return false;
-		return true;
+			throw new FRSException("InvalidFlightId.");
+		return flightId;
 	}
 	
 }

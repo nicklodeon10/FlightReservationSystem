@@ -90,7 +90,11 @@ public class Application {
 							continue;
 						}
 					}	
-					System.out.println(userService.viewUser(showUserId));
+					System.out.println("UserName: "+userService.viewUser(showUserId).getUserName());
+					System.out.println("UserId: "+userService.viewUser(showUserId).getUserId());
+					System.out.println("Email: "+userService.viewUser(showUserId).getEmail());
+					System.out.println("Phone: "+userService.viewUser(showUserId).getUserPhone());
+					System.out.println("UserType: "+userService.viewUser(showUserId).getUserType());
 					break;
 				case 3:
 					BigInteger editUserId;
@@ -274,18 +278,22 @@ public class Application {
 							}
 							List<Booking> userBookingsList=bookingService.viewBooking(bookingSearchId);
 							for(Booking userBooking: userBookingsList) {
-								System.out.println(userBooking.getBookingId());
-								System.out.println(userBooking.getBookingDate());
-								System.out.println(userBooking.getUserId());
-								System.out.println(userBooking.getFlight().getSchedule().getDepartureDateTime());
-								System.out.println(userBooking.getFlight().getSchedule().getSourceAirport());
-								System.out.println(userBooking.getFlight().getSchedule().getArrivalDateTime());
-								System.out.println(userBooking.getFlight().getSchedule().getDestinationAirport());
-								System.out.println(userBooking.getTicketCost());
+								System.out.println("Booking Id: "+userBooking.getBookingId());
+								System.out.println("Booking Date: "+userBooking.getBookingDate());
+								System.out.println("Booked by: "+userBooking.getUserId());
+								System.out.println("Departure Time: "+userBooking.getFlight().getSchedule().getDepartureDateTime());
+								System.out.println("Source Airport: "+userBooking.getFlight().getSchedule().getSourceAirport());
+								System.out.println("Arrival Time: "+userBooking.getFlight().getSchedule().getArrivalDateTime());
+								System.out.println("Destination Aiport: "+userBooking.getFlight().getSchedule().getDestinationAirport());
+								System.out.println("Ticket Cost: "+userBooking.getTicketCost());
 								System.out.println("Passengers:");
 								List<Passenger> bookingPassengerList1=userBooking.getPassengerList();
 								for(Passenger passenger: bookingPassengerList1) {
-									System.out.println(passenger);
+									System.out.println("Name: "+passenger.getPassengerName());
+									System.out.println("Age: "+passenger.getPassengerAge());
+									System.out.println("PNR: "+passenger.getPnrNumber());
+									System.out.println("UIN: "+passenger.getPassengerUIN());
+									System.out.println("Luggage: "+passenger.getLuggage());
 								}
 								System.out.println("--------------");
 							}System.out.println("--------------");
@@ -369,7 +377,12 @@ public class Application {
 						case 1:
 							List<User> userList=userService.viewUser();
 							for(User printUser: userList) {
-								System.out.println(printUser);
+								System.out.println("UserName: "+printUser.getUserName());
+								System.out.println("UserId: "+printUser.getUserId());
+								System.out.println("Email: "+printUser.getEmail());
+								System.out.println("Phone: "+printUser.getUserPhone());
+								System.out.println("UserType: "+printUser.getUserType());
+								System.out.println("--------------");
 							}System.out.println("--------------");
 							break;
 						case 2:
@@ -395,7 +408,11 @@ public class Application {
 								case 2:
 									List<Flight> flightList=flightService.viewFlight();
 									for(Flight viewFlight: flightList) {
-										System.out.println(viewFlight);
+										System.out.println("Flight Number: "+viewFlight.getFlightNumber());
+										System.out.println("Carrier Name: "+viewFlight.getCarrierName());
+										System.out.println("Flight Model: "+viewFlight.getFlightModel());
+										System.out.println("Seat Capacity: "+viewFlight.getSeatCapacity());
+										System.out.println("--------------");
 									}System.out.println("--------------");
 									break;
 								case 3:
@@ -411,7 +428,10 @@ public class Application {
 											continue;
 										}
 									}
-									System.out.println(flightService.viewFlight(flightId));
+									System.out.println("Flight Number: "+flightService.viewFlight(flightId).getFlightNumber());
+									System.out.println("Carrier Name: "+flightService.viewFlight(flightId).getCarrierName());
+									System.out.println("Flight Model: "+flightService.viewFlight(flightId).getFlightModel());
+									System.out.println("Seat Capacity: "+flightService.viewFlight(flightId).getSeatCapacity());
 									break;
 								case 4:
 									BigInteger modifyFlightNumber;
@@ -487,7 +507,16 @@ public class Application {
 								case 2:
 									List<ScheduleFlight> scheduleFlightList=scheduleFlightService.viewScheduleFlight();
 									for(ScheduleFlight scheduleFlightView: scheduleFlightList) {
-										System.out.println(scheduleFlightView);
+										System.out.println("Carrier Name: "+scheduleFlightView.getFlight().getCarrierName());
+										System.out.println("Flight Number: "+scheduleFlightView.getFlight().getFlightNumber());
+										System.out.println("Flight Model: "+scheduleFlightView.getFlight().getFlightModel());
+										System.out.println("Seat Capacity: "+scheduleFlightView.getFlight().getSeatCapacity());
+										System.out.println("Source: "+scheduleFlightView.getSchedule().getSourceAirport());
+										System.out.println("Departure Time: "+scheduleFlightView.getSchedule().getDepartureDateTime());
+										System.out.println("Destination: "+scheduleFlightView.getSchedule().getDestinationAirport());
+										System.out.println("Arrival Time: "+scheduleFlightView.getSchedule().getArrivalDateTime());
+										System.out.println("Ticket Cost: "+scheduleFlightView.getTicketCost());
+										System.out.println("--------------");
 									}System.out.println("--------------");
 									break;
 								case 3:
@@ -504,6 +533,15 @@ public class Application {
 										}
 									}
 									System.out.println(scheduleFlightService.viewScheduleFlights(searchScheduleFlightId));
+									System.out.println("Carrier Name: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getFlight().getCarrierName());
+									System.out.println("Flight Number: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getFlight().getFlightNumber());
+									System.out.println("Flight Model: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getFlight().getFlightModel());
+									System.out.println("Seat Capacity: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getFlight().getSeatCapacity());
+									System.out.println("Source: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getSchedule().getSourceAirport());
+									System.out.println("Departure Time: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getSchedule().getDepartureDateTime());
+									System.out.println("Destination: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getSchedule().getDestinationAirport());
+									System.out.println("Arrival Time: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getSchedule().getArrivalDateTime());
+									System.out.println("Ticket Cost: "+scheduleFlightService.viewScheduleFlights(searchScheduleFlightId).getTicketCost());
 									break;
 								case 4:
 									BigInteger modifyScheduleFlightId;

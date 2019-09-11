@@ -2,16 +2,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.cg.frs.service.IFlightService;
 import com.cg.frs.service.FlightService;
-import com.cg.frs.service.FlightServiceImpl;
 
 class FlightServiceTest {
 
-	FlightService flightService;
+	IFlightService flightService;
 	
 	@BeforeAll
 	public void beforeTest() {
-		flightService=new FlightServiceImpl();
+		flightService=new FlightService();
 	}
 	
 	@Test

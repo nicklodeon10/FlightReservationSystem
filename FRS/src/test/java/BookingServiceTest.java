@@ -2,16 +2,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.cg.frs.service.IBookingService;
 import com.cg.frs.service.BookingService;
-import com.cg.frs.service.BookingServiceImpl;
 
 class BookingServiceTest {
 
-	BookingService bookingService;
+	IBookingService bookingService;
 	
 	@BeforeAll
 	public void beforeTest() {
-		bookingService=new BookingServiceImpl();
+		bookingService=new BookingService();
 	}
 	
 	@Test

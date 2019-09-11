@@ -2,16 +2,16 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.cg.frs.service.IUserService;
 import com.cg.frs.service.UserService;
-import com.cg.frs.service.UserServiceImpl;
 
 class UserServiceTest {
 
-	UserService userService;
+	IUserService userService;
 	
 	@BeforeAll
 	public void beforeTest() {
-		userService=new UserServiceImpl();
+		userService=new UserService();
 	}
 	
 	@Test

@@ -2,19 +2,47 @@ package com.cg.frs.service;
 
 import java.util.List;
 
+import com.cg.frs.dao.IAirportDao;
+import com.cg.frs.dao.AirportDao;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.exception.FRSException;
 
-public interface AirportService {
-	
-	public void addAirport();
+public class AirportService implements IAirportService {
 
-	public List<Airport> viewAirport();
-    
-	public Airport viewAirport(String airportCode);
+	IAirportDao airportDao=new AirportDao();
 	
-	public String validateAirportWithCode(String airportCode) throws FRSException;
-	
-	public int compareAirport(Airport src, Airport dest) throws FRSException;
-	
+	@Override
+	public List<Airport> viewAirport() {
+		return airportDao.viewAirport();
+	}
+
+	@Override
+	public Airport viewAirport(String airportCode) {
+		List<Airport> airportList=airportDao.viewAirport();
+		for(Airport airport: airportList) {
+			if(airport.getAirportCode().equals(airportCode))
+				return airport;
+		}
+		return null;
+	}
+
+	@Override
+	public String validateAirportWithCode(String airportCode) throws FRSException {
+		if(viewAirport(airportCode).equals(null))
+			throw new FRSException("InvalidAirportCode.");
+		return airportCode;
+	}
+
+	@Override
+	public int compareAirport(Airport src, Airport dest) throws FRSException {
+		if(src==dest && src.equals(dest))
+			throw new FRSException("Source and Destination Airports cannot be the Same.");
+		return 0;
+	}
+
+	@Override
+	public void addAirport() {
+		airportDao.addAirport();
+	}
+
 }

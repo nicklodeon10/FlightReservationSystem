@@ -17,28 +17,28 @@ import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
 import com.cg.frs.exception.FRSException;
+import com.cg.frs.service.IAirportService;
 import com.cg.frs.service.AirportService;
-import com.cg.frs.service.AirportServiceImpl;
+import com.cg.frs.service.IBookingService;
 import com.cg.frs.service.BookingService;
-import com.cg.frs.service.BookingServiceImpl;
+import com.cg.frs.service.IFlightService;
 import com.cg.frs.service.FlightService;
-import com.cg.frs.service.FlightServiceImpl;
+import com.cg.frs.service.IScheduleFlightService;
 import com.cg.frs.service.ScheduleFlightService;
-import com.cg.frs.service.ScheduleFlightServiceImpl;
+import com.cg.frs.service.IUserService;
 import com.cg.frs.service.UserService;
-import com.cg.frs.service.UserServiceImpl;
 
 public class Application {
 
 	public static void main(String[] args) {
 		
 		Scanner scanner=new Scanner(System.in);
-		AirportService airportService=new AirportServiceImpl();
+		IAirportService airportService=new AirportService();
 		airportService.addAirport();
-		BookingService bookingService=new BookingServiceImpl();
-		FlightService flightService=new FlightServiceImpl();
-		ScheduleFlightService scheduleFlightService=new ScheduleFlightServiceImpl();
-		UserService userService=new UserServiceImpl();
+		IBookingService bookingService=new BookingService();
+		IFlightService flightService=new FlightService();
+		IScheduleFlightService scheduleFlightService=new ScheduleFlightService();
+		IUserService userService=new UserService();
 		
 		int userTypeChoice;
 		do {

@@ -220,10 +220,11 @@ public class Application {
 							}
 							BigInteger bookingId=BigDecimal.valueOf(Math.random()*1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList=new ArrayList<Passenger>();
+							Integer noOfPassengers;
 							while(true) {
 								try {
 									System.out.println("Enter No. of Passengers:");
-									Integer noOfPassengers=scanner.nextInt();
+									noOfPassengers=scanner.nextInt();
 									bookingService.validatePassengerCount(scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
 									break;
 								}catch(FRSException exception) {

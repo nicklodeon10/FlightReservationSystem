@@ -10,18 +10,20 @@ import com.cg.frs.exception.FRSException;
 
 public interface ScheduleFlightService {
 	
-	ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight);
+	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight);
 	
-	List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate);
+	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate);
     
-	ScheduleFlight viewScheduleFlights(BigInteger flightId);
+	public ScheduleFlight viewScheduleFlights(BigInteger flightId);
     
-	List<ScheduleFlight > viewScheduleFlight();
+	public List<ScheduleFlight > viewScheduleFlight();
     
-	ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight);
+	public ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight);
     
-	void deleteScheduleFlight(BigInteger flightId);
+	public void deleteScheduleFlight(BigInteger flightId);
 	
-	BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException;
+	public BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException;
+	
+	public Integer modifySeatCount(ScheduleFlight scheduleFlight, int change) ;
 	
 }

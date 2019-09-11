@@ -8,14 +8,17 @@ import com.cg.frs.dao.BookingDao;
 import com.cg.frs.dao.BookingDaoImpl;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
+import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FRSException;
 
 public class BookingServiceImpl implements BookingService
 {
 	BookingDao bookingDao=new BookingDaoImpl();
-
+	ScheduleFlightService scheduleFlightService=new ScheduleFlightServiceImpl();
+	
 	@Override
 	public Booking addBooking(Booking booking) {
+		booking.getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getFlight(), booking.getNoOfPassengers()));
 		return bookingDao.addBooking(booking);
 	}
 
@@ -36,12 +39,14 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public Booking modifyBooking(Booking booking) {
+	public Booking modifyBooking(Booking booking, Integer removePassengerCount) {
+		booking.getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getFlight(), (-1)*removePassengerCount));
 		return bookingDao.addBooking(booking);
 	}
 
 	@Override
 	public void deleteBooking(BigInteger bookingId) {
+		viewBooking(bookingId).get(0).getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(viewBooking(bookingId).get(0).getFlight(), (-1)*viewBooking(bookingId).get(0).getNoOfPassengers()));
 		bookingDao.removeBooking(bookingId);
 	}
 
@@ -79,6 +84,13 @@ public class BookingServiceImpl implements BookingService
 				return booking;
 		}
 		throw new FRSException("PNR Not Found.");
+	}
+
+	@Override
+	public ScheduleFlight validatePassengerCount(ScheduleFlight scheduleFlight, Integer passengerChange) throws FRSException {
+		if(passengerChange>scheduleFlight.getAvailableSeats())
+			throw new FRSException("Seats Not Available");
+		return scheduleFlight;
 	}
 
 }

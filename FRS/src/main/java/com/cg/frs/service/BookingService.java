@@ -16,13 +16,11 @@ public interface BookingService {
 	
 	public List<Booking> viewBooking(BigInteger id);
 	
-	public Booking modifyBooking(Booking booking);
+	public Booking modifyBooking(Booking booking, Integer removePassengerCount);
 	
 	public void deleteBooking(BigInteger bookingId);
 	
-	public Integer modifySeatCount(ScheduleFlight scheduleFlight, int change) ;
-	
-	public Integer validatePassengerCount(ScheduleFlight scheduleFlight,Integer passengerChange) throws FRSException;
+	public ScheduleFlight validatePassengerCount(ScheduleFlight scheduleFlight,Integer passengerChange) throws FRSException;
 	
 	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException;
 	

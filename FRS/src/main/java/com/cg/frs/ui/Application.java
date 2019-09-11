@@ -220,8 +220,17 @@ public class Application {
 							}
 							BigInteger bookingId=BigDecimal.valueOf(Math.random()*1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList=new ArrayList<Passenger>();
-							System.out.println("Enter No. of Passengers:");
-							Integer noOfPassengers=scanner.nextInt();
+							while(true) {
+								try {
+									System.out.println("Enter No. of Passengers:");
+									Integer noOfPassengers=scanner.nextInt();
+									bookingService.validatePassengerCount(scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
+									break;
+								}catch(FRSException exception) {
+									System.err.println(exception.getMessage());
+									continue;
+								}
+							}
 							for(int i=0; i<noOfPassengers; i++) {
 								Passenger passenger;
 								while(true) {
@@ -247,7 +256,6 @@ public class Application {
 							}
 							Booking booking=new Booking(bookingId, bookingUserId, LocalDateTime.now(), bookingPassengerList, scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()*noOfPassengers, scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
 							bookingService.addBooking(booking);
-							scheduleFlightService.viewScheduleFlights(bookingFlightNumber).setAvailableSeats(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getAvailableSeats()-noOfPassengers);
 							System.out.println("Booking Successful with Booking Id: "+bookingId);
 							break;
 						case 2:
@@ -319,7 +327,7 @@ public class Application {
 								}
 							}
 							modifyBooking.setPassengerList(modifyPassengerList);
-							bookingService.addBooking(modifyBooking);
+							bookingService.modifyBooking(modifyBooking, removePassengerCount);
 							break;
 						case 4:
 							BigInteger bookingDeleteId;
@@ -335,7 +343,6 @@ public class Application {
 								}
 							}
 							Booking removeBooking=bookingService.viewBooking(bookingDeleteId).get(0);
-							scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).setAvailableSeats(scheduleFlightService.viewScheduleFlights(removeBooking.getFlight().getFlight().getFlightNumber()).getAvailableSeats()+removeBooking.getNoOfPassengers());
 							bookingService.deleteBooking(removeBooking.getBookingId());
 							break;
 					}

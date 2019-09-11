@@ -4,6 +4,49 @@ import java.time.LocalDateTime;
 
 public class Schedule{	
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((arrivalDateTime == null) ? 0 : arrivalDateTime.hashCode());
+		result = prime * result + ((departureDateTime == null) ? 0 : departureDateTime.hashCode());
+		result = prime * result + ((destinationAirport == null) ? 0 : destinationAirport.hashCode());
+		result = prime * result + ((sourceAirport == null) ? 0 : sourceAirport.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Schedule other = (Schedule) obj;
+		if (arrivalDateTime == null) {
+			if (other.arrivalDateTime != null)
+				return false;
+		} else if (!arrivalDateTime.equals(other.arrivalDateTime))
+			return false;
+		if (departureDateTime == null) {
+			if (other.departureDateTime != null)
+				return false;
+		} else if (!departureDateTime.equals(other.departureDateTime))
+			return false;
+		if (destinationAirport == null) {
+			if (other.destinationAirport != null)
+				return false;
+		} else if (!destinationAirport.equals(other.destinationAirport))
+			return false;
+		if (sourceAirport == null) {
+			if (other.sourceAirport != null)
+				return false;
+		} else if (!sourceAirport.equals(other.sourceAirport))
+			return false;
+		return true;
+	}
+
 	private Airport sourceAirport;
 	private Airport destinationAirport;
 	private LocalDateTime departureDateTime;

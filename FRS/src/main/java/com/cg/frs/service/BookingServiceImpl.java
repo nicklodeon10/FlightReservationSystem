@@ -70,7 +70,7 @@ public class BookingServiceImpl implements BookingService
 		}
 		for(int i=0; i<name.length(); i++) {
 			char current=name.charAt(i);
-			if(!((current>'a' && current<'z') || (current>'A' && current<'Z') || current==' '))
+			if(!((current>='a' && current<='z') || (current>='A' && current<='Z') || current==' '))
 				throw new FRSException("Invalid Passenger Name.");
 		}
 		return passenger;
@@ -78,7 +78,7 @@ public class BookingServiceImpl implements BookingService
 
 	@Override
 	public Booking validatePnr(Booking booking, BigInteger pnr) throws FRSException {
-		List<Passenger> passengerList=new ArrayList<Passenger>();
+		List<Passenger> passengerList=booking.getPassengerList();
 		for(Passenger passenger: passengerList) {
 			if(passenger.getPnrNumber().equals(pnr))
 				return booking;

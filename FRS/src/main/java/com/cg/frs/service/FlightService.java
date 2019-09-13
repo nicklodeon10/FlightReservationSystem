@@ -3,50 +3,21 @@ package com.cg.frs.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import com.cg.frs.dao.IFlightDao;
-import com.cg.frs.dao.FlightDao;
 import com.cg.frs.dto.Flight;
 import com.cg.frs.exception.FRSException;
 
-public class FlightService implements IFlightService{
-
-	IFlightDao flightDao=new FlightDao();
-
-	@Override
-	public Flight addFlight(Flight flight) {
-		return flightDao.addFlight(flight);
-	}
-
-	@Override
-	public Flight modifyFlight(Flight flight) {
-		return flightDao.addFlight(flight);
-	}
-
-	@Override
-	public List<Flight> viewFlight() {
-		return flightDao.viewFlight();
-	}
-
-	@Override
-	public Flight viewFlight(BigInteger flightId) {
-		List<Flight> flightList=flightDao.viewFlight();
-		for(Flight flight: flightList) {
-			if(flight.getFlightNumber().equals(flightId))
-				return flight;
-		}
-		return null;
-	}
-
-	@Override
-	public boolean deleteFlight(BigInteger flightId) {
-		return flightDao.deleteFlight(flightId);
-	}
-
-	@Override
-	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException{
-		if(viewFlight(flightId).equals(null))
-			throw new FRSException("InvalidFlightId.");
-		return flightId;
-	}
+public interface FlightService {   
+   
+	public Flight addFlight(Flight flight);
+    
+	public Flight modifyFlight(Flight flight);
+    
+	public List<Flight> viewFlight();
+    
+	public Flight viewFlight(BigInteger flightId);
+    
+	public boolean deleteFlight(BigInteger flightId);
 	
+	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException;
+      
 }

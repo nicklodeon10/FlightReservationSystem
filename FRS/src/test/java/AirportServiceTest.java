@@ -1,16 +1,16 @@
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
-import com.cg.frs.service.IAirportService;
 import com.cg.frs.service.AirportService;
+import com.cg.frs.service.AirportServiceImpl;
 
 class AirportServiceTest {
 
-	IAirportService airportService;
+	AirportService airportService;
 	
 	@BeforeAll
 	public void beforeTest() {
-		airportService=new AirportService();
+		airportService=new AirportServiceImpl();
 	}
 	
 	public void testViewAirport() {

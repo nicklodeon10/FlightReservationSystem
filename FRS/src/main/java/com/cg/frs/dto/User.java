@@ -2,62 +2,7 @@ package com.cg.frs.dto;
 
 import java.math.BigInteger;
 
-public class User 
-{
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
-		result = prime * result + ((userPhone == null) ? 0 : userPhone.hashCode());
-		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		if (userPassword == null) {
-			if (other.userPassword != null)
-				return false;
-		} else if (!userPassword.equals(other.userPassword))
-			return false;
-		if (userPhone == null) {
-			if (other.userPhone != null)
-				return false;
-		} else if (!userPhone.equals(other.userPhone))
-			return false;
-		if (userType == null) {
-			if (other.userType != null)
-				return false;
-		} else if (!userType.equals(other.userType))
-			return false;
-		return true;
-	}
+public class User {
 
 	private String userType;
 	private BigInteger userId;
@@ -135,5 +80,59 @@ public class User
 				+ userPassword + ", userPhone=" + userPhone + ", email=" + email + "]";
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((userPassword == null) ? 0 : userPassword.hashCode());
+		result = prime * result + ((userPhone == null) ? 0 : userPhone.hashCode());
+		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		if (userPassword == null) {
+			if (other.userPassword != null)
+				return false;
+		} else if (!userPassword.equals(other.userPassword))
+			return false;
+		if (userPhone == null) {
+			if (other.userPhone != null)
+				return false;
+		} else if (!userPhone.equals(other.userPhone))
+			return false;
+		if (userType == null) {
+			if (other.userType != null)
+				return false;
+		} else if (!userType.equals(other.userType))
+			return false;
+		return true;
+	}
+	
 }

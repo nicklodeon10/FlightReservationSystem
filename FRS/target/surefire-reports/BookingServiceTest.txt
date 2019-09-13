@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: BookingServiceTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.011 s <<< FAILURE! - in BookingServiceTest
-BookingServiceTest  Time elapsed: 0.007 s  <<< ERROR!
-org.junit.platform.commons.JUnitException: @BeforeAll method 'public void BookingServiceTest.beforeTest()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
-

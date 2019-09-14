@@ -58,25 +58,6 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public Passenger validateBooking(Passenger passenger) throws FRSException {
-		String passUIN=passenger.getPassengerUIN().toString();
-		String name=passenger.getPassengerName();
-		Double luggage=passenger.getLuggage();
-		if(passUIN.length()!=12) {
-			throw new FRSException("Invalid Passenger UIN.");
-		}
-		if(luggage<0 || luggage>18) {
-			throw new FRSException("Luggage Limit Exceeded.");
-		}
-		for(int i=0; i<name.length(); i++) {
-			char current=name.charAt(i);
-			if(!((current>='a' && current<='z') || (current>='A' && current<='Z') || current==' '))
-				throw new FRSException("Invalid Passenger Name.");
-		}
-		return passenger;
-	}
-
-	@Override
 	public Booking validatePnr(Booking booking, BigInteger pnr) throws FRSException {
 		List<Passenger> passengerList=booking.getPassengerList();
 		for(Passenger passenger: passengerList) {
@@ -91,6 +72,31 @@ public class BookingServiceImpl implements BookingService
 		if(passengerChange>scheduleFlight.getAvailableSeats())
 			throw new FRSException("Seats Not Available");
 		return scheduleFlight;
+	}
+
+	@Override
+	public boolean validatePassengerName(String name) throws FRSException {
+		for(int i=0; i<name.length(); i++) {
+			char current=name.charAt(i);
+			if(!((current>='a' && current<='z') || (current>='A' && current<='Z') || current==' '))
+				throw new FRSException("Invalid Passenger Name.");
+		}
+		return true;
+	}
+	
+	public boolean validatePassengerUIN(BigInteger UIN) throws FRSException{
+		String passUIN=UIN.toString();
+		if(passUIN.length()!=12) {
+			throw new FRSException("Invalid Passenger UIN.");
+		}
+		return true;
+	}
+	
+	public boolean validateLuggage(Double luggage) throws FRSException {
+		if(luggage<0 || luggage>18) {
+			throw new FRSException("Luggage Limit Exceeded.");
+		}
+		return true;
 	}
 
 }

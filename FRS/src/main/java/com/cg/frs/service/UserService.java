@@ -24,5 +24,7 @@ public interface UserService {
 
 	public BigInteger validateAdminWithId(BigInteger userId) throws FRSException;
 	
-	public User validateUser(User user) throws FRSException;
+	public boolean validatePhoneNumber(BigInteger phoneNo) throws FRSException;
+	
+	public boolean validateEmail(String email) throws FRSException;
 }

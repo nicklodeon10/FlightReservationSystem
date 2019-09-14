@@ -65,20 +65,21 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User validateUser(User user) throws FRSException {
-		String userType=user.getUserType();
-		String userPhone=user.getUserPhone().toString();
-		String userEmail=user.getEmail();
-		if(!(userType.equalsIgnoreCase("admin") || (userType.equalsIgnoreCase("customer"))))
-			throw new FRSException("Invalid User Type.");
+	public boolean validatePhoneNumber(BigInteger phoneNo) throws FRSException {
+		String userPhone=phoneNo.toString();
 		char firstPhoneDigit=userPhone.charAt(0);
 		if(userPhone.length()!=10 || firstPhoneDigit=='1' || firstPhoneDigit=='2' || firstPhoneDigit=='3' || firstPhoneDigit=='4' || firstPhoneDigit=='5')
 			throw new FRSException("Invalid Phone Number.");
+		return true;
+	}
+
+	@Override
+	public boolean validateEmail(String email) throws FRSException {
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@" +"(?:[a-zA-Z0-9-]+\\.)+[a-z" +"A-Z]{2,7}$";
 		Pattern pattern=Pattern.compile(emailRegex);
-		if(!pattern.matcher(userEmail).matches())
+		if(!pattern.matcher(email).matches())
 			throw new FRSException("Invalid Email Address.");
-		return user;
+		return true;
 	}
 
 }

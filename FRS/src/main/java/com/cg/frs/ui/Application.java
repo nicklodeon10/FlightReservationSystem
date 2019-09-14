@@ -34,7 +34,7 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		int userTypeChoice;
+		int userTypeChoice=1;
 		Scanner scanner = new Scanner(System.in);
 		AirportService airportService = new AirportServiceImpl();
 		BookingService bookingService = new BookingServiceImpl();
@@ -54,6 +54,7 @@ public class Application {
 					userTypeChoice = scanner.nextInt();
 					break;
 				} catch (InputMismatchException exception) {
+					scanner.nextLine();
 					System.err.println(exception);
 					continue;
 				}
@@ -78,6 +79,7 @@ public class Application {
 						userService.validatePhoneNumber(userPhone);
 						break;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					} catch (FRSException exception) {
@@ -113,6 +115,7 @@ public class Application {
 						System.err.println(exception.getMessage());
 						continue;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					}
@@ -144,6 +147,7 @@ public class Application {
 						System.err.println(exception.getMessage());
 						continue;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					}
@@ -159,6 +163,7 @@ public class Application {
 						userService.validatePhoneNumber(userPhone);
 						break;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					} catch (FRSException exception) {
@@ -194,6 +199,7 @@ public class Application {
 						System.err.println(exception.getMessage());
 						continue;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					}
@@ -214,6 +220,7 @@ public class Application {
 							userChoice = scanner.nextInt();
 							break;
 						} catch (InputMismatchException exception) {
+							scanner.nextLine();
 							System.err.println(exception);
 							continue;
 						}
@@ -308,6 +315,7 @@ public class Application {
 									System.err.println(exception.getMessage());
 									continue;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -322,6 +330,7 @@ public class Application {
 									System.err.println(exception);
 									continue;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -338,6 +347,7 @@ public class Application {
 									System.err.println(exception.getMessage());
 									continue;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -428,6 +438,7 @@ public class Application {
 								System.err.println(exception.getMessage());
 								continue;
 							} catch (InputMismatchException exception) {
+								scanner.nextLine();
 								System.err.println(exception);
 								continue;
 							}
@@ -485,6 +496,7 @@ public class Application {
 								removePassengerCount = scanner.nextInt();
 								break;
 							} catch (InputMismatchException exception) {
+								scanner.nextLine();
 								System.err.println(exception);
 								continue;
 							}
@@ -501,6 +513,7 @@ public class Application {
 									System.err.println(exception);
 									continue;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -528,6 +541,7 @@ public class Application {
 								System.err.println(exception.getMessage());
 								continue;
 							} catch (InputMismatchException exception) {
+								scanner.nextLine();
 								System.err.println(exception);
 								continue;
 							}
@@ -554,6 +568,7 @@ public class Application {
 						System.err.println(exception.getMessage());
 						continue;
 					} catch (InputMismatchException exception) {
+						scanner.nextLine();
 						System.err.println(exception);
 						continue;
 					}
@@ -569,6 +584,7 @@ public class Application {
 							adminChoice = scanner.nextInt();
 							break;
 						} catch (InputMismatchException exception) {
+							scanner.nextLine();
 							System.err.println(exception);
 							continue;
 						}
@@ -602,6 +618,7 @@ public class Application {
 									adminFlightManageChoice = scanner.nextInt();
 									break;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -619,6 +636,7 @@ public class Application {
 										flightNumber = scanner.nextBigInteger();
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -633,6 +651,7 @@ public class Application {
 										seatCapacity = scanner.nextInt();
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -705,6 +724,7 @@ public class Application {
 										modifySeatCapacity = scanner.nextInt();
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -760,6 +780,7 @@ public class Application {
 									adminScheduleChoice = scanner.nextInt();
 									break;
 								} catch (InputMismatchException exception) {
+									scanner.nextLine();
 									System.err.println(exception);
 									continue;
 								}
@@ -773,6 +794,7 @@ public class Application {
 										flightService.validateFlightWithId(scheduleFlightId);
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									} catch (FRSException exception) {
@@ -834,6 +856,7 @@ public class Application {
 										ticketCost = scanner.nextDouble();
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -932,6 +955,7 @@ public class Application {
 										System.err.println(exception.getMessage());
 										continue;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -942,6 +966,7 @@ public class Application {
 										modifyAvailableSeats = scanner.nextInt();
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}
@@ -954,6 +979,7 @@ public class Application {
 												+ airportService.validateAirportWithCode(modifySourceAirportCode));
 										break;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									} catch (FRSException exception) {
@@ -1034,6 +1060,7 @@ public class Application {
 										System.err.println(exception.getMessage());
 										continue;
 									} catch (InputMismatchException exception) {
+										scanner.nextLine();
 										System.err.println(exception);
 										continue;
 									}

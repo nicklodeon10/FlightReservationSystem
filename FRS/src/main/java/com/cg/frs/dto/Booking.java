@@ -109,48 +109,65 @@ public class Booking {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Booking other = (Booking) obj;
 		if (bookingDate == null) {
-			if (other.bookingDate != null)
+			if (other.bookingDate != null) {
 				return false;
-		} else if (!bookingDate.equals(other.bookingDate))
+			}
+		} else if (!bookingDate.equals(other.bookingDate)) {
 			return false;
+		}
 		if (bookingId == null) {
-			if (other.bookingId != null)
+			if (other.bookingId != null) {
 				return false;
-		} else if (!bookingId.equals(other.bookingId))
+			}
+		} else if (!bookingId.equals(other.bookingId)) {
 			return false;
+		}
 		if (flight == null) {
-			if (other.flight != null)
+			if (other.flight != null) {
 				return false;
-		} else if (!flight.equals(other.flight))
+			}
+		} else if (!flight.equals(other.flight)) {
 			return false;
+		}
 		if (noOfPassengers == null) {
-			if (other.noOfPassengers != null)
+			if (other.noOfPassengers != null) {
 				return false;
-		} else if (!noOfPassengers.equals(other.noOfPassengers))
+			}
+		} else if (!noOfPassengers.equals(other.noOfPassengers)) {
 			return false;
+		}
 		if (passengerList == null) {
-			if (other.passengerList != null)
+			if (other.passengerList != null) {
 				return false;
-		} else if (!passengerList.equals(other.passengerList))
+			}
+		} else if (!passengerList.equals(other.passengerList)) {
 			return false;
+		}
 		if (ticketCost == null) {
-			if (other.ticketCost != null)
+			if (other.ticketCost != null) {
 				return false;
-		} else if (!ticketCost.equals(other.ticketCost))
+			}
+		} else if (!ticketCost.equals(other.ticketCost)) {
 			return false;
+		}
 		if (userId == null) {
-			if (other.userId != null)
+			if (other.userId != null) {
 				return false;
-		} else if (!userId.equals(other.userId))
+			}
+		} else if (!userId.equals(other.userId)) {
 			return false;
+		}
 		return true;
 	}
 	

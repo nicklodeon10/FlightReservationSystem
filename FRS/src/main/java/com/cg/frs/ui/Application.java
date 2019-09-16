@@ -1,6 +1,5 @@
 package com.cg.frs.ui;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -64,10 +63,9 @@ public class Application {
 				User user;
 				BigInteger userPhone;
 				String userEmail;
-				BigInteger userId;
 				String userName;
 				String userPassword;
-				userId = BigDecimal.valueOf(Math.random() * 100000).toBigInteger();
+				//userId = BigDecimal.valueOf(Math.random() * 100000).toBigInteger();
 				System.out.println("Enter User Name: ");
 				userName = scanner.next();
 				System.out.println("Enter User Password: ");
@@ -98,8 +96,13 @@ public class Application {
 						continue;
 					}
 				}
-				user = new User("customer", userId, userName, userPassword, userPhone, userEmail);
-				userService.addUser(user);
+				user = new User();
+				user.setUserType("customer");
+				user.setUserName(userName);
+				user.setUserPassword(userPassword);
+				user.setUserPhone(userPhone);
+				user.setEmail(userEmail);
+				user=userService.addUser(user);
 				System.out.println("User Created with UserId: " + user.getUserId());
 				break;
 			}
@@ -286,7 +289,7 @@ public class Application {
 						if (searchScheduledFlights.size() != 0) {
 							BigInteger bookingUserId;
 							BigInteger bookingFlightNumber;
-							BigInteger bookingId = BigDecimal.valueOf(Math.random() * 1000000000).toBigInteger();
+							//BigInteger bookingId = BigDecimal.valueOf(Math.random() * 1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList = new ArrayList<Passenger>();
 							Integer noOfPassengers;
 							for (ScheduleFlight scheduleFlight : searchScheduledFlights) {
@@ -358,7 +361,7 @@ public class Application {
 								Integer passengerAge;
 								BigInteger passengerUIN;
 								Double passengerLuggage;
-								BigInteger pnr = BigDecimal.valueOf(Math.random() * 10000000).toBigInteger();
+								//BigInteger pnr = BigDecimal.valueOf(Math.random() * 10000000).toBigInteger();
 								scanner.nextLine();
 								while (true) {
 									try {
@@ -409,17 +412,21 @@ public class Application {
 										continue;
 									}
 								}
-								passenger = new Passenger(pnr, passengerName, passengerAge, passengerUIN,
-										passengerLuggage);
+								passenger = new Passenger();
+								passenger.setPassengerName(passengerName);
+								passenger.setPassengerAge(passengerAge);
+								passenger.setPassengerUIN(passengerUIN);
+								passenger.setLuggage(passengerLuggage);
 								bookingPassengerList.add(passenger);
 							}
-							Booking booking = new Booking(bookingId, bookingUserId, LocalDateTime.now(),
-									bookingPassengerList,
-									scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()
-											* noOfPassengers,
-									scheduleFlightService.viewScheduleFlights(bookingFlightNumber), noOfPassengers);
-							bookingService.addBooking(booking);
-							System.out.println("Booking Successful with Booking Id: " + bookingId);
+							Booking booking = new Booking();
+							booking.setUserId(bookingUserId);
+							booking.setPassengerList(bookingPassengerList);
+							booking.setFlight(scheduleFlightService.viewScheduleFlights(bookingFlightNumber));
+							booking.setTicketCost(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()* noOfPassengers);
+							booking.setNoOfPassengers(noOfPassengers);
+							booking=bookingService.addBooking(booking);
+							System.out.println("Booking Successful with Booking Id: " + booking.getBookingId());
 						} else {
 							System.out.println("No Flights Found.");
 							System.out.println("----------------------------");
@@ -628,22 +635,11 @@ public class Application {
 							}
 							switch (adminFlightManageChoice) {
 							case 1: {
-								BigInteger flightNumber;
+								//BigInteger flightNumber;
 								String carrierName;
 								String flightModel;
 								Integer seatCapacity;
 								Flight flight;
-								while (true) {
-									try {
-										System.out.println("Enter Flight Number: ");
-										flightNumber = scanner.nextBigInteger();
-										break;
-									} catch (InputMismatchException exception) {
-										scanner.nextLine();
-										System.err.println(exception);
-										continue;
-									}
-								}
 								System.out.println("Enter Carrier Name: ");
 								carrierName = scanner.next();
 								System.out.println("Enter Flight Model: ");
@@ -659,9 +655,12 @@ public class Application {
 										continue;
 									}
 								}
-								flight = new Flight(flightNumber, flightModel, carrierName, seatCapacity);
-								flightService.addFlight(flight);
-								System.out.println("Flight Added.\n");
+								flight = new Flight();
+								flight.setFlightModel(flightModel);
+								flight.setCarrierName(carrierName);
+								flight.setSeatCapacity(seatCapacity);
+								flight=flightService.addFlight(flight);
+								System.out.println("Flight Added with Flight Number: "+flight.getFlightNumber());
 								break;
 							}
 							case 2: {
@@ -1057,8 +1056,7 @@ public class Application {
 											modifySchedule, modifyTicketCost);
 									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
 								} catch (FRSException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+									System.err.println(e.getMessage());
 								}
 								break;
 							case 5:

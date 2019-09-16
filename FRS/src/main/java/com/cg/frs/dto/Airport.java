@@ -1,7 +1,7 @@
 package com.cg.frs.dto;
 
 public class Airport {
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -14,28 +14,36 @@ public class Airport {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Airport other = (Airport) obj;
 		if (airportCode == null) {
 			if (other.airportCode != null)
 				return false;
-		} else if (!airportCode.equals(other.airportCode))
+		} else if (!airportCode.equals(other.airportCode)) {
 			return false;
+		}
 		if (airportLocation == null) {
-			if (other.airportLocation != null)
+			if (other.airportLocation != null) {
 				return false;
-		} else if (!airportLocation.equals(other.airportLocation))
+			}
+		} else if (!airportLocation.equals(other.airportLocation)) {
 			return false;
+		}
 		if (airportName == null) {
-			if (other.airportName != null)
+			if (other.airportName != null) {
 				return false;
-		} else if (!airportName.equals(other.airportName))
+			}
+		} else if (!airportName.equals(other.airportName)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -83,5 +91,5 @@ public class Airport {
 		return "Airport [airportName=" + airportName + ", airportLocation=" + airportLocation + ", airportCode="
 				+ airportCode + "]";
 	}
-	
-}	
+
+}

@@ -28,13 +28,13 @@ public class FlightServiceImpl implements FlightService{
 	}
 
 	@Override
-	public Flight viewFlight(BigInteger flightId) {
+	public Flight viewFlight(BigInteger flightId) throws FRSException {
 		List<Flight> flightList=flightDao.viewFlight();
 		for(Flight flight: flightList) {
 			if(flight.getFlightNumber().equals(flightId))
 				return flight;
 		}
-		return null;
+		throw new FRSException("Flight Not Found.");
 	}
 
 	@Override

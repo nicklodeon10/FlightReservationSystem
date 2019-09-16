@@ -19,6 +19,14 @@ public class UserDaoImpl implements UserDao {
 		admin.setUserPhone(BigInteger.valueOf(9999999999L));
 		admin.setEmail("admin@frs.com");
 		userList.add(admin);
+		User user=new User();
+		user.setUserType("customer");
+		user.setUserId(BigInteger.valueOf(88888));
+		user.setUserName("CUSTOMER");
+		user.setUserPassword("CUSTOMER");
+		user.setUserPhone(BigInteger.valueOf(8888888888L));
+		user.setEmail("user@frs.com");
+		userList.add(user);
 	}
 	
 	public User addUser(User user) {

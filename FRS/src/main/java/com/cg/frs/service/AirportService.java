@@ -9,7 +9,7 @@ public interface AirportService {
 
 	public List<Airport> viewAirport();
     
-	public Airport viewAirport(String airportCode);
+	public Airport viewAirport(String airportCode) throws FRSException;
 	
 	public String validateAirportWithCode(String airportCode) throws FRSException;
 	

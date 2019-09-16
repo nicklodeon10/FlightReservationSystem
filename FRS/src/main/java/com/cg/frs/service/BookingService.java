@@ -13,19 +13,19 @@ public interface BookingService {
 	
 	public List<Booking> viewBooking();
 	
-	public List<Booking> viewBooking(BigInteger id);
+	public List<Booking> viewBooking(BigInteger id) throws FRSException;
 	
 	public Booking modifyBooking(Booking booking, Integer removePassengerCount);
 	
-	public boolean deleteBooking(BigInteger bookingId);
+	public boolean deleteBooking(BigInteger bookingId) throws FRSException;
 	
 	public ScheduleFlight validatePassengerCount(ScheduleFlight scheduleFlight,Integer passengerChange) throws FRSException;
+	
+	public boolean validatePassengerName(String name) throws FRSException;
 	
 	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException;
 	
 	public Booking validatePnr(Booking booking, BigInteger pnr) throws FRSException;
-	
-	public boolean validatePassengerName(String name) throws FRSException;
 	
 	public boolean validatePassengerUIN(BigInteger UIN) throws FRSException;
 	

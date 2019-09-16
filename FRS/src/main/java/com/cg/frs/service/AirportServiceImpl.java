@@ -17,13 +17,13 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public Airport viewAirport(String airportCode) {
+	public Airport viewAirport(String airportCode) throws FRSException {
 		List<Airport> airportList=airportDao.viewAirport();
 		for(Airport airport: airportList) {
 			if(airport.getAirportCode().equals(airportCode))
 				return airport;
 		}
-		return null;
+		throw new FRSException("InvalidAirportCode.");
 	}
 
 	@Override

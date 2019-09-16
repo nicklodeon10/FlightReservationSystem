@@ -28,13 +28,15 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public List<Booking> viewBooking(BigInteger id) {
+	public List<Booking> viewBooking(BigInteger id) throws FRSException {
 		List<Booking> bookingList=bookingDao.showBooking();
 		List<Booking> extractedList=new ArrayList<Booking>();
 		for(Booking booking: bookingList) {
 			if(booking.getBookingId().equals(id) || booking.getUserId().equals(id))
 				extractedList.add(booking);
 		}
+		if(bookingList.size()==0)
+			throw new FRSException("No Bookings Found.");
 		return bookingList;
 	}
 
@@ -45,7 +47,7 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public boolean deleteBooking(BigInteger bookingId) {
+	public boolean deleteBooking(BigInteger bookingId) throws FRSException {
 		viewBooking(bookingId).get(0).getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(viewBooking(bookingId).get(0).getFlight(), (-1)*viewBooking(bookingId).get(0).getNoOfPassengers()));
 		return bookingDao.removeBooking(bookingId);
 	}

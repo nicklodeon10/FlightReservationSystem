@@ -14,7 +14,7 @@ public interface FlightService {
     
 	public List<Flight> viewFlight();
     
-	public Flight viewFlight(BigInteger flightId);
+	public Flight viewFlight(BigInteger flightId) throws FRSException;
     
 	public boolean deleteFlight(BigInteger flightId);
 	

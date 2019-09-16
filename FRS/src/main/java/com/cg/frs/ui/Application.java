@@ -428,11 +428,13 @@ public class Application {
 					}
 					case 2: {
 						BigInteger bookingSearchId;
+						List<Booking> userBookingsList;
 						while (true) {
 							try {
 								System.out.println("Enter Search Id(userId or bookingId): ");
 								bookingSearchId = scanner.nextBigInteger();
 								bookingService.validateBookingWithId(bookingSearchId);
+								userBookingsList = bookingService.viewBooking(bookingSearchId);
 								break;
 							} catch (FRSException exception) {
 								System.err.println(exception.getMessage());
@@ -443,7 +445,6 @@ public class Application {
 								continue;
 							}
 						}
-						List<Booking> userBookingsList = bookingService.viewBooking(bookingSearchId);
 						System.out.println("Booking Details: ");
 						System.out.println("----------------------------");
 						for (Booking userBooking : userBookingsList) {
@@ -476,19 +477,20 @@ public class Application {
 					}
 					case 3: {
 						BigInteger bookingEditId;
+						Booking modifyBooking;
 						int removePassengerCount;
 						while (true) {
 							try {
 								System.out.println("Enter Booking Id: ");
 								bookingEditId = scanner.nextBigInteger();
 								bookingService.validateBookingWithId(bookingEditId);
+								modifyBooking = bookingService.viewBooking(bookingEditId).get(0);
 								break;
 							} catch (FRSException exception) {
 								System.err.println(exception.getMessage());
 								continue;
 							}
 						}
-						Booking modifyBooking = bookingService.viewBooking(bookingEditId).get(0);
 						List<Passenger> modifyPassengerList = modifyBooking.getPassengerList();
 						while (true) {
 							try {
@@ -531,11 +533,14 @@ public class Application {
 					}
 					case 4: {
 						BigInteger bookingDeleteId;
+						Booking removeBooking;
 						while (true) {
 							try {
 								System.out.println("Enter Booking Id: ");
 								bookingDeleteId = scanner.nextBigInteger();
 								bookingService.validateBookingWithId(bookingDeleteId);
+								removeBooking = bookingService.viewBooking(bookingDeleteId).get(0);
+								bookingService.deleteBooking(removeBooking.getBookingId());
 								break;
 							} catch (FRSException exception) {
 								System.err.println(exception.getMessage());
@@ -545,9 +550,7 @@ public class Application {
 								System.err.println(exception);
 								continue;
 							}
-						}
-						Booking removeBooking = bookingService.viewBooking(bookingDeleteId).get(0);
-						bookingService.deleteBooking(removeBooking.getBookingId());
+						}						
 						break;
 					}
 					case 0:
@@ -682,23 +685,23 @@ public class Application {
 										System.out.println("Enter Flight Number: ");
 										flightId = scanner.nextBigInteger();
 										flightService.validateFlightWithId(flightId);
+										System.out.println("Search Results:");
+										System.out.println("----------------------------");
+										System.out.println(
+												"Flight Number: " + flightService.viewFlight(flightId).getFlightNumber());
+										System.out.println(
+												"Carrier Name: " + flightService.viewFlight(flightId).getCarrierName());
+										System.out.println(
+												"Flight Model: " + flightService.viewFlight(flightId).getFlightModel());
+										System.out.println(
+												"Seat Capacity: " + flightService.viewFlight(flightId).getSeatCapacity());
+										System.out.println("----------------------------");
 										break;
 									} catch (FRSException exception) {
 										System.err.println(exception.getMessage());
 										continue;
 									}
 								}
-								System.out.println("Search Results:");
-								System.out.println("----------------------------");
-								System.out.println(
-										"Flight Number: " + flightService.viewFlight(flightId).getFlightNumber());
-								System.out.println(
-										"Carrier Name: " + flightService.viewFlight(flightId).getCarrierName());
-								System.out.println(
-										"Flight Model: " + flightService.viewFlight(flightId).getFlightModel());
-								System.out.println(
-										"Seat Capacity: " + flightService.viewFlight(flightId).getSeatCapacity());
-								System.out.println("----------------------------");
 								break;
 							case 4:
 								BigInteger modifyFlightNumber;
@@ -787,11 +790,13 @@ public class Application {
 							}
 							switch (adminScheduleChoice) {
 							case 1:
+								Integer availableSeats;
 								while (true) {
 									try {
 										System.out.println("Enter Flight Number: ");
 										scheduleFlightId = scanner.nextBigInteger();
 										flightService.validateFlightWithId(scheduleFlightId);
+										availableSeats = flightService.viewFlight(scheduleFlightId).getSeatCapacity();
 										break;
 									} catch (InputMismatchException exception) {
 										scanner.nextLine();
@@ -802,7 +807,6 @@ public class Application {
 										continue;
 									}
 								}
-								Integer availableSeats = flightService.viewFlight(scheduleFlightId).getSeatCapacity();
 								while (true) {
 									try {
 										System.out.println("Enter Source Airport Code: ");
@@ -861,10 +865,14 @@ public class Application {
 										continue;
 									}
 								}
-								scheduleFlight = new ScheduleFlight(flightService.viewFlight(scheduleFlightId),
-										availableSeats, schedule, ticketCost);
-								scheduleFlightService.addScheduleFlight(scheduleFlight);
-								System.out.println("Flight Scheduled.\n");
+								try {
+									scheduleFlight = new ScheduleFlight(flightService.viewFlight(scheduleFlightId),
+											availableSeats, schedule, ticketCost);
+									scheduleFlightService.addScheduleFlight(scheduleFlight);
+									System.out.println("Flight Scheduled.\n");
+								} catch (FRSException exception) {
+									System.out.println(exception.getMessage());
+								}
 								break;
 							case 2:
 								List<ScheduleFlight> scheduleFlightList = scheduleFlightService.viewScheduleFlight();
@@ -977,6 +985,7 @@ public class Application {
 										modifySourceAirportCode = scanner.next();
 										System.out.println("You have entered: "
 												+ airportService.validateAirportWithCode(modifySourceAirportCode));
+										modifySourceAirport = airportService.viewAirport(modifySourceAirportCode);
 										break;
 									} catch (InputMismatchException exception) {
 										scanner.nextLine();
@@ -987,13 +996,13 @@ public class Application {
 										continue;
 									}
 								}
-								modifySourceAirport = airportService.viewAirport(modifySourceAirportCode);
 								while (true) {
 									try {
 										System.out.println("Enter Destination Airport Code: ");
 										modifyDestinationAirportCode = scanner.next();
 										System.out.println("You have entered: "
 												+ airportService.validateAirportWithCode(modifyDestinationAirportCode));
+										modifyDestinationAirport = airportService.viewAirport(modifyDestinationAirportCode);
 										break;
 									} catch (InputMismatchException exception) {
 										System.out.println(exception);
@@ -1003,7 +1012,6 @@ public class Application {
 										continue;
 									}
 								}
-								modifyDestinationAirport = airportService.viewAirport(modifyDestinationAirportCode);
 								DateTimeFormatter modifyDateTimeFormatter = DateTimeFormatter
 										.ofPattern("dd-MM-yyyy HH:mm:ss");
 								scanner.nextLine();
@@ -1043,10 +1051,15 @@ public class Application {
 										continue;
 									}
 								}
-								modifyScheduleFlight = new ScheduleFlight(
-										flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,
-										modifySchedule, modifyTicketCost);
-								scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
+								try {
+									modifyScheduleFlight = new ScheduleFlight(
+											flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,
+											modifySchedule, modifyTicketCost);
+									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
+								} catch (FRSException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								break;
 							case 5:
 								BigInteger deleteScheduleFlightId;

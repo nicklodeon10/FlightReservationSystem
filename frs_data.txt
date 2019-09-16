@@ -1,0 +1,208 @@
+CREATE DATABASE IF NOT EXISTS frs_sql;
+USE frs_sql;
+
+CREATE TABLE IF NOT EXISTS user (
+
+user_type varchar(10) NOT NULL ,
+user_id bigint AUTO_INCREMENT,
+user_name varchar(255) NOT NULL,
+user_password varchar(255) NOT NULL,
+user_phone bigint NOT NULL,
+email varchar(255) NOT NULL,
+flag boolean,
+
+PRIMARY KEY (user_id)
+
+
+);
+
+
+CREATE TABLE IF NOT EXISTS  booking (
+
+
+booking_id bigint AUTO_INCREMENT NOT NULL,
+booking_date datetime NOT NULL,
+ticket_cost double NOT NULL,
+flight_number bigint NOT NULL,
+user_id bigint,
+flag boolean,
+
+PRIMARY KEY (booking_id),
+FOREIGN KEY (user_id) REFERENCES user(user_id)
+
+
+);
+
+
+CREATE TABLE IF NOT EXISTS passenger(
+
+pnr_number bigint AUTO_INCREMENT,
+passenger_name varchar(255) NOT NULL,
+passenger_age int NOT NULL,
+passenger_uin bigint NOT NULL,
+booking_id bigint,
+flag boolean,
+
+PRIMARY KEY (pnr_number),
+FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
+
+);
+
+
+CREATE TABLE IF NOT EXISTS flight(
+
+
+flight_number bigint AUTO_INCREMENT,
+carrier_name varchar(255) NOT NULL,
+flight_model varchar(255) NOT NULL,
+seat_capacity int NOT NULL,
+flag boolean,
+
+PRIMARY KEY (flight_number)
+
+
+
+);
+
+CREATE TABLE IF NOT EXISTS airport(
+
+airport_name varchar(255) NOT NULL,
+airport_location varchar(255) NOT NULL,
+airport_code varchar(10),
+flag boolean,
+
+PRIMARY KEY (airport_code)
+
+);
+
+CREATE TABLE IF NOT EXISTS schedule(
+
+source_airport varchar(255),
+destination_airport varchar(255) ,
+arrival_time datetime NOT NULL,
+departure_time datetime NOT NULL,
+airport_code varchar(10),
+flag boolean,
+
+PRIMARY KEY (source_airport,destination_airport)
+
+
+);
+
+CREATE TABLE IF NOT EXISTS scheduled_flight(
+
+flight_number bigint,
+available_seats int NOT NULL,
+source_airport varchar(255),
+destination_airport varchar(255),
+flag boolean,
+
+
+FOREIGN KEY (flight_number) REFERENCES flight(flight_number),
+FOREIGN KEY (source_airport,destination_airport) REFERENCES schedule(source_airport,destination_airport)
+
+
+
+);
+
+
+
+
+
+
+INSERT INTO `user` (`user_type`, `user_id`, `user_name`, `user_password`, `user_phone`, `email`,`flag`) VALUES
+	('admin', 1, 'Devang', 'dev@123', 7854268941, 'devang@gmail.com',true),
+	('admin', 2, 'Surya', 'sur@123', 9834868951, 'surya@gmail.com',true),
+	('admin', 3, 'Navya', 'nav@123', 7837622580, 'navya@gmail.com',true),
+	('user', 4, 'Kushal', 'kush@123', 8435622520, 'kushal@gmail.com',true),
+	('user', 5, 'Piyush', 'piy@123', 8538259520, 'piyush@gmail.com',true),
+	('user', 6, 'Bhrigu', 'bhr@123', 8538735120, 'bhrighu@gmail.com',true),
+	('user', 7, 'Venkatesh', 'ven@123', 8593415120, 'venkatesh@gmail.com',true),
+	('user', 8, 'Utkarsh', 'utk@123', 9253415120, 'utkarsh@gmail.com',true),
+	('user', 9, 'Divya', 'div@123', 9257396120, 'divya@gmail.com',true),
+	('user', 10, 'Priya', 'pri@123', 9257396493, 'priya@gmail.com',true);
+
+
+
+
+INSERT INTO `booking` (`booking_id`, `booking_date`, `passenger_name`, `ticket_cost`, `flight_number`, `user_id`,`flag`) VALUES
+	(1, '2019-10-01 00:00:00', 'ansh', 2582.67, 2, 5,true),
+	(2, '2019-10-01 00:00:00', 'piyush', 2582.67, 2, 5,true),
+	(3, '2019-10-01 00:00:00', 'deepank', 2582.67, 2, 5,true),
+	(4, '2019-10-01 00:00:00', 'Venkatesh', 2582.67, 1, 7,true);
+
+
+
+
+
+
+INSERT INTO `airport` (`airport_name`, `airport_location`, `airport_code`,`flag`) VALUES
+	('Kempegowda International Airport', 'Bengaluru', 'BLR',true),
+	('Indira Gandhi International Airport', 'Delhi', 'DEL',true),
+	('Rajiv Gandhi International Airport', 'Hyderabad', 'HYD',true),
+	('Chandigarh International Airport ', 'Chandigarh', 'IXC',true),
+	('Chennai International Airport ', 'Chennai', 'MAA',true),
+	('Chhatrapati Shivaji International Airport', 'Mumbai', 'MUM',true),
+	('Srinagar International Airport', 'Srinagar', 'SXR',true);
+
+
+
+
+
+INSERT INTO `passenger` (`pnr_number`, `passenger_name`, `passenger_age`, `passenger_uin`, `booking_id`,`flag`) VALUES
+	(1628302946, 'piyush', 32, 629173024284, 2,true),
+	(9274926462, 'deepank', 27, 294523024284, 3,true),
+	(9298426462, 'Venkatesh', 25, 294563954284, 4,true),
+	(9876543210, 'Ansh', 22, 508353271534, 1,true);
+
+
+
+
+
+INSERT INTO `scheduled_flight` (`available_seats`, `flight_number`, `source_airport`, `destination_airport`,`flag`) VALUES
+	( 50, 2, 'MUM', 'BLR',true),
+	( 39, 1, 'MUM', 'SXR',true),
+	( 9, 1, 'MUM', 'MAA',true),
+	( 25, 3, 'MUM', 'HYD',true);
+
+
+
+INSERT INTO `schedule` (`source_airport`, `destination_airport`, `arrival_time`, `departure_time`,`flag`) VALUES
+	('MUM', 'BLR', '2019-10-11 09:00:00', '2019-10-11 11:00:00',true),
+	('MUM', 'HYD', '2019-10-11 08:00:00', '2019-10-11 09:00:00',true),
+	('MUM', 'MAA', '2019-10-11 11:00:00', '2019-10-11 13:00:00',true),
+	('MUM', 'SXR', '2019-10-11 15:00:00', '2019-10-11 17:15:00',true);
+
+
+
+INSERT INTO `booking` (`booking_id`, `booking_date`, `passenger_name`, `ticket_cost`, `flight_number`, `user_id`,`flag`) VALUES
+	(1, '2019-10-01 00:00:00', 'ansh', 2582.67, 2, 5,true),
+	(2, '2019-10-01 00:00:00', 'piyush', 2582.67, 2, 5,true),
+	(3, '2019-10-01 00:00:00', 'deepank', 2582.67, 2, 5,true),
+	(4, '2019-10-01 00:00:00', 'Venkatesh', 2582.67, 1, 7,true);
+
+
+
+
+INSERT INTO `flight` (`flight_number`, `carrier_name`, `flight_model`, `seat_capacity`,`flag` ) VALUES
+	(1, 'indigo', 'Boeing 747', 100,true),
+	(2, 'indigo', 'Boeing 767', 170,true),
+	(3, 'airindia', 'A330', 150,true),
+	(4, 'airindia', 'A380', 180,true);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

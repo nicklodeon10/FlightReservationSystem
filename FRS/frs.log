@@ -621,3 +621,538 @@
 2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
 2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
 2019-09-17-main-ERROR-DBUtil.class: Error at addUser Dao method : java.sql.SQLException: Invalid value for getLong() - 'admin'
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Can not issue data manipulation statements with executeQuery().
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Can not issue data manipulation statements with executeQuery().
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Auto generated Id 1
+2019-09-17-main-ERROR-DBUtil.class:Auto generated Id 2
+2019-09-17-main-ERROR-DBUtil.class:Auto Generated Booking Id: 1
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1b68ddbd
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@536aaa8d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@76f2b07d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@4493d195
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1877ab81
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Auto generated Id 3
+2019-09-17-main-ERROR-DBUtil.class:Auto Generated Booking Id: 2
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1b68ddbd
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@536aaa8d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@76f2b07d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@4493d195
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1877ab81
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Auto generated Id 4
+2019-09-17-main-ERROR-DBUtil.class:Auto Generated Booking Id: 3
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-ERROR-DBUtil.class:Auto Generated Booking Id: 4
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@23ab930d
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@619a5dff
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@7ab2bfe1
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@b1a58a3
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.
+2019-09-17-main-INFO -DBUtil.class:Property File loaded : 
+2019-09-17-main-INFO -DBUtil.class:connection Obtained! : com.mysql.jdbc.JDBC4Connection@1cf4f579
+2019-09-17-main-INFO -DBUtil.class:Connection Obtained.

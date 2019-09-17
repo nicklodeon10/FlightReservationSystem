@@ -100,7 +100,6 @@ class FRSTest {
 		passenger.setPassengerAge(21);
 		passenger.setPassengerUIN(BigInteger.valueOf(123412341234L));
 		passenger.setPnrNumber(BigInteger.valueOf(123));
-		passenger.setLuggage(12.0);
 		booking=new Booking();
 		booking.setBookingId(BigInteger.valueOf(123456789));
 		booking.setUserId(BigInteger.valueOf(11111L));

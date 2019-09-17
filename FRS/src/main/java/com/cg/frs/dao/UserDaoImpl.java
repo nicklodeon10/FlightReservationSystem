@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		myLogger.info("Current working directory is " + userDir);
+		//myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
@@ -38,109 +38,31 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 	
+	@Override
 	public User addUser(User user) {
-		String sql ="insert into user(user_type,user_name,user_password,user_phone,user_email, flag) values(?,?,?,?,?,?)";		
+		String sql="Insert into user(user_type, user_name, user_password, user_phone, user_email, flag) values(?,?,?,?,?,0)";
 		try {
-			ps= connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, user.getUserType());
+			ps=connection.prepareStatement(sql);
+			ps.setString(1, "customer");
 			ps.setString(2, user.getUserName());
 			ps.setString(3, user.getUserPassword());
 			ps.setLong(4, user.getUserPhone().longValue());
-			ps.setString(5, user.getEmail());
-			ps.setBoolean(6, true);
-			ps.executeUpdate();
-			BigInteger generatedId = BigInteger.valueOf(0L);
-			rs = ps.getGeneratedKeys();
-			if (rs.next()) {
-				generatedId = BigInteger.valueOf(rs.getLong(1));
-				 myLogger.error("Auto generated Id " + generatedId);
-			}	
-			user.setUserId(generatedId);
-		} catch (SQLException e) {
-			myLogger.error("Error at addUser Dao method: "+e);
-		}finally {
-			if(ps!=null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					myLogger.error(" Error at addUser Dao method : "+e);
-				}
-			}
 		}
-		return user;
+		return null;
 	}
 	
+	@Override
 	public List<User> showUser() {
-		String sql ="select * from user where flag=0 and user_type='customer'";
-		List<User> userList = new ArrayList<User>();	
-		try {
-			ps= connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			rs= ps.executeQuery();
-			while (rs.next()) {
-				User user = new User();
-				user.setUserId(BigInteger.valueOf(rs.getLong(1)));
-				user.setUserType(rs.getString("user_type"));
-				user.setUserName(rs.getString("user_name"));
-				user.setUserPassword(rs.getString("user_password"));
-				user.setUserPhone(BigInteger.valueOf(rs.getLong("user_phone")));
-				user.setEmail(rs.getString("email"));
-				userList.add(user);	
-			}
-		} catch (SQLException e) {
-			myLogger.error(" Error at addUser Dao method : "+e);
-		}finally {
-			if(ps!=null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					myLogger.error(" Error at addUser Dao method : "+e);
-				}
-			}
-		}
-		return userList;
+		return null;
 	}
-
+	
+	@Override
 	public boolean removeUser(BigInteger userId) {
-		String sql ="update user set flag=1 where user_id=?";
-		try {
-			ps=connection.prepareStatement(sql);
-			ps.setLong(1, userId.longValue());
-			ps.executeUpdate();
-		}catch (SQLException e) {
-			myLogger.error(" Error at delete User Dao method : "+e);
-		}finally {
-			if(ps!=null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					myLogger.error(" Error at delete User Dao method : "+e);
-				}
-			}
-		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public User updateUser(User user) {
-		String sql="Update user set user_name=?, user_password=?, user_phone=?, user_email=?;";
-		try {
-			ps=connection.prepareStatement(sql);
-			ps.setString(1, user.getUserName());
-			ps.setString(2, user.getUserPassword());
-			ps.setLong(3, user.getUserPhone().longValue());
-			ps.setString(4, user.getEmail());
-			ps.executeUpdate();
-		}catch (SQLException e) {
-			myLogger.error(" Error at update User Dao method : "+e);
-		}finally {
-			if(ps!=null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					myLogger.error(" Error at update User Dao method : "+e);
-				}
-			}
-		}
 		return user;
 	}
 }

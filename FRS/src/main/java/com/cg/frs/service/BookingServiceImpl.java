@@ -35,9 +35,9 @@ public class BookingServiceImpl implements BookingService
 			if(booking.getBookingId().equals(id) || booking.getUserId().equals(id))
 				extractedList.add(booking);
 		}
-		if(bookingList.size()==0)
+		if(extractedList.size()==0)
 			throw new FRSException("No Bookings Found.");
-		return bookingList;
+		return extractedList;
 	}
 
 	@Override

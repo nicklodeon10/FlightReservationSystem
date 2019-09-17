@@ -17,6 +17,7 @@ import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FRSException;
 import com.cg.frs.service.AirportServiceImpl;
+import com.cg.frs.service.FlightServiceImpl;
 import com.cg.frs.util.DBUtil;
 
 public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
@@ -29,7 +30,7 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		myLogger.info("Current working directory is " + userDir);
+		//myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
@@ -59,7 +60,7 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 			ps.setTimestamp(3, Timestamp.valueOf(scheduleFlight.getSchedule().getArrivalDateTime()));
 			ps.setTimestamp(4, Timestamp.valueOf(scheduleFlight.getSchedule().getDepartureDateTime()));
 			ps.setLong(5, scheduleFlight.getFlight().getFlightNumber().longValue());
-			ps.executeUpdate();
+			System.out.println("ps :"+ps.executeUpdate());
 		}catch(SQLException exception) {
 			myLogger.error("Error at addScheduleFlight Dao method: "+exception);
 		}finally {
@@ -83,7 +84,11 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 			while (rs.next()) {
 				ScheduleFlight scheduleflight = new ScheduleFlight();
 				scheduleflight.setAvailableSeats(rs.getInt("available_seats"));
-				scheduleflight.getFlight().setFlightNumber(BigInteger.valueOf(rs.getLong("flight_number")));
+				try {
+					scheduleflight.setFlight(new FlightServiceImpl().viewFlight(BigInteger.valueOf(rs.getLong("flight_number"))));
+				} catch (FRSException e) {
+					myLogger.error(e.getMessage());
+				}
 				scheduleflight.setTicketCost(rs.getDouble("ticket_cost"));
 				scheduleflightList.add(scheduleflight);
 			}

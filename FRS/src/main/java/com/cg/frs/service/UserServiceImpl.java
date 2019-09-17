@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService{
 	
 	public User viewUser(BigInteger userId)	{
 		List<User> userList=userDao.showUser();
+		System.out.println(userList);
 		for(User user: userList) {
 			if(user.getUserId().equals(userId)) {
 				return user;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public BigInteger validateAdminWithId(BigInteger userId) throws FRSException {
-		if(viewUser(userId).equals(null))
+		if(viewUser(userId)==null)
 			throw new FRSException("Invalid User Id.");
 		if(!(viewUser(userId).getUserType().equalsIgnoreCase("admin")))
 			throw new FRSException("Unable to Access.");

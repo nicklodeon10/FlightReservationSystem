@@ -18,7 +18,7 @@ public class DBUtil {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		System.out.println("Current working directory is " + userDir);
+		//myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 	}
@@ -56,7 +56,6 @@ public class DBUtil {
 		return myProp;
 	}
 
-//method for closing the connection
 	public static void closeConnection() throws FRSException {
 		try {
 			if (connection != null) {

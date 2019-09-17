@@ -240,8 +240,8 @@ public class Application {
 						System.out.println("Choose Airports: ");
 						System.out.println("----------------------------");
 						for (Airport airport : airportList) {
-							System.out.println("Code: " + airport.getAirportCode());
-							System.out.println(", Name: " + airport.getAirportName());
+							System.out.print("Code: " + airport.getAirportCode());
+							System.out.print(", Name: " + airport.getAirportName());
 							System.out.println(", Location: " + airport.getAirportLocation());
 							System.out.println("----------------------------");
 						}

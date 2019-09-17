@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import org.apache.log4j.PropertyConfigurator;
 
 import com.cg.frs.dto.Booking;
+import com.cg.frs.dto.Passenger;
 import com.cg.frs.exception.FRSException;
+import com.cg.frs.service.ScheduleFlightServiceImpl;
 import com.cg.frs.util.DBUtil;
 
 public class BookingDaoImpl implements BookingDao {
@@ -29,35 +31,36 @@ public class BookingDaoImpl implements BookingDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		System.out.println("Current working directory is " + userDir);
+		myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
 			connection = DBUtil.getConnection();
+			myLogger.info("Connection Obtained.");
 		} catch (FRSException e) {
 			myLogger.info("Connection not obtained at AirportDao :" + e);
 		}
 	}
 
 	public Booking addBooking(Booking booking) {
-		String sql = "insert into booking(booking_date, ticket_cost, flight_number, user_id, passenger_count) values(?,?,?,?,?)";
+		String sql = "insert into booking(booking_date, ticket_cost, flight_number, user_id, passenger_count, flag) values(?,?,?,?,?,0)";
 		try {
 			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
 			ps.setDouble(2, booking.getTicketCost());
 			ps.setLong(3, booking.getFlight().getFlight().getFlightNumber().longValue());
-			ps.setLong(5, booking.getUserId().longValue());
+			ps.setLong(4, booking.getUserId().longValue());
 			ps.setInt(5, booking.getNoOfPassengers());
 			ps.executeUpdate();
 			BigInteger generatedId = BigInteger.valueOf(0L);
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				generatedId = BigInteger.valueOf(rs.getLong(1));
-				System.out.println("Auto Generated Booking Id: " + generatedId);
+				myLogger.error("Auto Generated Booking Id: " + generatedId);
 				booking.setBookingId(generatedId);
 			}
 		} catch (SQLException e) {
-			System.out.println(" Error at addBooking Dao method : " + e);
+			myLogger.error(" Error at addBooking Dao method : " + e);
 		}
 		sql="Insert into passenger(passenger_name, passenger_age, passenger_uin, booking_id, flag) values(?,?,?,?,0)";
 		try {
@@ -76,13 +79,13 @@ public class BookingDaoImpl implements BookingDao {
 				}
 			}
 		}catch(SQLException exception) {
-			System.out.println(" Error at addBooking Dao method : " + exception);
+			myLogger.error(" Error at addBooking Dao method : " + exception);
 		}finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at addBooking Dao method : " + e);
+					myLogger.error(" Error at addBooking Dao method : " + e);
 				}
 			}
 		}
@@ -90,34 +93,49 @@ public class BookingDaoImpl implements BookingDao {
 	}
 
 	public List<Booking> showBooking() {
-		String sql = "select * from booking";
+		String sql = "select * from booking where flag=0;";
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
-			ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps = connection.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				// create booking obj
 				Booking booking = new Booking();
-				// get the value from rs and set to booking obj
-				booking.setBookingId(BigInteger.valueOf(rs.getLong(1)));
-				booking.setBookingDate(rs.getString("booking_date"));
-				booking.setPassengerName(rs.getString("passenger_name"));
+				booking.setBookingId(BigInteger.valueOf(rs.getLong("booking_id")));
+				booking.setBookingDate(rs.getTimestamp("booking_date").toLocalDateTime());
 				booking.setTicketCost(rs.getDouble("ticket_cost"));
-				booking.getFlight().setFlightNumber(BigInteger.valueOf(rs.getLong("flight_number")));
+				booking.setFlight(new ScheduleFlightServiceImpl().viewScheduleFlights(BigInteger.valueOf(rs.getLong("flight_number"))));
 				booking.setUserId(BigInteger.valueOf(rs.getLong("user_id")));
-				booking.setNoOfPassengers(rs.getInt("No of Passengers"));
-				// add the booking obj to bookingList
+				booking.setNoOfPassengers(rs.getInt("passenger_count"));
 				bookingList.add(booking);
-
 			}
 		} catch (SQLException e) {
-			System.out.println(" Error at addBooking Dao method : " + e);
-		} finally {
+			myLogger.error(" Error at addBooking Dao method : " + e);
+		} 
+		sql="Select * from passenger where booking_id=? and flag=0;";
+		try {
+			for(Booking booking: bookingList) {
+				List<Passenger> passList=new ArrayList<Passenger>();
+				ps=connection.prepareStatement(sql);
+				ps.setLong(1, booking.getBookingId().longValue());
+				rs=ps.executeQuery();
+				while(rs.next()) {
+					Passenger passenger=new Passenger();
+					passenger.setPnrNumber(BigInteger.valueOf(rs.getLong("pnr_number")));
+					passenger.setPassengerName(rs.getString("passenger_name"));
+					passenger.setPassengerAge(rs.getInt("passenger_age"));
+					passenger.setPassengerUIN(BigInteger.valueOf(rs.getLong("passenger_uin")));
+					passList.add(passenger);
+				}
+				booking.setPassengerList(passList);
+			}
+		}catch(SQLException exception) {
+			myLogger.info(" Error at addBooking Dao method : " + exception);
+		}finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at addBooking Dao method : " + e);
+					myLogger.error(" Error at addBooking Dao method : " + e);
 				}
 			}
 		}
@@ -125,22 +143,62 @@ public class BookingDaoImpl implements BookingDao {
 	}
 
 	public boolean removeBooking(BigInteger bookingId) {
-		String sql = "Update booking set flag=1 where ";
+		String sql = "Update booking set flag=1 where booking_id=?;";
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setLong(1, bookingId.longValue());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(" Error at delete Booking Dao method : " + e);
-		} finally {
+			myLogger.error(" Error at delete Booking Dao method : " + e);
+		} 
+		sql = "Update passenger set flag=1 where booking_id=?;";
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setLong(1, bookingId.longValue());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			myLogger.error(" Error at delete Booking Dao method : " + e);
+		} 
+		sql="update passenger set flag=1 where booking_id=?;";
+		try {
+			ps=connection.prepareStatement(sql);
+			ps.setLong(1, bookingId.longValue());
+		}catch(SQLException exception) {
+			myLogger.error("Error at delete Booking Dao method: " + exception);
+		}
+		finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at delete Booking Dao method : " + e);
+					myLogger.error(" Error at delete Booking Dao method : " + e);
 				}
 			}
 		}
 		return true;
 	}
+
+	@Override
+	public Booking updateBooking(Booking booking) {
+		String sql="Update passenger set flag=1 where pnr_number=?;";
+		try {
+			ps=connection.prepareStatement(sql);
+			for(Passenger passenger: booking.getPassengerList()) {
+				ps.setLong(1, passenger.getPnrNumber().longValue());
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			myLogger.error(" Error at delete Booking Dao method : " + e);
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					myLogger.error(" Error at delete Booking Dao method : " + e);
+				}
+			}
+		}
+		return booking;
+	}
+
 }

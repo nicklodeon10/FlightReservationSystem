@@ -43,7 +43,7 @@ public class BookingServiceImpl implements BookingService
 	@Override
 	public Booking modifyBooking(Booking booking, Integer removePassengerCount) {
 		booking.getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getFlight(), (-1)*removePassengerCount));
-		return bookingDao.addBooking(booking);
+		return bookingDao.updateBooking(booking);
 	}
 
 	@Override

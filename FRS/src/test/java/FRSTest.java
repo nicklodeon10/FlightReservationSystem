@@ -65,7 +65,7 @@ class FRSTest {
 	@BeforeEach
 	public void beforeEachTest() {
 		user=new User();
-		user.setUserType("admin");
+		user.setUserType("customer");
 		user.setUserId(BigInteger.valueOf(99999L));
 		user.setUserName("ADMIN");
 		user.setUserPassword("ADMIN");
@@ -133,49 +133,6 @@ class FRSTest {
 	}
 	
 	@Test
-	public void testValidateUserWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(99999), userService.validateUserWithId(BigInteger.valueOf(99999)));
-		assertThrows(FRSException.class, () -> userService.validateUserWithId(BigInteger.valueOf(00000)));
-	}
-	
-	@Test
-	public void testValidateCustomerWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(11111), userService.validateCustomerWithId(BigInteger.valueOf(11111)));
-		assertThrows(FRSException.class, () -> userService.validateCustomerWithId(BigInteger.valueOf(00000)));
-	}
-	
-	@Test
-	public void testValidateAdminWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(99999), userService.validateAdminWithId(BigInteger.valueOf(99999)));
-		assertThrows(FRSException.class, () -> userService.validateCustomerWithId(BigInteger.valueOf(00000)));
-	}
-	
-	@Test
-	public void testValidatePhoneNumber() throws FRSException {
-		assertEquals(true, userService.validatePhoneNumber(BigInteger.valueOf(9999999999L)));
-		assertThrows(FRSException.class, ()-> userService.validatePhoneNumber(BigInteger.valueOf(11111111L)));
-		assertThrows(FRSException.class, ()-> userService.validatePhoneNumber(BigInteger.valueOf(1111111111L)));
-	}
-	
-	@Test
-	public void testValidateEmail() throws FRSException {
-		assertEquals(true, userService.validateEmail("abc@xyz.com"));
-		assertThrows(FRSException.class, ()->userService.validateEmail("abc"));		
-	}
-	
-	@Test
-	public void testViewAirport() throws FRSException {
-		assertEquals(sourceAirport, airportService.viewAirport("MUM"));
-		assertThrows(FRSException.class, ()->airportService.viewAirport("ABC"));
-	}
-	
-	@Test
-	public void testValidateAirportWithCode() throws FRSException {
-		assertEquals(sourceAirport, airportService.validateAirportWithCode("MUM"));
-		assertThrows(FRSException.class, ()->airportService.viewAirport("ABC"));
-	}
-	
-	@Test
 	public void testCompareAirport() throws FRSException {
 		assertThrows(FRSException.class, ()->airportService.compareAirport(sourceAirport, sourceAirport));
 	}
@@ -206,42 +163,6 @@ class FRSTest {
 	}
 	
 	@Test
-	public void testValidatePassengerCount() throws FRSException {
-		assertEquals(scheduleFlight, bookingService.validatePassengerCount(scheduleFlight, 1));
-		assertThrows(FRSException.class, ()->bookingService.validatePassengerCount(scheduleFlight, 100));
-	}
-	
-	@Test
-	public void testValidatePassengerName() throws FRSException {
-		assertEquals(true, bookingService.validatePassengerName("Basic Passenger"));
-		assertThrows(FRSException.class, ()->bookingService.validatePassengerName("123"));
-	}
-	
-	@Test
-	public void testValidateBookingWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(123456789L), bookingService.validateBookingWithId(BigInteger.valueOf(123456789L)));
-		assertThrows(FRSException.class, ()->bookingService.validateBookingWithId(BigInteger.valueOf(112122L)));
-	}
-	
-	@Test
-	public void testValidatePnr() throws FRSException {
-		assertEquals(booking, bookingService.validatePnr(booking, BigInteger.valueOf(123L)));
-		assertThrows(FRSException.class, ()->bookingService.validatePnr(booking, BigInteger.valueOf(1234L)));
-	}
-	
-	@Test
-	public void testValidatePassengerUIN() throws FRSException {
-		assertEquals(true, bookingService.validatePassengerUIN(BigInteger.valueOf(123412341234L)));
-		assertThrows(FRSException.class, ()->bookingService.validatePassengerUIN(BigInteger.valueOf(1234L)));
-	}
-	
-	@Test
-	public void testValidateLuggage() throws FRSException {
-		assertEquals(true, bookingService.validateLuggage(13.0));
-		assertThrows(FRSException.class, ()->bookingService.validateLuggage(32.0));
-	}
-	
-	@Test
 	public void testAddFlight() {
 		assertEquals(flight, flightService.addFlight(flight));
 	}
@@ -263,12 +184,6 @@ class FRSTest {
 	}
 	
 	@Test
-	public void testValidateFlightWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(12345L), flightService.validateFlightWithId(BigInteger.valueOf(12345L)));
-		assertThrows(FRSException.class, ()->flightService.validateFlightWithId(BigInteger.valueOf(123L)));
-	}
-	
-	@Test
 	public void testAddScheduleFlight() {
 		assertEquals(scheduleFlight, scheduleFlightService.addScheduleFlight(scheduleFlight));
 	}
@@ -286,12 +201,6 @@ class FRSTest {
 	@Test
 	public void testDeleteScheduleFlight() {
 		assertEquals(true, scheduleFlightService.deleteScheduleFlight(BigInteger.valueOf(12345L)));
-	}
-	
-	@Test
-	public void testValidateScheduleFlightWithId() throws FRSException {
-		assertEquals(BigInteger.valueOf(12345L), scheduleFlightService.validateScheduleFlightWithId(BigInteger.valueOf(12345L)));
-		assertThrows(FRSException.class, ()->scheduleFlightService.validateScheduleFlightWithId(BigInteger.valueOf(121L)));
 	}
 	
 	@Test

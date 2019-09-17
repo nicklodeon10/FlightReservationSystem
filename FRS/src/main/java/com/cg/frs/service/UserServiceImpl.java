@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public User updateUser(User user) {
-		return userDao.addUser(user);
+		return userDao.updateUser(user);
 	}
 	
 	public boolean deleteUser(BigInteger user) {

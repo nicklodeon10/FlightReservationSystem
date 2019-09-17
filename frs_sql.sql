@@ -44,10 +44,9 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `flight_number` bigint(20) NOT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `passenger_count` int(11) DEFAULT NULL,
-  PRIMARY KEY (`booking_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=latin1;
+  `flag` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`booking_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1000000004 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table frs_sql.booking: ~0 rows (approximately)
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
@@ -60,16 +59,10 @@ CREATE TABLE IF NOT EXISTS `flight` (
   `flight_model` varchar(255) NOT NULL,
   `seat_capacity` int(11) NOT NULL,
   PRIMARY KEY (`flight_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=12346 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12360 DEFAULT CHARSET=latin1;
 
--- Dumping data for table frs_sql.flight: ~5 rows (approximately)
+-- Dumping data for table frs_sql.flight: ~0 rows (approximately)
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
-INSERT IGNORE INTO `flight` (`flight_number`, `carrier_name`, `flight_model`, `seat_capacity`) VALUES
-	(1, 'indigo', 'Boeing 747', 100),
-	(2, 'indigo', 'Boeing 767', 170),
-	(3, 'airindia', 'A330', 150),
-	(4, 'airindia', 'A380', 180),
-	(12345, 'BestCarrier', 'BestModel111', 50);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 
 -- Dumping structure for table frs_sql.passenger
@@ -80,10 +73,8 @@ CREATE TABLE IF NOT EXISTS `passenger` (
   `passenger_uin` bigint(20) NOT NULL,
   `booking_id` bigint(20) DEFAULT NULL,
   `flag` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`pnr_number`),
-  KEY `booking_id` (`booking_id`),
-  CONSTRAINT `passenger_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10000000 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`pnr_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=10000014 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table frs_sql.passenger: ~0 rows (approximately)
 /*!40000 ALTER TABLE `passenger` DISABLE KEYS */;
@@ -96,16 +87,12 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   `arrival_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `departure_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `airport_code` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`source_airport`,`destination_airport`)
+  `flight_number` bigint(20) NOT NULL,
+  PRIMARY KEY (`flight_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table frs_sql.schedule: ~4 rows (approximately)
+-- Dumping data for table frs_sql.schedule: ~0 rows (approximately)
 /*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
-INSERT IGNORE INTO `schedule` (`source_airport`, `destination_airport`, `arrival_time`, `departure_time`, `airport_code`) VALUES
-	('MUM', 'BLR', '2019-10-11 09:00:00', '2019-10-11 11:00:00', NULL),
-	('MUM', 'HYD', '2019-10-11 08:00:00', '2019-10-11 09:00:00', NULL),
-	('MUM', 'MAA', '2019-10-11 11:00:00', '2019-10-11 13:00:00', NULL),
-	('MUM', 'SXR', '2019-10-11 15:00:00', '2019-10-11 17:15:00', NULL);
 /*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
 
 -- Dumping structure for table frs_sql.scheduled_flight
@@ -114,10 +101,9 @@ CREATE TABLE IF NOT EXISTS `scheduled_flight` (
   `available_seats` int(11) NOT NULL,
   `source_airport` varchar(255) DEFAULT NULL,
   `destination_airport` varchar(255) DEFAULT NULL,
+  `ticket_cost` double DEFAULT NULL,
   KEY `flight_number` (`flight_number`),
-  KEY `source_airport` (`source_airport`,`destination_airport`),
-  CONSTRAINT `scheduled_flight_ibfk_1` FOREIGN KEY (`flight_number`) REFERENCES `flight` (`flight_number`),
-  CONSTRAINT `scheduled_flight_ibfk_2` FOREIGN KEY (`source_airport`, `destination_airport`) REFERENCES `schedule` (`source_airport`, `destination_airport`)
+  KEY `source_airport` (`source_airport`,`destination_airport`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table frs_sql.scheduled_flight: ~0 rows (approximately)
@@ -131,14 +117,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `user_phone` bigint(20) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
   `flag` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10002 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=100010 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table frs_sql.user: ~1 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT IGNORE INTO `user` (`user_type`, `user_id`, `user_name`, `user_password`, `user_phone`, `email`, `flag`) VALUES
+INSERT IGNORE INTO `user` (`user_type`, `user_id`, `user_name`, `user_password`, `user_phone`, `user_email`, `flag`) VALUES
 	('admin', 99999, 'ADMIN', 'ADMIN', 9999999999, 'admin@frs.com', 1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 

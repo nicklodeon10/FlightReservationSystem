@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import org.apache.log4j.PropertyConfigurator;
 
@@ -27,11 +27,12 @@ public class FlightDaoImpl implements FlightDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		System.out.println("Current working directory is " + userDir);
+		myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
 			connection = DBUtil.getConnection();
+			myLogger.info("Connection Obtained.");
 		} catch (FRSException e) {
 			myLogger.info("Connection not obtained at AirportDao :" + e);
 		}
@@ -49,17 +50,17 @@ public class FlightDaoImpl implements FlightDao {
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				generatedId = BigInteger.valueOf(rs.getLong(1));
-				 System.out.println("Auto generated Id " + generatedId);
+				 myLogger.error("Auto generated Id " + generatedId);
 			}	
 			flight.setFlightNumber(generatedId);
 		} catch (SQLException e) {
-			System.out.println(" Error at addFlight Dao method : " + e);
+			myLogger.error(" Error at addFlight Dao method : " + e);
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at addFlight Dao method : " + e);
+					myLogger.error(" Error at addFlight Dao method : " + e);
 				}
 			}
 		}
@@ -81,19 +82,43 @@ public class FlightDaoImpl implements FlightDao {
 				flightList.add(flight);
 			}
 		} catch (SQLException e) {
-			System.out.println("Error at addFlight Dao method: " + e);
+			myLogger.error("Error at addFlight Dao method: " + e);
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println("Error at addFlight Dao method: " + e);
+					myLogger.error("Error at addFlight Dao method: " + e);
 				}
 			}
 		}
 		return flightList;
 	}
+	
+	@Override
+	public Flight updateFlight(Flight flight) {
+		String sql="update flight set carrier_name=?, flight_model=?, seat_capacity=?;";
+		try {
+			ps=connection.prepareStatement(sql);
+			ps.setString(1, flight.getCarrierName());
+			ps.setString(2, flight.getFlightModel());
+			ps.setInt(3, flight.getSeatCapacity());
+			ps.executeUpdate();
+		}catch (SQLException e) {
+			myLogger.error(" Error at update Flight Dao method : " + e);
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					myLogger.error(" Error at update Flight Dao method : " + e);
+				}
+			}
+		}
+		return flight;
+	}
 
+	@Override
 	public boolean deleteFlight(BigInteger flightId) {
 		String sql = "delete from flight where flight_number=?";
 		try {
@@ -101,16 +126,17 @@ public class FlightDaoImpl implements FlightDao {
 			ps.setLong(1, flightId.longValue());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(" Error at delete Flight Dao method : " + e);
+			myLogger.error(" Error at delete Flight Dao method : " + e);
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at delete Flight Dao method : " + e);
+					myLogger.error(" Error at delete Flight Dao method : " + e);
 				}
 			}
 		}
 		return true;
 	}
+	
 }

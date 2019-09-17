@@ -13,4 +13,6 @@ public interface BookingDao {
 	
 	public boolean removeBooking(BigInteger bookingId);
 	
+	public Booking updateBooking(Booking booking);
+	
 }

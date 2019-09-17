@@ -499,6 +499,7 @@ public class Application {
 							}
 						}
 						List<Passenger> modifyPassengerList = modifyBooking.getPassengerList();
+						List<Passenger> removePassengerList=new ArrayList<Passenger>();
 						while (true) {
 							try {
 								System.out.println("Enter the no of passengers to remove: ");
@@ -529,12 +530,12 @@ public class Application {
 							}
 							for (Passenger passenger : modifyPassengerList) {
 								if (passenger.getPnrNumber().equals(removePnr)) {
-									modifyPassengerList.remove(passenger);
+									removePassengerList.add(passenger);
 									break;
 								}
 							}
 						}
-						modifyBooking.setPassengerList(modifyPassengerList);
+						modifyBooking.setPassengerList(removePassengerList);
 						bookingService.modifyBooking(modifyBooking, removePassengerCount);
 						break;
 					}

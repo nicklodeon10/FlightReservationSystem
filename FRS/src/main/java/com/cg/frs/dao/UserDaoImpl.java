@@ -9,8 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
 
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.cg.frs.dto.User;
@@ -27,18 +27,19 @@ public class UserDaoImpl implements UserDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		System.out.println("Current working directory is " + userDir);
+		myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
 			connection = DBUtil.getConnection();
+			myLogger.info("Connection Obtained.");
 		} catch (FRSException e) {
 			myLogger.info("Connection not obtained at AirportDao :" + e);
 		}
 	}
 	
 	public User addUser(User user) {
-		String sql ="insert into user(user_type,user_name,user_password,user_phone,email, flag) values(?,?,?,?,?,?)";		
+		String sql ="insert into user(user_type,user_name,user_password,user_phone,user_email, flag) values(?,?,?,?,?,?)";		
 		try {
 			ps= connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, user.getUserType());
@@ -52,17 +53,17 @@ public class UserDaoImpl implements UserDao {
 			rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				generatedId = BigInteger.valueOf(rs.getLong(1));
-				 System.out.println("Auto generated Id " + generatedId);
+				 myLogger.error("Auto generated Id " + generatedId);
 			}	
 			user.setUserId(generatedId);
 		} catch (SQLException e) {
-			System.out.println("Error at addUser Dao method: "+e);
+			myLogger.error("Error at addUser Dao method: "+e);
 		}finally {
 			if(ps!=null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at addUser Dao method : "+e);
+					myLogger.error(" Error at addUser Dao method : "+e);
 				}
 			}
 		}
@@ -86,13 +87,13 @@ public class UserDaoImpl implements UserDao {
 				userList.add(user);	
 			}
 		} catch (SQLException e) {
-			System.out.println(" Error at addUser Dao method : "+e);
+			myLogger.error(" Error at addUser Dao method : "+e);
 		}finally {
 			if(ps!=null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at addUser Dao method : "+e);
+					myLogger.error(" Error at addUser Dao method : "+e);
 				}
 			}
 		}
@@ -106,17 +107,41 @@ public class UserDaoImpl implements UserDao {
 			ps.setLong(1, userId.longValue());
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			System.out.println(" Error at delete User Dao method : "+e);
+			myLogger.error(" Error at delete User Dao method : "+e);
 		}finally {
 			if(ps!=null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					System.out.println(" Error at delete User Dao method : "+e);
+					myLogger.error(" Error at delete User Dao method : "+e);
 				}
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public User updateUser(User user) {
+		String sql="Update user set user_name=?, user_password=?, user_phone=?, user_email=?;";
+		try {
+			ps=connection.prepareStatement(sql);
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getUserPassword());
+			ps.setLong(3, user.getUserPhone().longValue());
+			ps.setString(4, user.getEmail());
+			ps.executeUpdate();
+		}catch (SQLException e) {
+			myLogger.error(" Error at update User Dao method : "+e);
+		}finally {
+			if(ps!=null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					myLogger.error(" Error at update User Dao method : "+e);
+				}
+			}
+		}
+		return user;
 	}
 }
 

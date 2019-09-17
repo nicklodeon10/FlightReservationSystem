@@ -50,7 +50,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
 	@Override
 	public ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight) {
-		return scheduleFlightDao.addScheduleFlight(scheduleFlight);
+		return scheduleFlightDao.updateScheduleFlight(scheduleFlight);
 	}
 
 	@Override

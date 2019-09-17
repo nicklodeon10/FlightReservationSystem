@@ -10,6 +10,8 @@ public interface FlightDao {
 	public Flight addFlight(Flight flight);
      
 	public List<Flight> viewFlight();
+	
+	public Flight updateFlight(Flight flight);
      
 	public boolean deleteFlight(BigInteger flightId);   
 	

@@ -19,7 +19,7 @@ public class FlightServiceImpl implements FlightService{
 
 	@Override
 	public Flight modifyFlight(Flight flight) {
-		return flightDao.addFlight(flight);
+		return flightDao.updateFlight(flight);
 	}
 
 	@Override

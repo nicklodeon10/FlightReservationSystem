@@ -9,7 +9,9 @@ public interface ScheduleFlightDao {
 
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight);
 	
-	public List<ScheduleFlight > viewScheduleFlight();
+	public List<ScheduleFlight> viewScheduleFlight();
+	
+	public ScheduleFlight updateScheduleFlight(ScheduleFlight scheduleflight);
     
 	public boolean deleteScheduleFlight(BigInteger flightId);
 	

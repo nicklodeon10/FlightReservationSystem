@@ -11,6 +11,8 @@ public interface UserDao {
 	
 	public List<User> showUser();
 	
+	public User updateUser(User user);
+	
 	public boolean removeUser(BigInteger user);
 
 }

@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
-
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.cg.frs.dto.Airport;
@@ -25,13 +24,14 @@ public class AirportDaoImpl implements AirportDao {
 	static {
 		Properties props = System.getProperties();
 		String userDir = props.getProperty("user.dir") + "/src/main/resources/";
-		System.out.println("Current working directory is " + userDir);
+		myLogger.info("Current working directory is " + userDir);
 		PropertyConfigurator.configure(userDir + "log4j.properties");
 		myLogger = Logger.getLogger("DBUtil.class");
 		try {
 			connection = DBUtil.getConnection();
+			myLogger.info("Connection Obtained.");
 		} catch (FRSException e) {
-			myLogger.info("Connection not obtained at AirportDao :" + e);
+			myLogger.error("Connection not obtained at AirportDao :" + e);
 		}
 	}
 
@@ -50,13 +50,13 @@ public class AirportDaoImpl implements AirportDao {
 				airportList.add(airport);
 			}
 		} catch (SQLException e) {
-			myLogger.info(" Error at showAirport Dao method : " + e);
+			myLogger.error(" Error at showAirport Dao method : " + e);
 		} finally {
 			if (ps != null) {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-					myLogger.info(" Error at showAirport Dao method : " + e);
+					myLogger.error(" Error at showAirport Dao method : " + e);
 				}
 			}
 		}

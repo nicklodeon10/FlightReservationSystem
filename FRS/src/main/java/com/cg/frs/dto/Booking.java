@@ -4,83 +4,143 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
 public class Booking {
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column
 	private BigInteger bookingId;
+	@Column
 	private BigInteger userId;
+	@Temporal(TemporalType.DATE)
 	private LocalDateTime bookingDate;
-	private List<Passenger> passengerList;
+	@Column
 	private Double ticketCost;
-	private ScheduleFlight flight;
+	@Column
 	private Integer noOfPassengers;
-	
+	@Column
+	private Boolean userState;
+	@OneToOne
+	private ScheduleFlight scheduleFlight;
+	@OneToMany
+	private List<Passenger> passengerList;
+
 	public Booking() {
 		super();
 	}
-	
-	public Booking(BigInteger bookingId, BigInteger userId, LocalDateTime bookingDate, List<Passenger> passengerList,
-			Double ticketCost, ScheduleFlight flight, Integer noOfPassengers) {
+
+	public Booking(BigInteger bookingId, BigInteger userId, LocalDateTime bookingDate, Double ticketCost,
+			Integer noOfPassengers, Boolean userState, ScheduleFlight scheduleFlight, List<Passenger> passengerList) {
 		super();
 		this.bookingId = bookingId;
 		this.userId = userId;
 		this.bookingDate = bookingDate;
-		this.passengerList = passengerList;
 		this.ticketCost = ticketCost;
-		this.flight = flight;
 		this.noOfPassengers = noOfPassengers;
+		this.userState = userState;
+		this.scheduleFlight = scheduleFlight;
+		this.passengerList = passengerList;
+	}
+
+	@Override
+	public String toString() {
+		return "Booking [bookingId=" + bookingId + ", userId=" + userId + ", bookingDate=" + bookingDate
+				+ ", ticketCost=" + ticketCost + ", noOfPassengers=" + noOfPassengers + ", userState=" + userState
+				+ ", scheduleFlight=" + scheduleFlight + ", passengerList=" + passengerList + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
+		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
+		result = prime * result + ((noOfPassengers == null) ? 0 : noOfPassengers.hashCode());
+		result = prime * result + ((passengerList == null) ? 0 : passengerList.hashCode());
+		result = prime * result + ((scheduleFlight == null) ? 0 : scheduleFlight.hashCode());
+		result = prime * result + ((ticketCost == null) ? 0 : ticketCost.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((userState == null) ? 0 : userState.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Booking other = (Booking) obj;
+		if (bookingDate == null) {
+			if (other.bookingDate != null)
+				return false;
+		} else if (!bookingDate.equals(other.bookingDate))
+			return false;
+		if (bookingId == null) {
+			if (other.bookingId != null)
+				return false;
+		} else if (!bookingId.equals(other.bookingId))
+			return false;
+		if (noOfPassengers == null) {
+			if (other.noOfPassengers != null)
+				return false;
+		} else if (!noOfPassengers.equals(other.noOfPassengers))
+			return false;
+		if (passengerList == null) {
+			if (other.passengerList != null)
+				return false;
+		} else if (!passengerList.equals(other.passengerList))
+			return false;
+		if (scheduleFlight == null) {
+			if (other.scheduleFlight != null)
+				return false;
+		} else if (!scheduleFlight.equals(other.scheduleFlight))
+			return false;
+		if (ticketCost == null) {
+			if (other.ticketCost != null)
+				return false;
+		} else if (!ticketCost.equals(other.ticketCost))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		if (userState == null) {
+			if (other.userState != null)
+				return false;
+		} else if (!userState.equals(other.userState))
+			return false;
+		return true;
 	}
 
 	public BigInteger getBookingId() {
 		return bookingId;
 	}
-	
+
 	public void setBookingId(BigInteger bookingId) {
 		this.bookingId = bookingId;
 	}
-	
+
 	public BigInteger getUserId() {
 		return userId;
 	}
-	
+
 	public void setUserId(BigInteger userId) {
 		this.userId = userId;
-	}
-	
-	public List<Passenger> getPassengerList() {
-		return passengerList;
-	}
-	
-	public void setPassengerList(List<Passenger> passengerList) {
-		this.passengerList = passengerList;
-	}
-	
-	public Double getTicketCost() {
-		return ticketCost;
-	}
-	
-	public void setTicketCost(Double ticketCost) {
-		this.ticketCost = ticketCost;
-	}
-	
-	public ScheduleFlight getFlight() {
-		return flight;
-	}
-	
-	public void setFlight(ScheduleFlight flight) {
-		this.flight = flight;
-	}
-	
-	public int getNoOfPassengers() {
-		return noOfPassengers;
-	}
-	
-	public void setNoOfPassengers(int noOfPassengers) {
-		this.noOfPassengers = noOfPassengers;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -91,89 +151,44 @@ public class Booking {
 		this.bookingDate = bookingDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Booking [bookingId=" + bookingId + ", userId=" + userId + ", bookingDate=" + bookingDate
-				+ ", passengerList=" + passengerList + ", ticketCost=" + ticketCost + ", flight=" + flight
-				+ ", noOfPassengers=" + noOfPassengers + "]";
+	public Double getTicketCost() {
+		return ticketCost;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
-		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
-		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
-		result = prime * result + ((noOfPassengers == null) ? 0 : noOfPassengers.hashCode());
-		result = prime * result + ((passengerList == null) ? 0 : passengerList.hashCode());
-		result = prime * result + ((ticketCost == null) ? 0 : ticketCost.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
+	public void setTicketCost(Double ticketCost) {
+		this.ticketCost = ticketCost;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Booking other = (Booking) obj;
-		if (bookingDate == null) {
-			if (other.bookingDate != null) {
-				return false;
-			}
-		} else if (!bookingDate.equals(other.bookingDate)) {
-			return false;
-		}
-		if (bookingId == null) {
-			if (other.bookingId != null) {
-				return false;
-			}
-		} else if (!bookingId.equals(other.bookingId)) {
-			return false;
-		}
-		if (flight == null) {
-			if (other.flight != null) {
-				return false;
-			}
-		} else if (!flight.equals(other.flight)) {
-			return false;
-		}
-		if (noOfPassengers == null) {
-			if (other.noOfPassengers != null) {
-				return false;
-			}
-		} else if (!noOfPassengers.equals(other.noOfPassengers)) {
-			return false;
-		}
-		if (passengerList == null) {
-			if (other.passengerList != null) {
-				return false;
-			}
-		} else if (!passengerList.equals(other.passengerList)) {
-			return false;
-		}
-		if (ticketCost == null) {
-			if (other.ticketCost != null) {
-				return false;
-			}
-		} else if (!ticketCost.equals(other.ticketCost)) {
-			return false;
-		}
-		if (userId == null) {
-			if (other.userId != null) {
-				return false;
-			}
-		} else if (!userId.equals(other.userId)) {
-			return false;
-		}
-		return true;
+	public Integer getNoOfPassengers() {
+		return noOfPassengers;
 	}
-	
+
+	public void setNoOfPassengers(Integer noOfPassengers) {
+		this.noOfPassengers = noOfPassengers;
+	}
+
+	public Boolean getUserState() {
+		return userState;
+	}
+
+	public void setUserState(Boolean userState) {
+		this.userState = userState;
+	}
+
+	public ScheduleFlight getScheduleFlight() {
+		return scheduleFlight;
+	}
+
+	public void setScheduleFlight(ScheduleFlight scheduleFlight) {
+		this.scheduleFlight = scheduleFlight;
+	}
+
+	public List<Passenger> getPassengerList() {
+		return passengerList;
+	}
+
+	public void setPassengerList(List<Passenger> passengerList) {
+		this.passengerList = passengerList;
+	}
+
 }

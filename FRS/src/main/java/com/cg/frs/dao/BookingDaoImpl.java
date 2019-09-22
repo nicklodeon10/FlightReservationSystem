@@ -43,7 +43,6 @@ public class BookingDaoImpl implements BookingDao {
 
 	@Override
 	public Booking updateBooking(Booking booking) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

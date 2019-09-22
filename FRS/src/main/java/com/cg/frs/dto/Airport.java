@@ -1,6 +1,36 @@
 package com.cg.frs.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Airport {
+
+	@Id
+	@Column
+	private String airportCode;
+	@Column
+	private String airportName;
+	@Column
+	private String airportLocation;
+
+	public Airport() {
+		super();
+	}
+
+	public Airport(String airportName, String airportLocation, String airportCode) {
+		super();
+		this.airportName = airportName;
+		this.airportLocation = airportLocation;
+		this.airportCode = airportCode;
+	}
+
+	@Override
+	public String toString() {
+		return "Airport [airportName=" + airportName + ", airportLocation=" + airportLocation + ", airportCode="
+				+ airportCode + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -14,52 +44,29 @@ public class Airport {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Airport other = (Airport) obj;
 		if (airportCode == null) {
 			if (other.airportCode != null)
 				return false;
-		} else if (!airportCode.equals(other.airportCode)) {
+		} else if (!airportCode.equals(other.airportCode))
 			return false;
-		}
 		if (airportLocation == null) {
-			if (other.airportLocation != null) {
+			if (other.airportLocation != null)
 				return false;
-			}
-		} else if (!airportLocation.equals(other.airportLocation)) {
+		} else if (!airportLocation.equals(other.airportLocation))
 			return false;
-		}
 		if (airportName == null) {
-			if (other.airportName != null) {
+			if (other.airportName != null)
 				return false;
-			}
-		} else if (!airportName.equals(other.airportName)) {
+		} else if (!airportName.equals(other.airportName))
 			return false;
-		}
 		return true;
-	}
-
-	private String airportName;
-	private String airportLocation;
-	private String airportCode;
-
-	public Airport() {
-		super();
-	}
-
-	public Airport(String airportName, String airportLocation, String airportCode) {
-		super();
-		this.airportName = airportName;
-		this.airportLocation = airportLocation;
-		this.airportCode = airportCode;
 	}
 
 	public String getAirportName() {
@@ -84,12 +91,6 @@ public class Airport {
 
 	public void setAirportCode(String airportCode) {
 		this.airportCode = airportCode;
-	}
-
-	@Override
-	public String toString() {
-		return "Airport [airportName=" + airportName + ", airportLocation=" + airportLocation + ", airportCode="
-				+ airportCode + "]";
 	}
 
 }

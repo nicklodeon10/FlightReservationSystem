@@ -2,7 +2,43 @@ package com.cg.frs.dto;
 
 import java.time.LocalDateTime;
 
-public class Schedule{	
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Embeddable
+public class Schedule {
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Airport sourceAirport;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Airport destinationAirport;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime departureDateTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime arrivalDateTime;
+
+	public Schedule() {
+		super();
+	}
+
+	public Schedule(Airport sourceAirport, Airport destinationAirport, LocalDateTime departureDateTime,
+			LocalDateTime arrivalDateTime) {
+		super();
+		this.sourceAirport = sourceAirport;
+		this.destinationAirport = destinationAirport;
+		this.departureDateTime = departureDateTime;
+		this.arrivalDateTime = arrivalDateTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Schedule [sourceAirport=" + sourceAirport + ", destinationAirport=" + destinationAirport
+				+ ", departureDateTime=" + departureDateTime + ", arrivalDateTime=" + arrivalDateTime + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -47,30 +83,6 @@ public class Schedule{
 		return true;
 	}
 
-	private Airport sourceAirport;
-	private Airport destinationAirport;
-	private LocalDateTime departureDateTime;
-	private LocalDateTime arrivalDateTime;
-	
-	public Schedule() {
-		super();
-	}
-
-	public Schedule(Airport sourceAirport, Airport destinationAirport, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) {
-		super();
-		this.sourceAirport = sourceAirport;
-		this.destinationAirport = destinationAirport;
-		this.departureDateTime = departureDateTime;
-		this.arrivalDateTime = arrivalDateTime;
-	}
-
-	@Override
-	public String toString() {
-		return "Schedule [sourceAirport=" + sourceAirport + ", destinationAirport=" + destinationAirport
-				+ ", departureDateTime=" + departureDateTime + ", arrivalDateTime=" + arrivalDateTime + "]";
-	}
-
 	public Airport getSourceAirport() {
 		return sourceAirport;
 	}
@@ -104,4 +116,3 @@ public class Schedule{
 	}
 
 }
-

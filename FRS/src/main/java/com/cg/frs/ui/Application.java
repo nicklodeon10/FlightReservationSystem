@@ -839,7 +839,7 @@ public class Application {
 										System.err.println(exception.getMessage());
 									}
 								}
-								schedule = new Schedule(sourceAirport, destinationAirport, departureDateTime,
+								schedule = new Schedule(scheduleFlightId, sourceAirport, destinationAirport, departureDateTime,
 										arrivalDateTime);
 								while (true) {
 									try {
@@ -1027,7 +1027,7 @@ public class Application {
 										continue;
 									}
 								}
-								modifySchedule = new Schedule(modifySourceAirport, modifyDestinationAirport,
+								modifySchedule = new Schedule(modifyScheduleFlightId, modifySourceAirport, modifyDestinationAirport,
 										modifyDepartureDateTime, modifyArrivalDateTime);
 								while (true) {
 									try {

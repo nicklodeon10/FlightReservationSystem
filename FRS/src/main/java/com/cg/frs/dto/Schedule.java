@@ -1,17 +1,21 @@
 package com.cg.frs.dto;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Embeddable
+@Entity
 public class Schedule {
 
+	@Id
+	private BigInteger scheduleId;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Airport sourceAirport;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -25,9 +29,10 @@ public class Schedule {
 		super();
 	}
 
-	public Schedule(Airport sourceAirport, Airport destinationAirport, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) {
+	public Schedule(BigInteger scheduleId, Airport sourceAirport, Airport destinationAirport,
+			LocalDateTime departureDateTime, LocalDateTime arrivalDateTime) {
 		super();
+		this.scheduleId = scheduleId;
 		this.sourceAirport = sourceAirport;
 		this.destinationAirport = destinationAirport;
 		this.departureDateTime = departureDateTime;
@@ -36,8 +41,9 @@ public class Schedule {
 
 	@Override
 	public String toString() {
-		return "Schedule [sourceAirport=" + sourceAirport + ", destinationAirport=" + destinationAirport
-				+ ", departureDateTime=" + departureDateTime + ", arrivalDateTime=" + arrivalDateTime + "]";
+		return "Schedule [scheduleId=" + scheduleId + ", sourceAirport=" + sourceAirport + ", destinationAirport="
+				+ destinationAirport + ", departureDateTime=" + departureDateTime + ", arrivalDateTime="
+				+ arrivalDateTime + "]";
 	}
 
 	@Override
@@ -47,6 +53,7 @@ public class Schedule {
 		result = prime * result + ((arrivalDateTime == null) ? 0 : arrivalDateTime.hashCode());
 		result = prime * result + ((departureDateTime == null) ? 0 : departureDateTime.hashCode());
 		result = prime * result + ((destinationAirport == null) ? 0 : destinationAirport.hashCode());
+		result = prime * result + ((scheduleId == null) ? 0 : scheduleId.hashCode());
 		result = prime * result + ((sourceAirport == null) ? 0 : sourceAirport.hashCode());
 		return result;
 	}
@@ -74,6 +81,11 @@ public class Schedule {
 			if (other.destinationAirport != null)
 				return false;
 		} else if (!destinationAirport.equals(other.destinationAirport))
+			return false;
+		if (scheduleId == null) {
+			if (other.scheduleId != null)
+				return false;
+		} else if (!scheduleId.equals(other.scheduleId))
 			return false;
 		if (sourceAirport == null) {
 			if (other.sourceAirport != null)
@@ -113,6 +125,14 @@ public class Schedule {
 
 	public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
 		this.arrivalDateTime = arrivalDateTime;
+	}
+
+	public BigInteger getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(BigInteger scheduleId) {
+		this.scheduleId = scheduleId;
 	}
 
 }

@@ -3,7 +3,6 @@ package com.cg.frs.dto;
 import java.math.BigInteger;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -18,7 +17,7 @@ public class ScheduleFlight {
 	private Flight flight;
 	@Column
 	private Integer availableSeats;
-	@Embedded
+	@OneToOne
 	private Schedule schedule;
 	@Column
 	private Double ticketCost;

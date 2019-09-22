@@ -4,12 +4,11 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Schedule {
@@ -20,9 +19,9 @@ public class Schedule {
 	private Airport sourceAirport;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Airport destinationAirport;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column
 	private LocalDateTime departureDateTime;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column
 	private LocalDateTime arrivalDateTime;
 
 	public Schedule() {

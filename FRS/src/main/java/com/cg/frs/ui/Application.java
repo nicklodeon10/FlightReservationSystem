@@ -60,12 +60,11 @@ public class Application {
 			}
 			switch (userTypeChoice) {
 			case 1: {
-				User user;
+				User user=new User();
 				BigInteger userPhone;
 				String userEmail;
 				String userName;
 				String userPassword;
-				// userId = BigDecimal.valueOf(Math.random() * 100000).toBigInteger();
 				System.out.println("Enter User Name: ");
 				userName = scanner.next();
 				System.out.println("Enter User Password: ");

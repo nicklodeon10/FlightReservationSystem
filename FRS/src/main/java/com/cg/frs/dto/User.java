@@ -14,9 +14,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
-	private String userType;
-	@Column
 	private BigInteger userId;
+	@Column
+	private String userType;
 	@Column
 	private String userName;
 	@Column

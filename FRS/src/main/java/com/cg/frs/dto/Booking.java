@@ -25,7 +25,7 @@ public class Booking {
 	private BigInteger bookingId;
 	@Column
 	private BigInteger userId;
-	@Temporal(TemporalType.DATE)
+	@Column
 	private LocalDateTime bookingDate;
 	@Column
 	private Double ticketCost;

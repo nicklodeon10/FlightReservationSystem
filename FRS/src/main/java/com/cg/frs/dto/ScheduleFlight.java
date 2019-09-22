@@ -1,16 +1,20 @@
 package com.cg.frs.dto;
 
-import javax.persistence.CascadeType;
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
 public class ScheduleFlight {
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Id
+	private BigInteger scheduleFlightId;
+	@OneToOne(fetch = FetchType.EAGER)
 	private Flight flight;
 	@Column
 	private Integer availableSeats;
@@ -25,26 +29,11 @@ public class ScheduleFlight {
 		super();
 	}
 
-	public ScheduleFlight(Flight flight, Integer availableSeats, Schedule schedule, Double ticketCost,
-			Boolean scheduleFlightState) {
-		super();
-		this.flight = flight;
-		this.availableSeats = availableSeats;
-		this.schedule = schedule;
-		this.ticketCost = ticketCost;
-		this.scheduleFlightState = scheduleFlightState;
-	}
-
-	@Override
-	public String toString() {
-		return "ScheduleFlight [flight=" + flight + ", availableSeats=" + availableSeats + ", schedule=" + schedule
-				+ ", ticketCost=" + ticketCost + ", scheduleFlightState=" + scheduleFlightState + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((scheduleFlightId == null) ? 0 : scheduleFlightId.hashCode());
 		result = prime * result + ((availableSeats == null) ? 0 : availableSeats.hashCode());
 		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
 		result = prime * result + ((schedule == null) ? 0 : schedule.hashCode());
@@ -62,6 +51,11 @@ public class ScheduleFlight {
 		if (getClass() != obj.getClass())
 			return false;
 		ScheduleFlight other = (ScheduleFlight) obj;
+		if (scheduleFlightId == null) {
+			if (other.scheduleFlightId != null)
+				return false;
+		} else if (!scheduleFlightId.equals(other.scheduleFlightId))
+			return false;
 		if (availableSeats == null) {
 			if (other.availableSeats != null)
 				return false;
@@ -88,6 +82,17 @@ public class ScheduleFlight {
 		} else if (!ticketCost.equals(other.ticketCost))
 			return false;
 		return true;
+	}
+
+	public ScheduleFlight(BigInteger scheduleFlightId, Flight flight, Integer availableSeats, Schedule schedule,
+			Double ticketCost, Boolean scheduleFlightState) {
+		super();
+		scheduleFlightId = scheduleFlightId;
+		this.flight = flight;
+		this.availableSeats = availableSeats;
+		this.schedule = schedule;
+		this.ticketCost = ticketCost;
+		this.scheduleFlightState = scheduleFlightState;
 	}
 
 	public Flight getFlight() {
@@ -128,6 +133,14 @@ public class ScheduleFlight {
 
 	public void setScheduleFlightState(Boolean scheduleFlightState) {
 		this.scheduleFlightState = scheduleFlightState;
+	}
+
+	public BigInteger getScheduleFlightId() {
+		return scheduleFlightId;
+	}
+
+	public void setScheduleFlightId(BigInteger scheduleFlightId) {
+		scheduleFlightId = scheduleFlightId;
 	}
 
 }

@@ -104,7 +104,7 @@ class FRSTest {
 		booking.setBookingId(BigInteger.valueOf(123456789));
 		booking.setUserId(BigInteger.valueOf(11111L));
 		booking.setBookingDate(LocalDateTime.now());
-		booking.setFlight(scheduleFlight);
+		booking.setScheduleFlight(scheduleFlight);
 		booking.setTicketCost(5000D);
 		booking.setNoOfPassengers(1);
 		List<Passenger> passengerList=new ArrayList<Passenger>();

@@ -114,7 +114,7 @@ public class Application {
 						System.out.println("Enter User Id: ");
 						showUserId = scanner.nextBigInteger();
 						userService.validateUserWithId(showUserId);
-						user=userService.viewUser(showUserId);
+						user = userService.viewUser(showUserId);
 						break;
 					} catch (FRSException exception) {
 						System.err.println(exception.getMessage());
@@ -188,7 +188,7 @@ public class Application {
 					}
 				}
 				editUser = new User(userService.viewUser(editUserId).getUserType(), editUserId, userName, userPassword,
-						userPhone, userEmail);
+						userPhone, userEmail, true);
 				userService.updateUser(editUser);
 				break;
 			}
@@ -408,7 +408,7 @@ public class Application {
 							Booking booking = new Booking();
 							booking.setUserId(bookingUserId);
 							booking.setPassengerList(bookingPassengerList);
-							booking.setFlight(scheduleFlightService.viewScheduleFlights(bookingFlightNumber));
+							booking.setScheduleFlight(scheduleFlightService.viewScheduleFlights(bookingFlightNumber));
 							booking.setTicketCost(
 									scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()
 											* noOfPassengers);
@@ -446,14 +446,14 @@ public class Application {
 							System.out.println("Booking Id: " + userBooking.getBookingId());
 							System.out.println("Booking Date: " + userBooking.getBookingDate());
 							System.out.println("Booked by: " + userBooking.getUserId());
-							System.out.println(
-									"Departure Time: " + userBooking.getFlight().getSchedule().getDepartureDateTime());
-							System.out.println(
-									"Source Airport: " + userBooking.getFlight().getSchedule().getSourceAirport());
-							System.out.println(
-									"Arrival Time: " + userBooking.getFlight().getSchedule().getArrivalDateTime());
+							System.out.println("Departure Time: "
+									+ userBooking.getScheduleFlight().getSchedule().getDepartureDateTime());
+							System.out.println("Source Airport: "
+									+ userBooking.getScheduleFlight().getSchedule().getSourceAirport());
+							System.out.println("Arrival Time: "
+									+ userBooking.getScheduleFlight().getSchedule().getArrivalDateTime());
 							System.out.println("Destination Aiport: "
-									+ userBooking.getFlight().getSchedule().getDestinationAirport());
+									+ userBooking.getScheduleFlight().getSchedule().getDestinationAirport());
 							System.out.println("Ticket Cost: " + userBooking.getTicketCost());
 							System.out.println("Passengers List:");
 							System.out.println("----------------------------");
@@ -720,7 +720,7 @@ public class Application {
 									}
 								}
 								Flight modifyFlight = new Flight(modifyFlightNumber, modifyFlightModel,
-										modifyCarrierName, modifySeatCapacity);
+										modifyCarrierName, modifySeatCapacity, true);
 								flightService.addFlight(modifyFlight);
 								break;
 							case 5:
@@ -853,8 +853,8 @@ public class Application {
 									}
 								}
 								try {
-									scheduleFlight = new ScheduleFlight(flightService.viewFlight(scheduleFlightId),
-											availableSeats, schedule, ticketCost);
+									scheduleFlight = new ScheduleFlight(scheduleFlightId, flightService.viewFlight(scheduleFlightId),
+											availableSeats, schedule, ticketCost, true);
 									scheduleFlightService.addScheduleFlight(scheduleFlight);
 									System.out.println("Flight Scheduled.\n");
 								} catch (FRSException exception) {
@@ -1040,9 +1040,7 @@ public class Application {
 									}
 								}
 								try {
-									modifyScheduleFlight = new ScheduleFlight(
-											flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,
-											modifySchedule, modifyTicketCost);
+									modifyScheduleFlight = new ScheduleFlight(modifyScheduleFlightId, flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,modifySchedule, modifyTicketCost, true);
 									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
 								} catch (FRSException e) {
 									System.err.println(e.getMessage());

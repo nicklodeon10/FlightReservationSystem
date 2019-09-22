@@ -6,14 +6,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import com.cg.frs.dto.Flight;
+import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class FlightDaoImpl implements FlightDao {
 
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("library");
+	private static EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
 	private static EntityManager em = emf.createEntityManager();
 	private static EntityTransaction tran = em.getTransaction();
 
@@ -27,19 +27,26 @@ public class FlightDaoImpl implements FlightDao {
 
 	@Override
 	public List<Flight> viewFlight() {
-		TypedQuery<Flight> query = em.createQuery("FROM Flight", Flight.class);
-		List<Flight> flightList = query.getResultList();
-		return flightList;
+		TypedQuery<Flight> query = em.createQuery("FROM Flight WHERE flightState=true", Flight.class);
+		return query.getResultList();
 	}
 
 	@Override
 	public Flight updateFlight(Flight flight) {
-		return null;
+		Flight updateFlight=em.find(Flight.class, flight.getFlightNumber());
+		tran.begin();
+		updateFlight.setCarrierName(flight.getCarrierName());
+		updateFlight.setFlightModel(flight.getFlightModel());
+		updateFlight.setSeatCapacity(flight.getSeatCapacity());
+		tran.commit();
+		return flight;
 	}
 
 	@Override
 	public boolean deleteFlight(BigInteger flightId) {
+		Flight removeFlight=em.find(Flight.class, flightId);
 		tran.begin();
+		removeFlight.setFlightState(false);
 		tran.commit();
 		return false;
 	}

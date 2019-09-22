@@ -18,7 +18,7 @@ public class BookingServiceImpl implements BookingService
 	
 	@Override
 	public Booking addBooking(Booking booking) {
-		booking.getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getFlight(), booking.getNoOfPassengers()));
+		booking.getScheduleFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getScheduleFlight(), booking.getNoOfPassengers()));
 		return bookingDao.addBooking(booking);
 	}
 
@@ -30,31 +30,31 @@ public class BookingServiceImpl implements BookingService
 	@Override
 	public List<Booking> viewBooking(BigInteger id) throws FRSException {
 		List<Booking> bookingList=bookingDao.showBooking();
-		List<Booking> extractedList=new ArrayList<Booking>();
+		List<Booking> extractedList=new ArrayList<>();
 		for(Booking booking: bookingList) {
 			if(booking.getBookingId().equals(id) || booking.getUserId().equals(id))
 				extractedList.add(booking);
 		}
-		if(extractedList.size()==0)
+		if(extractedList.isEmpty())
 			throw new FRSException("No Bookings Found.");
 		return extractedList;
 	}
 
 	@Override
 	public Booking modifyBooking(Booking booking, Integer removePassengerCount) {
-		booking.getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getFlight(), (-1)*removePassengerCount));
+		booking.getScheduleFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getScheduleFlight(), (-1)*removePassengerCount));
 		return bookingDao.updateBooking(booking);
 	}
 
 	@Override
 	public boolean deleteBooking(BigInteger bookingId) throws FRSException {
-		viewBooking(bookingId).get(0).getFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(viewBooking(bookingId).get(0).getFlight(), (-1)*viewBooking(bookingId).get(0).getNoOfPassengers()));
+		viewBooking(bookingId).get(0).getScheduleFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(viewBooking(bookingId).get(0).getScheduleFlight(), (-1)*viewBooking(bookingId).get(0).getNoOfPassengers()));
 		return bookingDao.removeBooking(bookingId);
 	}
 
 	@Override
 	public BigInteger validateBookingWithId(BigInteger bookingId) throws FRSException {
-		if(viewBooking(bookingId).equals(null))
+		if(viewBooking(bookingId)==null)
 			throw new FRSException("Invalid Booking Id.");
 		return bookingId;
 	}
@@ -86,8 +86,8 @@ public class BookingServiceImpl implements BookingService
 		return true;
 	}
 	
-	public boolean validatePassengerUIN(BigInteger UIN) throws FRSException{
-		String passUIN=UIN.toString();
+	public boolean validatePassengerUIN(BigInteger uIN) throws FRSException{
+		String passUIN=uIN.toString();
 		if(passUIN.length()!=12) {
 			throw new FRSException("Invalid Passenger UIN.");
 		}

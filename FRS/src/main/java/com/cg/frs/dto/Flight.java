@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 public class Flight {
 
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger flightNumber;
 	private String flightModel;
 	private String carrierName;

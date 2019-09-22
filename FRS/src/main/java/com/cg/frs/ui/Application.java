@@ -33,7 +33,7 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		int userTypeChoice=1;
+		int userTypeChoice = 1;
 		Scanner scanner = new Scanner(System.in);
 		AirportService airportService = new AirportServiceImpl();
 		BookingService bookingService = new BookingServiceImpl();
@@ -65,7 +65,7 @@ public class Application {
 				String userEmail;
 				String userName;
 				String userPassword;
-				//userId = BigDecimal.valueOf(Math.random() * 100000).toBigInteger();
+				// userId = BigDecimal.valueOf(Math.random() * 100000).toBigInteger();
 				System.out.println("Enter User Name: ");
 				userName = scanner.next();
 				System.out.println("Enter User Password: ");
@@ -102,7 +102,7 @@ public class Application {
 				user.setUserPassword(userPassword);
 				user.setUserPhone(userPhone);
 				user.setEmail(userEmail);
-				user=userService.addUser(user);
+				user = userService.addUser(user);
 				System.out.println("User Created with UserId: " + user.getUserId());
 				break;
 			}
@@ -289,7 +289,8 @@ public class Application {
 						if (searchScheduledFlights.size() != 0) {
 							BigInteger bookingUserId;
 							BigInteger bookingFlightNumber;
-							//BigInteger bookingId = BigDecimal.valueOf(Math.random() * 1000000000).toBigInteger();
+							// BigInteger bookingId = BigDecimal.valueOf(Math.random() *
+							// 1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList = new ArrayList<Passenger>();
 							Integer noOfPassengers;
 							for (ScheduleFlight scheduleFlight : searchScheduledFlights) {
@@ -361,7 +362,7 @@ public class Application {
 								Integer passengerAge;
 								BigInteger passengerUIN;
 								Double passengerLuggage;
-								//BigInteger pnr = BigDecimal.valueOf(Math.random() * 10000000).toBigInteger();
+								// BigInteger pnr = BigDecimal.valueOf(Math.random() * 10000000).toBigInteger();
 								scanner.nextLine();
 								while (true) {
 									try {
@@ -398,34 +399,22 @@ public class Application {
 										continue;
 									}
 								}
-								while (true) {
-									try {
-										System.out.println("Enter luggage weight: ");
-										passengerLuggage = scanner.nextDouble();
-										bookingService.validateLuggage(passengerLuggage);
-										break;
-									} catch (InputMismatchException exception) {
-										System.out.println(exception);
-										continue;
-									} catch (FRSException exception) {
-										System.err.println(exception.getMessage());
-										continue;
-									}
-								}
+
 								passenger = new Passenger();
 								passenger.setPassengerName(passengerName);
 								passenger.setPassengerAge(passengerAge);
 								passenger.setPassengerUIN(passengerUIN);
-								passenger.setLuggage(passengerLuggage);
 								bookingPassengerList.add(passenger);
 							}
 							Booking booking = new Booking();
 							booking.setUserId(bookingUserId);
 							booking.setPassengerList(bookingPassengerList);
 							booking.setFlight(scheduleFlightService.viewScheduleFlights(bookingFlightNumber));
-							booking.setTicketCost(scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()* noOfPassengers);
+							booking.setTicketCost(
+									scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()
+											* noOfPassengers);
 							booking.setNoOfPassengers(noOfPassengers);
-							booking=bookingService.addBooking(booking);
+							booking = bookingService.addBooking(booking);
 							System.out.println("Booking Successful with Booking Id: " + booking.getBookingId());
 						} else {
 							System.out.println("No Flights Found.");
@@ -499,7 +488,7 @@ public class Application {
 							}
 						}
 						List<Passenger> modifyPassengerList = modifyBooking.getPassengerList();
-						List<Passenger> removePassengerList=new ArrayList<Passenger>();
+						List<Passenger> removePassengerList = new ArrayList<Passenger>();
 						while (true) {
 							try {
 								System.out.println("Enter the no of passengers to remove: ");
@@ -558,7 +547,7 @@ public class Application {
 								System.err.println(exception);
 								continue;
 							}
-						}						
+						}
 						break;
 					}
 					case 0:
@@ -636,7 +625,7 @@ public class Application {
 							}
 							switch (adminFlightManageChoice) {
 							case 1: {
-								//BigInteger flightNumber;
+								// BigInteger flightNumber;
 								String carrierName;
 								String flightModel;
 								Integer seatCapacity;
@@ -660,8 +649,8 @@ public class Application {
 								flight.setFlightModel(flightModel);
 								flight.setCarrierName(carrierName);
 								flight.setSeatCapacity(seatCapacity);
-								flight=flightService.addFlight(flight);
-								System.out.println("Flight Added with Flight Number: "+flight.getFlightNumber());
+								flight = flightService.addFlight(flight);
+								System.out.println("Flight Added with Flight Number: " + flight.getFlightNumber());
 								break;
 							}
 							case 2: {
@@ -687,14 +676,14 @@ public class Application {
 										flightService.validateFlightWithId(flightId);
 										System.out.println("Search Results:");
 										System.out.println("----------------------------");
-										System.out.println(
-												"Flight Number: " + flightService.viewFlight(flightId).getFlightNumber());
+										System.out.println("Flight Number: "
+												+ flightService.viewFlight(flightId).getFlightNumber());
 										System.out.println(
 												"Carrier Name: " + flightService.viewFlight(flightId).getCarrierName());
 										System.out.println(
 												"Flight Model: " + flightService.viewFlight(flightId).getFlightModel());
-										System.out.println(
-												"Seat Capacity: " + flightService.viewFlight(flightId).getSeatCapacity());
+										System.out.println("Seat Capacity: "
+												+ flightService.viewFlight(flightId).getSeatCapacity());
 										System.out.println("----------------------------");
 										break;
 									} catch (FRSException exception) {
@@ -1002,7 +991,8 @@ public class Application {
 										modifyDestinationAirportCode = scanner.next();
 										System.out.println("You have entered: "
 												+ airportService.validateAirportWithCode(modifyDestinationAirportCode));
-										modifyDestinationAirport = airportService.viewAirport(modifyDestinationAirportCode);
+										modifyDestinationAirport = airportService
+												.viewAirport(modifyDestinationAirportCode);
 										break;
 									} catch (InputMismatchException exception) {
 										System.out.println(exception);

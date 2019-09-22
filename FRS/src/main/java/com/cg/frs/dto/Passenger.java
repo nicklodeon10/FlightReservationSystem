@@ -8,7 +8,7 @@ public class Passenger{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((luggage == null) ? 0 : luggage.hashCode());
+		
 		result = prime * result + ((passengerAge == null) ? 0 : passengerAge.hashCode());
 		result = prime * result + ((passengerName == null) ? 0 : passengerName.hashCode());
 		result = prime * result + ((passengerUIN == null) ? 0 : passengerUIN.hashCode());
@@ -25,11 +25,7 @@ public class Passenger{
 		if (getClass() != obj.getClass())
 			return false;
 		Passenger other = (Passenger) obj;
-		if (luggage == null) {
-			if (other.luggage != null)
-				return false;
-		} else if (!luggage.equals(other.luggage))
-			return false;
+		
 		if (passengerAge == null) {
 			if (other.passengerAge != null)
 				return false;
@@ -52,31 +48,32 @@ public class Passenger{
 			return false;
 		return true;
 	}
-
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger pnrNumber;
 	private String passengerName;
 	private Integer passengerAge;
 	private BigInteger passengerUIN;
-	private Double luggage;
+	
 	
 	public Passenger() {
 		super();
 	}
 
-	public Passenger(BigInteger pnrNumber, String passengerName, Integer passengerAge, BigInteger passengerUIN,
-			Double luggage) {
+	public Passenger(BigInteger pnrNumber, String passengerName, Integer passengerAge, BigInteger passengerUIN) {
 		super();
 		this.pnrNumber = pnrNumber;
 		this.passengerName = passengerName;
 		this.passengerAge = passengerAge;
 		this.passengerUIN = passengerUIN;
-		this.luggage = luggage;
+		
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Passenger [pnrNumber=" + pnrNumber + ", passengerName=" + passengerName + ", passengerAge="
-				+ passengerAge + ", passengerUIN=" + passengerUIN + ", luggage=" + luggage + "]";
+				+ passengerAge + ", passengerUIN=" + passengerUIN + "]";
 	}
 
 	public BigInteger getPnrNumber() {
@@ -111,12 +108,6 @@ public class Passenger{
 		this.passengerUIN = passengerUIN;
 	}
 
-	public Double getLuggage() {
-		return luggage;
-	}
-
-	public void setLuggage(Double luggage) {
-		this.luggage = luggage;
-	}
+	
 
 }

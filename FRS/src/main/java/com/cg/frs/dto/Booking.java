@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Booking {
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger bookingId;
 	private BigInteger userId;
 	private LocalDateTime bookingDate;

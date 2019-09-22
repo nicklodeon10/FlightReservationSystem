@@ -2,6 +2,10 @@ package com.cg.frs.dto;
 
 import java.math.BigInteger;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Flight {
 
 	@Id

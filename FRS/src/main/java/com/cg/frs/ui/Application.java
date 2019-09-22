@@ -108,11 +108,13 @@ public class Application {
 			}
 			case 2: {
 				BigInteger showUserId;
+				User user;
 				while (true) {
 					try {
 						System.out.println("Enter User Id: ");
 						showUserId = scanner.nextBigInteger();
 						userService.validateUserWithId(showUserId);
+						user=userService.viewUser(showUserId);
 						break;
 					} catch (FRSException exception) {
 						System.err.println(exception.getMessage());
@@ -125,11 +127,11 @@ public class Application {
 				}
 				System.out.println("Profile Details: ");
 				System.out.println("----------------------------");
-				System.out.println("UserName: " + userService.viewUser(showUserId).getUserName());
-				System.out.println("UserId: " + userService.viewUser(showUserId).getUserId());
-				System.out.println("Email: " + userService.viewUser(showUserId).getEmail());
-				System.out.println("Phone: " + userService.viewUser(showUserId).getUserPhone());
-				System.out.println("UserType: " + userService.viewUser(showUserId).getUserType());
+				System.out.println("UserName: " + user.getUserName());
+				System.out.println("UserId: " + user.getUserId());
+				System.out.println("Email: " + user.getEmail());
+				System.out.println("Phone: " + user.getUserPhone());
+				System.out.println("UserType: " + user.getUserType());
 				System.out.println("----------------------------");
 				break;
 			}
@@ -361,8 +363,6 @@ public class Application {
 								String passengerName;
 								Integer passengerAge;
 								BigInteger passengerUIN;
-								Double passengerLuggage;
-								// BigInteger pnr = BigDecimal.valueOf(Math.random() * 10000000).toBigInteger();
 								scanner.nextLine();
 								while (true) {
 									try {
@@ -399,7 +399,6 @@ public class Application {
 										continue;
 									}
 								}
-
 								passenger = new Passenger();
 								passenger.setPassengerName(passengerName);
 								passenger.setPassengerAge(passengerAge);
@@ -464,7 +463,6 @@ public class Application {
 								System.out.println("Age: " + passenger.getPassengerAge());
 								System.out.println("PNR: " + passenger.getPnrNumber());
 								System.out.println("UIN: " + passenger.getPassengerUIN());
-								System.out.println("Luggage: " + passenger.getLuggage());
 								System.out.println("----------------------------");
 							}
 							System.out.println("----------------------------");

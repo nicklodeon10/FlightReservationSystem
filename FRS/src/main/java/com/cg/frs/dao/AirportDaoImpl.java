@@ -11,8 +11,8 @@ import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class AirportDaoImpl implements AirportDao {
 
-	private static EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
-	private static EntityManager em = emf.createEntityManager();
+	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
+	private EntityManager em = emf.createEntityManager();
 
 	@Override
 	public List<Airport> viewAirport() {

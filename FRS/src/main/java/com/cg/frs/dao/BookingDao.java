@@ -13,6 +13,6 @@ public interface BookingDao {
 	
 	public boolean removeBooking(BigInteger bookingId);
 	
-	public Booking updateBooking(Booking booking);
+	public Booking updateBooking(Booking booking, List<BigInteger> removePnrList);
 	
 }

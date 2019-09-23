@@ -15,7 +15,7 @@ public interface BookingService {
 	
 	public List<Booking> viewBooking(BigInteger id) throws FRSException;
 	
-	public Booking modifyBooking(Booking booking, Integer removePassengerCount);
+	public Booking modifyBooking(Booking booking, Integer removePassengerCount, List<BigInteger> removePnrList);
 	
 	public boolean deleteBooking(BigInteger bookingId) throws FRSException;
 	

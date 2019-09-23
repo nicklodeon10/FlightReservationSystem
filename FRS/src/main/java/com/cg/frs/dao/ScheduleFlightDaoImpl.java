@@ -14,9 +14,9 @@ import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 
-	private static EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
-	private static EntityManager em = emf.createEntityManager();
-	private static EntityTransaction tran = em.getTransaction();
+	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
+	private EntityManager em = emf.createEntityManager();
+	private EntityTransaction tran = em.getTransaction();
 
 	@Override
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {
@@ -28,14 +28,15 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 
 	@Override
 	public List<ScheduleFlight> viewScheduleFlight() {
-		TypedQuery<ScheduleFlight> query = em.createQuery("FROM ScheduleFlight WHERE scheduleFlightState=true", ScheduleFlight.class);
+		TypedQuery<ScheduleFlight> query = em.createQuery("FROM ScheduleFlight WHERE scheduleFlightState=true",
+				ScheduleFlight.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public ScheduleFlight updateScheduleFlight(ScheduleFlight scheduleFlight) {
-		ScheduleFlight updateScheduleFlight=em.find(ScheduleFlight.class, scheduleFlight.getScheduleFlightId());
-		Schedule updateSchedule=em.find(Schedule.class, scheduleFlight.getSchedule().getScheduleId());
+		ScheduleFlight updateScheduleFlight = em.find(ScheduleFlight.class, scheduleFlight.getScheduleFlightId());
+		Schedule updateSchedule = em.find(Schedule.class, scheduleFlight.getSchedule().getScheduleId());
 		tran.begin();
 		updateScheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats());
 		updateScheduleFlight.setTicketCost(scheduleFlight.getTicketCost());
@@ -49,8 +50,8 @@ public class ScheduleFlightDaoImpl implements ScheduleFlightDao {
 
 	@Override
 	public boolean deleteScheduleFlight(BigInteger scheduleFlightId) {
-		ScheduleFlight removeScheduleFlight=em.find(ScheduleFlight.class, scheduleFlightId);
-		Schedule removeSchedule=em.find(Schedule.class, removeScheduleFlight.getSchedule().getScheduleId());
+		ScheduleFlight removeScheduleFlight = em.find(ScheduleFlight.class, scheduleFlightId);
+		Schedule removeSchedule = em.find(Schedule.class, removeScheduleFlight.getSchedule().getScheduleId());
 		tran.begin();
 		removeScheduleFlight.setScheduleFlightState(false);
 		em.remove(removeSchedule);

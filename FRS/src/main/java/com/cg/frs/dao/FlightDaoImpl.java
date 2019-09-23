@@ -13,9 +13,9 @@ import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class FlightDaoImpl implements FlightDao {
 
-	private static EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
-	private static EntityManager em = emf.createEntityManager();
-	private static EntityTransaction tran = em.getTransaction();
+	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
+	private EntityManager em = emf.createEntityManager();
+	private EntityTransaction tran = em.getTransaction();
 
 	@Override
 	public Flight addFlight(Flight flight) {

@@ -499,6 +499,7 @@ public class Application {
 								continue;
 							}
 						}
+						List<BigInteger> removePnrList=new ArrayList<BigInteger>();
 						for (int i = 0; i < removePassengerCount; i++) {
 							BigInteger removePnr;
 							while (true) {
@@ -506,6 +507,7 @@ public class Application {
 									System.out.println("Enter passenger pnr: ");
 									removePnr = scanner.nextBigInteger();
 									bookingService.validatePnr(modifyBooking, removePnr);
+									removePnrList.add(removePnr);
 									break;
 								} catch (FRSException exception) {
 									System.err.println(exception);
@@ -524,7 +526,7 @@ public class Application {
 							}
 						}
 						modifyBooking.setPassengerList(removePassengerList);
-						bookingService.modifyBooking(modifyBooking, removePassengerCount);
+						bookingService.modifyBooking(modifyBooking, removePassengerCount, removePnrList);
 						break;
 					}
 					case 4: {

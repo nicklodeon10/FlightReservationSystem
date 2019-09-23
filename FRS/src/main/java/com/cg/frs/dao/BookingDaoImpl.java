@@ -14,9 +14,9 @@ import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class BookingDaoImpl implements BookingDao {
 
-	private static EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
-	private static EntityManager em = emf.createEntityManager();
-	private static EntityTransaction tran = em.getTransaction();
+	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
+	private EntityManager em = emf.createEntityManager();
+	private EntityTransaction tran = em.getTransaction();
 
 	@Override
 	public Booking addBooking(Booking booking) {
@@ -33,9 +33,15 @@ public class BookingDaoImpl implements BookingDao {
 	}
 
 	@Override
-	public Booking updateBooking(Booking newBooking) {
+	public Booking updateBooking(Booking newBooking, List<BigInteger> removePnrList) {
 		Booking oldBooking=em.find(Booking.class, newBooking.getBookingId());
+		List<Passenger> oldPassList=oldBooking.getPassengerList();
 		tran.begin();
+        for(Passenger passenger: oldPassList) {
+        	if(removePnrList.contains(passenger.getPnrNumber())) {
+        		passenger.setPassengerState(false);
+        	}
+        }
 		oldBooking.setTicketCost((oldBooking.getTicketCost()/oldBooking.getNoOfPassengers())*newBooking.getNoOfPassengers());
 		oldBooking.setNoOfPassengers(newBooking.getNoOfPassengers());
 		tran.commit();

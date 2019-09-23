@@ -11,6 +11,7 @@ D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dao\Schedule
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dao\BookingDaoImpl.java
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dto\User.java
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dao\AirportDaoImpl.java
+D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\util\DBUtil.java
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dto\Passenger.java
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dto\Booking.java
 D:\CAPGProject\FlightReservationSystem\FRS\src\main\java\com\cg\frs\dao\FlightDaoImpl.java

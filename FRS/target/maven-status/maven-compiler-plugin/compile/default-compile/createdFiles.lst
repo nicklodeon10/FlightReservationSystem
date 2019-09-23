@@ -15,6 +15,7 @@ com\cg\frs\dao\AirportDao.class
 com\cg\frs\dto\Booking.class
 com\cg\frs\exception\FRSException.class
 com\cg\frs\service\ScheduleFlightService.class
+com\cg\frs\util\DBUtil.class
 com\cg\frs\dao\UserDaoImpl.class
 com\cg\frs\dto\ScheduleFlight.class
 com\cg\frs\service\FlightServiceImpl.class

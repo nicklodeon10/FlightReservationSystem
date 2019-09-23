@@ -64,11 +64,5 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 			throw new FRSException("InvalidFlightId.");
 		return flightId;
 	}
-
-	@Override
-	public Integer modifySeatCount(ScheduleFlight scheduleFlight, int change) {
-		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()-change);
-		return scheduleFlight.getAvailableSeats();
-	}
 	
 }

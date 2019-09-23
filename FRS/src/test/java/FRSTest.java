@@ -203,8 +203,4 @@ class FRSTest {
 		assertEquals(true, scheduleFlightService.deleteScheduleFlight(BigInteger.valueOf(12345L)));
 	}
 	
-	@Test
-	public void testModifySeatCount() {
-		assertEquals(2, scheduleFlightService.modifySeatCount(scheduleFlight, 2));
-	}
 }

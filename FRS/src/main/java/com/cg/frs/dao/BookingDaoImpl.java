@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
+import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.util.EntityManagerFactoryUtil;
 
 public class BookingDaoImpl implements BookingDao {
@@ -17,11 +18,15 @@ public class BookingDaoImpl implements BookingDao {
 	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
 	private EntityManager em = emf.createEntityManager();
 	private EntityTransaction tran = em.getTransaction();
+	
+	ScheduleFlightDao scheduleFlightDao=new ScheduleFlightDaoImpl();
 
 	@Override
 	public Booking addBooking(Booking booking) {
+		ScheduleFlight scheduleFlight=em.find(ScheduleFlight.class, booking.getScheduleFlight().getScheduleFlightId());
 		tran.begin();
 		em.persist(booking);
+		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()-booking.getNoOfPassengers());
 		tran.commit();
 		return booking;
 	}
@@ -35,8 +40,10 @@ public class BookingDaoImpl implements BookingDao {
 	@Override
 	public boolean removeBooking(BigInteger bookingId) {
 		Booking bookingRemove = em.find(Booking.class, bookingId);
+		ScheduleFlight scheduleFlight=em.find(ScheduleFlight.class, bookingRemove.getScheduleFlight().getScheduleFlightId());
 		List<Passenger> removePassengerList=bookingRemove.getPassengerList();
 		tran.begin();
+		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()+bookingRemove.getNoOfPassengers());
 		bookingRemove.setBookingState(false);
 		for(Passenger removePassenger: removePassengerList) {
 			removePassenger.setPassengerState(false);

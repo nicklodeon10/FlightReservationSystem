@@ -24,6 +24,4 @@ public interface ScheduleFlightService {
 	
 	public BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException;
 	
-	public Integer modifySeatCount(ScheduleFlight scheduleFlight, int change) ;
-	
 }

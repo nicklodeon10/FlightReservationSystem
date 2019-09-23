@@ -41,12 +41,6 @@ public class BookingServiceImpl implements BookingService
 	}
 
 	@Override
-	public Booking modifyBooking(Booking booking, Integer removePassengerCount, List<BigInteger> removePnrList) {
-		booking.getScheduleFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(booking.getScheduleFlight(), (-1)*removePassengerCount));
-		return bookingDao.updateBooking(booking, removePnrList);
-	}
-
-	@Override
 	public boolean deleteBooking(BigInteger bookingId) throws FRSException {
 		viewBooking(bookingId).get(0).getScheduleFlight().setAvailableSeats(scheduleFlightService.modifySeatCount(viewBooking(bookingId).get(0).getScheduleFlight(), (-1)*viewBooking(bookingId).get(0).getNoOfPassengers()));
 		return bookingDao.removeBooking(bookingId);

@@ -33,22 +33,6 @@ public class BookingDaoImpl implements BookingDao {
 	}
 
 	@Override
-	public Booking updateBooking(Booking newBooking, List<BigInteger> removePnrList) {
-		Booking oldBooking=em.find(Booking.class, newBooking.getBookingId());
-		List<Passenger> oldPassList=oldBooking.getPassengerList();
-		tran.begin();
-        for(Passenger passenger: oldPassList) {
-        	if(removePnrList.contains(passenger.getPnrNumber())) {
-        		passenger.setPassengerState(false);
-        	}
-        }
-		oldBooking.setTicketCost((oldBooking.getTicketCost()/oldBooking.getNoOfPassengers())*newBooking.getNoOfPassengers());
-		oldBooking.setNoOfPassengers(newBooking.getNoOfPassengers());
-		tran.commit();
-		return newBooking;
-	}
-
-	@Override
 	public boolean removeBooking(BigInteger bookingId) {
 		Booking bookingRemove = em.find(Booking.class, bookingId);
 		List<Passenger> removePassengerList=bookingRemove.getPassengerList();

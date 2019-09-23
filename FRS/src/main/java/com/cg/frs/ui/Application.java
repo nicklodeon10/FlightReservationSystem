@@ -217,8 +217,7 @@ public class Application {
 					int userChoice;
 					System.out.println("Enter 1 to Book a Flight.");
 					System.out.println("Enter 2 to View Previous Flight Bookings.");
-					System.out.println("Enter 3 to Modify a Flight Booking.");
-					System.out.println("Enter 4 to Cancel a Flight Booking.");
+					System.out.println("Enter 3 to Cancel a Flight Booking.");
 					System.out.println("Enter 0 to Go Back to Previous Menu.");
 					while (true) {
 						try {
@@ -460,6 +459,7 @@ public class Application {
 							System.out.println("----------------------------");
 							List<Passenger> bookingPassengerList1 = userBooking.getPassengerList();
 							for (Passenger passenger : bookingPassengerList1) {
+								if(!passenger.getPassengerState()) continue;
 								System.out.println("Name: " + passenger.getPassengerName());
 								System.out.println("Age: " + passenger.getPassengerAge());
 								System.out.println("PNR: " + passenger.getPnrNumber());
@@ -471,65 +471,6 @@ public class Application {
 						break;
 					}
 					case 3: {
-						BigInteger bookingEditId;
-						Booking modifyBooking;
-						int removePassengerCount;
-						while (true) {
-							try {
-								System.out.println("Enter Booking Id: ");
-								bookingEditId = scanner.nextBigInteger();
-								bookingService.validateBookingWithId(bookingEditId);
-								modifyBooking = bookingService.viewBooking(bookingEditId).get(0);
-								break;
-							} catch (FRSException exception) {
-								System.err.println(exception.getMessage());
-								continue;
-							}
-						}
-						List<Passenger> modifyPassengerList = modifyBooking.getPassengerList();
-						List<Passenger> removePassengerList = new ArrayList<Passenger>();
-						while (true) {
-							try {
-								System.out.println("Enter the no of passengers to remove: ");
-								removePassengerCount = scanner.nextInt();
-								break;
-							} catch (InputMismatchException exception) {
-								scanner.nextLine();
-								System.err.println(exception);
-								continue;
-							}
-						}
-						List<BigInteger> removePnrList=new ArrayList<BigInteger>();
-						for (int i = 0; i < removePassengerCount; i++) {
-							BigInteger removePnr;
-							while (true) {
-								try {
-									System.out.println("Enter passenger pnr: ");
-									removePnr = scanner.nextBigInteger();
-									bookingService.validatePnr(modifyBooking, removePnr);
-									removePnrList.add(removePnr);
-									break;
-								} catch (FRSException exception) {
-									System.err.println(exception);
-									continue;
-								} catch (InputMismatchException exception) {
-									scanner.nextLine();
-									System.err.println(exception);
-									continue;
-								}
-							}
-							for (Passenger passenger : modifyPassengerList) {
-								if (passenger.getPnrNumber().equals(removePnr)) {
-									removePassengerList.add(passenger);
-									break;
-								}
-							}
-						}
-						modifyBooking.setPassengerList(removePassengerList);
-						bookingService.modifyBooking(modifyBooking, removePassengerCount, removePnrList);
-						break;
-					}
-					case 4: {
 						BigInteger bookingDeleteId;
 						Booking removeBooking;
 						while (true) {

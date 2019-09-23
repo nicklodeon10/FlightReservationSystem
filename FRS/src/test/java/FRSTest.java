@@ -151,12 +151,11 @@ class FRSTest {
 		bookingList.forEach(System.out::println);
 	}
 	
-	@Test
-	public void testModifyBooking() {
-		Booking modifyBooking=booking;
-		booking.setNoOfPassengers(booking.getNoOfPassengers()-2);
-		assertEquals(modifyBooking, bookingService.modifyBooking(booking, 2));
-	}
+	/*
+	 * @Test public void testModifyBooking() { Booking modifyBooking=booking;
+	 * booking.setNoOfPassengers(booking.getNoOfPassengers()-2);
+	 * assertEquals(modifyBooking, bookingService.modifyBooking(booking, 2)); }
+	 */
 	
 	@Test
 	public void testDeleteBooking() throws FRSException {

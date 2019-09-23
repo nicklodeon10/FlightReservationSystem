@@ -86,7 +86,7 @@ public class ScheduleFlight {
 	public ScheduleFlight(BigInteger scheduleFlightId, Flight flight, Integer availableSeats, Schedule schedule,
 			Double ticketCost, Boolean scheduleFlightState) {
 		super();
-		scheduleFlightId = scheduleFlightId;
+		this.scheduleFlightId = scheduleFlightId;
 		this.flight = flight;
 		this.availableSeats = availableSeats;
 		this.schedule = schedule;
@@ -139,7 +139,7 @@ public class ScheduleFlight {
 	}
 
 	public void setScheduleFlightId(BigInteger scheduleFlightId) {
-		scheduleFlightId = scheduleFlightId;
+		this.scheduleFlightId = scheduleFlightId;
 	}
 
 }

@@ -21,7 +21,7 @@
 				value="com.mysql.jdbc.Driver" />
 			<!-- The JDBC URL to the database instance -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/frs" />
+				value="jdbc:mysql://localhost:3306/test_db" />
 			<!-- The database username -->
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<!-- The database password -->

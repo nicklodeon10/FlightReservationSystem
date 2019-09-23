@@ -140,7 +140,7 @@ public class ScheduleFlight {
 	}
 
 	public void setScheduleFlightId(BigInteger scheduleFlightId) {
-		scheduleFlightId = scheduleFlightId;
+		this.scheduleFlightId = scheduleFlightId;
 	}
 
 }

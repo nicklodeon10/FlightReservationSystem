@@ -33,7 +33,7 @@ public class Booking {
 	private Boolean bookingState;
 	@OneToOne(fetch = FetchType.EAGER)
 	private ScheduleFlight scheduleFlight;
-	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Passenger> passengerList;
 
 	public Booking() {

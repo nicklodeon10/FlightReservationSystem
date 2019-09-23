@@ -3,7 +3,6 @@ package com.cg.frs.dto;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,9 +14,9 @@ public class Schedule {
 
 	@Id
 	private BigInteger scheduleId;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Airport sourceAirport;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Airport destinationAirport;
 	@Column
 	private LocalDateTime departureDateTime;

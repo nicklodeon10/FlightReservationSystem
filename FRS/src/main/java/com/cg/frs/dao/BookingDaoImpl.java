@@ -33,29 +33,24 @@ public class BookingDaoImpl implements BookingDao {
 	}
 
 	@Override
-	public Booking updateBooking(Booking booking) {
-		Booking updateBooking = em.find(Booking.class, booking.getBookingId());
-		List<Passenger> removedPassengerList = updateBooking.getPassengerList();
-		List<Passenger> newPassengerList = booking.getPassengerList();
-		for (Passenger passenger : newPassengerList) {
-			removedPassengerList.remove(passenger);
-		}
+	public Booking updateBooking(Booking newBooking) {
+		Booking oldBooking=em.find(Booking.class, newBooking.getBookingId());
 		tran.begin();
-		updateBooking.setNoOfPassengers(booking.getNoOfPassengers());
-		updateBooking.setPassengerList(booking.getPassengerList());
-		updateBooking.setTicketCost(booking.getTicketCost());
-		for (Passenger passenger : removedPassengerList) {
-			passenger.setPassengerState(false);
-		}
+		oldBooking.setTicketCost((oldBooking.getTicketCost()/oldBooking.getNoOfPassengers())*newBooking.getNoOfPassengers());
+		oldBooking.setNoOfPassengers(newBooking.getNoOfPassengers());
 		tran.commit();
-		return booking;
+		return newBooking;
 	}
 
 	@Override
 	public boolean removeBooking(BigInteger bookingId) {
-		tran.begin();
 		Booking bookingRemove = em.find(Booking.class, bookingId);
+		List<Passenger> removePassengerList=bookingRemove.getPassengerList();
+		tran.begin();
 		bookingRemove.setBookingState(false);
+		for(Passenger removePassenger: removePassengerList) {
+			removePassenger.setPassengerState(false);
+		}
 		tran.commit();
 		return false;
 	}

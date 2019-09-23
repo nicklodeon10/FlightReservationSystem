@@ -38,7 +38,6 @@ public class UserDaoImpl implements UserDao {
 	public User updateUser(User user) {
 		User userUpdate = em.find(User.class, user.getUserId());
 		tran.begin();
-		em.remove(userUpdate);
 		userUpdate.setUserName(user.getUserName());
 		userUpdate.setUserPassword(user.getUserPassword());
 		userUpdate.setUserPhone(user.getUserPhone());

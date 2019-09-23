@@ -2,6 +2,7 @@ package com.cg.frs.dto;
 
 import java.math.BigInteger;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +18,7 @@ public class ScheduleFlight {
 	private Flight flight;
 	@Column
 	private Integer availableSeats;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Schedule schedule;
 	@Column
 	private Double ticketCost;
@@ -86,7 +87,7 @@ public class ScheduleFlight {
 	public ScheduleFlight(BigInteger scheduleFlightId, Flight flight, Integer availableSeats, Schedule schedule,
 			Double ticketCost, Boolean scheduleFlightState) {
 		super();
-		scheduleFlightId = scheduleFlightId;
+		this.scheduleFlightId = scheduleFlightId;
 		this.flight = flight;
 		this.availableSeats = availableSeats;
 		this.schedule = schedule;

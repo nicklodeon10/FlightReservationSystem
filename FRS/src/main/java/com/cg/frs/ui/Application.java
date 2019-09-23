@@ -101,6 +101,7 @@ public class Application {
 				user.setUserPassword(userPassword);
 				user.setUserPhone(userPhone);
 				user.setEmail(userEmail);
+				user.setUserState(true);
 				user = userService.addUser(user);
 				System.out.println("User Created with UserId: " + user.getUserId());
 				break;
@@ -290,8 +291,6 @@ public class Application {
 						if (searchScheduledFlights.size() != 0) {
 							BigInteger bookingUserId;
 							BigInteger bookingFlightNumber;
-							// BigInteger bookingId = BigDecimal.valueOf(Math.random() *
-							// 1000000000).toBigInteger();
 							List<Passenger> bookingPassengerList = new ArrayList<Passenger>();
 							Integer noOfPassengers;
 							for (ScheduleFlight scheduleFlight : searchScheduledFlights) {
@@ -402,6 +401,7 @@ public class Application {
 								passenger.setPassengerName(passengerName);
 								passenger.setPassengerAge(passengerAge);
 								passenger.setPassengerUIN(passengerUIN);
+								passenger.setPassengerState(true);
 								bookingPassengerList.add(passenger);
 							}
 							Booking booking = new Booking();
@@ -412,6 +412,8 @@ public class Application {
 									scheduleFlightService.viewScheduleFlights(bookingFlightNumber).getTicketCost()
 											* noOfPassengers);
 							booking.setNoOfPassengers(noOfPassengers);
+							booking.setBookingDate(LocalDateTime.now());
+							booking.setBookingState(true);
 							booking = bookingService.addBooking(booking);
 							System.out.println("Booking Successful with Booking Id: " + booking.getBookingId());
 						} else {
@@ -622,7 +624,6 @@ public class Application {
 							}
 							switch (adminFlightManageChoice) {
 							case 1: {
-								// BigInteger flightNumber;
 								String carrierName;
 								String flightModel;
 								Integer seatCapacity;
@@ -646,6 +647,7 @@ public class Application {
 								flight.setFlightModel(flightModel);
 								flight.setCarrierName(carrierName);
 								flight.setSeatCapacity(seatCapacity);
+								flight.setFlightState(true);
 								flight = flightService.addFlight(flight);
 								System.out.println("Flight Added with Flight Number: " + flight.getFlightNumber());
 								break;
@@ -720,7 +722,7 @@ public class Application {
 								}
 								Flight modifyFlight = new Flight(modifyFlightNumber, modifyFlightModel,
 										modifyCarrierName, modifySeatCapacity, true);
-								flightService.addFlight(modifyFlight);
+								flightService.modifyFlight(modifyFlight);
 								break;
 							case 5:
 								BigInteger deleteFlightNumber;
@@ -1040,7 +1042,7 @@ public class Application {
 								}
 								try {
 									modifyScheduleFlight = new ScheduleFlight(modifyScheduleFlightId, flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,modifySchedule, modifyTicketCost, true);
-									scheduleFlightService.addScheduleFlight(modifyScheduleFlight);
+									scheduleFlightService.modifyScheduleFlight(modifyScheduleFlight);
 								} catch (FRSException e) {
 									System.err.println(e.getMessage());
 								}

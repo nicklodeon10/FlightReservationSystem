@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class Passenger {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private BigInteger pnrNumber;
 	@Column

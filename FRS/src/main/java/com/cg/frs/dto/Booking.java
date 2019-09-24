@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 public class Booking {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private BigInteger bookingId;
 	@Column

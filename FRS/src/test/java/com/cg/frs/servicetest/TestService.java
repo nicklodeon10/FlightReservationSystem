@@ -1,3 +1,5 @@
+package com.cg.frs.servicetest;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,7 +33,7 @@ import com.cg.frs.service.ScheduleFlightServiceImpl;
 import com.cg.frs.service.UserService;
 import com.cg.frs.service.UserServiceImpl;
 
-class FRSTest {
+class TestService {
 
 	static UserService userService;
 	static AirportService airportService;
@@ -142,20 +144,11 @@ class FRSTest {
 		assertEquals(booking, bookingService.addBooking(booking));
 	}
 	
+	//Incomplete
 	@Test
 	public void testViewBooking() throws FRSException {
-		List<Booking> bookingList=new ArrayList<Booking>();
-		bookingList.add(booking);
-		assertNotNull(bookingList);
-		System.out.println("88888888888888888888888   Booking List");
-		bookingList.forEach(System.out::println);
 	}
-	
-	/*
-	 * @Test public void testModifyBooking() { Booking modifyBooking=booking;
-	 * booking.setNoOfPassengers(booking.getNoOfPassengers()-2);
-	 * assertEquals(modifyBooking, bookingService.modifyBooking(booking, 2)); }
-	 */
+
 	
 	@Test
 	public void testDeleteBooking() throws FRSException {

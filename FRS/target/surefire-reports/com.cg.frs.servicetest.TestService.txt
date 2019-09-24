@@ -1,0 +1,64 @@
+-------------------------------------------------------------------------------
+Test set: com.cg.frs.servicetest.TestService
+-------------------------------------------------------------------------------
+Tests run: 16, Failures: 2, Errors: 12, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in com.cg.frs.servicetest.TestService
+testAddUser  Time elapsed: 0 s  <<< ERROR!
+javax.persistence.PersistenceException: org.hibernate.PersistentObjectException: detached entity passed to persist: com.cg.frs.dto.User
+	at com.cg.frs.servicetest.TestService.testAddUser(TestService.java:119)
+Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: com.cg.frs.dto.User
+	at com.cg.frs.servicetest.TestService.testAddUser(TestService.java:119)
+
+testViewScheduleFlight  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <com.cg.frs.dto.ScheduleFlight@95c8ac90> but was: <null>
+	at com.cg.frs.servicetest.TestService.testViewScheduleFlight(TestService.java:186)
+
+testAddScheduleFlight  Time elapsed: 0 s  <<< ERROR!
+javax.persistence.PersistenceException: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned before calling save(): com.cg.frs.dto.ScheduleFlight
+	at com.cg.frs.servicetest.TestService.testAddScheduleFlight(TestService.java:181)
+Caused by: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned before calling save(): com.cg.frs.dto.ScheduleFlight
+	at com.cg.frs.servicetest.TestService.testAddScheduleFlight(TestService.java:181)
+
+testDeleteFlight  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.cg.frs.servicetest.TestService.testDeleteFlight(TestService.java:176)
+
+testAddFlight  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Transaction already active
+	at com.cg.frs.servicetest.TestService.testAddFlight(TestService.java:160)
+
+testModifyUser  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Transaction already active
+	at com.cg.frs.servicetest.TestService.testModifyUser(TestService.java:129)
+
+testModifyFlight  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalStateException: Transaction already active
+	at com.cg.frs.servicetest.TestService.testModifyFlight(TestService.java:165)
+
+testDeleteUser  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalStateException: Transaction already active
+	at com.cg.frs.servicetest.TestService.testDeleteUser(TestService.java:134)
+
+testAddBooking  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalArgumentException: id to load is required for loading
+	at com.cg.frs.servicetest.TestService.testAddBooking(TestService.java:144)
+
+testViewFlight  Time elapsed: 0 s  <<< ERROR!
+com.cg.frs.exception.FRSException: Flight Not Found.
+	at com.cg.frs.servicetest.TestService.testViewFlight(TestService.java:170)
+
+testModifyScheduleFlight  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalArgumentException: id to load is required for loading
+	at com.cg.frs.servicetest.TestService.testModifyScheduleFlight(TestService.java:191)
+
+testDeleteScheduleFlight  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.cg.frs.servicetest.TestService.testDeleteScheduleFlight(TestService.java:196)
+
+testDeleteBooking  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.cg.frs.servicetest.TestService.testDeleteBooking(TestService.java:155)
+
+testViewUser  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <User [userType=customer, userId=99999, userName=ADMIN, userPassword=ADMIN, userPhone=9999999999, email=admin@frs.com, userState=null]> but was: <User [userType=admin, userId=99999, userName=admin, userPassword=admin, userPhone=9999999999, email=admin@admin.com, userState=true]>
+	at com.cg.frs.servicetest.TestService.testViewUser(TestService.java:124)
+

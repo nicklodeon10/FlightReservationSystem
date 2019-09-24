@@ -9,20 +9,21 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name="schedule_flight")
 public class ScheduleFlight {
 
 	@Id
+	@Column(name="schedule_flight_id")
 	private BigInteger scheduleFlightId;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Flight flight;
-	@Column
+	@Column(name="available_seats")
 	private Integer availableSeats;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Schedule schedule;
-	@Column
+	@Column(name="ticket_cost")
 	private Double ticketCost;
-	@Column
+	@Column(name="schedule_flight_state")
 	private Boolean scheduleFlightState;
 
 	public ScheduleFlight() {

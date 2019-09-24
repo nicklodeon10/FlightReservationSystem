@@ -9,18 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name="schedule")
 public class Schedule {
 
 	@Id
+	@Column(name="schedule_Id")
 	private BigInteger scheduleId;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport sourceAirport;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport destinationAirport;
-	@Column
+	@Column(name="departure_date_time")
 	private LocalDateTime departureDateTime;
-	@Column
+	@Column(name="arrival_date_time")
 	private LocalDateTime arrivalDateTime;
 
 	public Schedule() {

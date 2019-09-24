@@ -14,22 +14,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name="booking")
 public class Booking {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name="booking_id")
 	private BigInteger bookingId;
-	@Column
+	@Column(name="user_id")
 	private BigInteger userId;
-	@Column
+	@Column(name="booking_date")
 	private LocalDateTime bookingDate;
-	@Column
+	@Column(name="ticket_cost")
 	private Double ticketCost;
-	@Column
-	private Integer noOfPassengers;
-	@Column
+	@Column(name="passenger_count")
+	private Integer passengerCount;
+	@Column(name="booking_state")
 	private Boolean bookingState;
 	@OneToOne(fetch = FetchType.EAGER)
 	private ScheduleFlight scheduleFlight;
@@ -47,7 +47,7 @@ public class Booking {
 		this.userId = userId;
 		this.bookingDate = bookingDate;
 		this.ticketCost = ticketCost;
-		this.noOfPassengers = noOfPassengers;
+		this.passengerCount = noOfPassengers;
 		this.bookingState = bookingState;
 		this.scheduleFlight = scheduleFlight;
 		this.passengerList = passengerList;
@@ -56,7 +56,7 @@ public class Booking {
 	@Override
 	public String toString() {
 		return "Booking [bookingId=" + bookingId + ", userId=" + userId + ", bookingDate=" + bookingDate
-				+ ", ticketCost=" + ticketCost + ", noOfPassengers=" + noOfPassengers + ", bookingState=" + bookingState
+				+ ", ticketCost=" + ticketCost + ", noOfPassengers=" + passengerCount + ", bookingState=" + bookingState
 				+ ", scheduleFlight=" + scheduleFlight + ", passengerList=" + passengerList + "]";
 	}
 
@@ -66,7 +66,7 @@ public class Booking {
 		int result = 1;
 		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
-		result = prime * result + ((noOfPassengers == null) ? 0 : noOfPassengers.hashCode());
+		result = prime * result + ((passengerCount == null) ? 0 : passengerCount.hashCode());
 		result = prime * result + ((passengerList == null) ? 0 : passengerList.hashCode());
 		result = prime * result + ((scheduleFlight == null) ? 0 : scheduleFlight.hashCode());
 		result = prime * result + ((ticketCost == null) ? 0 : ticketCost.hashCode());
@@ -94,10 +94,10 @@ public class Booking {
 				return false;
 		} else if (!bookingId.equals(other.bookingId))
 			return false;
-		if (noOfPassengers == null) {
-			if (other.noOfPassengers != null)
+		if (passengerCount == null) {
+			if (other.passengerCount != null)
 				return false;
-		} else if (!noOfPassengers.equals(other.noOfPassengers))
+		} else if (!passengerCount.equals(other.passengerCount))
 			return false;
 		if (passengerList == null) {
 			if (other.passengerList != null)
@@ -160,11 +160,11 @@ public class Booking {
 	}
 
 	public Integer getNoOfPassengers() {
-		return noOfPassengers;
+		return passengerCount;
 	}
 
 	public void setNoOfPassengers(Integer noOfPassengers) {
-		this.noOfPassengers = noOfPassengers;
+		this.passengerCount = noOfPassengers;
 	}
 
 	public Boolean getBookingState() {

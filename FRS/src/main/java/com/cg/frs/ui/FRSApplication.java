@@ -29,7 +29,7 @@ import com.cg.frs.service.ScheduleFlightServiceImpl;
 import com.cg.frs.service.UserService;
 import com.cg.frs.service.UserServiceImpl;
 
-public class Application {
+public class FRSApplication {
 
 	public static void main(String[] args) {
 

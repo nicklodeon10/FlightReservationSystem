@@ -8,20 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="passenger")
 public class Passenger {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name="pnr_number")
 	private BigInteger pnrNumber;
-	@Column
+	@Column(name="passenger_name")
 	private String passengerName;
-	@Column
+	@Column(name="passenger_age")
 	private Integer passengerAge;
-	@Column
+	@Column(name="passenger_UIN")
 	private BigInteger passengerUIN;
-	@Column
+	@Column(name="passenger_state")
 	private Boolean passengerState;
 
 	public Passenger() {

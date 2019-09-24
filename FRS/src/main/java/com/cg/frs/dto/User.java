@@ -8,24 +8,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name="user_id")
 	private BigInteger userId;
-	@Column
+	@Column(name="user_type")
 	private String userType;
-	@Column
+	@Column(name="user_name")
 	private String userName;
-	@Column
+	@Column(name="user_password")
 	private String userPassword;
-	@Column
+	@Column(name="user_phone")
 	private BigInteger userPhone;
-	@Column
+	@Column(name="user_email")
 	private String email;
-	@Column
+	@Column(name="user_state")
 	private Boolean userState;
 
 	public User() {

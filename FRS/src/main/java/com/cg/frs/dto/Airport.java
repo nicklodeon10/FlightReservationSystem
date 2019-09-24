@@ -4,15 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="airport")
 public class Airport {
 
 	@Id
-	@Column
+	@Column(name="airport_code")
 	private String airportCode;
-	@Column
+	@Column(name="airport_name")
 	private String airportName;
-	@Column
+	@Column(name="airport_location")
 	private String airportLocation;
 
 	public Airport() {

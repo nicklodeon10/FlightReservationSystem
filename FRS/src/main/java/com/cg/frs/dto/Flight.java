@@ -8,20 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="flight")
 public class Flight {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name="flight_number")
 	private BigInteger flightNumber;
-	@Column
+	@Column(name="flight_model")
 	private String flightModel;
-	@Column
+	@Column(name="carrier_name")
 	private String carrierName;
-	@Column
+	@Column(name="seat_capacity")
 	private Integer seatCapacity;
-	@Column
+	@Column(name="flight_state")
 	private Boolean flightState;
 
 	public Flight() {

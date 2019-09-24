@@ -9,7 +9,7 @@ Caused by: org.hibernate.PersistentObjectException: detached entity passed to pe
 	at com.cg.frs.servicetest.TestService.testAddUser(TestService.java:119)
 
 testViewScheduleFlight  Time elapsed: 0 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <com.cg.frs.dto.ScheduleFlight@95c8ac90> but was: <null>
+org.opentest4j.AssertionFailedError: expected: <com.cg.frs.dto.ScheduleFlight@d7b13ed0> but was: <null>
 	at com.cg.frs.servicetest.TestService.testViewScheduleFlight(TestService.java:186)
 
 testAddScheduleFlight  Time elapsed: 0 s  <<< ERROR!

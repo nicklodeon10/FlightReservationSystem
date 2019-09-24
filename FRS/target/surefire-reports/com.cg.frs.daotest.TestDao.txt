@@ -1,64 +1,64 @@
 -------------------------------------------------------------------------------
 Test set: com.cg.frs.daotest.TestDao
 -------------------------------------------------------------------------------
-Tests run: 15, Failures: 3, Errors: 11, Skipped: 0, Time elapsed: 3.048 s <<< FAILURE! - in com.cg.frs.daotest.TestDao
-testAddUser  Time elapsed: 0.021 s  <<< ERROR!
+Tests run: 15, Failures: 3, Errors: 11, Skipped: 0, Time elapsed: 2.307 s <<< FAILURE! - in com.cg.frs.daotest.TestDao
+testAddUser  Time elapsed: 0.023 s  <<< ERROR!
 javax.persistence.PersistenceException: org.hibernate.PersistentObjectException: detached entity passed to persist: com.cg.frs.dto.User
-	at com.cg.frs.daotest.TestDao.testAddUser(TestDao.java:117)
+	at com.cg.frs.daotest.TestDao.testAddUser(TestDao.java:116)
 Caused by: org.hibernate.PersistentObjectException: detached entity passed to persist: com.cg.frs.dto.User
-	at com.cg.frs.daotest.TestDao.testAddUser(TestDao.java:117)
+	at com.cg.frs.daotest.TestDao.testAddUser(TestDao.java:116)
 
-testViewScheduleFlight  Time elapsed: 0.142 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <com.cg.frs.dto.ScheduleFlight@9edfefb0> but was: <[com.cg.frs.dto.ScheduleFlight@8fbe487e]>
-	at com.cg.frs.daotest.TestDao.testViewScheduleFlight(TestDao.java:180)
+testViewScheduleFlight  Time elapsed: 0.145 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <com.cg.frs.dto.ScheduleFlight@8fc74fd0> but was: <[com.cg.frs.dto.ScheduleFlight@8fbe487e]>
+	at com.cg.frs.daotest.TestDao.testViewScheduleFlight(TestDao.java:179)
 
-testAddScheduleFlight  Time elapsed: 0.002 s  <<< ERROR!
+testAddScheduleFlight  Time elapsed: 0 s  <<< ERROR!
 javax.persistence.PersistenceException: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned before calling save(): com.cg.frs.dto.ScheduleFlight
-	at com.cg.frs.daotest.TestDao.testAddScheduleFlight(TestDao.java:175)
+	at com.cg.frs.daotest.TestDao.testAddScheduleFlight(TestDao.java:174)
 Caused by: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned before calling save(): com.cg.frs.dto.ScheduleFlight
-	at com.cg.frs.daotest.TestDao.testAddScheduleFlight(TestDao.java:175)
+	at com.cg.frs.daotest.TestDao.testAddScheduleFlight(TestDao.java:174)
 
-testDeleteFlight  Time elapsed: 0.007 s  <<< ERROR!
+testDeleteFlight  Time elapsed: 0.015 s  <<< ERROR!
 java.lang.NullPointerException
-	at com.cg.frs.daotest.TestDao.testDeleteFlight(TestDao.java:170)
+	at com.cg.frs.daotest.TestDao.testDeleteFlight(TestDao.java:169)
 
-testAddFlight  Time elapsed: 0.001 s  <<< ERROR!
+testAddFlight  Time elapsed: 0 s  <<< ERROR!
 java.lang.IllegalStateException: Transaction already active
-	at com.cg.frs.daotest.TestDao.testAddFlight(TestDao.java:154)
+	at com.cg.frs.daotest.TestDao.testAddFlight(TestDao.java:153)
 
-testModifyUser  Time elapsed: 0.002 s  <<< ERROR!
+testModifyUser  Time elapsed: 0.003 s  <<< ERROR!
 java.lang.IllegalStateException: Transaction already active
-	at com.cg.frs.daotest.TestDao.testModifyUser(TestDao.java:127)
+	at com.cg.frs.daotest.TestDao.testModifyUser(TestDao.java:126)
 
-testModifyFlight  Time elapsed: 0.003 s  <<< ERROR!
+testModifyFlight  Time elapsed: 0.002 s  <<< ERROR!
 java.lang.IllegalStateException: Transaction already active
-	at com.cg.frs.daotest.TestDao.testModifyFlight(TestDao.java:159)
+	at com.cg.frs.daotest.TestDao.testModifyFlight(TestDao.java:158)
 
 testDeleteUser  Time elapsed: 0.001 s  <<< ERROR!
 java.lang.IllegalStateException: Transaction already active
-	at com.cg.frs.daotest.TestDao.testDeleteUser(TestDao.java:132)
+	at com.cg.frs.daotest.TestDao.testDeleteUser(TestDao.java:131)
 
 testAddBooking  Time elapsed: 0 s  <<< ERROR!
 java.lang.IllegalArgumentException: id to load is required for loading
-	at com.cg.frs.daotest.TestDao.testAddBooking(TestDao.java:138)
+	at com.cg.frs.daotest.TestDao.testAddBooking(TestDao.java:137)
 
 testViewFlight  Time elapsed: 0.005 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <Flight [flightNumber=12345, flightModel=BestModel111, carrierName=BestCarrier, seatCapacity=50, flightState=null]> but was: <[Flight [flightNumber=2, flightModel=Boeing787, carrierName=Indigo, seatCapacity=35, flightState=true]]>
-	at com.cg.frs.daotest.TestDao.testViewFlight(TestDao.java:164)
+	at com.cg.frs.daotest.TestDao.testViewFlight(TestDao.java:163)
 
-testModifyScheduleFlight  Time elapsed: 0.001 s  <<< ERROR!
+testModifyScheduleFlight  Time elapsed: 0.002 s  <<< ERROR!
 java.lang.IllegalArgumentException: id to load is required for loading
-	at com.cg.frs.daotest.TestDao.testModifyScheduleFlight(TestDao.java:185)
+	at com.cg.frs.daotest.TestDao.testModifyScheduleFlight(TestDao.java:184)
 
-testDeleteScheduleFlight  Time elapsed: 0.002 s  <<< ERROR!
+testDeleteScheduleFlight  Time elapsed: 0.003 s  <<< ERROR!
 java.lang.NullPointerException
-	at com.cg.frs.daotest.TestDao.testDeleteScheduleFlight(TestDao.java:190)
+	at com.cg.frs.daotest.TestDao.testDeleteScheduleFlight(TestDao.java:189)
 
-testDeleteBooking  Time elapsed: 0.007 s  <<< ERROR!
+testDeleteBooking  Time elapsed: 0.006 s  <<< ERROR!
 java.lang.NullPointerException
-	at com.cg.frs.daotest.TestDao.testDeleteBooking(TestDao.java:149)
+	at com.cg.frs.daotest.TestDao.testDeleteBooking(TestDao.java:148)
 
-testViewUser  Time elapsed: 0 s  <<< FAILURE!
+testViewUser  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <User [userType=customer, userId=99999, userName=ADMIN, userPassword=ADMIN, userPhone=9999999999, email=admin@frs.com, userState=null]> but was: <User [userType=admin, userId=99999, userName=admin, userPassword=admin, userPhone=9999999999, email=admin@admin.com, userState=true]>
-	at com.cg.frs.daotest.TestDao.testViewUser(TestDao.java:122)
+	at com.cg.frs.daotest.TestDao.testViewUser(TestDao.java:121)
 

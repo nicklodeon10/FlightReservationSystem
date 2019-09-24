@@ -1,6 +1,5 @@
 package com.cg.frs.daotest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigInteger;
@@ -13,14 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cg.frs.dto.Airport;
-import com.cg.frs.dto.Booking;
-import com.cg.frs.dto.Flight;
-import com.cg.frs.dto.Passenger;
-import com.cg.frs.dto.Schedule;
-import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.dto.User;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.dao.AirportDao;
 import com.cg.frs.dao.AirportDaoImpl;
 import com.cg.frs.dao.BookingDao;
@@ -31,6 +22,14 @@ import com.cg.frs.dao.ScheduleFlightDao;
 import com.cg.frs.dao.ScheduleFlightDaoImpl;
 import com.cg.frs.dao.UserDao;
 import com.cg.frs.dao.UserDaoImpl;
+import com.cg.frs.dto.Airport;
+import com.cg.frs.dto.Booking;
+import com.cg.frs.dto.Flight;
+import com.cg.frs.dto.Passenger;
+import com.cg.frs.dto.Schedule;
+import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.dto.User;
+import com.cg.frs.exception.FRSException;
 
 public class TestDao {
 	static UserDao userDao;

@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity(name="schedule_flight")
+@Entity(name="ScheduleFlight")
 public class ScheduleFlight {
 
 	@Id
@@ -23,7 +23,7 @@ public class ScheduleFlight {
 	private Schedule schedule;
 	@Column(name="ticket_cost")
 	private Double ticketCost;
-	@Column(name="schedule_flight_state")
+	@Column(name="scheduleFlightState")
 	private Boolean scheduleFlightState;
 
 	public ScheduleFlight() {

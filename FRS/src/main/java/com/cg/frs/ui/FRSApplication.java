@@ -40,14 +40,17 @@ public class FRSApplication {
 		FlightService flightService = new FlightServiceImpl();
 		ScheduleFlightService scheduleFlightService = new ScheduleFlightServiceImpl();
 		UserService userService = new UserServiceImpl();
+		System.out.println("WELCOME TO FLIGHT RESERVATION SYSTEM.");
 		do {
+			System.out.println("==============================================");
 			System.out.println("Enter 1 to Sign Up.");
-			System.out.println("Enter 2 to View Profile Details.");
-			System.out.println("Enter 3 to Edit Profile Details.");
-			System.out.println("Enter 4 to Delete User Profile.");
-			System.out.println("Enter 5 for User Actions.");
-			System.out.println("Enter 6 for Admin Actions.");
+			System.out.println("Enter 2 to View your Profile.");
+			System.out.println("Enter 3 to Edit your Profile.");
+			System.out.println("Enter 4 to Delete your Profile.");
+			System.out.println("Enter 5 to Access the Booking Menu.");
+			System.out.println("Enter 6 for Management Actions [Admin Only].");
 			System.out.println("Enter 0 to Exit.");
+			System.out.println("==============================================");
 			while (true) {
 				try {
 					userTypeChoice = scanner.nextInt();
@@ -60,18 +63,20 @@ public class FRSApplication {
 			}
 			switch (userTypeChoice) {
 			case 1: {
+				System.out.println("==============================================");
+				System.out.println("Sign Up: ");
 				User user=new User();
 				BigInteger userPhone;
 				String userEmail;
 				String userName;
 				String userPassword;
-				System.out.println("Enter User Name: ");
+				System.out.println("Enter your User Name: ");
 				userName = scanner.next();
-				System.out.println("Enter User Password: ");
+				System.out.println("Enter your Password: ");
 				userPassword = scanner.next();
 				while (true) {
 					try {
-						System.out.println("Enter User Phone Number: ");
+						System.out.println("Enter a 10 digit Mobile Number: ");
 						userPhone = scanner.nextBigInteger();
 						userService.validatePhoneNumber(userPhone);
 						break;
@@ -86,7 +91,7 @@ public class FRSApplication {
 				}
 				while (true) {
 					try {
-						System.out.println("Enter User Email: ");
+						System.out.println("Enter your Email Address: ");
 						userEmail = scanner.next();
 						userService.validateEmail(userEmail);
 						break;
@@ -103,7 +108,8 @@ public class FRSApplication {
 				user.setEmail(userEmail);
 				user.setUserState(true);
 				user = userService.addUser(user);
-				System.out.println("User Created with UserId: " + user.getUserId());
+				System.out.println("Your new account has been created with user id: " + user.getUserId());
+				System.out.println("==============================================");
 				break;
 			}
 			case 2: {
@@ -111,7 +117,7 @@ public class FRSApplication {
 				User user;
 				while (true) {
 					try {
-						System.out.println("Enter User Id: ");
+						System.out.println("Enter your Registered User Id: ");
 						showUserId = scanner.nextBigInteger();
 						userService.validateUserWithId(showUserId);
 						user = userService.viewUser(showUserId);
@@ -125,28 +131,33 @@ public class FRSApplication {
 						continue;
 					}
 				}
-				System.out.println("Profile Details: ");
-				System.out.println("----------------------------");
-				System.out.println("UserName: " + user.getUserName());
-				System.out.println("UserId: " + user.getUserId());
-				System.out.println("Email: " + user.getEmail());
-				System.out.println("Phone: " + user.getUserPhone());
-				System.out.println("UserType: " + user.getUserType());
-				System.out.println("----------------------------");
+				System.out.println("==============================================");
+				System.out.println("Your Profile Details: ");
+				System.out.println("User Id: " + user.getUserId());
+				System.out.println("Username: " + user.getUserName());
+				System.out.println("Email Address: " + user.getEmail());
+				System.out.println("Mobile Number: " + user.getUserPhone());
+				System.out.println("User Type: " + user.getUserType());
+				System.out.println("==============================================");
 				break;
 			}
 			case 3: {
+				System.out.println("==============================================");
+				System.out.println("Edit your Profile: ");
+				System.out.println("Enter - to Skip.");
 				BigInteger editUserId;
 				User editUser;
 				String userName;
 				BigInteger userPhone;
 				String userEmail;
 				String userPassword;
+				User prevUser;
 				while (true) {
 					try {
-						System.out.println("Enter User Id: ");
+						System.out.println("Enter your User Id: ");
 						editUserId = scanner.nextBigInteger();
 						userService.validateUserWithId(editUserId);
+						prevUser=userService.viewUser(editUserId);
 						break;
 					} catch (FRSException exception) {
 						System.err.println(exception.getMessage());
@@ -159,12 +170,23 @@ public class FRSApplication {
 				}
 				System.out.println("Enter User Name:");
 				userName = scanner.next();
+				if(userName.equals("-")) {
+					userName=prevUser.getUserName();
+				}
 				System.out.println("Enter User Password: ");
 				userPassword = scanner.next();
+				if(userPassword.equals("-")) {
+					userPassword=prevUser.getUserPassword();
+				}
 				while (true) {
 					try {
 						System.out.println("Enter User Phone Number: ");
-						userPhone = scanner.nextBigInteger();
+						String userPhoneS=scanner.next();
+						if(userPhoneS.equals("-")) {
+							userPhone=prevUser.getUserPhone();
+						}else {
+							userPhone = new BigInteger(userPhoneS);
+						}
 						userService.validatePhoneNumber(userPhone);
 						break;
 					} catch (InputMismatchException exception) {
@@ -180,6 +202,9 @@ public class FRSApplication {
 					try {
 						System.out.println("Enter User Email: ");
 						userEmail = scanner.next();
+						if(userEmail.equals("-")) {
+							userEmail=prevUser.getEmail();
+						}
 						userService.validateEmail(userEmail);
 						break;
 					} catch (FRSException exception) {
@@ -190,6 +215,8 @@ public class FRSApplication {
 				editUser = new User(userService.viewUser(editUserId).getUserType(), editUserId, userName, userPassword,
 						userPhone, userEmail, true);
 				userService.updateUser(editUser);
+				System.out.println("Your Profile has been updated.");
+				System.out.println("==============================================");
 				break;
 			}
 			case 4: {
@@ -210,10 +237,14 @@ public class FRSApplication {
 					}
 				}
 				userService.deleteUser(deleteUserId);
+				System.out.println("Your account has been deleted.");
+				System.out.println("==============================================");
 				break;
 			}
 			case 5: {
 				BOOKING: do {
+					System.out.println("==============================================");
+					System.out.println("Booking Menu: ");
 					int userChoice;
 					System.out.println("Enter 1 to Book a Flight.");
 					System.out.println("Enter 2 to View Previous Flight Bookings.");
@@ -238,18 +269,18 @@ public class FRSApplication {
 						String bookingDateString;
 						LocalDate bookingDate;
 						List<Airport> airportList = airportService.viewAirport();
-						System.out.println("Choose Airports: ");
-						System.out.println("----------------------------");
+						System.out.println("We provide service across the following Airports: ");
+						System.out.println("----------------------------------------------");
 						for (Airport airport : airportList) {
 							System.out.print("Code: " + airport.getAirportCode());
 							System.out.print(", Name: " + airport.getAirportName());
 							System.out.println(", Location: " + airport.getAirportLocation());
-							System.out.println("----------------------------");
+							System.out.println("----------------------------------------------");
 						}
-						System.out.println("----------------------------");
+						System.out.println("----------------------------------------------");
 						while (true) {
 							try {
-								System.out.println("Enter Source Airport Code: ");
+								System.out.println("Enter the Code of the Source Airport: ");
 								bookingSourceAirportCode = scanner.next();
 								airportService.validateAirportWithCode(bookingSourceAirportCode);
 								sourceAirport = airportService.viewAirport(bookingSourceAirportCode);
@@ -261,7 +292,7 @@ public class FRSApplication {
 						}
 						while (true) {
 							try {
-								System.out.println("Enter Destination Airport Code: ");
+								System.out.println("Enter the Code of the Destination Airport: ");
 								bookingDestinationAirportCode = scanner.next();
 								airportService.validateAirportWithCode(bookingDestinationAirportCode);
 								destinationAirport = airportService.viewAirport(bookingDestinationAirportCode);
@@ -274,7 +305,7 @@ public class FRSApplication {
 						}
 						while (true) {
 							try {
-								System.out.println("Enter the Date of Journey (YYYY-MM-DD):");
+								System.out.println("Enter the Date of Journey e.g. 2020-11-10:");
 								bookingDateString = scanner.next();
 								bookingDate = LocalDate.parse(bookingDateString);
 								break;
@@ -283,8 +314,8 @@ public class FRSApplication {
 								continue;
 							}
 						}
-						System.out.println("Search Results: ");
-						System.out.println("----------------------------");
+						System.out.println("The following flights are available as per your request: ");
+						System.out.println("----------------------------------------------");
 						List<ScheduleFlight> searchScheduledFlights = scheduleFlightService
 								.viewScheduleFlights(sourceAirport, destinationAirport, bookingDate);
 						if (searchScheduledFlights.size() != 0) {
@@ -305,9 +336,14 @@ public class FRSApplication {
 								System.out
 										.println("Arrival Time: " + scheduleFlight.getSchedule().getArrivalDateTime());
 								System.out.println("Available Seats: " + scheduleFlight.getAvailableSeats());
-								System.out.println("----------------------------");
+								System.out.println("----------------------------------------------");
 							}
-							System.out.println("----------------------------");
+							System.out.println("----------------------------------------------");
+							System.out.println("Enter 1 to continue booking.");
+							System.out.println("Enter 0 to go back.");
+							if(scanner.nextInt()==0) {
+								break BOOKING;
+							}
 							while (true) {
 								try {
 									System.out.println("Enter User Id: ");

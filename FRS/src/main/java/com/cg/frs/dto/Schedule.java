@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-@Entity(name="schedule")
+@Entity(name="Schedule")
 public class Schedule {
 
 	@Id

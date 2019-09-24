@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name="flight")
+@Entity(name="Flight")
 public class Flight {
 
 	@Id
@@ -21,7 +21,7 @@ public class Flight {
 	private String carrierName;
 	@Column(name="seat_capacity")
 	private Integer seatCapacity;
-	@Column(name="flight_state")
+	@Column(name="flightState")
 	private Boolean flightState;
 
 	public Flight() {

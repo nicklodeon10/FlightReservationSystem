@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name="user")
+@Entity(name="User")
 public class User {
 
 	@Id
@@ -25,7 +25,7 @@ public class User {
 	private BigInteger userPhone;
 	@Column(name="user_email")
 	private String email;
-	@Column(name="user_state")
+	@Column(name="userState")
 	private Boolean userState;
 
 	public User() {

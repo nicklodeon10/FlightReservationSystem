@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity(name="booking")
+@Entity(name="Booking")
 public class Booking {
 
 	@Id
@@ -29,7 +29,7 @@ public class Booking {
 	private Double ticketCost;
 	@Column(name="passenger_count")
 	private Integer passengerCount;
-	@Column(name="booking_state")
+	@Column(name="bookingState")
 	private Boolean bookingState;
 	@OneToOne(fetch = FetchType.EAGER)
 	private ScheduleFlight scheduleFlight;

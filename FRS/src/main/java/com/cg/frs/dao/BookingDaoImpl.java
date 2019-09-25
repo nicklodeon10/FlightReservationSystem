@@ -12,12 +12,13 @@ import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.util.EntityManagerFactoryUtil;
+import com.cg.frs.util.EntityTransactionUtil;
 
 public class BookingDaoImpl implements BookingDao {
 
 	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
 	private EntityManager em = emf.createEntityManager();
-	private EntityTransaction tran = em.getTransaction();
+	private EntityTransaction tran = EntityTransactionUtil.getTransaction(em);
 	
 	ScheduleFlightDao scheduleFlightDao=new ScheduleFlightDaoImpl();
 

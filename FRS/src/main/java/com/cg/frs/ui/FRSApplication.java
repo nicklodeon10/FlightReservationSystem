@@ -65,7 +65,7 @@ public class FRSApplication {
 			case 1: {
 				System.out.println("==============================================");
 				System.out.println("Sign Up: ");
-				User user=new User();
+				User user = new User();
 				BigInteger userPhone;
 				String userEmail;
 				String userName;
@@ -157,7 +157,7 @@ public class FRSApplication {
 						System.out.println("Enter your User Id: ");
 						editUserId = scanner.nextBigInteger();
 						userService.validateUserWithId(editUserId);
-						prevUser=userService.viewUser(editUserId);
+						prevUser = userService.viewUser(editUserId);
 						break;
 					} catch (FRSException exception) {
 						System.err.println(exception.getMessage());
@@ -170,21 +170,21 @@ public class FRSApplication {
 				}
 				System.out.println("Enter User Name:");
 				userName = scanner.next();
-				if(userName.equals("-")) {
-					userName=prevUser.getUserName();
+				if (userName.equals("-")) {
+					userName = prevUser.getUserName();
 				}
 				System.out.println("Enter User Password: ");
 				userPassword = scanner.next();
-				if(userPassword.equals("-")) {
-					userPassword=prevUser.getUserPassword();
+				if (userPassword.equals("-")) {
+					userPassword = prevUser.getUserPassword();
 				}
 				while (true) {
 					try {
 						System.out.println("Enter User Phone Number: ");
-						String userPhoneS=scanner.next();
-						if(userPhoneS.equals("-")) {
-							userPhone=prevUser.getUserPhone();
-						}else {
+						String userPhoneS = scanner.next();
+						if (userPhoneS.equals("-")) {
+							userPhone = prevUser.getUserPhone();
+						} else {
 							userPhone = new BigInteger(userPhoneS);
 						}
 						userService.validatePhoneNumber(userPhone);
@@ -202,8 +202,8 @@ public class FRSApplication {
 					try {
 						System.out.println("Enter User Email: ");
 						userEmail = scanner.next();
-						if(userEmail.equals("-")) {
-							userEmail=prevUser.getEmail();
+						if (userEmail.equals("-")) {
+							userEmail = prevUser.getEmail();
 						}
 						userService.validateEmail(userEmail);
 						break;
@@ -341,7 +341,7 @@ public class FRSApplication {
 							System.out.println("----------------------------------------------");
 							System.out.println("Enter 1 to continue booking.");
 							System.out.println("Enter 0 to go back.");
-							if(scanner.nextInt()==0) {
+							if (scanner.nextInt() == 0) {
 								break BOOKING;
 							}
 							while (true) {
@@ -391,7 +391,9 @@ public class FRSApplication {
 									continue;
 								}
 							}
+							System.out.println("Enter Passenger Details: ");
 							for (int i = 0; i < noOfPassengers; i++) {
+								System.out.println("Passenger " + (i + 1) + ":");
 								Passenger passenger;
 								String passengerName;
 								Integer passengerAge;
@@ -451,6 +453,7 @@ public class FRSApplication {
 							booking.setBookingState(true);
 							booking = bookingService.addBooking(booking);
 							System.out.println("Booking Successful with Booking Id: " + booking.getBookingId());
+							System.out.println("==============================================");
 						} else {
 							System.out.println("No Flights Found.");
 							System.out.println("----------------------------");
@@ -458,6 +461,8 @@ public class FRSApplication {
 						break;
 					}
 					case 2: {
+						System.out.println("==============================================");
+						System.out.println("Booking Search: ");
 						BigInteger bookingSearchId;
 						List<Booking> userBookingsList;
 						while (true) {
@@ -495,7 +500,8 @@ public class FRSApplication {
 							System.out.println("----------------------------");
 							List<Passenger> bookingPassengerList1 = userBooking.getPassengerList();
 							for (Passenger passenger : bookingPassengerList1) {
-								if(!passenger.getPassengerState()) continue;
+								if (!passenger.getPassengerState())
+									continue;
 								System.out.println("Name: " + passenger.getPassengerName());
 								System.out.println("Age: " + passenger.getPassengerAge());
 								System.out.println("PNR: " + passenger.getPnrNumber());
@@ -504,9 +510,12 @@ public class FRSApplication {
 							}
 							System.out.println("----------------------------");
 						}
+						System.out.println("==============================================");
 						break;
 					}
 					case 3: {
+						System.out.println("==============================================");
+						System.out.println("Booking Cancellation: ");
 						BigInteger bookingDeleteId;
 						Booking removeBooking;
 						while (true) {
@@ -526,6 +535,8 @@ public class FRSApplication {
 								continue;
 							}
 						}
+						System.out.println("Your booking has been cancelled.");
+						System.out.println("==============================================");
 						break;
 					}
 					case 0:
@@ -535,6 +546,8 @@ public class FRSApplication {
 				break;
 			}
 			case 6: {
+				System.out.println("==============================================");
+				System.out.println("Admin Actions: ");
 				BigInteger adminActionId;
 				while (true) {
 					try {
@@ -553,10 +566,12 @@ public class FRSApplication {
 				}
 				MANAGEMENT: do {
 					int adminChoice;
+					System.out.println("==============================================");
 					System.out.println("Enter 1 to View a List of Users.");
 					System.out.println("Enter 2 to View Flight Management Options.");
 					System.out.println("Enter 3 to View Flight Scheduling Options.");
 					System.out.println("Enter 0 to Go Back to the Previous Menu.");
+					System.out.println("==============================================");
 					while (true) {
 						try {
 							adminChoice = scanner.nextInt();
@@ -569,8 +584,9 @@ public class FRSApplication {
 					}
 					switch (adminChoice) {
 					case 1:
+						System.out.println("==============================================");
 						List<User> userList = userService.viewUser();
-						System.out.println("User List: ");
+						System.out.println("Registered User List: ");
 						System.out.println("----------------------------");
 						for (User printUser : userList) {
 							System.out.println("UserName: " + printUser.getUserName());
@@ -580,10 +596,12 @@ public class FRSApplication {
 							System.out.println("UserType: " + printUser.getUserType());
 							System.out.println("----------------------------");
 						}
-						System.out.println("----------------------------");
+						System.out.println("==============================================");
 						break;
 					case 2:
 						FLIGHTMANAGEMENT: do {
+							System.out.println("==============================================");
+							System.out.println("Flight Management: ");
 							int adminFlightManageChoice;
 							System.out.println("Enter 1 to Add a Flight.");
 							System.out.println("Enter 2 to Show all Flights.");
@@ -591,6 +609,7 @@ public class FRSApplication {
 							System.out.println("Enter 4 to Modify a Flight.");
 							System.out.println("Enter 5 to Remove a Flight.");
 							System.out.println("Enter 0 to Go Back to Previous Menu.");
+							System.out.println("==============================================");
 							while (true) {
 								try {
 									adminFlightManageChoice = scanner.nextInt();
@@ -629,9 +648,11 @@ public class FRSApplication {
 								flight.setFlightState(true);
 								flight = flightService.addFlight(flight);
 								System.out.println("Flight Added with Flight Number: " + flight.getFlightNumber());
+								System.out.println("==============================================");
 								break;
 							}
 							case 2: {
+								System.out.println("==============================================");
 								List<Flight> flightList = flightService.viewFlight();
 								System.out.println("Available Flights: ");
 								System.out.println("----------------------------");
@@ -643,9 +664,12 @@ public class FRSApplication {
 									System.out.println("----------------------------");
 								}
 								System.out.println("----------------------------");
+								System.out.println("==============================================");
 								break;
 							}
 							case 3:
+								System.out.println("==============================================");
+								System.out.println("Flight Search: ");
 								BigInteger flightId;
 								while (true) {
 									try {
@@ -669,15 +693,21 @@ public class FRSApplication {
 										continue;
 									}
 								}
+								System.out.println("==============================================");
 								break;
 							case 4:
+								System.out.println("==============================================");
+								System.out.println("Edit Flight: ");
+								System.out.println("Enter a new value or '-' to skip.");
 								BigInteger modifyFlightNumber;
 								Integer modifySeatCapacity;
+								Flight prevFlight;
 								while (true) {
 									try {
 										System.out.println("Enter Flight Number: ");
 										modifyFlightNumber = scanner.nextBigInteger();
 										flightService.validateFlightWithId(modifyFlightNumber);
+										prevFlight = flightService.viewFlight(modifyFlightNumber);
 										break;
 									} catch (FRSException exception) {
 										System.err.println(exception.getMessage());
@@ -686,12 +716,23 @@ public class FRSApplication {
 								}
 								System.out.println("Enter Carrier Name: ");
 								String modifyCarrierName = scanner.next();
+								if (modifyCarrierName.equals("-")) {
+									modifyCarrierName = prevFlight.getCarrierName();
+								}
 								System.out.println("Enter Flight Model: ");
 								String modifyFlightModel = scanner.next();
+								if (modifyFlightModel.equals("-")) {
+									modifyFlightModel = prevFlight.getFlightModel();
+								}
 								while (true) {
 									try {
 										System.out.println("Enter Seat Capacity: ");
-										modifySeatCapacity = scanner.nextInt();
+										String modifySeatCapacityS = scanner.next();
+										if (modifySeatCapacityS.equals("-")) {
+											modifySeatCapacity = prevFlight.getSeatCapacity();
+										} else {
+											modifySeatCapacity = Integer.parseInt(modifySeatCapacityS);
+										}
 										break;
 									} catch (InputMismatchException exception) {
 										scanner.nextLine();
@@ -702,8 +743,12 @@ public class FRSApplication {
 								Flight modifyFlight = new Flight(modifyFlightNumber, modifyFlightModel,
 										modifyCarrierName, modifySeatCapacity, true);
 								flightService.modifyFlight(modifyFlight);
+								System.out.println("Flight Details Updated: ");
+								System.out.println("==============================================");
 								break;
 							case 5:
+								System.out.println("==============================================");
+								System.out.println("Flight Removal: ");
 								BigInteger deleteFlightNumber;
 								while (true) {
 									try {
@@ -717,6 +762,8 @@ public class FRSApplication {
 									}
 								}
 								flightService.deleteFlight(deleteFlightNumber);
+								System.out.println("Flight Deleted.");
+								System.out.println("==============================================");
 								break;
 							case 0:
 								break FLIGHTMANAGEMENT;
@@ -725,6 +772,8 @@ public class FRSApplication {
 						break;
 					case 3:
 						SCHEDULEFLIGHTMANAGEMENT: do {
+							System.out.println("==============================================");
+							System.out.println("Schedule Management: ");
 							BigInteger scheduleFlightId;
 							String sourceAirportCode;
 							Airport sourceAirport;
@@ -745,6 +794,7 @@ public class FRSApplication {
 							System.out.println("Enter 4 to Modify a Scheduled Flight.");
 							System.out.println("Enter 5 to Remove a Scheduled Flight.");
 							System.out.println("Enter 0 to Go Back to Previous Menu.");
+							System.out.println("==============================================");
 							while (true) {
 								try {
 									adminScheduleChoice = scanner.nextInt();
@@ -757,6 +807,8 @@ public class FRSApplication {
 							}
 							switch (adminScheduleChoice) {
 							case 1:
+								System.out.println("==============================================");
+								System.out.println("Flight Scheduling: ");
 								Integer availableSeats;
 								while (true) {
 									try {
@@ -819,8 +871,8 @@ public class FRSApplication {
 										System.err.println(exception.getMessage());
 									}
 								}
-								schedule = new Schedule(scheduleFlightId, sourceAirport, destinationAirport, departureDateTime,
-										arrivalDateTime);
+								schedule = new Schedule(scheduleFlightId, sourceAirport, destinationAirport,
+										departureDateTime, arrivalDateTime);
 								while (true) {
 									try {
 										System.out.println("Enter Ticket Cost: ");
@@ -833,15 +885,17 @@ public class FRSApplication {
 									}
 								}
 								try {
-									scheduleFlight = new ScheduleFlight(scheduleFlightId, flightService.viewFlight(scheduleFlightId),
-											availableSeats, schedule, ticketCost, true);
+									scheduleFlight = new ScheduleFlight(scheduleFlightId,
+											flightService.viewFlight(scheduleFlightId), availableSeats, schedule,
+											ticketCost, true);
 									scheduleFlightService.addScheduleFlight(scheduleFlight);
 									System.out.println("Flight Scheduled.\n");
 								} catch (FRSException exception) {
 									System.out.println(exception.getMessage());
 								}
 								break;
-							case 2:
+							case 2: {
+								System.out.println("==============================================");
 								List<ScheduleFlight> scheduleFlightList = scheduleFlightService.viewScheduleFlight();
 								System.out.println("Available Scheduled Flights: ");
 								System.out.println("----------------------------");
@@ -865,9 +919,12 @@ public class FRSApplication {
 									System.out.println("Ticket Cost: " + scheduleFlightView.getTicketCost());
 									System.out.println("----------------------------");
 								}
-								System.out.println("----------------------------");
+								System.out.println("==============================================");
 								break;
+							}
 							case 3:
+								System.out.println("==============================================");
+								System.out.println("Schedule Search: ");
 								BigInteger searchScheduleFlightId;
 								while (true) {
 									try {
@@ -905,8 +962,12 @@ public class FRSApplication {
 								System.out.println("Ticket Cost: " + scheduleFlightService
 										.viewScheduleFlights(searchScheduleFlightId).getTicketCost());
 								System.out.println("----------------------------");
+								System.out.println("==============================================");
 								break;
 							case 4:
+								System.out.println("==============================================");
+								System.out.println("Edit Flight Schedule: ");
+								System.out.println("Enter a new value or '-' to skip.");
 								BigInteger modifyScheduleFlightId;
 								Integer modifyAvailableSeats;
 								String modifySourceAirportCode;
@@ -920,11 +981,14 @@ public class FRSApplication {
 								Schedule modifySchedule;
 								Double modifyTicketCost;
 								ScheduleFlight modifyScheduleFlight;
+								ScheduleFlight prevScheduleFlight;
 								while (true) {
 									try {
 										System.out.println("Enter Flight Number: ");
 										modifyScheduleFlightId = scanner.nextBigInteger();
 										scheduleFlightService.validateScheduleFlightWithId(modifyScheduleFlightId);
+										prevScheduleFlight = scheduleFlightService
+												.viewScheduleFlights(modifyScheduleFlightId);
 										break;
 									} catch (FRSException exception) {
 										System.err.println(exception.getMessage());
@@ -938,7 +1002,12 @@ public class FRSApplication {
 								while (true) {
 									try {
 										System.out.println("Enter Available Seats: ");
-										modifyAvailableSeats = scanner.nextInt();
+										String modifyAvailableSeatsS = scanner.next();
+										if (modifyAvailableSeatsS.equals("-")) {
+											modifyAvailableSeats = prevScheduleFlight.getAvailableSeats();
+										} else {
+											modifyAvailableSeats = Integer.parseInt(modifyAvailableSeatsS);
+										}
 										break;
 									} catch (InputMismatchException exception) {
 										scanner.nextLine();
@@ -950,6 +1019,10 @@ public class FRSApplication {
 									try {
 										System.out.println("Enter Source Airport Code: ");
 										modifySourceAirportCode = scanner.next();
+										if (modifySourceAirportCode.equals("-")) {
+											modifySourceAirportCode = prevScheduleFlight.getSchedule()
+													.getSourceAirport().getAirportCode();
+										}
 										System.out.println("You have entered: "
 												+ airportService.validateAirportWithCode(modifySourceAirportCode));
 										modifySourceAirport = airportService.viewAirport(modifySourceAirportCode);
@@ -967,6 +1040,10 @@ public class FRSApplication {
 									try {
 										System.out.println("Enter Destination Airport Code: ");
 										modifyDestinationAirportCode = scanner.next();
+										if (modifyDestinationAirportCode.equals("-")) {
+											modifyDestinationAirportCode = prevScheduleFlight.getSchedule()
+													.getDestinationAirport().getAirportCode();
+										}
 										System.out.println("You have entered: "
 												+ airportService.validateAirportWithCode(modifyDestinationAirportCode));
 										modifyDestinationAirport = airportService
@@ -987,8 +1064,13 @@ public class FRSApplication {
 									try {
 										System.out.println("Enter Departure Time (dd-MM-yyyy HH:mm:ss) :");
 										modifyDepartureTimeString = scanner.nextLine();
-										modifyDepartureDateTime = LocalDateTime.parse(modifyDepartureTimeString,
-												modifyDateTimeFormatter);
+										if (modifyDepartureTimeString.equals("-")) {
+											modifyDepartureDateTime = prevScheduleFlight.getSchedule()
+													.getDepartureDateTime();
+										} else {
+											modifyDepartureDateTime = LocalDateTime.parse(modifyDepartureTimeString,
+													modifyDateTimeFormatter);
+										}
 										break;
 									} catch (DateTimeException exception) {
 										System.err.println(exception.getMessage());
@@ -999,20 +1081,30 @@ public class FRSApplication {
 									try {
 										System.out.println("Enter Arrival Time (dd-MM-yyyy HH:mm:ss) :");
 										modifyArrivalTimeString = scanner.nextLine();
-										modifyArrivalDateTime = LocalDateTime.parse(modifyArrivalTimeString,
-												modifyDateTimeFormatter);
+										if (modifyArrivalTimeString.equals("-")) {
+											modifyArrivalDateTime = prevScheduleFlight.getSchedule()
+													.getArrivalDateTime();
+										} else {
+											modifyArrivalDateTime = LocalDateTime.parse(modifyArrivalTimeString,
+													modifyDateTimeFormatter);
+										}
 										break;
 									} catch (DateTimeException exception) {
 										System.err.println(exception.getMessage());
 										continue;
 									}
 								}
-								modifySchedule = new Schedule(modifyScheduleFlightId, modifySourceAirport, modifyDestinationAirport,
-										modifyDepartureDateTime, modifyArrivalDateTime);
+								modifySchedule = new Schedule(modifyScheduleFlightId, modifySourceAirport,
+										modifyDestinationAirport, modifyDepartureDateTime, modifyArrivalDateTime);
 								while (true) {
 									try {
 										System.out.println("Enter Ticket Cost: ");
-										modifyTicketCost = scanner.nextDouble();
+										String modifyTicketCostS = scanner.next();
+										if (modifyTicketCostS.equals("-")) {
+											modifyTicketCost = prevScheduleFlight.getTicketCost();
+										} else {
+											modifyTicketCost = Double.parseDouble(modifyTicketCostS);
+										}
 										break;
 									} catch (InputMismatchException exception) {
 										System.out.println(exception);
@@ -1020,14 +1112,20 @@ public class FRSApplication {
 									}
 								}
 								try {
-									modifyScheduleFlight = new ScheduleFlight(modifyScheduleFlightId, flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,modifySchedule, modifyTicketCost, true);
+									modifyScheduleFlight = new ScheduleFlight(modifyScheduleFlightId,
+											flightService.viewFlight(modifyScheduleFlightId), modifyAvailableSeats,
+											modifySchedule, modifyTicketCost, true);
 									scheduleFlightService.modifyScheduleFlight(modifyScheduleFlight);
 								} catch (FRSException e) {
 									System.err.println(e.getMessage());
 								}
+								System.out.println("Flight Schedule Updated.");
+								System.out.println("==============================================");
 								break;
 							case 5:
 								BigInteger deleteScheduleFlightId;
+								System.out.println("==============================================");
+								System.out.println("Delete Scheduled Flight: ");
 								while (true) {
 									try {
 										System.out.println("Enter Flight Number: ");
@@ -1044,6 +1142,8 @@ public class FRSApplication {
 									}
 								}
 								scheduleFlightService.deleteScheduleFlight(deleteScheduleFlightId);
+								System.out.println("Scheduled Flight Deleted.");
+								System.out.println("==============================================");
 								break;
 							case 0:
 								break SCHEDULEFLIGHTMANAGEMENT;

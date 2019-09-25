@@ -10,12 +10,13 @@ import javax.persistence.TypedQuery;
 
 import com.cg.frs.dto.Flight;
 import com.cg.frs.util.EntityManagerFactoryUtil;
+import com.cg.frs.util.EntityTransactionUtil;
 
 public class FlightDaoImpl implements FlightDao {
 
 	private EntityManagerFactory emf = EntityManagerFactoryUtil.getEntityManagerFactory();
 	private EntityManager em = emf.createEntityManager();
-	private EntityTransaction tran = em.getTransaction();
+	private EntityTransaction tran = EntityTransactionUtil.getTransaction(em);
 
 	@Override
 	public Flight addFlight(Flight flight) {

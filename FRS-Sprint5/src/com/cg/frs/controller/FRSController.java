@@ -198,8 +198,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
-	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
-			@ModelAttribute("schedule") Schedule schedule) {
+	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return "ScheduleFlight";
 		} else {
@@ -231,7 +230,8 @@ public class FRSController {
 
 	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
 	public ModelAndView getScheduledFlightsPage() {
-		return new ModelAndView("ShowScheduledFlights","scheduledFlightList", scheduleFlightService.viewScheduleFlight());
+		return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
+				scheduleFlightService.viewScheduleFlight());
 	}
 
 	@RequestMapping(value = "/searchScheduledFlights", method = RequestMethod.GET)
@@ -239,14 +239,65 @@ public class FRSController {
 		return "SearchScheduledFlights";
 	}
 
+	@RequestMapping(value="/scheduledFlightSearch", method=RequestMethod.GET)
+	public ModelAndView scheduleFlightSearchResult(@RequestParam("schedule_flight_id")BigInteger scheduleFlightId) {
+		return new ModelAndView("SearchScheduledFlights","scheduledFlight", scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+	}
+
 	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
-	public String modifyScheduledFlightPage() {
+	public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		return "ModifyScheduledFlight";
+	}
+	
+	@RequestMapping(value="/modifyScheduledFlightSearch", method= RequestMethod.GET)
+	public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight, @RequestParam("modify_schedule_flight_id")BigInteger scheduleFlightId) {
+		return new ModelAndView("ModifyScheduledFlight","scheduledFlightData", scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+	}
+	
+	@RequestMapping(value="/scheduledFlightModify", method=RequestMethod.POST)
+	public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
+			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
+		if (userService.validateAdminWithId(currentUser)) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+			schedule.setSourceAirport(airportService.viewAirport(source));
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+			schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+			schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+			scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
+			scheduleFlight.setSchedule(schedule);
+			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+			scheduleFlight.setScheduleFlightState(true);
+			scheduleFlightService.modifyScheduleFlight(scheduleFlight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
 	public String getScheduleFlightPage() {
 		return "RemoveScheduledFlight";
+	}
+	
+	@RequestMapping(value = "/scheduledFlightRemoveSearch", method = RequestMethod.GET)
+	public ModelAndView getRemoveScheduledFlightsSearchResult(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
+		if (userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("RemoveScheduledFlight", "scheduledFlight", scheduleFlightService.viewScheduleFlights(scheduledFlightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
+	}
+
+	@RequestMapping(value = "/scheduledFlightRemove", method = RequestMethod.POST)
+	public String scheduledFlightRemove(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
+		if (userService.validateAdminWithId(currentUser)) {
+			scheduleFlightService.deleteScheduleFlight(scheduledFlightId);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 }

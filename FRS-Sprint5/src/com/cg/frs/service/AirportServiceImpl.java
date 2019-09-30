@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.dao.AirportDao;
 import com.cg.frs.dto.Airport;
-import com.cg.frs.exception.FRSException;
 
 @Service("airportService")
 @Transactional
@@ -24,27 +23,27 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	@Override
-	public Airport viewAirport(String airportCode) throws FRSException {
+	public Airport viewAirport(String airportCode) {
 		List<Airport> airportList=airportDao.viewAirport();
 		for(Airport airport: airportList) {
 			if(airport.getAirportCode().equals(airportCode))
 				return airport;
 		}
-		throw new FRSException("InvalidAirportCode.");
+		return null;
 	}
 
 	@Override
-	public String validateAirportWithCode(String airportCode) throws FRSException {
-		if(viewAirport(airportCode).equals(null))
-			throw new FRSException("InvalidAirportCode.");
-		return airportCode;
+	public boolean validateAirportWithCode(String airportCode) {
+		if(viewAirport(airportCode)==(null))
+			return false;
+		return true;
 	}
 
 	@Override
-	public int compareAirport(Airport src, Airport dest) throws FRSException {
-		if(src==dest && src.equals(dest))
-			throw new FRSException("Source and Destination Airports cannot be the Same.");
-		return 0;
+	public boolean compareAirport(Airport src, Airport dest) {
+		if(src==dest)
+			return false;
+		return true;
 	}
 
 }

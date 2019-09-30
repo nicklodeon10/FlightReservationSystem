@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 import com.cg.frs.dto.Flight;
-import com.cg.frs.exception.FRSException;
 
 public interface FlightService {   
    
@@ -14,10 +13,8 @@ public interface FlightService {
     
 	public List<Flight> viewFlight();
     
-	public Flight viewFlight(BigInteger flightId) throws FRSException;
+	public Flight viewFlight(BigInteger flightId);
     
 	public boolean deleteFlight(BigInteger flightId);
-	
-	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException;
       
 }

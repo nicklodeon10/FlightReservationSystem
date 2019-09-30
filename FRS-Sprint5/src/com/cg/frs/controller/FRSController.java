@@ -1,5 +1,6 @@
 package com.cg.frs.controller;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.User;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.FlightService;
@@ -33,15 +33,16 @@ public class FRSController {
 	@Autowired
 	UserService userService;
 
+	private static BigInteger currentUser;
+
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
 		return "Home";
 	}
 
-	@RequestMapping(value = "/searchFlight", method = RequestMethod.GET)
+	@RequestMapping(value = "/findFlight", method = RequestMethod.GET)
 	public ModelAndView getFlights(@RequestParam("source_airport") String sourceAirport,
-			@RequestParam("destination_airport") String destinationAirport, @RequestParam("doj") String doj)
-			throws FRSException {
+			@RequestParam("destination_airport") String destinationAirport, @RequestParam("doj") String doj) {
 		Airport source = airportService.viewAirport(sourceAirport);
 		Airport destination = airportService.viewAirport(destinationAirport);
 		LocalDate journeyDate = LocalDate.parse(doj);
@@ -57,10 +58,13 @@ public class FRSController {
 	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
 	public String validateLogin(@RequestParam("user_name") String username,
 			@RequestParam("user_password") String userpass) {
-		if (username.equals("admin")) {
+		currentUser = userService.validateUser(username, userpass);
+		if (userService.validateAdminWithId(currentUser)) {
 			return "AdminHome";
-		} else {
+		} else if (userService.validateCustomerWithId(currentUser)) {
 			return "UserHome";
+		} else {
+			return "InvalidLogin";
 		}
 	}
 
@@ -92,7 +96,7 @@ public class FRSController {
 		return "ShowFlights";
 	}
 
-	@RequestMapping(value = "searchFlight", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchFlight", method = RequestMethod.GET)
 	public String getSearchFlightPage() {
 		return "SearchFlight";
 	}
@@ -106,27 +110,27 @@ public class FRSController {
 	public String getRemoveFlightPage() {
 		return "RemoveFlight";
 	}
-	
+
 	@RequestMapping(value = "/scheduleFlight", method = RequestMethod.GET)
 	public String addScheduleFlightPage() {
 		return "ScheduleFlight";
 	}
-	
+
 	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
 	public String getScheduledFlightsPage() {
 		return "ShowScheduledFlights";
 	}
-	
+
 	@RequestMapping(value = "/searchScheduledFlights", method = RequestMethod.GET)
 	public String searchScheduledFlightsPage() {
 		return "SearchScheduledFlights";
 	}
-	
+
 	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
 	public String modifyScheduledFlightPage() {
 		return "ModifyScheduledFlight";
 	}
-	
+
 	@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
 	public String getScheduleFlightPage() {
 		return "RemoveScheduledFlight";

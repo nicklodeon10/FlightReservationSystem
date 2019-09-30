@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.cg.frs.dao.ScheduleFlightDao;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.exception.FRSException;
 
 @Service("scheduleFlightService")
 @Transactional
@@ -63,13 +62,6 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	@Override
 	public boolean deleteScheduleFlight(BigInteger flightId) {
 		return scheduleFlightDao.deleteScheduleFlight(flightId);
-	}
-
-	@Override
-	public BigInteger validateScheduleFlightWithId(BigInteger flightId) throws FRSException{
-		if(viewScheduleFlights(flightId).equals(null))
-			throw new FRSException("InvalidFlightId.");
-		return flightId;
 	}
 	
 }

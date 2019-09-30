@@ -76,7 +76,7 @@ a {
 	<!-- Body -->
 	<div class="row">
 		<div class="col s6 offset-s1">
-			<form:form action="searchFlight" method="GET">
+			<form:form action="findFlight" method="GET">
 			<div class="card">
 				<div class="card-content">
 					<div class="row">

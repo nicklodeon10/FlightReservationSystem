@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.dao.FlightDao;
 import com.cg.frs.dto.Flight;
-import com.cg.frs.exception.FRSException;
 
 @Service("flightService")
 @Transactional
@@ -35,25 +34,18 @@ public class FlightServiceImpl implements FlightService{
 	}
 
 	@Override
-	public Flight viewFlight(BigInteger flightId) throws FRSException {
+	public Flight viewFlight(BigInteger flightId) {
 		List<Flight> flightList=flightDao.viewFlight();
 		for(Flight flight: flightList) {
 			if(flight.getFlightNumber().equals(flightId))
 				return flight;
 		}
-		throw new FRSException("Flight Not Found.");
+		return null;
 	}
 
 	@Override
 	public boolean deleteFlight(BigInteger flightId) {
 		return flightDao.deleteFlight(flightId);
-	}
-
-	@Override
-	public BigInteger validateFlightWithId(BigInteger flightId) throws FRSException{
-		if(viewFlight(flightId).equals(null))
-			throw new FRSException("InvalidFlightId.");
-		return flightId;
 	}
 	
 }

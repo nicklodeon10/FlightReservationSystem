@@ -299,5 +299,25 @@ public class FRSController {
 			return "LogIn";
 		}
 	}
+	
+	@RequestMapping(value="/addBooking", method = RequestMethod.GET)
+	public String addBookingPage() {
+		return "AddBooking";
+	}
+	
+	@RequestMapping(value="/addPassenger", method= RequestMethod.POST)
+	public ModelAndView addPassenger(@RequestParam("schedule_flight_id")BigInteger flightId) {
+		return new ModelAndView("AddPassenger", "flightId", flightId);
+	}
+	
+	@RequestMapping(value="/showBooking", method = RequestMethod.GET)
+	public String showBookingPage() {
+		return "ShowBooking";
+	}
+	
+	@RequestMapping(value="/deleteBooking", method = RequestMethod.GET)
+	public String deleteBookingPage() {
+		return "DeleteBooking";
+	}
 
 }

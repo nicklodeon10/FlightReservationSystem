@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
-<title>FRS: Home</title>
+<title>Add Booking</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -15,8 +15,7 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<style>
+<style>
 body {
 	background-color: #eeeeee;
 }
@@ -37,47 +36,50 @@ a {
 	<!-- Header -->
 	<nav>
 		<div class="nav-wrapper grey darken-4">
-			<a href="home" class="brand-logo"> <i class="large material-icons">airplanemode_active</i>Flight
+			<a href="home" class="brand-logo"> <i
+				class="large material-icons">airplanemode_active</i>Flight
 				Reservation System
 			</a>
-			
+
 		</div>
 	</nav>
 	<!-- Header -->
-	
-	
-	
+
+	<!-- Body -->
 	<div class="row">
-		<div class="col s6 offset-s3">
-		    <div class="input-field col s12">
-							<input placeholder="Enter UIN"
-								id="passenger_uin" type="text" class="validate"> <label
-								for="passenger_uin">Enter UIN of the Passenger:</label>
-						</div>
-						
+	<div class="col s6 offset-s3">
+		<form:form action="findFlight" method="GET">
+			<div class="card center">
+				<div class="card-content">
+					<div class="row">
 						<div class="input-field col s12">
-						
-						<input placeholder="Enter Passenger Name"
-								id="passenger_name" type="text" class="validate"> <label
-								for="passenger_name">Enter Name of the Passenger:</label>
-							
+							<input placeholder="Enter Source Airport here"
+								id="source_airport" type="text" class="validate"
+								name="source_airport"> <label for="source_airport">Source
+								Airport</label>
 						</div>
-						
 						<div class="input-field col s12">
-							<input placeholder="Enter Passenger Age"
-								id="passenger_age" type="text" class="validate"> <label
-								for="passenger_age">Enter Age of the Passenger:<label>
+							<input placeholder="Enter Destination Airport here"
+								id="destination_airport" type="text" class="validate"
+								name="destination_airport"> <label
+								for="destination_airport">Destination Airport</label>
 						</div>
-							<div class="col s3 offset-s6">
-							
-							<button class="btn pmd-btn-fab pmd-ripple-effect btn-light" type="button"><i class="material-icons pmd-sm">add</i></button>
-							
-							</div>
+						<div class="input-field col s12">
+							<input placeholder="Enter Date of Journey here"
+								id="date_of_journey" type="date" class="validate" name="doj">
+							<label for="date_of_journey">Date of Journey</label>
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="findFlights"
+					class="waves-effect waves-light btn-large"></input>
+			</div>
+		</form:form>
 	</div>
 	</div>
-	
-	
-	
+	<!-- Body -->
+
+
 	<!-- Footer -->
 	<footer class="page-footer grey lighten-3">
 		<div class="container"></div>

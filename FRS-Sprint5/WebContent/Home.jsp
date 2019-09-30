@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -75,36 +76,39 @@ a {
 	<!-- Body -->
 	<div class="row">
 		<div class="col s6 offset-s1">
+			<form:form action="searchFlight" method="GET">
 			<div class="card">
 				<div class="card-content">
 					<div class="row">
 						<div class="input-field col s12">
 							<input placeholder="Enter Source Airport here"
-								id="source_airport" type="text" class="validate"> <label
+								id="source_airport" type="text" class="validate" name="source_airport"> <label
 								for="source_airport">Source Airport</label>
 						</div>
 						<div class="input-field col s12">
 							<input placeholder="Enter Destination Airport here"
-								id="destination_airport" type="text" class="validate"> <label
-								for="destination_airport">Destination Airport</label>
+								id="destination_airport" type="text" class="validate" name="destination_airport"> <label
+								for="destination_airport" >Destination Airport</label>
 						</div>
 						<div class="input-field col s12">
 							<input placeholder="Enter Date of Journey here"
-								id="date_of_journey" type="date" class="validate"> <label
+								id="date_of_journey" type="date" class="validate" name="doj"> <label
 								for="date_of_journey">Date of Journey</label>
 						</div>
 					</div>
 				</div>
-				<div class="card-action grey darken-4">
-					<a href="#"> <strong>Get Flights</strong>
-					</a>
-				</div>
+				<input type="submit" value="findFlights" class="waves-effect waves-light btn-large"></input>
 			</div>
+			</form:form>
 		</div>
 		<div class="col s4 center">
-			<span class="or">OR</span><br> <a
-				class="waves-effect waves-light btn-large">Log In</a><br> <a
-				class="waves-effect waves-light btn-large">Sign Up</a>
+			<span class="or">OR</span><br>
+			<form:form action="logIn" method="GET">
+				<input type="submit" value="log In" class="waves-effect waves-light btn-large"></input><br>
+			</form:form>
+			<form:form action="signUp" method="GET">
+				<input type="submit" value="sign up" class="waves-effect waves-light btn-large"></input><br>
+			</form:form>
 		</div>
 	</div>
 	<!-- Body -->

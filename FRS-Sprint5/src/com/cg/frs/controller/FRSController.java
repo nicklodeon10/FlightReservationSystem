@@ -2,6 +2,7 @@ package com.cg.frs.controller;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Flight;
+import com.cg.frs.dto.Schedule;
+import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
@@ -130,76 +133,105 @@ public class FRSController {
 	public String getSearchFlightPage() {
 		if (userService.validateAdminWithId(currentUser)) {
 			return "SearchFlight";
-		}else {
+		} else {
 			return "LogIn";
 		}
 	}
-	
-	@RequestMapping(value="/flightSearch", method = RequestMethod.GET)
-	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id")BigInteger flightId) {
-		if(userService.validateAdminWithId(currentUser)) {
+
+	@RequestMapping(value = "/flightSearch", method = RequestMethod.GET)
+	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightId) {
+		if (userService.validateAdminWithId(currentUser)) {
 			return new ModelAndView("SearchFlight", "flight", flightService.viewFlight(flightId));
-		}else {
+		} else {
 			return new ModelAndView("LogIn");
 		}
 	}
-	
+
 	@RequestMapping(value = "/modifyFlight", method = RequestMethod.GET)
-	public String getModifyFlightPage(@ModelAttribute("flight")Flight flight) {
+	public String getModifyFlightPage(@ModelAttribute("flight") Flight flight) {
 		return "ModifyFlight";
 	}
-	
-	@RequestMapping(value="/flightEditSearch", method = RequestMethod.GET)
-	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id")BigInteger flightId, @ModelAttribute("flight")Flight flight) {
-		if(userService.validateAdminWithId(currentUser)) {
+
+	@RequestMapping(value = "/flightEditSearch", method = RequestMethod.GET)
+	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
+			@ModelAttribute("flight") Flight flight) {
+		if (userService.validateAdminWithId(currentUser)) {
 			return new ModelAndView("ModifyFlight", "flight", flightService.viewFlight(flightId));
-		}else {
+		} else {
 			return new ModelAndView("LogIn");
 		}
 	}
-	
-	@RequestMapping(value="flightModify", method=RequestMethod.POST)
-	public String modifyFlight(@ModelAttribute("flight")Flight flight) {
-		if(userService.validateAdminWithId(currentUser)) {
+
+	@RequestMapping(value = "flightModify", method = RequestMethod.POST)
+	public String modifyFlight(@ModelAttribute("flight") Flight flight) {
+		if (userService.validateAdminWithId(currentUser)) {
 			flightService.modifyFlight(flight);
 			return "AdminHome";
-		}else {
+		} else {
 			return "LogIn";
 		}
 	}
 
 	@RequestMapping(value = "/removeFlight", method = RequestMethod.GET)
-	public String getRemoveFlightPage(@ModelAttribute("flight")Flight flight) {
+	public String getRemoveFlightPage(@ModelAttribute("flight") Flight flight) {
 		return "RemoveFlight";
 	}
-	
-	@RequestMapping(value="/flightRemoveSearch", method=RequestMethod.GET)
-	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id")BigInteger flightId, @ModelAttribute("flight")Flight flight) {
-		if(userService.validateAdminWithId(currentUser)) {
+
+	@RequestMapping(value = "/flightRemoveSearch", method = RequestMethod.GET)
+	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
+			@ModelAttribute("flight") Flight flight) {
+		if (userService.validateAdminWithId(currentUser)) {
 			return new ModelAndView("RemoveFlight", "flight", flightService.viewFlight(flightId));
-		}else {
+		} else {
 			return new ModelAndView("LogIn");
 		}
 	}
-	
-	@RequestMapping(value="/flightRemove", method=RequestMethod.POST)
-	public String flightRemove(@RequestParam("flight_id")BigInteger flightId) {
-		if(userService.validateAdminWithId(currentUser)) {
+
+	@RequestMapping(value = "/flightRemove", method = RequestMethod.POST)
+	public String flightRemove(@RequestParam("flight_id") BigInteger flightId) {
+		if (userService.validateAdminWithId(currentUser)) {
 			flightService.deleteFlight(flightId);
 			return "AdminHome";
-		}else {
+		} else {
 			return "LogIn";
 		}
 	}
 
-	@RequestMapping(value = "/scheduleFlight", method = RequestMethod.GET)
-	public String addScheduleFlightPage() {
-		return "ScheduleFlight";
+	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
+	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@ModelAttribute("schedule") Schedule schedule) {
+		if (userService.validateAdminWithId(currentUser)) {
+			return "ScheduleFlight";
+		} else {
+			return "LogIn";
+		}
+	}
+
+	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
+	public String addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
+			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
+		if (userService.validateAdminWithId(currentUser)) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+			schedule.setSourceAirport(airportService.viewAirport(source));
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+			schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+			schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+			scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
+			scheduleFlight.setSchedule(schedule);
+			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+			scheduleFlight.setScheduleFlightState(true);
+			scheduleFlightService.addScheduleFlight(scheduleFlight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
-	public String getScheduledFlightsPage() {
-		return "ShowScheduledFlights";
+	public ModelAndView getScheduledFlightsPage() {
+		return new ModelAndView("ShowScheduledFlights","scheduledFlightList", scheduleFlightService.viewScheduleFlight());
 	}
 
 	@RequestMapping(value = "/searchScheduledFlights", method = RequestMethod.GET)

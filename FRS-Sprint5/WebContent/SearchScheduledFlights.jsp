@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Show Flight</title>
+<title>Search Scheduled Flights</title>
 </head>
 <body>
 

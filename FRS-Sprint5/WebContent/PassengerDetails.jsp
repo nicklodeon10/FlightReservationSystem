@@ -73,7 +73,8 @@ a {
 							<button class="btn pmd-btn-fab pmd-ripple-effect btn-light" type="button"><i class="material-icons pmd-sm">add</i></button>
 							
 							</div>
-	
+	</div>
+	</div>
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -54,28 +55,30 @@ a{
 	 <div class="container">
 	 	<div class="row">
 	 		<div class="card col s4 offset-s4 center">
+	 			<form:form action="userAdd" method="POST" modelAttribute="user">
 	 			<div class="row">
 	 				<h5>Sign Up</h5>
 	 				<br>
 	 				<div class="input-field col s12">
-          				<input id="user_name" type="text" class="validate">
+          				<form:input id="user_name" type="text" class="validate" path="userName"></form:input>
           				<label for="first_name">Choose a User Name</label>
        				 </div>
        				 <div class="input-field col s12">
-         				 <input id="password" type="password" class="validate">
+         				 <form:input id="password" type="password" class="validate" path="userPassword"></form:input>
          				 <label for="password">Choose a Password</label>
         			</div>
         			<div class="input-field col s12">
-          				<input id="phone" type="tel" class="validate">
+          				<form:input id="phone" type="tel" class="validate" path="userPhone"></form:input>
           				<label for="phone">Enter your Mobile Number</label>
         			</div>
         			<div class="input-field col s12">
-          				<input id="email" type="email" class="validate">
+          				<form:input id="email" type="email" class="validate" path="email"></form:input>
           				<label for="email">Enter your Email</label>
         			</div>
         			<br>
-        			<a class="waves-effect waves-light btn large">Submit</a>
+        			<input type="submit" value="Submit" class="waves-effect waves-light btn-large"></input>
 	 			</div>
+	 			</form:form>
 	 		</div>
 	 	</div>
 	 </div>

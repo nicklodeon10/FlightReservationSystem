@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -51,21 +52,21 @@ a{
 	 <div class="container">
 	 	<div class="row">
 	 		<div class="card col s4 offset-s4 center">
+	 			<form:form action="userLogin" method="GET">
 	 			<div class="row">
 	 				<h5>Log In</h5>
 	 				<div class="input-field col s12">
-          				<input id="user_name" type="text" class="validate">
+          				<input id="user_name" type="text" class="validate" name="user_name">
           				<label for="first_name">User Name</label>
        				 </div>
        				 <div class="input-field col s12">
-         				 <input id="password" type="password" class="validate">
+         				 <input id="password" type="password" class="validate" name="user_password">
          				 <label for="password">Password</label>
         			</div>
         			<a class="waves-effect waves-light btn large">Submit</a>
 	 			</div>
-	 			<div class="row">
-	 				<a href="#">New User? Sign Up.</a>
-	 			</div>
+	 			<input type="submit" value="Submit" class="waves-effect waves-light btn-large"></input>
+	 			</form:form>
 	 		</div>
 	 	</div>
 	 </div>

@@ -42,7 +42,7 @@
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="#">Bookings</a></li>
-				<li><a href="#">View Flights</a></li>
+				<li><a href="logOut">Log Out</a></li>
 			</ul>
 		</div>
 	</nav>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.frs.dto.Airport;
+import com.cg.frs.dto.Flight;
 import com.cg.frs.dto.User;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
@@ -68,6 +69,12 @@ public class FRSController {
 		}
 	}
 
+	@RequestMapping(value = "/logOut", method = RequestMethod.GET)
+	public String logOut() {
+		currentUser = null;
+		return "Home";
+	}
+
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public String signUpPage(@ModelAttribute("user") User user) {
 		return "SignUp";
@@ -82,33 +89,107 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/regUserList", method = RequestMethod.GET)
-	public String getUserListPage() {
-		return "RegUserList";
+	public ModelAndView getUserListPage() {
+		if (userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("RegUserList", "userList", userService.viewUser());
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/addFlight", method = RequestMethod.GET)
-	public String getAddFlightPage() {
-		return "AddFlight";
+	public String getAddFlightPage(@ModelAttribute("flight") Flight flight) {
+		if (userService.validateAdminWithId(currentUser)) {
+			return "AddFlight";
+		} else {
+			return "LogIn";
+		}
+	}
+
+	@RequestMapping(value = "/flightAdd", method = RequestMethod.POST)
+	public String addFlight(@ModelAttribute("flight") Flight flight) {
+		if (userService.validateAdminWithId(currentUser)) {
+			flight.setFlightState(true);
+			flightService.addFlight(flight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/showFlights", method = RequestMethod.GET)
-	public String getShowFlightsPage() {
-		return "ShowFlights";
+	public ModelAndView getShowFlightsPage() {
+		if (userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("ShowFlights", "flightList", flightService.viewFlight());
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/searchFlight", method = RequestMethod.GET)
 	public String getSearchFlightPage() {
-		return "SearchFlight";
+		if (userService.validateAdminWithId(currentUser)) {
+			return "SearchFlight";
+		}else {
+			return "LogIn";
+		}
 	}
-
+	
+	@RequestMapping(value="/flightSearch", method = RequestMethod.GET)
+	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id")BigInteger flightId) {
+		if(userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("SearchFlight", "flight", flightService.viewFlight(flightId));
+		}else {
+			return new ModelAndView("LogIn");
+		}
+	}
+	
 	@RequestMapping(value = "/modifyFlight", method = RequestMethod.GET)
-	public String getModifyFlightPage() {
+	public String getModifyFlightPage(@ModelAttribute("flight")Flight flight) {
 		return "ModifyFlight";
+	}
+	
+	@RequestMapping(value="/flightEditSearch", method = RequestMethod.GET)
+	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id")BigInteger flightId, @ModelAttribute("flight")Flight flight) {
+		if(userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("ModifyFlight", "flight", flightService.viewFlight(flightId));
+		}else {
+			return new ModelAndView("LogIn");
+		}
+	}
+	
+	@RequestMapping(value="flightModify", method=RequestMethod.POST)
+	public String modifyFlight(@ModelAttribute("flight")Flight flight) {
+		if(userService.validateAdminWithId(currentUser)) {
+			flightService.modifyFlight(flight);
+			return "AdminHome";
+		}else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/removeFlight", method = RequestMethod.GET)
-	public String getRemoveFlightPage() {
+	public String getRemoveFlightPage(@ModelAttribute("flight")Flight flight) {
 		return "RemoveFlight";
+	}
+	
+	@RequestMapping(value="/flightRemoveSearch", method=RequestMethod.GET)
+	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id")BigInteger flightId, @ModelAttribute("flight")Flight flight) {
+		if(userService.validateAdminWithId(currentUser)) {
+			return new ModelAndView("RemoveFlight", "flight", flightService.viewFlight(flightId));
+		}else {
+			return new ModelAndView("LogIn");
+		}
+	}
+	
+	@RequestMapping(value="/flightRemove", method=RequestMethod.POST)
+	public String flightRemove(@RequestParam("flight_id")BigInteger flightId) {
+		if(userService.validateAdminWithId(currentUser)) {
+			flightService.deleteFlight(flightId);
+			return "AdminHome";
+		}else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/scheduleFlight", method = RequestMethod.GET)

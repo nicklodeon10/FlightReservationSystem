@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -46,37 +47,34 @@ a {
 	</nav>
 	<!-- Header -->
 
+	<!-- Body -->
 
-
-	<div class="row card">
-		<div class="col s6 offset-s3">
-			<div class="input-field col s12">
-				<input placeholder="Enter UIN" id="passenger_uin" type="text"
-					class="validate"> <label for="passenger_uin">Enter
-					UIN of the Passenger:</label>
+	<div class="container">
+		<form:form action="newPassengerAdd" method="POST" modelAttribute="passenger">		
+			<div class="row" id="container">
+				<div class="col s6 offset-s3 card">
+					Passenger 1 Details:<br>
+					<form:input placeholder="Enter Passenger Name" id="passenger_name"
+						type="text" class="validate" path="passengerName"></form:input>
+					<label for="passenger_name">Enter Name of the Passenger:</label>
+					<form:input placeholder="Enter UIN" id="passenger_uin"
+						type="number" class="validate" path="passengerUIN"></form:input>
+					<label for="passenger_uin">Enter UIN of the Passenger:</label>
+					<form:input placeholder="Enter Passenger Age" id="passenger_age"
+						type="text" class="validate" path="passengerAge"></form:input>
+					<label for="passenger_age">Enter Age of the Passenger:</label>
+				</div>
 			</div>
-			<div class="input-field col s12">
-				<input placeholder="Enter Passenger Name" id="passenger_name"
-					type="text" class="validate"> <label for="passenger_name">Enter
-					Name of the Passenger:</label>
-			</div>
-			<div class="input-field col s12">
-				<input placeholder="Enter Passenger Age" id="passenger_age"
-					type="text" class="validate"> <label for="passenger_age">Enter
-					Age of the Passenger:</label>
-			</div>
-			<div class="col s3 offset-s6">
-
-				<button class="btn pmd-btn-fab pmd-ripple-effect btn-light"
-					type="button" onclick="increasePassenger()">
-					<i class="material-icons pmd-sm">add</i>
-				</button>
-
-			</div>
-		</div>
+			<input type="submit" value="Add Another Passenger"
+				class="waves-effect waves-light btn-large"></input>
+		</form:form>
+		<a href="saveBooking">Confirm Booking</a>
 	</div>
 
+	<input type="text" hidden="true" name="schedule_flight_id"
+				value="${flightId}" readonly />
 
+	<!-- Body -->
 
 	<!-- Footer -->
 	<footer class="page-footer grey lighten-3">
@@ -89,41 +87,6 @@ a {
 		</div>
 	</footer>
 	<!-- Footer -->
-	<script>
-		var passengerCount=1;
-		var data='<div class="row card">
-		<div class="col s6 offset-s3">
-		<div class="input-field col s12">
-			<input placeholder="Enter UIN" id="passenger_uin" type="text"
-				class="validate"> <label for="passenger_uin">Enter
-				UIN of the Passenger:</label>
-		</div>
-		<div class="input-field col s12">
-			<input placeholder="Enter Passenger Name" id="passenger_name"
-				type="text" class="validate"> <label for="passenger_name">Enter
-				Name of the Passenger:</label>
-		</div>
-		<div class="input-field col s12">
-			<input placeholder="Enter Passenger Age" id="passenger_age"
-				type="text" class="validate"> <label for="passenger_age">Enter
-				Age of the Passenger:</label>
-		</div>
-		<div class="col s3 offset-s6">
-
-			<button class="btn pmd-btn-fab pmd-ripple-effect btn-light"
-				type="button" onclick="increasePassenger()">
-				<i class="material-icons pmd-sm">add</i>
-			</button>
-
-		</div>
-	</div>
-		</div>';
-		function increasePassenger(){
-			passengerCount++;
-			console.log(passengerCount);
-			document.write(data);
-		}
-	</script>
 </body>
 
 </html>

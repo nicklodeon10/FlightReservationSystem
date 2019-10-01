@@ -3,9 +3,12 @@ package com.cg.frs.controller;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Flight;
+import com.cg.frs.dto.Passenger;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
@@ -39,19 +43,11 @@ public class FRSController {
 
 	private static BigInteger currentUser;
 
+	List<Passenger> passList=new ArrayList<>();
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
 		return "Home";
-	}
-
-	@RequestMapping(value = "/findFlight", method = RequestMethod.GET)
-	public ModelAndView getFlights(@RequestParam("source_airport") String sourceAirport,
-			@RequestParam("destination_airport") String destinationAirport, @RequestParam("doj") String doj) {
-		Airport source = airportService.viewAirport(sourceAirport);
-		Airport destination = airportService.viewAirport(destinationAirport);
-		LocalDate journeyDate = LocalDate.parse(doj);
-		return new ModelAndView("ViewFlight", "scheduleFlightList",
-				scheduleFlightService.viewScheduleFlights(source, destination, journeyDate));
 	}
 
 	@RequestMapping(value = "/logIn", method = RequestMethod.GET)
@@ -305,9 +301,31 @@ public class FRSController {
 		return "AddBooking";
 	}
 	
-	@RequestMapping(value="/addPassenger", method= RequestMethod.POST)
-	public ModelAndView addPassenger(@RequestParam("schedule_flight_id")BigInteger flightId) {
-		return new ModelAndView("AddPassenger", "flightId", flightId);
+	@RequestMapping(value = "/findFlight", method = RequestMethod.GET)
+	public ModelAndView getFlights(@RequestParam("source_airport") String sourceAirport,
+			@RequestParam("destination_airport") String destinationAirport, @RequestParam("doj") String doj) {
+		Airport source = airportService.viewAirport(sourceAirport);
+		Airport destination = airportService.viewAirport(destinationAirport);
+		LocalDate journeyDate = LocalDate.parse(doj);
+		return new ModelAndView("ViewFlight", "scheduleFlightList",
+				scheduleFlightService.viewScheduleFlights(source, destination, journeyDate));
+	}
+	
+	@RequestMapping(value="/addPassenger", method= RequestMethod.GET)
+	public ModelAndView addPassenger(@RequestParam("schedule_flight_id")BigInteger flightId, @ModelAttribute("passenger")Passenger passenger) {
+		return new ModelAndView("AddPassenger","flightId", flightId);
+	}
+	
+	@RequestMapping(value="/newPassengerAdd", method=RequestMethod.POST)
+	public ModelAndView addNewPassenger(@RequestParam("schedule_flight_id")BigInteger flightId, @ModelAttribute("passenger")Passenger passenger) {
+		passList.add(passenger);
+		return new ModelAndView("AddPassenger","flightId", flightId);
+	}
+	
+	@RequestMapping(value="/saveBooking", method=RequestMethod.GET)
+	public String confirmBooking(@ModelAttribute("passenger")Passenger passenger) {
+		System.out.println(passList);
+		return "UserHome";
 	}
 	
 	@RequestMapping(value="/showBooking", method = RequestMethod.GET)

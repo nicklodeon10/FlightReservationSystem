@@ -82,7 +82,7 @@ a {
 								${scheduleFlight.getSchedule().getArrivalDateTime().toString()}</div>
 						</div>
 						<div class="col s2">
-							<form:form action="addPassenger" method="POST">
+							<form:form action="addPassenger" method="GET">
 								<input type="text" hidden="true" name="schedule_flight_id"
 									value="${scheduleFlight.getFlight().getFlightNumber()}" />
 								<input type="submit" value="Book"

@@ -117,20 +117,20 @@ public class Passenger {
 		this.passengerAge = passengerAge;
 	}
 
-	public BigInteger getPassengerUIN() {
-		return passengerUIN;
-	}
-
-	public void setPassengerUIN(BigInteger passengerUIN) {
-		this.passengerUIN = passengerUIN;
-	}
-
 	public Boolean getPassengerState() {
 		return passengerState;
 	}
 
 	public void setPassengerState(Boolean passengerState) {
 		this.passengerState = passengerState;
+	}
+
+	public BigInteger getPassengerUIN() {
+		return passengerUIN;
+	}
+
+	public void setPassengerUIN(BigInteger passengerUIN) {
+		this.passengerUIN = passengerUIN;
 	}
 
 }

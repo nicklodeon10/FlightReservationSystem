@@ -50,10 +50,12 @@ a {
 	<!-- Body -->
 
 	<div class="container">
-		<form:form action="newPassengerAdd" method="POST" modelAttribute="passenger">		
+		<form:form action="newPassengerAdd" method="POST"
+			modelAttribute="passenger">
 			<div class="row" id="container">
 				<div class="col s6 offset-s3 card">
-					Passenger 1 Details:<br>
+					Passenger 1 Details:<br> <input type="text" hidden="true"
+						name="schedule_flight_id" value="${flightId}" readonly />
 					<form:input placeholder="Enter Passenger Name" id="passenger_name"
 						type="text" class="validate" path="passengerName"></form:input>
 					<label for="passenger_name">Enter Name of the Passenger:</label>
@@ -70,9 +72,6 @@ a {
 		</form:form>
 		<a href="saveBooking">Confirm Booking</a>
 	</div>
-
-	<input type="text" hidden="true" name="schedule_flight_id"
-				value="${flightId}" readonly />
 
 	<!-- Body -->
 

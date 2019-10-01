@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="Passenger")
 public class Passenger {
@@ -16,10 +19,13 @@ public class Passenger {
 	@Column(name="pnr_number")
 	private BigInteger pnrNumber;
 	@Column(name="passenger_name")
+	@NotEmpty(message="Please Enter Passenger Name")
 	private String passengerName;
 	@Column(name="passenger_age")
+	@NotNull(message="Enter Passenger Age")
 	private Integer passengerAge;
 	@Column(name="passenger_UIN")
+	@NotEmpty(message="Please Enter Passenger UIN")
 	private BigInteger passengerUIN;
 	@Column(name="passengerState")
 	private Boolean passengerState;

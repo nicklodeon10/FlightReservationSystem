@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="User")
 public class User {
@@ -16,14 +21,23 @@ public class User {
 	@Column(name="user_id")
 	private BigInteger userId;
 	@Column(name="user_type")
+	@NotEmpty(message="User Type is Empty")
 	private String userType;
 	@Column(name="user_name")
+	@NotEmpty(message="User Name is Empty")
+	@Size(min = 2, max = 40, message = "Name must be between 2 and 40 characters ")
 	private String userName;
 	@Column(name="user_password")
+	@NotEmpty(message="Password is Empty")
+	@Size(min = 2, max = 15, message = "Password must be between 2 and 15 characters ")
 	private String userPassword;
 	@Column(name="user_phone")
+	@NotNull(message="Phone No. is Empty")
+	@Size(min=10,max=10, message ="Phone No. should be of 10-digits")
 	private BigInteger userPhone;
 	@Column(name="user_email")
+	@NotEmpty(message="Please Enter Email Address")
+	@Email(message="Enter Valid Email Address ")
 	private String email;
 	@Column(name="userState")
 	private Boolean userState;
@@ -151,6 +165,7 @@ public class User {
 		this.userPhone = userPhone;
 	}
 
+	
 	public String getEmail() {
 		return email;
 	}

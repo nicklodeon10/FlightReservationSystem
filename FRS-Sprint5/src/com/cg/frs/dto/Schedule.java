@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity(name="Schedule")
 public class Schedule {
 
@@ -20,8 +22,10 @@ public class Schedule {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport destinationAirport;
 	@Column(name="departure_date_time")
+	@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime departureDateTime;
 	@Column(name="arrival_date_time")
+	@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime arrivalDateTime;
 
 	public Schedule() {

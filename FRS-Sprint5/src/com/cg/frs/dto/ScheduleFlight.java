@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity(name="ScheduleFlight")
 public class ScheduleFlight {
@@ -22,6 +23,7 @@ public class ScheduleFlight {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Schedule schedule;
 	@Column(name="ticket_cost")
+	@NotNull(message="Ticket Cost is Empty")
 	private Double ticketCost;
 	@Column(name="scheduleFlightState")
 	private Boolean scheduleFlightState;

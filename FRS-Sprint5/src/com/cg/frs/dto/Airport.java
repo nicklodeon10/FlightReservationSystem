@@ -4,15 +4,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity(name="Airport")
 public class Airport {
 
 	@Id
 	@Column(name="airport_code")
+	
 	private String airportCode;
 	@Column(name="airport_name")
+	@NotEmpty(message = "Airport Name is Empty ")
 	private String airportName;
 	@Column(name="airport_location")
+	@NotEmpty(message = "Airport location is Empty ")
 	private String airportLocation;
 
 	public Airport() {

@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name="Flight")
 public class Flight {
@@ -16,10 +19,13 @@ public class Flight {
 	@Column(name="flight_number")
 	private BigInteger flightNumber;
 	@Column(name="flight_model")
+	@NotEmpty(message="Flight Model is Empty")
 	private String flightModel;
 	@Column(name="carrier_name")
+	@NotEmpty(message="Carrier Name is Empty")
 	private String carrierName;
 	@Column(name="seat_capacity")
+	@NotNull(message="Seat Capacity is Empty")
 	private Integer seatCapacity;
 	@Column(name="flightState")
 	private Boolean flightState;

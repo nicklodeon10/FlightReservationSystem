@@ -13,6 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name="Booking")
 public class Booking {
@@ -22,12 +26,18 @@ public class Booking {
 	@Column(name="booking_id")
 	private BigInteger bookingId;
 	@Column(name="user_id")
+	@NotNull(message="User Id is Empty")
 	private BigInteger userId;
 	@Column(name="booking_date")
+	@Future
+	@DateTimeFormat(pattern="mm-dd-yyyy")
+
 	private LocalDateTime bookingDate;
 	@Column(name="ticket_cost")
+	
 	private Double ticketCost;
 	@Column(name="passenger_count")
+	@NotNull(message="No. of passenger is Empty")
 	private Integer passengerCount;
 	@Column(name="bookingState")
 	private Boolean bookingState;

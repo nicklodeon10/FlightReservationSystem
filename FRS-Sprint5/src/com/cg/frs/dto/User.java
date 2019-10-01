@@ -1,5 +1,8 @@
 package com.cg.frs.dto;
 
+
+
+
 import java.math.BigInteger;
 
 import javax.persistence.Column;
@@ -32,8 +35,8 @@ public class User {
 	@Size(min = 2, max = 15, message = "Password must be between 2 and 15 characters ")
 	private String userPassword;
 	@Column(name="user_phone")
-	@NotNull(message="Phone No. is Empty")
-	@Size(min=10,max=10, message ="Phone No. should be of 10-digits")
+	
+	
 	private BigInteger userPhone;
 	@Column(name="user_email")
 	@NotEmpty(message="Please Enter Email Address")

@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,7 +29,9 @@ public class Booking {
 	@NotNull(message="User Id is Empty")
 	private BigInteger userId;
 	@Column(name="booking_date")
-	@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	@Future
+	@DateTimeFormat(pattern="mm-dd-yyyy")
+
 	private LocalDateTime bookingDate;
 	@Column(name="ticket_cost")
 	

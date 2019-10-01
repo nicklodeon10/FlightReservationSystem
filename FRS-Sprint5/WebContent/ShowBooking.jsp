@@ -116,7 +116,7 @@ body{
         </footer>
 	<!-- Footer -->
 <script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 </script>
   
 

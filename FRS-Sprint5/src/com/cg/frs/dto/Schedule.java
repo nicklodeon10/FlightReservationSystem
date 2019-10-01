@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Future;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,10 +23,14 @@ public class Schedule {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport destinationAirport;
 	@Column(name="departure_date_time")
-	@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	@Future
+	@DateTimeFormat(pattern="mm-dd-yyyy HH:mm:ss")
+	
 	private LocalDateTime departureDateTime;
 	@Column(name="arrival_date_time")
-	@DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	@Future
+	@DateTimeFormat(pattern="mm-dd-yyyy HH:mm:ss")
+	
 	private LocalDateTime arrivalDateTime;
 
 	public Schedule() {

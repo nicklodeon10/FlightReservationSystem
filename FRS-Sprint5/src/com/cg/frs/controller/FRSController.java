@@ -204,8 +204,8 @@ public class FRSController {
 
 	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
 	public String addScheduleFlight(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
-			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
-			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
+			@valid@RequestParam("source_airport") String source, @valid@RequestParam("destination_airport") String destination,
+			@valid@RequestParam("departure_time") String departureTime, @valid@RequestParam("arrival_time") String arrivalTime) {
 		if (userService.validateAdminWithId(currentUser)) {
 			Schedule schedule = new Schedule();
 			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
@@ -241,17 +241,17 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
-	public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
+	public String modifyScheduledFlightPage(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		return "ModifyScheduledFlight";
 	}
 	
 	@RequestMapping(value="/modifyScheduledFlightSearch", method= RequestMethod.GET)
-	public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight, @RequestParam("modify_schedule_flight_id")BigInteger scheduleFlightId) {
+	public ModelAndView modifyScheduleFlight(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight, @RequestParam("modify_schedule_flight_id")BigInteger scheduleFlightId) {
 		return new ModelAndView("ModifyScheduledFlight","scheduledFlightData", scheduleFlightService.viewScheduleFlights(scheduleFlightId));
 	}
 	
 	@RequestMapping(value="/scheduledFlightModify", method=RequestMethod.POST)
-	public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+	public String scheduleFlightModify(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
 		if (userService.validateAdminWithId(currentUser)) {
@@ -312,18 +312,18 @@ public class FRSController {
 	}
 	
 	@RequestMapping(value="/addPassenger", method= RequestMethod.GET)
-	public ModelAndView addPassenger(@RequestParam("schedule_flight_id")BigInteger flightId, @ModelAttribute("passenger")Passenger passenger) {
+	public ModelAndView addPassenger(@RequestParam("schedule_flight_id")BigInteger flightId,@valid@ModelAttribute("passenger")Passenger passenger) {
 		return new ModelAndView("AddPassenger","flightId", flightId);
 	}
 	
 	@RequestMapping(value="/newPassengerAdd", method=RequestMethod.POST)
-	public ModelAndView addNewPassenger(@RequestParam("schedule_flight_id")BigInteger flightId, @ModelAttribute("passenger")Passenger passenger) {
+	public ModelAndView addNewPassenger(@RequestParam("schedule_flight_id")BigInteger flightId,@valid@ModelAttribute("passenger")Passenger passenger) {
 		passList.add(passenger);
 		return new ModelAndView("AddPassenger","flightId", flightId);
 	}
 	
 	@RequestMapping(value="/saveBooking", method=RequestMethod.GET)
-	public String confirmBooking(@ModelAttribute("passenger")Passenger passenger) {
+	public String confirmBooking(@valid@ModelAttribute("passenger")Passenger passenger) {
 		System.out.println(passList);
 		return "UserHome";
 	}

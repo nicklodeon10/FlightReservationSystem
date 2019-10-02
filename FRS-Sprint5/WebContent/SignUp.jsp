@@ -33,26 +33,29 @@ a{
 .input-field{
 	margin-top: -5px;
 }
+
+
   </style>
 </head>
 
 <body>
 	<!-- Header -->
-	<nav>
+	<nav >
 		<div class="nav-wrapper grey darken-4">
-			<a href="#" class="brand-logo">
+			<a href="home" class="brand-logo">
 				<i class="large material-icons">airplanemode_active</i>Flight Reservation System
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="#">Log In</a></li>
-				<li><a href="#">Sign Up</a></li>
+				<li><a href="logIn">Log In</a></li>
+				
 			</ul>
 		</div>
 	</nav>
 	<!-- Header -->
 	
 	<!-- Body -->
-	 <div class="container">
+	 <div class="container"
+	 style="width:95%">
 	 	<div class="row">
 	 		<div class="card col s4 offset-s4 center">
 	 			<form:form action="userAdd" method="POST" modelAttribute="user">
@@ -60,11 +63,11 @@ a{
 	 				<h5>Sign Up</h5>
 	 				<br>
 	 				<div class="input-field col s12">
-          				<form:input id="user_name" type="text" class="validate" path="userName"></form:input>
+          				<form:input id="user_name" type="text" class="validate" path="user_name"></form:input>
           				<label for="first_name">Choose a User Name</label>
        				 </div>
        				 <div class="input-field col s12">
-         				 <form:input id="password" type="password" class="validate" path="userPassword"></form:input>
+         				 <form:input id="password" type="password" class="validate" path="user_password"></form:input>
          				 <label for="password">Choose a Password</label>
         			</div>
         			<div class="input-field col s12">

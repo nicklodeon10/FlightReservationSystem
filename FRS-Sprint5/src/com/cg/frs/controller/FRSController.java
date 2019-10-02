@@ -56,8 +56,8 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
-	public String validateLogin(@RequestParam("user_name") String username,
-			@RequestParam("user_password") String userpass) {
+	public String validateLogin(@valid@RequestParam("user_name") String username,
+			@valid@RequestParam("user_password") String userpass) {
 		currentUser = userService.validateUser(username, userpass);
 		if (userService.validateAdminWithId(currentUser)) {
 			return "AdminHome";
@@ -75,12 +75,12 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public String signUpPage(@ModelAttribute("user") User user) {
+	public String signUpPage(@valid@ModelAttribute("user") User user) {
 		return "SignUp";
 	}
 
 	@RequestMapping(value = "/userAdd", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) {
+	public String addUser(@valid@ModelAttribute("user") User user) {
 		user.setUserState(true);
 		user.setUserType("customer");
 		userService.addUser(user);
@@ -97,7 +97,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/addFlight", method = RequestMethod.GET)
-	public String getAddFlightPage(@ModelAttribute("flight") Flight flight) {
+	public String getAddFlightPage(@valid@ModelAttribute("flight") Flight flight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return "AddFlight";
 		} else {
@@ -106,7 +106,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/flightAdd", method = RequestMethod.POST)
-	public String addFlight(@ModelAttribute("flight") Flight flight) {
+	public String addFlight(@valid@ModelAttribute("flight") Flight flight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			flight.setFlightState(true);
 			flightService.addFlight(flight);
@@ -144,13 +144,13 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/modifyFlight", method = RequestMethod.GET)
-	public String getModifyFlightPage(@ModelAttribute("flight") Flight flight) {
+	public String getModifyFlightPage(@valid@ModelAttribute("flight") Flight flight) {
 		return "ModifyFlight";
 	}
 
 	@RequestMapping(value = "/flightEditSearch", method = RequestMethod.GET)
 	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
-			@ModelAttribute("flight") Flight flight) {
+			@valid@ModelAttribute("flight") Flight flight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return new ModelAndView("ModifyFlight", "flight", flightService.viewFlight(flightId));
 		} else {
@@ -159,7 +159,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "flightModify", method = RequestMethod.POST)
-	public String modifyFlight(@ModelAttribute("flight") Flight flight) {
+	public String modifyFlight(@valid@ModelAttribute("flight") Flight flight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			flightService.modifyFlight(flight);
 			return "AdminHome";
@@ -169,13 +169,13 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/removeFlight", method = RequestMethod.GET)
-	public String getRemoveFlightPage(@ModelAttribute("flight") Flight flight) {
+	public String getRemoveFlightPage(@valid@ModelAttribute("flight") Flight flight) {
 		return "RemoveFlight";
 	}
 
 	@RequestMapping(value = "/flightRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
-			@ModelAttribute("flight") Flight flight) {
+			@valid@ModelAttribute("flight") Flight flight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return new ModelAndView("RemoveFlight", "flight", flightService.viewFlight(flightId));
 		} else {
@@ -194,7 +194,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
-	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
+	public String scheduleFlightPage@valid(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return "ScheduleFlight";
 		} else {
@@ -203,7 +203,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
-	public String addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+	public String addScheduleFlight(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
 		if (userService.validateAdminWithId(currentUser)) {

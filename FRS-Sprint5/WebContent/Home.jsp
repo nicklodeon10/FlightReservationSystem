@@ -66,8 +66,8 @@ a {
 				Reservation System
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="#">Log In</a></li>
-				<li><a href="#">Sign Up</a></li>
+				<li><a href="logIn">Log In</a></li>
+				<li><a href="signUp">Sign Up</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -98,6 +98,7 @@ a {
 					</div>
 				</div>
 				<input type="submit" value="findFlights" class="waves-effect waves-light btn-large"></input>
+				
 			</div>
 			</form:form>
 		</div>

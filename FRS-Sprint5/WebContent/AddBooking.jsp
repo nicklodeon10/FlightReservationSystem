@@ -37,7 +37,7 @@ a {
 	<!-- Header -->
 	<nav>
 		<div class="nav-wrapper grey darken-4">
-			<a href="home" class="brand-logo"> <i
+			<a href="http://localhost:9090/FRS-Sprint5/userLogin?user_name=asdf&user_password=qwer" class="brand-logo"> <i
 				class="large material-icons">airplanemode_active</i>Flight
 				Reservation System
 			</a>
@@ -47,6 +47,7 @@ a {
 	<!-- Header -->
 
 	<!-- Body -->
+	<h4 style="text-align:center">Make a Booking</h4>
 	<div class="row">
 	<div class="col s6 offset-s3">
 		<form:form action="findFlight" method="GET">
@@ -72,7 +73,7 @@ a {
 						</div>
 					</div>
 				</div>
-				<input type="submit" value="findFlights"
+				<input type="submit" value="find Flights"
 					class="waves-effect waves-light btn-large"></input>
 			</div>
 		</form:form>

@@ -28,7 +28,10 @@ a{
   margin-left: 20px;
 }
 .card{
-  margin-top: 15vh;
+  margin-top: 10vh;
+}
+.input-field{
+	margin-top: -5px;
 }
   </style>
 </head>
@@ -37,19 +40,19 @@ a{
 	<!-- Header -->
 	<nav>
 		<div class="nav-wrapper grey darken-4">
-			<a href="#" class="brand-logo">
+			<a href="home" class="brand-logo">
 				<i class="large material-icons">airplanemode_active</i>Flight Reservation System
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="#">Log In</a></li>
-				<li><a href="#">Sign Up</a></li>
+				
+				<li><a href="signUp">Sign Up</a></li>
 			</ul>
 		</div>
 	</nav>
 	<!-- Header -->
 	
 	<!-- Body -->
-	 <div class="container">
+	 <div class="container"  style="width:85%">
 	 	<div class="row">
 	 		<div class="card col s4 offset-s4 center">
 	 			<form:form action="userLogin" method="GET">
@@ -63,7 +66,7 @@ a{
          				 <input id="password" type="password" class="validate" name="user_password">
          				 <label for="password">Password</label>
         			</div>
-        			<a class="waves-effect waves-light btn large">Submit</a>
+        			
 	 			</div>
 	 			<input type="submit" value="Submit" class="waves-effect waves-light btn-large"></input>
 	 			</form:form>

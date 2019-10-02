@@ -194,7 +194,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
-	public String scheduleFlightPage@valid(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
+	public String scheduleFlightPage(@valid@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		if (userService.validateAdminWithId(currentUser)) {
 			return "ScheduleFlight";
 		} else {

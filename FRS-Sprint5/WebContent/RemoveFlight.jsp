@@ -108,8 +108,6 @@ a {
 											value="${flight.seatCapacity}" readonly></input>
 										<label for="seat_capacity">Seat Count</label>
 									</div>
-									<br> <input type="submit" value="Submit"
-										class="waves-effect waves-light btn-large"></input>
 								</div>
 							</li>
 						</ul>

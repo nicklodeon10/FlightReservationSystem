@@ -50,28 +50,35 @@ a {
 	<!-- Body -->
 
 	<div class="container">
-		<form:form action="newPassengerAdd" method="POST"
-			modelAttribute="passenger">
-			<div class="row" id="container">
-				<div class="col s6 offset-s3 card">
-					Passenger 1 Details:<br> <input type="text" hidden="true"
-						name="schedule_flight_id" value="${flightId}" readonly />
-					<form:input placeholder="Enter Passenger Name" id="passenger_name"
-						type="text" class="validate" path="passengerName"></form:input>
-					<label for="passenger_name">Enter Name of the Passenger:</label>
-					<form:input placeholder="Enter UIN" id="passenger_uin"
-						type="number" class="validate" path="passengerUIN"></form:input>
-					<label for="passenger_uin">Enter UIN of the Passenger:</label>
-					<form:input placeholder="Enter Passenger Age" id="passenger_age"
-						type="text" class="validate" path="passengerAge"></form:input>
-					<label for="passenger_age">Enter Age of the Passenger:</label>
-				</div>
-			</div>
-			<input type="submit" value="Add Another Passenger"
-				class="waves-effect waves-light btn-large"></input>
+		<h4>Add Passenger Details: </h4>
+		<form:form method="POST" action="saveBooking" modelAttribute="booking">
+			<table>
+				<tr>
+					<th>Passenger Name</th>
+					<th>Passenger Age</th>
+					<th>Passenger UIN</th>
+				</tr>
+				<jstl:forEach items="${booking.passengerList}" var="passenger" varStatus="status">
+					<tr>
+						<td align="center">${status.count}</td>
+						<td><input name="passengerList[${status.index}].passengerName" /></td>
+						<td><input name="passengerList[${status.index}].passengerAge" /></td>
+						<td><input name="passengerList[${status.index}].passengerUIN" /></td>
+					</tr>
+				</jstl:forEach>
+			</table>
+			<br>
+			<input type="submit" value="Save" />
 		</form:form>
-		<a href="saveBooking">Confirm Booking</a>
 	</div>
+	
+	<script>
+		function resetFields(){
+			document.getElementById('passenger_name').value="";
+			document.getElementById('passenger_uin').value="";
+			document.getElementById('passenger_age').value="";
+		}
+	</script>
 
 	<!-- Body -->
 

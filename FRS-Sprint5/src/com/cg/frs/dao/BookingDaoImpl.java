@@ -27,7 +27,7 @@ public class BookingDaoImpl implements BookingDao {
 	public Booking addBooking(Booking booking) {
 		ScheduleFlight scheduleFlight=entityManager.find(ScheduleFlight.class, booking.getScheduleFlight().getScheduleFlightId());
 		entityManager.persist(booking);
-		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()-booking.getNoOfPassengers());
+		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()-booking.getPassengerCount());
 		return booking;
 	}
 
@@ -42,7 +42,7 @@ public class BookingDaoImpl implements BookingDao {
 		Booking bookingRemove = entityManager.find(Booking.class, bookingId);
 		ScheduleFlight scheduleFlight=entityManager.find(ScheduleFlight.class, bookingRemove.getScheduleFlight().getScheduleFlightId());
 		List<Passenger> removePassengerList=bookingRemove.getPassengerList();
-		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()+bookingRemove.getNoOfPassengers());
+		scheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats()+bookingRemove.getPassengerCount());
 		bookingRemove.setBookingState(false);
 		for(Passenger removePassenger: removePassengerList) {
 			removePassenger.setPassengerState(false);

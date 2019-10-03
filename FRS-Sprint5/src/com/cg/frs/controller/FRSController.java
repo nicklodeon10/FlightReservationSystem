@@ -47,16 +47,19 @@ public class FRSController {
 	@Autowired
 	UserService userService;
 
+	//Send to Website Home Page
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
 		return "Home";
 	}
 
+	//Send to Log in Page
 	@RequestMapping(value = "/logIn", method = RequestMethod.GET)
 	public String logInPage() {
 		return "LogIn";
 	}
 
+	//Validate Log in and create session
 	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
 	public String validateLogin(@RequestParam("user_name") String username,
 			@RequestParam("user_password") String userpass) {
@@ -74,6 +77,7 @@ public class FRSController {
 		}
 	}
 
+	//Destroy Session
 	@RequestMapping(value = "/logOut", method = RequestMethod.GET)
 	public String logOut() {
 		session.setAttribute("userRole", null);
@@ -81,11 +85,13 @@ public class FRSController {
 		return "LogIn";
 	}
 
+	//Send to Sign Up Page
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
 	public String signUpPage(@ModelAttribute("user") User user) {
 		return "SignUp";
 	}
 
+	//Add User to Repository
 	@RequestMapping(value = "/userAdd", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User user) {
 		user.setUserState(true);
@@ -93,7 +99,8 @@ public class FRSController {
 		userService.addUser(user);
 		return "UserAdded";
 	}
-
+	
+	//Get list of User
 	@RequestMapping(value = "/regUserList", method = RequestMethod.GET)
 	public ModelAndView getUserListPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -103,6 +110,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Add Flight Page
 	@RequestMapping(value = "/addFlight", method = RequestMethod.GET)
 	public String getAddFlightPage(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -112,6 +120,7 @@ public class FRSController {
 		}
 	}
 
+	//Add Flight
 	@RequestMapping(value = "/flightAdd", method = RequestMethod.POST)
 	public ModelAndView addFlight(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -123,6 +132,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to View Flight Page
 	@RequestMapping(value = "/showFlights", method = RequestMethod.GET)
 	public ModelAndView getShowFlightsPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -132,6 +142,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Search Flight Page
 	@RequestMapping(value = "/searchFlight", method = RequestMethod.GET)
 	public String getSearchFlightPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -141,6 +152,7 @@ public class FRSController {
 		}
 	}
 
+	//Show searched flight
 	@RequestMapping(value = "/flightSearch", method = RequestMethod.GET)
 	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightId) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -150,6 +162,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Modify Flight Page
 	@RequestMapping(value = "/modifyFlight", method = RequestMethod.GET)
 	public String getModifyFlightPage(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -159,6 +172,7 @@ public class FRSController {
 		}
 	}
 
+	//Show Flight Details to edit
 	@RequestMapping(value = "/flightEditSearch", method = RequestMethod.GET)
 	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
 			@ModelAttribute("flight") Flight flight) {
@@ -169,6 +183,7 @@ public class FRSController {
 		}
 	}
 
+	//Save Modifies Flight Values
 	@RequestMapping(value = "flightModify", method = RequestMethod.POST)
 	public String modifyFlight(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -179,6 +194,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Remove Flight Page
 	@RequestMapping(value = "/removeFlight", method = RequestMethod.GET)
 	public String getRemoveFlightPage(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -188,6 +204,7 @@ public class FRSController {
 		}
 	}
 
+	//Show Flight Details to remove
 	@RequestMapping(value = "/flightRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
 			@ModelAttribute("flight") Flight flight) {
@@ -198,6 +215,8 @@ public class FRSController {
 		}
 	}
 
+	
+	//Remove Flight
 	@RequestMapping(value = "/flightRemove", method = RequestMethod.POST)
 	public String flightRemove(@RequestParam("flight_id") BigInteger flightId) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -208,6 +227,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Schedule Flight Page
 	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
 	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -217,6 +237,7 @@ public class FRSController {
 		}
 	}
 
+	//Add a new scheduled flight
 	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
 	public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
@@ -240,6 +261,8 @@ public class FRSController {
 		}
 	}
 
+	
+	//Show scheduled flights
 	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
 	public ModelAndView getScheduledFlightsPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -250,6 +273,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Search Scheduled Flights Page
 	@RequestMapping(value = "/searchScheduledFlights", method = RequestMethod.GET)
 	public String searchScheduledFlightsPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -259,6 +283,7 @@ public class FRSController {
 		}
 	}
 
+	//Show Scheduled Flight Search results
 	@RequestMapping(value = "/scheduledFlightSearch", method = RequestMethod.GET)
 	public ModelAndView scheduleFlightSearchResult(@RequestParam("schedule_flight_id") BigInteger scheduleFlightId) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -269,6 +294,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Modify Scheduled Flight Page
 	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
 	public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -278,6 +304,7 @@ public class FRSController {
 		}
 	}
 
+	//Get Scheduled Flight Data to modify
 	@RequestMapping(value = "/modifyScheduledFlightSearch", method = RequestMethod.GET)
 	public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("modify_schedule_flight_id") BigInteger scheduleFlightId) {
@@ -289,6 +316,7 @@ public class FRSController {
 		}
 	}
 
+	//Sace scheduled flight details
 	@RequestMapping(value = "/scheduledFlightModify", method = RequestMethod.POST)
 	public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
@@ -311,6 +339,8 @@ public class FRSController {
 		}
 	}
 
+	
+	//Send to Remove Scheduled Flight Page
 	@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
 	public String getScheduleFlightPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -320,6 +350,7 @@ public class FRSController {
 		}
 	}
 
+	//Show scheduled flight data to remove
 	@RequestMapping(value = "/scheduledFlightRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getRemoveScheduledFlightsSearchResult(
 			@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
@@ -331,6 +362,7 @@ public class FRSController {
 		}
 	}
 
+	//Remove Scheduled Flight
 	@RequestMapping(value = "/scheduledFlightRemove", method = RequestMethod.POST)
 	public String scheduledFlightRemove(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
@@ -341,6 +373,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Add Booking Page
 	@RequestMapping(value = "/addBooking", method = RequestMethod.GET)
 	public String addBookingPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("customer")) {
@@ -350,6 +383,7 @@ public class FRSController {
 		}
 	}
 
+	//Show lists of flights for booking
 	@RequestMapping(value = "/findFlight", method = RequestMethod.GET)
 	public ModelAndView getFlights(@RequestParam("source_airport") String sourceAirport,
 			@RequestParam("destination_airport") String destinationAirport, @RequestParam("doj") String doj) {
@@ -360,6 +394,7 @@ public class FRSController {
 				scheduleFlightService.viewScheduleFlights(source, destination, journeyDate));
 	}
 
+	//Add passengers to current booking
 	@RequestMapping(value = "/addPassenger", method = RequestMethod.GET)
 	public ModelAndView addPassenger(@RequestParam("schedule_flight_id") BigInteger flightId,
 			@ModelAttribute("passenger") Passenger passenger) {
@@ -376,6 +411,7 @@ public class FRSController {
 		}
 	}
 
+	//Save Current Booking
 	@RequestMapping(value = "/saveBooking", method = RequestMethod.POST)
 	public ModelAndView saveBooking(@ModelAttribute("booking") Booking booking) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("customer")) {
@@ -403,6 +439,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to Show User Bookings Page
 	@RequestMapping(value = "/showBooking", method = RequestMethod.GET)
 	public ModelAndView showBookingPage() {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("customer")) {
@@ -413,6 +450,7 @@ public class FRSController {
 		}
 	}
 
+	//Send to cancel booking page
 	@RequestMapping(value = "/deleteBooking", method = RequestMethod.GET)
 	public String getBookingRemovePage(@ModelAttribute("booking") Booking booking) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("customer")) {
@@ -422,6 +460,7 @@ public class FRSController {
 		}
 	}
 
+	//Show booking details to remove
 	@RequestMapping(value = "/bookingRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getBookingRemoveSearchResult(@RequestParam("booking_id") BigInteger bookingId,
 			@ModelAttribute("booking") Booking booking) {
@@ -432,6 +471,7 @@ public class FRSController {
 		}
 	}
 
+	//Remove booking
 	@RequestMapping(value = "/bookingRemove", method = RequestMethod.POST)
 	public String bookingRemove(@RequestParam("booking_id") BigInteger bookingId) {
 		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("customer")) {
@@ -442,6 +482,7 @@ public class FRSController {
 		}
 	}
 
+	//Redirect to Home
 	@RequestMapping(value = "/backHome", method = RequestMethod.GET)
 	public String toUserHomePage() {
 		if (session.getAttribute("userRole").equals("customer"))
@@ -453,6 +494,7 @@ public class FRSController {
 		}
 	}
 
+	//Download User Data 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	public ModelAndView getExcel() {
 		List<User> userList = userService.viewUser();

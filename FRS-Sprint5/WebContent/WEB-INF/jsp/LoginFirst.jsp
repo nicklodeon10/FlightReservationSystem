@@ -9,7 +9,7 @@
 <body>
 	<jsp:include page="Header.jsp"></jsp:include>
 	You need to login first.
-	<a href="home">Go Home</a>
+	<a href="logIn">Log In</a>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

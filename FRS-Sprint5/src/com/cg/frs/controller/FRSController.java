@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,13 +25,15 @@ import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
-import com.cg.frs.service.ExcelReportView;
 import com.cg.frs.service.FlightService;
 import com.cg.frs.service.ScheduleFlightService;
 import com.cg.frs.service.UserService;
 
 @Controller
 public class FRSController {
+
+	@Autowired
+	HttpSession session;
 
 	@Autowired
 	AirportService airportService;
@@ -41,9 +45,6 @@ public class FRSController {
 	ScheduleFlightService scheduleFlightService;
 	@Autowired
 	UserService userService;
-
-	private static BigInteger currentUser;
-	private static BigInteger currentFlight;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
@@ -58,10 +59,14 @@ public class FRSController {
 	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
 	public String validateLogin(@RequestParam("user_name") String username,
 			@RequestParam("user_password") String userpass) {
-		currentUser = userService.validateUser(username, userpass);
+		BigInteger currentUser = userService.validateUser(username, userpass);
 		if (userService.validateAdminWithId(currentUser)) {
+			session.setAttribute("userRole", "admin");
+			session.setAttribute("userId", currentUser);
 			return "AdminHome";
 		} else if (userService.validateCustomerWithId(currentUser)) {
+			session.setAttribute("userRole", "customer");
+			session.setAttribute("userId", currentUser);
 			return "UserHome";
 		} else {
 			return "InvalidLogin";
@@ -70,9 +75,9 @@ public class FRSController {
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.GET)
 	public String logOut() {
-		currentUser = null;
-		currentFlight = null;
-		return "Home";
+		session.setAttribute("userRole", null);
+		session.setAttribute("userId", null);
+		return "LogIn";
 	}
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
@@ -90,166 +95,257 @@ public class FRSController {
 
 	@RequestMapping(value = "/regUserList", method = RequestMethod.GET)
 	public ModelAndView getUserListPage() {
-		return new ModelAndView("RegUserList", "userList", userService.viewUser());
-
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("RegUserList", "userList", userService.viewUser());
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/addFlight", method = RequestMethod.GET)
 	public String getAddFlightPage(@ModelAttribute("flight") Flight flight) {
-		return "AddFlight";
-
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "AddFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/flightAdd", method = RequestMethod.POST)
 	public String addFlight(@ModelAttribute("flight") Flight flight) {
-		flight.setFlightState(true);
-		flightService.addFlight(flight);
-		return "AdminHome";
-
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			flight.setFlightState(true);
+			flightService.addFlight(flight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/showFlights", method = RequestMethod.GET)
 	public ModelAndView getShowFlightsPage() {
-		return new ModelAndView("ShowFlights", "flightList", flightService.viewFlight());
-
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("ShowFlights", "flightList", flightService.viewFlight());
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/searchFlight", method = RequestMethod.GET)
 	public String getSearchFlightPage() {
-		return "SearchFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "SearchFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/flightSearch", method = RequestMethod.GET)
 	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightId) {
-		return new ModelAndView("SearchFlight", "flight", flightService.viewFlight(flightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("SearchFlight", "flight", flightService.viewFlight(flightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/modifyFlight", method = RequestMethod.GET)
 	public String getModifyFlightPage(@ModelAttribute("flight") Flight flight) {
-		return "ModifyFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "ModifyFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/flightEditSearch", method = RequestMethod.GET)
 	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
 			@ModelAttribute("flight") Flight flight) {
-		return new ModelAndView("ModifyFlight", "flight", flightService.viewFlight(flightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("ModifyFlight", "flight", flightService.viewFlight(flightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "flightModify", method = RequestMethod.POST)
 	public String modifyFlight(@ModelAttribute("flight") Flight flight) {
-		flightService.modifyFlight(flight);
-		return "AdminHome";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			flightService.modifyFlight(flight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/removeFlight", method = RequestMethod.GET)
 	public String getRemoveFlightPage(@ModelAttribute("flight") Flight flight) {
-		return "RemoveFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "RemoveFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/flightRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
 			@ModelAttribute("flight") Flight flight) {
-		return new ModelAndView("RemoveFlight", "flight", flightService.viewFlight(flightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("RemoveFlight", "flight", flightService.viewFlight(flightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/flightRemove", method = RequestMethod.POST)
 	public String flightRemove(@RequestParam("flight_id") BigInteger flightId) {
-		flightService.deleteFlight(flightId);
-		return "AdminHome";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			flightService.deleteFlight(flightId);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "scheduleFlight", method = RequestMethod.GET)
 	public String scheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
-		return "ScheduleFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "ScheduleFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
 	public String addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
-		Schedule schedule = new Schedule();
-		schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
-		schedule.setSourceAirport(airportService.viewAirport(source));
-		schedule.setDestinationAirport(airportService.viewAirport(destination));
-		schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
-		schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
-		scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
-		scheduleFlight.setSchedule(schedule);
-		scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
-		scheduleFlight.setScheduleFlightState(true);
-		scheduleFlightService.addScheduleFlight(scheduleFlight);
-		return "AdminHome";
-
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+			schedule.setSourceAirport(airportService.viewAirport(source));
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+			schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+			schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+			scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
+			scheduleFlight.setSchedule(schedule);
+			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+			scheduleFlight.setScheduleFlightState(true);
+			scheduleFlightService.addScheduleFlight(scheduleFlight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
 	public ModelAndView getScheduledFlightsPage() {
-		return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
-				scheduleFlightService.viewScheduleFlight());
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
+					scheduleFlightService.viewScheduleFlight());
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/searchScheduledFlights", method = RequestMethod.GET)
 	public String searchScheduledFlightsPage() {
-		return "SearchScheduledFlights";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "SearchScheduledFlights";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/scheduledFlightSearch", method = RequestMethod.GET)
 	public ModelAndView scheduleFlightSearchResult(@RequestParam("schedule_flight_id") BigInteger scheduleFlightId) {
-		return new ModelAndView("SearchScheduledFlights", "scheduledFlight",
-				scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("SearchScheduledFlights", "scheduledFlight",
+					scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
 	public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
-		return "ModifyScheduledFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "ModifyScheduledFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/modifyScheduledFlightSearch", method = RequestMethod.GET)
 	public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("modify_schedule_flight_id") BigInteger scheduleFlightId) {
-		return new ModelAndView("ModifyScheduledFlight", "scheduledFlightData",
-				scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("ModifyScheduledFlight", "scheduledFlightData",
+					scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/scheduledFlightModify", method = RequestMethod.POST)
 	public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
-		Schedule schedule = new Schedule();
-		schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
-		schedule.setSourceAirport(airportService.viewAirport(source));
-		schedule.setDestinationAirport(airportService.viewAirport(destination));
-		schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
-		schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
-		scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
-		scheduleFlight.setSchedule(schedule);
-		scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
-		scheduleFlight.setScheduleFlightState(true);
-		scheduleFlightService.modifyScheduleFlight(scheduleFlight);
-		return "AdminHome";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+			schedule.setSourceAirport(airportService.viewAirport(source));
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+			schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+			schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+			scheduleFlight.setFlight(flightService.viewFlight(scheduleFlight.getScheduleFlightId()));
+			scheduleFlight.setSchedule(schedule);
+			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+			scheduleFlight.setScheduleFlightState(true);
+			scheduleFlightService.modifyScheduleFlight(scheduleFlight);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
 	public String getScheduleFlightPage() {
-		return "RemoveScheduledFlight";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return "RemoveScheduledFlight";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/scheduledFlightRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getRemoveScheduledFlightsSearchResult(
 			@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
-		return new ModelAndView("RemoveScheduledFlight", "scheduledFlight",
-				scheduleFlightService.viewScheduleFlights(scheduledFlightId));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
+			return new ModelAndView("RemoveScheduledFlight", "scheduledFlight",
+					scheduleFlightService.viewScheduleFlights(scheduledFlightId));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/scheduledFlightRemove", method = RequestMethod.POST)
 	public String scheduledFlightRemove(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) {
-		scheduleFlightService.deleteScheduleFlight(scheduledFlightId);
-		return "AdminHome";
+		if (session.getAttribute("userRole") != null && session.getAttribute("userRole").equals("admin")) {
+			scheduleFlightService.deleteScheduleFlight(scheduledFlightId);
+			return "AdminHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/addBooking", method = RequestMethod.GET)
 	public String addBookingPage() {
-		return "AddBooking";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			return "AddBooking";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/findFlight", method = RequestMethod.GET)
@@ -265,60 +361,82 @@ public class FRSController {
 	@RequestMapping(value = "/addPassenger", method = RequestMethod.GET)
 	public ModelAndView addPassenger(@RequestParam("schedule_flight_id") BigInteger flightId,
 			@ModelAttribute("passenger") Passenger passenger) {
-		if (currentUser == null) {
-			return new ModelAndView("LoginFirst");
-		} else {
-			currentFlight = flightId;
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			session.setAttribute("currentFlight", flightId);
 			Booking booking = new Booking();
 			List<Passenger> passList = new ArrayList<>();
 			for (int i = 0; i < 4; i++)
 				passList.add(new Passenger());
 			booking.setPassengerList(passList);
 			return new ModelAndView("AddPassenger", "booking", booking);
+		} else {
+			return new ModelAndView("LogIn");
 		}
 	}
 
 	@RequestMapping(value = "/saveBooking", method = RequestMethod.POST)
 	public String saveBooking(@ModelAttribute("booking") Booking booking) {
-		List<Passenger> passList = new ArrayList<>();
-		for (Passenger passenger : booking.getPassengerList()) {
-			if (!passenger.getPassengerName().equals("")) {
-				passenger.setPassengerState(true);
-				passList.add(passenger);
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			List<Passenger> passList = new ArrayList<>();
+			for (Passenger passenger : booking.getPassengerList()) {
+				if (!passenger.getPassengerName().equals("")) {
+					passenger.setPassengerState(true);
+					passList.add(passenger);
+				}
 			}
+			booking.setPassengerList(passList);
+			booking.setUserId((BigInteger) session.getAttribute("userId"));
+			booking.setBookingState(true);
+			booking.setBookingDate(LocalDateTime.now());
+			booking.setPassengerCount(passList.size());
+			booking.setScheduleFlight(
+					scheduleFlightService.viewScheduleFlights((BigInteger) session.getAttribute("currentFlight")));
+			booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
+			bookingService.addBooking(booking);
+			session.setAttribute("currentFlight", null);
+			return "UserHome";
+		} else {
+			return "LogIn";
 		}
-		booking.setPassengerList(passList);
-		booking.setUserId(currentUser);
-		booking.setBookingState(true);
-		booking.setBookingDate(LocalDateTime.now());
-		booking.setPassengerCount(passList.size());
-		booking.setScheduleFlight(scheduleFlightService.viewScheduleFlights(currentFlight));
-		booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
-		bookingService.addBooking(booking);
-		currentFlight = null;
-		return "UserHome";
 	}
 
 	@RequestMapping(value = "/showBooking", method = RequestMethod.GET)
 	public ModelAndView showBookingPage() {
-		return new ModelAndView("ShowBooking", "bookings", bookingService.viewBooking(currentUser));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			return new ModelAndView("ShowBooking", "bookings",
+					bookingService.viewBooking((BigInteger) session.getAttribute("userId")));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/deleteBooking", method = RequestMethod.GET)
 	public String getBookingRemovePage(@ModelAttribute("booking") Booking booking) {
-		return "DeleteBooking";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			return "DeleteBooking";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	@RequestMapping(value = "/bookingRemoveSearch", method = RequestMethod.GET)
 	public ModelAndView getBookingRemoveSearchResult(@RequestParam("booking_id") BigInteger bookingId,
 			@ModelAttribute("booking") Booking booking) {
-		return new ModelAndView("DeleteBooking", "booking", bookingService.viewBooking(bookingId).get(0));
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			return new ModelAndView("DeleteBooking", "booking", bookingService.viewBooking(bookingId).get(0));
+		} else {
+			return new ModelAndView("LogIn");
+		}
 	}
 
 	@RequestMapping(value = "/bookingRemove", method = RequestMethod.POST)
 	public String bookingRemove(@RequestParam("booking_id") BigInteger bookingId) {
-		bookingService.deleteBooking(bookingId);
-		return "UserHome";
+		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
+			bookingService.deleteBooking(bookingId);
+			return "UserHome";
+		} else {
+			return "LogIn";
+		}
 	}
 
 	/*

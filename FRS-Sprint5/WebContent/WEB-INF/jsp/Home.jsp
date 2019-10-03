@@ -55,6 +55,72 @@ a {
 .btn-large {
 	margin-top: 15px;
 }
+
+.popup {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+	visibility: hidden;
+	width: 500px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 8px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@
+-webkit-keyframes fadeIn {
+	from {opacity: 0;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@
+keyframes fadeIn {
+	from {opacity: 0;
+}
+
+to {
+	opacity: 1;
+}
+}
 </style>
 </head>
 
@@ -91,6 +157,19 @@ a {
 					</div>
 					<input type="submit" value="findFlights"
 						class="waves-effect waves-light btn-large"></input>
+					<div class="popup right waves-effect waves-light btn-large red" onclick="myFunction()">
+						View Airport Codes <span class="popuptext" id="myPopup"> Airport
+							Codes<br> Code:BLR, Name:Kempegowda International Airport,
+							Location: Bengaluru<br> Code:DEL, Name:Indira Gandhi
+							International Airport, Location: Delhi<br> Code:HYD,
+							Name:Rajiv Gandhi International Airport, Location: Hyderabad<br>
+							Code:IXC, Name:Chandigarh International Airport , Location:
+							Chandigarh<br> Code:MAA, Name:Chennai International Airport
+							, Location: Chennai<br> Code:MUM, Name:Chhatrapati Shivaji
+							International Airport, Location: Mumbai<br> Code:SXR,
+							Name:Srinagar International Airport, Location: Srinagar<br>
+						</span>
+					</div>
 				</div>
 			</form:form>
 		</div>
@@ -114,7 +193,10 @@ a {
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
-		
+		function myFunction() {
+			var popup = document.getElementById("myPopup");
+			popup.classList.toggle("show");
+		}
 	</script>
 </body>
 

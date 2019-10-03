@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Invalid Login</title>
+<title>User Registered</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -24,10 +24,6 @@ footer {
 	bottom: 0;
 	width: 100%;
 }
-
-a {
-	color: #212121;
-}
 .container{
 	margin-top: 20vh;
 }
@@ -36,8 +32,8 @@ a {
 <body>
 	<jsp:include page="Header.jsp"></jsp:include>
 	<div class="container">
-		Invalid Login
-		<a href="logIn">Try Again.</a>
+			Your account has been created.
+	<a href="logIn">Log In Now.</a>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>

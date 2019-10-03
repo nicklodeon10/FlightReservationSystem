@@ -90,7 +90,7 @@ public class FRSController {
 		user.setUserState(true);
 		user.setUserType("customer");
 		userService.addUser(user);
-		return "LogIn";
+		return "UserAdded";
 	}
 
 	@RequestMapping(value = "/regUserList", method = RequestMethod.GET)
@@ -112,13 +112,13 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/flightAdd", method = RequestMethod.POST)
-	public String addFlight(@ModelAttribute("flight") Flight flight) {
+	public ModelAndView addFlight(@ModelAttribute("flight") Flight flight) {
 		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
 			flight.setFlightState(true);
 			flightService.addFlight(flight);
-			return "AdminHome";
+			return new ModelAndView("ShowFlights", "flightList", flightService.viewFlight());
 		} else {
-			return "LogIn";
+			return new ModelAndView("LogIn");
 		}
 	}
 
@@ -217,7 +217,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
-	public String addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+	public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
 		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("admin")) {
@@ -232,9 +232,10 @@ public class FRSController {
 			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
 			scheduleFlight.setScheduleFlightState(true);
 			scheduleFlightService.addScheduleFlight(scheduleFlight);
-			return "AdminHome";
+			return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
+					scheduleFlightService.viewScheduleFlight());
 		} else {
-			return "LogIn";
+			return new ModelAndView("LogIn");
 		}
 	}
 
@@ -375,7 +376,7 @@ public class FRSController {
 	}
 
 	@RequestMapping(value = "/saveBooking", method = RequestMethod.POST)
-	public String saveBooking(@ModelAttribute("booking") Booking booking) {
+	public ModelAndView saveBooking(@ModelAttribute("booking") Booking booking) {
 		if (session.getAttribute("userRole")!=null && session.getAttribute("userRole").equals("customer")) {
 			List<Passenger> passList = new ArrayList<>();
 			for (Passenger passenger : booking.getPassengerList()) {
@@ -394,9 +395,10 @@ public class FRSController {
 			booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
 			bookingService.addBooking(booking);
 			session.setAttribute("currentFlight", null);
-			return "UserHome";
+			return new ModelAndView("ShowBooking", "bookings",
+					bookingService.viewBooking((BigInteger) session.getAttribute("userId")));
 		} else {
-			return "LogIn";
+			return new ModelAndView("LogIn");
 		}
 	}
 
@@ -435,6 +437,17 @@ public class FRSController {
 			bookingService.deleteBooking(bookingId);
 			return "UserHome";
 		} else {
+			return "LogIn";
+		}
+	}
+	
+	@RequestMapping(value="/backHome", method=RequestMethod.GET)
+	public String toUserHomePage() {
+		if(session.getAttribute("userRole").equals("customer"))
+			return "UserHome";
+		else if(session.getAttribute("userRole").equals("admin")) {
+			return "AdminHome";
+		}else {
 			return "LogIn";
 		}
 	}

@@ -32,8 +32,6 @@ body {
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
 	width: 100%;
 }
 
@@ -80,32 +78,28 @@ a {
 <body>
 
 	<!-- Header -->
-	<nav>
-		<div class="nav-wrapper grey darken-4">
-			<a href="home" class="brand-logo"> <i class="large material-icons">airplanemode_active</i>Flight
-				Reservation System
-			</a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="#">Bookings</a></li>
-				<li><a href="#">View Flights</a></li>
-			</ul>
-		</div>
-	</nav>
+	<jsp:include page="Header.jsp"></jsp:include>
 	<!-- Header -->
 	<div class="container">
 		<show:forEach var="booking" items="${bookings}">
 			<div class="row">
 				<div class="col s6">
-					Booking Id: ${booking.bookingId}<br>
-					Booking Time: ${booking.bookingDate }<br>
-					Booking Cost: ${booking.ticketCost}<br>
-					Flight Number: ${booking.getScheduleFlight().getScheduleFlightId()}<br>
-					Flight Carrier:${booking.getScheduleFlight().getFlight().getCarrierName()}<br>
-					Flight Model: ${booking.getScheduleFlight().getFlight().getFlightModel()}<br>
-					Source: ${booking.getScheduleFlight().getSchedule().getSourceAirport().getAirportName()}<br>
-					Destination: ${booking.getScheduleFlight().getSchedule().getDestinationAirport().getAirportName()}<br>
-					Departure: ${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
-					Arrival: ${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
+					Booking Id: ${booking.bookingId}<br> Booking Time:
+					${booking.bookingDate }<br> Booking Cost:
+					${booking.ticketCost}<br> Flight Number:
+					${booking.getScheduleFlight().getScheduleFlightId()}<br>
+					Flight
+					Carrier:${booking.getScheduleFlight().getFlight().getCarrierName()}<br>
+					Flight Model:
+					${booking.getScheduleFlight().getFlight().getFlightModel()}<br>
+					Source:
+					${booking.getScheduleFlight().getSchedule().getSourceAirport().getAirportName()}<br>
+					Destination:
+					${booking.getScheduleFlight().getSchedule().getDestinationAirport().getAirportName()}<br>
+					Departure:
+					${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
+					Arrival:
+					${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
 				</div>
 				<div class="col s6">
 					Passenger Details:<br>
@@ -114,7 +108,8 @@ a {
 						Passenger Name: ${passenger.passengerName}<br>
 						Passenger Age: ${passenger.passengerAge}<br>
 						Passenger UIN: ${passenger.passengerUIN}<br>
-					</show:forEach><br>
+					</show:forEach>
+					<br>
 				</div>
 			</div>
 		</show:forEach>
@@ -123,15 +118,7 @@ a {
 
 
 	<!-- Footer -->
-	<footer class="page-footer grey lighten-3">
-		<div class="container"></div>
-		<div class="footer-copyright grey darken-4">
-			<div class="container">
-				© 2019 Flight Reservation System <a
-					class="grey-text text-lighten-4 right" href="#!">About Us</a>
-			</div>
-		</div>
-	</footer>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer -->
 </body>
 </html>

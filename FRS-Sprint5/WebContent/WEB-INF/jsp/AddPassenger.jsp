@@ -24,8 +24,6 @@ body {
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
 	width: 100%;
 }
 
@@ -37,61 +35,51 @@ a {
 
 <body>
 	<!-- Header -->
-	<nav>
-		<div class="nav-wrapper grey darken-4">
-			<a href="home" class="brand-logo"> <i
-				class="large material-icons">airplanemode_active</i>Flight
-				Reservation System
-			</a>
-		</div>
-	</nav>
+	<jsp:include page="Header.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
 
-	<div class="container">
-		<h4>Add Passenger Details: </h4>
+	<div class="container card centre">
+		<h4>Add Passenger Details:</h4>
 		<form:form method="POST" action="saveBooking" modelAttribute="booking">
 			<table>
 				<tr>
+				<th></th>
 					<th>Passenger Name</th>
 					<th>Passenger Age</th>
 					<th>Passenger UIN</th>
 				</tr>
-				<jstl:forEach items="${booking.passengerList}" var="passenger" varStatus="status">
+				<jstl:forEach items="${booking.passengerList}" var="passenger"
+					varStatus="status">
 					<tr>
 						<td align="center">${status.count}</td>
-						<td><input name="passengerList[${status.index}].passengerName" /></td>
+						<td><input
+							name="passengerList[${status.index}].passengerName" /></td>
 						<td><input name="passengerList[${status.index}].passengerAge" /></td>
 						<td><input name="passengerList[${status.index}].passengerUIN" /></td>
 					</tr>
 				</jstl:forEach>
 			</table>
 			<br>
-			<input type="submit" value="Save" />
+			<br>
+			<input type="submit" value="Confirm"
+				class="waves-effect waves-light btn-large"></input>
 		</form:form>
 	</div>
-	
+
 	<script>
-		function resetFields(){
-			document.getElementById('passenger_name').value="";
-			document.getElementById('passenger_uin').value="";
-			document.getElementById('passenger_age').value="";
+		function resetFields() {
+			document.getElementById('passenger_name').value = "";
+			document.getElementById('passenger_uin').value = "";
+			document.getElementById('passenger_age').value = "";
 		}
 	</script>
 
 	<!-- Body -->
 
 	<!-- Footer -->
-	<footer class="page-footer grey lighten-3">
-		<div class="container"></div>
-		<div class="footer-copyright grey darken-4">
-			<div class="container">
-				© 2019 Flight Reservation System <a
-					class="grey-text text-lighten-4 right" href="#!">About Us</a>
-			</div>
-		</div>
-	</footer>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer -->
 </body>
 

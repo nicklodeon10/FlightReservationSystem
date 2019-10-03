@@ -19,7 +19,7 @@
 	<mvc:annotation-driven /> <!-- Used for Validation -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
@@ -61,4 +61,6 @@
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
 
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 </beans>

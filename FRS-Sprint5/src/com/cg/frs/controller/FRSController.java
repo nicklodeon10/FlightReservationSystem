@@ -23,6 +23,7 @@ import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.dto.User;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
+import com.cg.frs.service.ExcelReportView;
 import com.cg.frs.service.FlightService;
 import com.cg.frs.service.ScheduleFlightService;
 import com.cg.frs.service.UserService;
@@ -70,6 +71,7 @@ public class FRSController {
 	@RequestMapping(value = "/logOut", method = RequestMethod.GET)
 	public String logOut() {
 		currentUser = null;
+		currentFlight = null;
 		return "Home";
 	}
 
@@ -263,20 +265,24 @@ public class FRSController {
 	@RequestMapping(value = "/addPassenger", method = RequestMethod.GET)
 	public ModelAndView addPassenger(@RequestParam("schedule_flight_id") BigInteger flightId,
 			@ModelAttribute("passenger") Passenger passenger) {
-		currentFlight=flightId;
-		Booking booking = new Booking();
-		List<Passenger> passList = new ArrayList<>();
-		for (int i = 0; i < 4; i++)
-			passList.add(new Passenger());
-		booking.setPassengerList(passList);
-		return new ModelAndView("AddPassenger", "booking", booking);
+		if (currentUser == null) {
+			return new ModelAndView("LoginFirst");
+		} else {
+			currentFlight = flightId;
+			Booking booking = new Booking();
+			List<Passenger> passList = new ArrayList<>();
+			for (int i = 0; i < 4; i++)
+				passList.add(new Passenger());
+			booking.setPassengerList(passList);
+			return new ModelAndView("AddPassenger", "booking", booking);
+		}
 	}
 
 	@RequestMapping(value = "/saveBooking", method = RequestMethod.POST)
 	public String saveBooking(@ModelAttribute("booking") Booking booking) {
-		List<Passenger> passList=new ArrayList<>();
-		for(Passenger passenger: booking.getPassengerList()) {
-			if(!passenger.getPassengerName().equals("")) {
+		List<Passenger> passList = new ArrayList<>();
+		for (Passenger passenger : booking.getPassengerList()) {
+			if (!passenger.getPassengerName().equals("")) {
 				passenger.setPassengerState(true);
 				passList.add(passenger);
 			}
@@ -289,7 +295,7 @@ public class FRSController {
 		booking.setScheduleFlight(scheduleFlightService.viewScheduleFlights(currentFlight));
 		booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
 		bookingService.addBooking(booking);
-		currentFlight=null;
+		currentFlight = null;
 		return "UserHome";
 	}
 
@@ -297,9 +303,9 @@ public class FRSController {
 	public ModelAndView showBookingPage() {
 		return new ModelAndView("ShowBooking", "bookings", bookingService.viewBooking(currentUser));
 	}
-	
-	@RequestMapping(value="/deleteBooking", method=RequestMethod.GET)
-	public String getBookingRemovePage(@ModelAttribute("booking")Booking booking) {
+
+	@RequestMapping(value = "/deleteBooking", method = RequestMethod.GET)
+	public String getBookingRemovePage(@ModelAttribute("booking") Booking booking) {
 		return "DeleteBooking";
 	}
 
@@ -314,5 +320,12 @@ public class FRSController {
 		bookingService.deleteBooking(bookingId);
 		return "UserHome";
 	}
+
+	/*
+	 * @RequestMapping(value = "/", method = RequestMethod.GET) public ModelAndView
+	 * getExcel() { List<User> userList = new ArrayList<User>(); // call the service
+	 * method for getting userlist,include vaue parameter in // request mapping//
+	 * return new ModelAndView(new ExcelReportView(), "userList", userList); }
+	 */
 
 }

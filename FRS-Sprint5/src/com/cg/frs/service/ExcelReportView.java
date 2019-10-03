@@ -19,7 +19,7 @@ public class ExcelReportView extends AbstractXlsView{
 	 protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 	 HttpServletResponse response) throws Exception {
 	  
-	 response.setHeader("Content-Disposition", "attachment;filename=\"user.xls\"");
+	 response.setHeader("Content-Disposition", "attachment;filename=\"userData.xls\"");
 	 List<User> userList = (List<User>) model.get("userList");
 	 Sheet sheet = workbook.createSheet("User Data");
 	 Row header = sheet.createRow(0);

@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: admin
-Build-Jdk: 1.8.0_221
-=======
 Built-By: OSIS
-Build-Jdk: 12.0.2
->>>>>>> 0603b51d1258bc09418ba5cc6f92412a1e589043
+Build-Jdk: 1.8.0_221
 Created-By: Maven Integration for Eclipse
 

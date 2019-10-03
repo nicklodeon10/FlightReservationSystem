@@ -22,6 +22,8 @@ style>body {
 }
 
 footer {
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 }
 
@@ -54,6 +56,7 @@ a {
 				</li>
 			</show:forEach>
 		</ul>
+		<a href="download" class="waves-effect waves-light btn-large">Download User Data</a>
 	</div>
 	<!-- Body -->
 

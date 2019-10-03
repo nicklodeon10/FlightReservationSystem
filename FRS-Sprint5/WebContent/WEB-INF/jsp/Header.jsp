@@ -9,11 +9,11 @@
 <body>
 	<nav>
 		<div class="nav-wrapper grey darken-4">
-			<a href="#" class="brand-logo"> <i class="large material-icons">airplanemode_active</i>Flight
+			<a href="backHome" class="brand-logo"> <i class="large material-icons">airplanemode_active</i>Flight
 				Reservation System
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="backHome">Home</a></li>
+				<li><a href="home">Home</a></li>
 				<li><a href="logOut">Log Out</a></li>
 			</ul>
 		</div>

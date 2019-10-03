@@ -82,7 +82,7 @@ a {
 	<!-- Header -->
 	<div class="container">
 		<show:forEach var="booking" items="${bookings}">
-			<div class="row">
+			<div class="row card">
 				<div class="col s6">
 					Booking Id: ${booking.bookingId}<br> Booking Time:
 					${booking.bookingDate }<br> Booking Cost:

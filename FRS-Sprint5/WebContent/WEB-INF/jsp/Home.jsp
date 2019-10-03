@@ -69,7 +69,7 @@ a {
 /* The actual popup */
 .popup .popuptext {
 	visibility: hidden;
-	width: 500px;
+	width: 250px;
 	background-color: #555;
 	color: #fff;
 	text-align: center;
@@ -157,7 +157,7 @@ to {
 					</div>
 					<input type="submit" value="findFlights"
 						class="waves-effect waves-light btn-large"></input>
-					<div class="popup right waves-effect waves-light btn-large red" onclick="myFunction()">
+					<div class="popup right red" onclick="myFunction()">
 						View Airport Codes <span class="popuptext" id="myPopup"> Airport
 							Codes<br> Code:BLR, Name:Kempegowda International Airport,
 							Location: Bengaluru<br> Code:DEL, Name:Indira Gandhi

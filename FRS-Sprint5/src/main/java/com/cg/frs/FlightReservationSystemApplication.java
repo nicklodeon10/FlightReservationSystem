@@ -1,4 +1,4 @@
-package com.cg.frs.FlightReservationSystem;
+package com.cg.frs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

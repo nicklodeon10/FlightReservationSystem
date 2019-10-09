@@ -30,6 +30,15 @@ footer {
 a {
 	color: #212121;
 }
+
+.err, .suc {
+    display: none;
+}
+
+.err { color: red;}
+
+.suc { color: green;}
+
 </style>
 </head>
 
@@ -54,9 +63,15 @@ a {
 					varStatus="status">
 					<tr>
 						<td align="center">${status.count}</td>
-						<td><input name="passengerList[${status.index}].passengerName" /></td>
-						<td><input name="passengerList[${status.index}].passengerAge" /></td>
-						<td><input name="passengerList[${status.index}].passengerUIN" /></td>
+						<td><input id="pname${status.index}" name="passengerList[${status.index}].passengerName" onblur="validateName('pname${status.index}')" />
+						<span id="pname${status.index}Error" class="err">Invalid Name</span>
+						<span id="pname${status.index}Success" class="suc">Valid</span></td>
+						<td><input id="page${status.index}" name="passengerList[${status.index}].passengerAge" onblur="validateAge('page${status.index}')" />
+						<span id="pname${status.index}Error" class="err">Invalid Age</span>
+						<span id="pname${status.index}Success" class="suc">Valid</span></td>
+						<td><input id="puin${status.index}" name="passengerList[${status.index}].passengerUIN" onblur="validateUIN('puin${status.index}')" />
+						<span id="pname${status.index}Error" class="err">Invalid UIN</span>
+						<span id="pname${status.index}Success" class="suc">Valid</span></td>
 					</tr>
 				</jstl:forEach>
 			</table>
@@ -68,7 +83,67 @@ a {
 	</div>
 
 	<script>
-			
+	function validateName(field) {
+		// Get the  value of the input field being submitted
+		value = document.getElementById(field).value;
+		// Set the error field tag in the html
+		errorField = field + 'Error';
+		// Set the success field
+		successField = field + 'Success';
+		var flag=/^[a-zA-Z ]+$/.test(value);
+		if (flag) {
+			document.getElementById(successField).style.display = 'block';
+			document.getElementById(errorField).style.display = 'none';
+			return true;
+		} else {
+			document.getElementById(successField).style.display = 'none';
+			document.getElementById(errorField).style.display = 'block';
+			return false;
+		}
+	}
+	
+	function validateAge(field) {
+		// Get the  value of the input field being submitted
+		value = document.getElementById(field).value;
+		// Set the error field tag in the html
+		errorField = field + 'Error';
+		// Set the success field
+		successField = field + 'Success';
+		var flag=false;
+		if(value>0 && value<90)
+			flag=true;
+		if (flag) {
+			document.getElementById(successField).style.display = 'block';
+			document.getElementById(errorField).style.display = 'none';
+			return true;
+		} else {
+			document.getElementById(successField).style.display = 'none';
+			document.getElementById(errorField).style.display = 'block';
+			return false;
+		}
+	}
+	
+	function validateUIN(field) {
+		// Get the  value of the input field being submitted
+		value = document.getElementById(field).value;
+		// Set the error field tag in the html
+		errorField = field + 'Error';
+		// Set the success field
+		successField = field + 'Success';
+		var flag=false;
+		var temp=""+value;
+		if(temp.length==12)
+			flag=true;
+		if (flag) {
+			document.getElementById(successField).style.display = 'block';
+			document.getElementById(errorField).style.display = 'none';
+			return true;
+		} else {
+			document.getElementById(successField).style.display = 'none';
+			document.getElementById(errorField).style.display = 'block';
+			return false;
+		}
+	}
 	</script>
 
 	<!-- Body -->

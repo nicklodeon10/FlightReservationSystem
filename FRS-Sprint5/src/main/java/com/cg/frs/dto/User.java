@@ -4,49 +4,72 @@
 package com.cg.frs.dto;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * @author DEVANG
  *
  */
 
-@Entity(name="User")
+@Entity(name = "User")
+@EntityListeners({ AuditingEntityListener.class })
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private BigInteger userId;
-	@Column(name="user_type")
-	@NotEmpty(message="User Type is Empty")
+	@Column(name = "user_type")
+	@NotEmpty(message = "User Type is Empty")
 	private String userType;
-	@Column(name="user_name")
-	@NotEmpty(message="User Name is Empty")
+	@Column(name = "user_name")
+	@NotEmpty(message = "User Name is Empty")
 	@Size(min = 2, max = 40, message = "Name must be between 2 and 40 characters ")
 	private String userName;
-	@Column(name="user_password")
-	@NotEmpty(message="Password is Empty")
+	@Column(name = "user_password")
+	@NotEmpty(message = "Password is Empty")
 	@Size(min = 2, max = 15, message = "Password must be between 2 and 15 characters ")
 	private String userPassword;
-	@Column(name="user_phone")
-	
-	
+	@Column(name = "user_phone")
 	private BigInteger userPhone;
-	@Column(name="user_email")
-	@NotEmpty(message="Please Enter Email Address")
-	@Email(message="Enter Valid Email Address ")
+	@Column(name = "user_email")
+	@NotEmpty(message = "Please Enter Email Address")
+	@Email(message = "Enter Valid Email Address ")
 	private String email;
-	@Column(name="userState")
+	@Column(name = "userState")
 	private Boolean userState;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public User() {
 		super();
@@ -171,7 +194,6 @@ public class User {
 		this.userPhone = userPhone;
 	}
 
-	
 	public String getEmail() {
 		return email;
 	}

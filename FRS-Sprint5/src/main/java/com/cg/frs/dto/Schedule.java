@@ -5,13 +5,22 @@ package com.cg.frs.dto;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -19,22 +28,37 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 
-@Entity(name="Schedule")
+@Entity(name = "Schedule")
+@EntityListeners({ AuditingEntityListener.class })
 public class Schedule {
 
 	@Id
-	@Column(name="schedule_Id")
+	@Column(name = "schedule_Id")
 	private BigInteger scheduleId;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport sourceAirport;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Airport destinationAirport;
-	@Column(name="departure_date_time")
-	@DateTimeFormat(pattern="mm-dd-yyyy HH:mm:ss")
+	@Column(name = "departure_date_time")
+	@DateTimeFormat(pattern = "mm-dd-yyyy HH:mm:ss")
 	private LocalDateTime departureDateTime;
-	@Column(name="arrival_date_time")
-	@DateTimeFormat(pattern="mm-dd-yyyy HH:mm:ss")
+	@Column(name = "arrival_date_time")
+	@DateTimeFormat(pattern = "mm-dd-yyyy HH:mm:ss")
 	private LocalDateTime arrivalDateTime;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public Schedule() {
 		super();

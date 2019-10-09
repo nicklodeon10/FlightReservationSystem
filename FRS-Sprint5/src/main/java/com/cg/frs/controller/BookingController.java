@@ -112,5 +112,23 @@ public class BookingController {
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}
-
+	
+	@GetMapping("/cancel")
+	public String cancelBookingPage(@ModelAttribute("booking") Booking booking) {
+		return "CancelBooking";
+	}
+	
+	@GetMapping("/cancelview")
+	public ModelAndView viewBookingToCancel(@RequestParam("booking_id") BigInteger bookingId,
+			@ModelAttribute("booking") Booking booking) throws FRSException {
+		return new ModelAndView("CancelBooking", "booking", bookingService.viewBooking(bookingId));
+	}
+	
+	@PostMapping("/confirmcancel")
+	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws FRSException {
+		bookingService.deleteBooking(bookingId);
+		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
+		return new ModelAndView("ShowBooking", "bookings",
+				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
+	}
 }

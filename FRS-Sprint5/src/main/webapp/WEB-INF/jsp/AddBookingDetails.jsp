@@ -39,6 +39,9 @@ a {
 
 .suc { color: green;}
 
+.detailrow{
+	display: none;
+}
 </style>
 </head>
 
@@ -61,17 +64,17 @@ a {
 				</tr>
 				<jstl:forEach items="${booking.passengerList}" var="passenger"
 					varStatus="status">
-					<tr>
+					<tr id="row${status.index}" class="detailrow">
 						<td align="center">${status.count}</td>
 						<td><input id="pname${status.index}" name="passengerList[${status.index}].passengerName" onblur="validateName('pname${status.index}')" />
 						<span id="pname${status.index}Error" class="err">Invalid Name</span>
 						<span id="pname${status.index}Success" class="suc">Valid</span></td>
 						<td><input id="page${status.index}" name="passengerList[${status.index}].passengerAge" onblur="validateAge('page${status.index}')" />
-						<span id="pname${status.index}Error" class="err">Invalid Age</span>
-						<span id="pname${status.index}Success" class="suc">Valid</span></td>
+						<span id="page${status.index}Error" class="err">Invalid Age</span>
+						<span id="page${status.index}Success" class="suc">Valid</span></td>
 						<td><input id="puin${status.index}" name="passengerList[${status.index}].passengerUIN" onblur="validateUIN('puin${status.index}')" />
-						<span id="pname${status.index}Error" class="err">Invalid UIN</span>
-						<span id="pname${status.index}Success" class="suc">Valid</span></td>
+						<span id="puin${status.index}Error" class="err">Invalid UIN</span>
+						<span id="puin${status.index}Success" class="suc">Valid</span></td>
 					</tr>
 				</jstl:forEach>
 			</table>
@@ -80,9 +83,17 @@ a {
 			<input type="submit" value="Confirm"
 				class="waves-effect waves-light btn-large"></input>
 		</form:form>
+		<button onclick="increasePass()">Add Passenger</button>
 	</div>
 
 	<script>
+	var count=0;
+	function increasePass(){
+		var id='row'+count;
+		document.getElementById(id).style.display='block';
+		count++;
+	}
+	
 	function validateName(field) {
 		// Get the  value of the input field being submitted
 		value = document.getElementById(field).value;

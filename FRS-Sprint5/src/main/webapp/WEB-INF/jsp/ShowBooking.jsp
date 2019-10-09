@@ -67,6 +67,8 @@ a {
 					${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
 					Arrival:
 					${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
+					Booking State:
+					${booking.bookingState}
 				</div>
 				<div class="col s6">
 					Passenger Details:<br>

@@ -4,7 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title></title>
+<style>
+	.brand-logo{
+		margin-left=20px;
+	}
+</style>
 </head>
 <body>
 	<nav>

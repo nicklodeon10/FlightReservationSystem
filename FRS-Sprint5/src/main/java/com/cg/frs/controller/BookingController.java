@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +36,7 @@ import com.cg.frs.service.ScheduleFlightService;
 
 @Controller
 public class BookingController {
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -72,36 +74,41 @@ public class BookingController {
 			passList.add(new Passenger());
 		booking.setPassengerList(passList);
 		session.setAttribute("currentFlight", scheduleFlightId);
-		session.setAttribute("userId", BigInteger.valueOf(12345L)); //Remove after adding login
+		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		return new ModelAndView("AddBookingDetails", "booking", booking);
 	}
 
 	@PostMapping("/save")
-	public ModelAndView saveBooking(@ModelAttribute("booking") Booking booking) throws FRSException {
-		List<Passenger> passList = new ArrayList<>();
-		for (Passenger passenger : booking.getPassengerList()) {
-			if (!passenger.getPassengerName().equals("")) {
-				passenger.setPassengerState(true);
-				passList.add(passenger);
+	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
+			throws FRSException {
+		if (result.hasErrors()) {
+			return new ModelAndView("AddBookingDetails","booking", booking);
+		} else {
+			List<Passenger> passList = new ArrayList<>();
+			for (Passenger passenger : booking.getPassengerList()) {
+				if (!passenger.getPassengerName().equals("")) {
+					passenger.setPassengerState(true);
+					passList.add(passenger);
+				}
 			}
+			booking.setPassengerList(passList);
+			booking.setUserId((BigInteger) session.getAttribute("userId"));
+			booking.setBookingState(true);
+			booking.setBookingDate(LocalDateTime.now());
+			booking.setPassengerCount(passList.size());
+			booking.setScheduleFlight(
+					scheduleFlightService.viewScheduleFlights((BigInteger) session.getAttribute("currentFlight")));
+			booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
+			bookingService.addBooking(booking);
+			session.setAttribute("currentFlight", null);
+			return new ModelAndView("ShowBooking", "bookings",
+					bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 		}
-		booking.setPassengerList(passList);
-		booking.setUserId((BigInteger)session.getAttribute("userId"));
-		booking.setBookingState(true);
-		booking.setBookingDate(LocalDateTime.now());
-		booking.setPassengerCount(passList.size());
-		booking.setScheduleFlight(
-				scheduleFlightService.viewScheduleFlights((BigInteger) session.getAttribute("currentFlight")));
-		booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
-		bookingService.addBooking(booking);
-		session.setAttribute("currentFlight", null);
-		return new ModelAndView("ShowBooking", "bookings",
-				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}
-	
+
 	@GetMapping("/view")
 	public ModelAndView showBooking() throws FRSException {
-		session.setAttribute("userId", BigInteger.valueOf(12345L)); //Remove after adding login
+		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}

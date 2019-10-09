@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 /**
  * @author DEVANG
@@ -24,8 +27,11 @@ public class Passenger {
 	@Column(name="pnr_number")
 	private BigInteger pnrNumber;
 	@Column(name="passenger_name")
+	@Pattern(regexp="^[\\p{L} .'-]+$", message="Name should not contain special characters.")
+	@Size(min=0, max=30, message="Name should be less than 30 characters.")
 	private String passengerName;
 	@Column(name="passenger_age")
+	@Positive(message="Age cannot be less than 0.")
 	private Integer passengerAge;
 	@Column(name="passenger_UIN")
 	private BigInteger passengerUIN;

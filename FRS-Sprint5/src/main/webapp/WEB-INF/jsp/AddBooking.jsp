@@ -32,8 +32,12 @@ a {
 	color: #212121;
 }
 
-select{
-	display: block;
+select {
+	display: inline-block;
+}
+
+.label{
+	display: inline-block;
 }
 </style>
 </head>
@@ -50,32 +54,40 @@ select{
 				<div class="card">
 					<div class="card-content">
 						<div class="row">
-							<div class="input-field col s12">
-								Source Airport:</div>
+							<div class="label col s4">Source Airport</div>
+							<div class="input-field col s8">
 								<select name="source_airport">
+									<option selected disabled>Select Source Airport</option>
 									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}">${airport.airportName} ,${airport.airportLocation}</option>
+										<option value="${airport.airportCode}">${airport.airportName}
+											,${airport.airportLocation}</option>
 									</jstl:forEach>
 								</select>
-							
-							<div class="input-field col s12">
-								Destination Airport: 
-								<select name="destination_airport">
-									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}">${airport.airportName} ,${airport.airportLocation}</option>
-									</jstl:forEach>
-								</select>
-							</div>
-							<div class="input-field col s12">
-								<input placeholder="Enter Date of Journey here"
-									id="date_of_journey" type="date" class="validate"
-									name="journeydate"> <label for="date_of_journey">Date
-									of Journey</label>
 							</div>
 						</div>
+						<div class="row">
+							<div class="label col s4">Destination Airport</div>
+							<div class="input-field col s8">
+								<select name="destination_airport">
+									<option selected disabled>Select Destination Airport</option>
+									<jstl:forEach items="${airportList}" var="airport">
+										<option value="${airport.airportCode}">${airport.airportName}
+											,${airport.airportLocation}</option>
+									</jstl:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="label col s4">Date of Journey</div>
+							<div class="input-field col s8">
+								<input placeholder="Enter Date of Journey here"
+									id="date_of_journey" type="date" class="validate"
+									name="journeydate">
+							</div>
+						</div>
+						<button type="submit" value="findFlights"
+							class="waves-effect waves-light btn-large left">findFlights</button>
 					</div>
-					<button type="submit" value="findFlights"
-						class="waves-effect waves-light btn-large left">findFlights</button>
 				</div>
 			</form:form>
 		</div>
@@ -87,7 +99,26 @@ select{
 	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
-		
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+		if (dd < 10)
+			dd = '0' + dd
+		if (mm < 10)
+			mm = '0' + mm
+		min = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("date_of_journey").setAttribute("min", min);
+		today.setMonth(today.getMonth() + 3);
+		dd = today.getDate();
+		mm = today.getMonth();
+		yyyy = today.getFullYear();
+		if (dd < 10)
+			dd = '0' + dd
+		if (mm < 10)
+			mm = '0' + mm
+		max = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("date_of_journey").setAttribute("max", max);
 	</script>
 </body>
 

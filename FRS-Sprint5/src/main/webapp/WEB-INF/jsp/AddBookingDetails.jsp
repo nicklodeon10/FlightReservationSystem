@@ -54,8 +54,7 @@ a {
 					varStatus="status">
 					<tr>
 						<td align="center">${status.count}</td>
-						<td><input
-							name="passengerList[${status.index}].passengerName" /></td>
+						<td><input name="passengerList[${status.index}].passengerName" /></td>
 						<td><input name="passengerList[${status.index}].passengerAge" /></td>
 						<td><input name="passengerList[${status.index}].passengerUIN" /></td>
 					</tr>
@@ -69,11 +68,7 @@ a {
 	</div>
 
 	<script>
-		function resetFields() {
-			document.getElementById('passenger_name').value = "";
-			document.getElementById('passenger_uin').value = "";
-			document.getElementById('passenger_age').value = "";
-		}
+			
 	</script>
 
 	<!-- Body -->

@@ -59,12 +59,12 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	}
 
 	@Override
-	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FRSException {
+	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FlightNotFoundException {
 		if (flightId == null)
-			throw new FRSException("Enter flight Id");
+			throw new FlightNotFoundException("Enter flight Id");
 		ScheduleFlight scheduleFlight = scheduleFlightRepository.getOne(flightId);
 		if (scheduleFlight == null)
-			throw new FRSException("Enter a valid Flight Id");
+			throw new FlightNotFoundException("Enter a valid Flight Id");
 		else
 			return scheduleFlight;
 	}

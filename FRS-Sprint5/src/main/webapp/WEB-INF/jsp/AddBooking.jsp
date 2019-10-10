@@ -36,7 +36,7 @@ select {
 	display: inline-block;
 }
 
-.label{
+.label {
 	display: inline-block;
 }
 </style>
@@ -56,7 +56,7 @@ select {
 						<div class="row">
 							<div class="label col s4">Source Airport</div>
 							<div class="input-field col s8">
-								<select name="source_airport" onblur="disableChoice()"  id="src">
+								<select name="source_airport" onblur="disableChoice()" id="src">
 									<option selected disabled>Select Source Airport</option>
 									<jstl:forEach items="${airportList}" var="airport">
 										<option value="${airport.airportCode}">${airport.airportName}
@@ -71,7 +71,8 @@ select {
 								<select name="destination_airport">
 									<option selected disabled>Select Destination Airport</option>
 									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}" id="dest${airport.airportCode}">${airport.airportName}
+										<option value="${airport.airportCode}"
+											id="dest${airport.airportCode}">${airport.airportName}
 											,${airport.airportLocation}</option>
 									</jstl:forEach>
 								</select>
@@ -109,7 +110,7 @@ select {
 			mm = '0' + mm
 		min = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("date_of_journey").setAttribute("min", min);
-		today.setMonth(today.getMonth() + 3);
+		today.setMonth(today.getMonth() + 2);
 		dd = today.getDate();
 		mm = today.getMonth();
 		yyyy = today.getFullYear();
@@ -120,8 +121,14 @@ select {
 		max = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("date_of_journey").setAttribute("max", max);
 
+		var prev=[];
 		function disableChoice(){
-			document.getElementById('dest'+document.getElementById('src').value).disabled=true;
+			for(var i=0; i<prev.length; i++){
+				prev[i].disabled=false;
+			}
+			var element=document.getElementById('dest'+document.getElementById('src').value);
+			element.disabled=true;
+			prev.push(element);
 		}
 	</script>
 </body>

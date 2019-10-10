@@ -13,7 +13,7 @@ import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
 
 /**
- * @author SURYA
+ * @author SURYA, DEVANG
  *
  */
 public interface ScheduleFlightService {
@@ -23,7 +23,7 @@ public interface ScheduleFlightService {
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
 			throws FlightNotFoundException;
 
-	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FRSException;
+	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FlightNotFoundException;
 
 	public List<ScheduleFlight> viewScheduleFlight();
 

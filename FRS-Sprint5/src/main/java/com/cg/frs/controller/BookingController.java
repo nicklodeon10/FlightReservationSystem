@@ -26,6 +26,8 @@ import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
 import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.exception.InvalidAirportException;
+import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.ScheduleFlightService;
@@ -58,7 +60,7 @@ public class BookingController {
 	@PostMapping("/find")
 	public ModelAndView flightSearch(@RequestParam("source_airport") String srcCode,
 			@RequestParam("destination_airport") String destCode, @RequestParam("journeydate") String doj)
-			throws FRSException {
+			throws InvalidAirportException {
 		Airport sourceAirport = airportService.viewAirport(srcCode);
 		Airport destinationAirport = airportService.viewAirport(destCode);
 		LocalDate journeyDate = LocalDate.parse(doj);
@@ -84,22 +86,22 @@ public class BookingController {
 	}
 
 	@PostMapping("/save")
-	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result) throws FRSException
-			 {
+	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
+			throws InvalidBookingException, FlightNotFoundException {
 		if (result.hasErrors()) {
-			return new ModelAndView("AddBookingDetails","booking", booking);
+			return new ModelAndView("AddBookingDetails", "booking", booking);
 		} else {
 			List<Passenger> passList = new ArrayList<>();
 			for (Passenger passenger : booking.getPassengerList()) {
 				if (!passenger.getPassengerName().equals("")) {
 					try {
-						if(passenger.getPassengerAge()==(null) || passenger.getPassengerUIN()==(null))
+						if (passenger.getPassengerAge() == (null) || passenger.getPassengerUIN() == (null))
 							throw new FRSException("Invalid Details Entered.");
-					}catch(FRSException exception) {
+					} catch (FRSException exception) {
 						return new ModelAndView("InvalidDetails");
 					}
-					passenger.setPassengerState(true); 
-					passList.add(passenger); 
+					passenger.setPassengerState(true);
+					passList.add(passenger);
 				}
 			}
 			booking.setPassengerList(passList);
@@ -118,25 +120,25 @@ public class BookingController {
 	}
 
 	@GetMapping("/view")
-	public ModelAndView showBooking() throws FRSException {
+	public ModelAndView showBooking() throws InvalidBookingException {
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}
-	
+
 	@GetMapping("/cancel")
 	public String cancelBookingPage(@ModelAttribute("booking") Booking booking) {
 		return "CancelBooking";
 	}
-	
+
 	@GetMapping("/cancelview")
 	public ModelAndView viewBookingToCancel(@RequestParam("booking_id") BigInteger bookingId,
-			@ModelAttribute("booking") Booking booking) throws FRSException {
+			@ModelAttribute("booking") Booking booking) throws InvalidBookingException {
 		return new ModelAndView("CancelBooking", "booking", bookingService.viewBooking(bookingId));
 	}
-	
+
 	@PostMapping("/confirmcancel")
-	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws FRSException {
+	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws InvalidBookingException {
 		bookingService.deleteBooking(bookingId);
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		return new ModelAndView("ShowBooking", "bookings",

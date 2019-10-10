@@ -25,6 +25,7 @@ import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
 import com.cg.frs.exception.FRSException;
+import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.ScheduleFlightService;
@@ -62,8 +63,12 @@ public class BookingController {
 		Airport destinationAirport = airportService.viewAirport(destCode);
 		LocalDate journeyDate = LocalDate.parse(doj);
 		airportService.compareAirport(sourceAirport, destinationAirport);
-		return new ModelAndView("ViewFlights", "scheduleFlightList",
-				scheduleFlightService.viewScheduleFlights(sourceAirport, destinationAirport, journeyDate));
+		try {
+			return new ModelAndView("ViewFlights", "scheduleFlightList",
+					scheduleFlightService.viewScheduleFlights(sourceAirport, destinationAirport, journeyDate));
+		} catch (FlightNotFoundException e) {
+			return new ModelAndView("NoFlights");
+		}
 	}
 
 	@GetMapping("/addDetails")
@@ -79,16 +84,22 @@ public class BookingController {
 	}
 
 	@PostMapping("/save")
-	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
-			throws FRSException {
+	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result) throws FRSException
+			 {
 		if (result.hasErrors()) {
 			return new ModelAndView("AddBookingDetails","booking", booking);
 		} else {
 			List<Passenger> passList = new ArrayList<>();
 			for (Passenger passenger : booking.getPassengerList()) {
 				if (!passenger.getPassengerName().equals("")) {
-					passenger.setPassengerState(true);
-					passList.add(passenger);
+					try {
+						if(passenger.getPassengerAge()==(null) || passenger.getPassengerUIN()==(null))
+							throw new FRSException("Invalid Details Entered.");
+					}catch(FRSException exception) {
+						return new ModelAndView("InvalidDetails");
+					}
+					passenger.setPassengerState(true); 
+					passList.add(passenger); 
 				}
 			}
 			booking.setPassengerList(passList);

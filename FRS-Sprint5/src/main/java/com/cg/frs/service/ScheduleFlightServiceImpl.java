@@ -19,6 +19,7 @@ import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FRSException;
+import com.cg.frs.exception.FlightNotFoundException;
 
 /**
  * @author SURYA, DEVANG
@@ -42,7 +43,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 
 	@Override
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
-			throws FRSException {
+			throws FlightNotFoundException {
 		List<ScheduleFlight> scheduleFlightList=scheduleFlightRepository.findAll();
 		List<ScheduleFlight> extractedFlightList=new ArrayList<>();
 		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
@@ -53,7 +54,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 			}
 		}
 		if(extractedFlightList.size()==0)
-			throw new FRSException("No Flights Found");
+			throw new FlightNotFoundException("No Flights Found");
 		return extractedFlightList;
 	}
 

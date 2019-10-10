@@ -10,6 +10,7 @@ import java.util.List;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FRSException;
+import com.cg.frs.exception.FlightNotFoundException;
 
 /**
  * @author SURYA
@@ -20,7 +21,7 @@ public interface ScheduleFlightService {
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight);
 
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
-			throws FRSException;
+			throws FlightNotFoundException;
 
 	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FRSException;
 

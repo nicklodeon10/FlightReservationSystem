@@ -81,7 +81,7 @@ a {
 			<br>
 			<br>
 			<input type="submit" value="Confirm"
-				class="waves-effect waves-light btn-large"></input>
+				class="waves-effect waves-light btn-large" disabled></input>
 		</form:form>
 		<button onclick="increasePass()">Add Passenger</button>
 	</div>

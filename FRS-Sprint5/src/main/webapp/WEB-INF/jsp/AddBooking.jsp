@@ -56,7 +56,7 @@ select {
 						<div class="row">
 							<div class="label col s4">Source Airport</div>
 							<div class="input-field col s8">
-								<select name="source_airport">
+								<select name="source_airport" onblur="disableChoice()"  id="src">
 									<option selected disabled>Select Source Airport</option>
 									<jstl:forEach items="${airportList}" var="airport">
 										<option value="${airport.airportCode}">${airport.airportName}
@@ -71,7 +71,7 @@ select {
 								<select name="destination_airport">
 									<option selected disabled>Select Destination Airport</option>
 									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}">${airport.airportName}
+										<option value="${airport.airportCode}" id="dest${airport.airportCode}">${airport.airportName}
 											,${airport.airportLocation}</option>
 									</jstl:forEach>
 								</select>
@@ -119,6 +119,10 @@ select {
 			mm = '0' + mm
 		max = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("date_of_journey").setAttribute("max", max);
+
+		function disableChoice(){
+			document.getElementById('dest'+document.getElementById('src').value).disabled=true;
+		}
 	</script>
 </body>
 

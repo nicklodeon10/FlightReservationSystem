@@ -51,13 +51,28 @@ public class BookingController {
 
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
+	
+	@GetMapping("/")
+	public ModelAndView home() {
+		return new ModelAndView("Home", "airportList", airportService.viewAirport());
+	}
+	
+	@GetMapping("/admin")
+	public String adminPanel() {
+		return "AdminPanel";
+	}
+	
+	@GetMapping("/user")
+	public String userPanel() {
+		return "UserPanel";
+	}
 
-	@GetMapping("/booking/add")
+	@GetMapping("/add")
 	public ModelAndView bookingSearch() {
 		return new ModelAndView("AddBooking", "airportList", airportService.viewAirport());
 	}
 
-	@PostMapping("/booking/find")
+	@PostMapping("/find")
 	public ModelAndView flightSearch(@RequestParam("source_airport") String srcCode,
 			@RequestParam("destination_airport") String destCode, @RequestParam("journeydate") String doj)
 			throws InvalidAirportException {
@@ -73,7 +88,7 @@ public class BookingController {
 		}
 	}
 
-	@GetMapping("/booking/addDetails")
+	@GetMapping("/addDetails")
 	public ModelAndView addDetailsPage(@RequestParam("schedule_flight_id") BigInteger scheduleFlightId) {
 		Booking booking = new Booking();
 		List<Passenger> passList = new ArrayList<>();
@@ -85,7 +100,7 @@ public class BookingController {
 		return new ModelAndView("AddBookingDetails", "booking", booking);
 	}
 
-	@PostMapping("/booking/save")
+	@PostMapping("/save")
 	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
 			throws InvalidBookingException, FlightNotFoundException {
 		if (result.hasErrors()) {
@@ -119,25 +134,25 @@ public class BookingController {
 		}
 	}
 
-	@GetMapping("/booking/view")
+	@GetMapping("/view")
 	public ModelAndView showBooking() throws InvalidBookingException {
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}
 
-	@GetMapping("/booking/cancel")
+	@GetMapping("/cancel")
 	public String cancelBookingPage(@ModelAttribute("booking") Booking booking) {
 		return "CancelBooking";
 	}
 
-	@GetMapping("/booking/cancelview")
+	@GetMapping("/cancelview")
 	public ModelAndView viewBookingToCancel(@RequestParam("booking_id") BigInteger bookingId,
 			@ModelAttribute("booking") Booking booking) throws InvalidBookingException {
 		return new ModelAndView("CancelBooking", "booking", bookingService.viewBooking(bookingId));
 	}
 
-	@PostMapping("/booking/confirmcancel")
+	@PostMapping("/confirmcancel")
 	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws InvalidBookingException {
 		bookingService.deleteBooking(bookingId);
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login

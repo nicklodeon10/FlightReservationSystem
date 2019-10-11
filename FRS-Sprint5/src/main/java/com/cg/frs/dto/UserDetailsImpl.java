@@ -77,4 +77,10 @@ public class UserDetailsImpl implements UserDetails {
 		return active;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDetailsImpl [username=" + username + ", password=" + password + ", active=" + active
+				+ ", authorities=" + authorities + "]";
+	}
+
 }

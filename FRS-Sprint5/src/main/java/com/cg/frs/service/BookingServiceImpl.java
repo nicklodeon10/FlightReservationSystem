@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.cg.frs.dao.BookingDao;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.InvalidBookingException;
 
 /**

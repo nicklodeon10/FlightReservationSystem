@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.dao.AirportDao;
 import com.cg.frs.dto.Airport;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.InvalidAirportException;
 
 /**

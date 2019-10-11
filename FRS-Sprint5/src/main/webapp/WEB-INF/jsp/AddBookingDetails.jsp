@@ -80,15 +80,30 @@ a {
 			</table>
 			<br>
 			<br>
-			<input type="submit" value="Confirm"
+			<input type="submit" value="Confirm" id="submitButton"
 				class="waves-effect waves-light btn-large" disabled></input>
 		</form:form>
-		<button onclick="increasePass()">Add Passenger</button>
+		<button id="increaseButton" onclick="increasePass()">Add Passenger</button>
 	</div>
 
 	<script>
+	
 	var count=0;
+	var nameFlag=false;
+	var ageFlag=false;
+	var uinFlag=false;
+
+	function enableSubmit(){
+		if(nameFlag && ageFlag && uinFlag){
+			document.getElementById('submitButton').disabled=false;
+			document.getElementById('increaseButton').disabled=false;
+		}
+	}
+	
 	function increasePass(){
+		if(count>-1){
+			document.getElementById('increaseButton').disabled=true;
+		}
 		var id='row'+count;
 		document.getElementById(id).style.display='block';
 		count++;
@@ -105,10 +120,12 @@ a {
 		if (flag) {
 			document.getElementById(successField).style.display = 'block';
 			document.getElementById(errorField).style.display = 'none';
+			nameFlag=true;
 			return true;
 		} else {
 			document.getElementById(successField).style.display = 'none';
 			document.getElementById(errorField).style.display = 'block';
+			nameFlag=false;
 			return false;
 		}
 	}
@@ -126,10 +143,12 @@ a {
 		if (flag) {
 			document.getElementById(successField).style.display = 'block';
 			document.getElementById(errorField).style.display = 'none';
+			ageFlag=true;
 			return true;
 		} else {
 			document.getElementById(successField).style.display = 'none';
 			document.getElementById(errorField).style.display = 'block';
+			ageFlag=false;
 			return false;
 		}
 	}
@@ -148,10 +167,13 @@ a {
 		if (flag) {
 			document.getElementById(successField).style.display = 'block';
 			document.getElementById(errorField).style.display = 'none';
+			uinFlag=true;
+			enableSubmit();
 			return true;
 		} else {
 			document.getElementById(successField).style.display = 'none';
 			document.getElementById(errorField).style.display = 'block';
+			uinFlag=false;
 			return false;
 		}
 	}

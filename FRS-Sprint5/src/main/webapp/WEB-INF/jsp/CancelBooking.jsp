@@ -58,7 +58,7 @@ a {
 			<p>Enter your Booking Id</p>
 		</div>
 		<div class="row text center">
-			<form:form action="cancelview" method="GET">
+			<form:form action="/booking/cancelview" method="GET">
 				<div class="input-field col s6">
 					<input id="id" type="number" class="validate" name="booking_id"
 						value="${booking.bookingId}"> <label class="active">Booking
@@ -72,7 +72,7 @@ a {
 		</div>
 		<div class="row" id="viewBox">
 			<div class="card col s4 offset-s4 center">
-				<form:form action="confirmcancel" method="POST">
+				<form:form action="/booking/confirmcancel" method="POST">
 					<div class="row">
 						<ul class="collection with-header">
 							<li class="collection-item">

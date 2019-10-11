@@ -50,7 +50,7 @@ select {
 	<!-- Body -->
 	<div class="row">
 		<div class="col s6 offset-s3">
-			<form:form action="find" method="POST">
+			<form:form action="/booking/find" method="POST">
 				<div class="card">
 					<div class="card-content">
 						<div class="row">

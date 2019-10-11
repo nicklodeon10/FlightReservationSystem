@@ -42,7 +42,7 @@ a {
 	<div class="container center">
 		<ul class="collection with-header">
 			<li class="collection-header"><h4>No Flights Available</h4></li>
-			<li><a href="add">Go Back</a></li>
+			<li><a href="/booking/add">Go Back</a></li>
 		</ul>
 	</div>
 	<!-- Body -->

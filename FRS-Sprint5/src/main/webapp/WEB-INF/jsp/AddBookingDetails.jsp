@@ -54,7 +54,7 @@ a {
 
 	<div class="container card centre">
 		<h4>Add Passenger Details:</h4>
-		<form:form method="POST" action="save" modelAttribute="booking">
+		<form:form method="POST" action="/booking/save" modelAttribute="booking">
 			<table>
 				<tr>
 					<th></th>

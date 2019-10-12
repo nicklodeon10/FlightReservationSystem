@@ -26,8 +26,9 @@ public class FlightReservationSystemApplication {
 	 *  Last Modified: -
 	 */
 	public static void main(String[] args) {
+		logger.info("Starting Application.");
 		SpringApplication.run(FlightReservationSystemApplication.class, args);
-		logger.info("Running.");
+		logger.info("Application Running.");
 	}
 
 }

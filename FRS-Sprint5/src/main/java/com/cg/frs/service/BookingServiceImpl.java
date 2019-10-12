@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +27,14 @@ import com.cg.frs.repository.BookingRepository;
 @Service("bookingService")
 @Transactional
 public class BookingServiceImpl implements BookingService {
+	
 	@Autowired
 	BookingRepository bookingDao;
 
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(BookingServiceImpl.class);
 
 	/*	
 	 *  Author: DEVANG
@@ -41,6 +46,7 @@ public class BookingServiceImpl implements BookingService {
 	 */
 	@Override
 	public Booking addBooking(Booking booking) {
+		logger.info("Storing Booking.");
 		return bookingDao.save(booking);
 	}
 
@@ -55,9 +61,12 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public List<Booking> viewBooking() throws InvalidBookingException {
 		List<Booking> bookings = bookingDao.findAll();
+		logger.info("Retrieved all bookings.");
 		if (bookings.isEmpty()) {
+			logger.error("No Bookings found.");
 			throw new InvalidBookingException("No Bookings Found.");
 		}
+		logger.info("Returning retrieved Bookings.");
 		return bookings;
 	}
 
@@ -72,9 +81,12 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Booking viewBooking(BigInteger bookingId) throws InvalidBookingException {
 		Booking booking = bookingDao.findById(bookingId).get();
+		logger.info("Retrieved Booking by Booking id: "+bookingId);
 		if (booking == null) {
+			logger.error("No Bookings found.");
 			throw new InvalidBookingException("No Bookings Found.");
 		}
+		logger.info("Returning Booking.");
 		return booking;
 	}
 
@@ -86,17 +98,19 @@ public class BookingServiceImpl implements BookingService {
 	 *  Created Date: 09/10/2019
 	 *  Last Modified: - 
 	 */
+	
 	@Override
-	public boolean deleteBooking(BigInteger bookingId) throws InvalidBookingException {
-		Booking booking = viewBooking(bookingId);
-		if (booking == null) {
+	public List<Booking> viewBookingsByUser(BigInteger userId) throws InvalidBookingException {
+		List<Booking> bookings = bookingDao.findByUserId(userId);
+		logger.info("Retrieved all Bookings made by User Id: "+userId);
+		if (bookings.isEmpty()) {
+			logger.error("No Bookings found.");
 			throw new InvalidBookingException("No Bookings Found.");
 		}
-		booking.setBookingState(false);
-		bookingDao.save(booking);
-		return true;
+		logger.info("Returning Bookings.");
+		return bookings;
 	}
-
+	
 	/*	
 	 *  Author: DEVANG
 	 *  Description: Cancels a booking.
@@ -106,9 +120,16 @@ public class BookingServiceImpl implements BookingService {
 	 *  Last Modified: -
 	 */
 	@Override
-	public boolean validatePassengerCount(ScheduleFlight scheduleFlight, Integer passengerChange) throws InvalidBookingException {
-		if (passengerChange > scheduleFlight.getAvailableSeats())
-			throw new InvalidBookingException("Seats not available.");
+	public boolean deleteBooking(BigInteger bookingId) throws InvalidBookingException {
+		Booking booking = viewBooking(bookingId);
+		logger.info("Retrieved booking by booking id: "+bookingId);
+		if (booking == null) {
+			logger.error("No Bookings found.");
+			throw new InvalidBookingException("No Bookings Found.");
+		}
+		booking.setBookingState(false);
+		bookingDao.save(booking);
+		logger.info("Cancelled Booking.");
 		return true;
 	}
 
@@ -121,12 +142,13 @@ public class BookingServiceImpl implements BookingService {
 	 *  Last Modified: -
 	 */
 	@Override
-	public List<Booking> viewBookingsByUser(BigInteger userId) throws InvalidBookingException {
-		List<Booking> bookings = bookingDao.findByUserId(userId);
-		if (bookings.isEmpty()) {
-			throw new InvalidBookingException("No Bookings Found.");
+	public boolean validatePassengerCount(ScheduleFlight scheduleFlight, Integer passengerChange) throws InvalidBookingException {
+		if (passengerChange > scheduleFlight.getAvailableSeats()) {
+			logger.info("Checked for seats. Seats not available.");
+			throw new InvalidBookingException("Seats not available.");
 		}
-		return bookings;
+		logger.info("Checked for Seats. Seats available.");
+		return true;
 	}
 
 }

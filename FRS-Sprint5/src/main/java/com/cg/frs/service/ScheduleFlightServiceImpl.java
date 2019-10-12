@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,8 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	@Autowired
 	ScheduleRepository scheduleRepository;
 
+	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightServiceImpl.class);
+	
 	@Override
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {
 		return scheduleFlightRepository.save(scheduleflight);
@@ -54,6 +58,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
 			throws FlightNotFoundException {
 		List<ScheduleFlight> scheduleFlightList=scheduleFlightRepository.findAll();
+		logger.info("Retrieved list of all scheduled flights.");
 		List<ScheduleFlight> extractedFlightList=new ArrayList<>();
 		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
 			if(scheduleFlight.getSchedule().getSourceAirport().equals(source) 
@@ -62,8 +67,12 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 				extractedFlightList.add(scheduleFlight);
 			}
 		}
-		if(extractedFlightList.size()==0)
+		logger.info("Extracted list of scheduled flights as per parameters.");
+		if(extractedFlightList.size()==0) {
+			logger.error("No Flights Found.");
 			throw new FlightNotFoundException("No Flights Found");
+		}
+		logger.info("Returning list of scheduled flights.");
 		return extractedFlightList;
 	}
 

@@ -137,10 +137,6 @@ select {
 	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
-		function myFunction() {
-			var popup = document.getElementById("myPopup");
-			popup.classList.toggle("show");
-		}
 	</script>
 </body>
 

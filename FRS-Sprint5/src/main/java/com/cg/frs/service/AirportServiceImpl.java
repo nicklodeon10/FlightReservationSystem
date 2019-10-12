@@ -7,9 +7,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.repository.AirportRepository;
@@ -26,6 +29,8 @@ public class AirportServiceImpl implements AirportService {
 
 	@Autowired
 	AirportRepository airportDao;
+	
+	private static final Logger logger = LoggerFactory.getLogger(AirportServiceImpl.class);
 
 	/*	
 	 *  Author: DEVANG
@@ -37,6 +42,7 @@ public class AirportServiceImpl implements AirportService {
 	 */
 	@Override
 	public List<Airport> viewAirport() {
+		logger.info("Retrieving all airports.");
 		return airportDao.findAll();
 	}
 
@@ -51,9 +57,12 @@ public class AirportServiceImpl implements AirportService {
 	@Override
 	public Airport viewAirport(String airportCode) throws InvalidAirportException {
 		Airport airport=airportDao.findById(airportCode).get();
+		logger.info("Retrieved Airport for code: "+airportCode);
 		if(airport==null) {
+			logger.error("No Airport Found for code: "+airportCode);
 			throw new InvalidAirportException("No Airport Found");
 		}
+		logger.info("Returning found Airport.");
 		return airport;
 	}
 
@@ -68,6 +77,7 @@ public class AirportServiceImpl implements AirportService {
 	@Override
 	public boolean validateAirportWithCode(String airportCode)throws InvalidAirportException {
 		viewAirport(airportCode);
+		logger.info("Airport Validated.");
 		return true;
 	}
 
@@ -81,8 +91,11 @@ public class AirportServiceImpl implements AirportService {
 	 */
 	@Override
 	public boolean compareAirport(Airport src, Airport dest) throws InvalidAirportException {
-		if (src == dest)
+		if (src == dest) {
+			logger.error("Airports Compared. Same.");
 			throw new InvalidAirportException("Both Airports are the same.");
+		}
+		logger.info("Airports Compared. Different.");
 		return false;
 	}
 

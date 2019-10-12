@@ -5,6 +5,8 @@ package com.cg.frs.service;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +26,8 @@ import com.cg.frs.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+	
 	@Autowired
 	UserRepository userdao;
 
@@ -38,7 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> user=userdao.findByUserName(username);
+		logger.info("Finding user with username: "+username);
 		user.orElseThrow(()->new UsernameNotFoundException("User not found: "+username));
+		logger.info("Found user with username: "+username);
+		logger.info("Mapping User to UserDetails and returning.");
 		return user.map(UserDetailsImpl::new).get();
 	}
 

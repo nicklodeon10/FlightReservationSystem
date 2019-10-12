@@ -12,6 +12,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -54,6 +56,7 @@ public class BookingController {
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 	
 	/*	
 	 *  Author: DEVANG
@@ -65,6 +68,7 @@ public class BookingController {
 	 */
 	@GetMapping("/")
 	public ModelAndView home() {
+		logger.info("Returning Home View.");
 		return new ModelAndView("Home", "airportList", airportService.viewAirport());
 	}
 	
@@ -78,6 +82,7 @@ public class BookingController {
 	 */
 	@GetMapping("/admin")
 	public String adminPanel() {
+		logger.info("Returning Admin Panel View.");
 		return "AdminPanel";
 	}
 	
@@ -91,6 +96,7 @@ public class BookingController {
 	 */
 	@GetMapping("/user")
 	public String userPanel() {
+		logger.info("Returning User Panel View.");
 		return "UserPanel";
 	}
 	
@@ -104,6 +110,7 @@ public class BookingController {
 	 */
 	@GetMapping("/booking/add")
 	public ModelAndView bookingSearch() {
+		logger.info("Returning Booking Search View.");
 		return new ModelAndView("AddBooking", "airportList", airportService.viewAirport());
 	}
 	
@@ -119,10 +126,13 @@ public class BookingController {
 	public ModelAndView flightSearch(@RequestParam("source_airport") String srcCode,
 			@RequestParam("destination_airport") String destCode, @RequestParam("journeydate") String doj)
 			throws InvalidAirportException {
+		logger.info("Preparing Flight Search Parameters.");
 		Airport sourceAirport = airportService.viewAirport(srcCode);
 		Airport destinationAirport = airportService.viewAirport(destCode);
 		LocalDate journeyDate = LocalDate.parse(doj);
+		logger.info("Prepared Flight Search Parameters.");
 		airportService.compareAirport(sourceAirport, destinationAirport);
+		logger.info("Returning View Flights View.");
 		try {
 			return new ModelAndView("ViewFlights", "scheduleFlightList",
 					scheduleFlightService.viewScheduleFlights(sourceAirport, destinationAirport, journeyDate));
@@ -146,8 +156,10 @@ public class BookingController {
 		for (int i = 0; i < 4; i++)
 			passList.add(new Passenger());
 		booking.setPassengerList(passList);
+		logger.info("Setting current flight as: "+scheduleFlightId);
 		session.setAttribute("currentFlight", scheduleFlightId);
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
+		logger.info("Returning Add Details View.");
 		return new ModelAndView("AddBookingDetails", "booking", booking);
 	}
 	
@@ -163,8 +175,10 @@ public class BookingController {
 	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
 			throws InvalidBookingException, FlightNotFoundException {
 		if (result.hasErrors()) {
+			logger.info("Found errors in entered details.");
 			return new ModelAndView("AddBookingDetails", "booking", booking);
 		} else {
+			logger.info("Trimming User List.");
 			List<Passenger> passList = new ArrayList<>();
 			for (Passenger passenger : booking.getPassengerList()) {
 				if (!passenger.getPassengerName().equals("")) {
@@ -178,6 +192,7 @@ public class BookingController {
 					passList.add(passenger);
 				}
 			}
+			logger.info("Trimmed User List.");
 			booking.setPassengerList(passList);
 			booking.setUserId((BigInteger) session.getAttribute("userId"));
 			booking.setBookingState(true);
@@ -186,8 +201,12 @@ public class BookingController {
 			booking.setScheduleFlight(
 					scheduleFlightService.viewScheduleFlights((BigInteger) session.getAttribute("currentFlight")));
 			booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
+			logger.info("Adding Booking.");
 			bookingService.addBooking(booking);
+			logger.info("Added Booking.");
 			session.setAttribute("currentFlight", null);
+			logger.info("Resetting current flight parameter.");
+			logger.info("Returning show booking view.");
 			return new ModelAndView("ShowBooking", "bookings",
 					bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 		}
@@ -204,6 +223,7 @@ public class BookingController {
 	@GetMapping("/booking/view")
 	public ModelAndView showBooking() throws InvalidBookingException {
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
+		logger.info("Returning show booking view.");
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}
@@ -218,6 +238,7 @@ public class BookingController {
 	 */
 	@GetMapping("/booking/cancel")
 	public String cancelBookingPage(@ModelAttribute("booking") Booking booking) {
+		logger.info("Returning cancel booking view.");
 		return "CancelBooking";
 	}
 	
@@ -232,6 +253,7 @@ public class BookingController {
 	@GetMapping("/booking/cancelview")
 	public ModelAndView viewBookingToCancel(@RequestParam("booking_id") BigInteger bookingId,
 			@ModelAttribute("booking") Booking booking) throws InvalidBookingException {
+		logger.info("Retrieving Booking and returning cancel booking view.");
 		return new ModelAndView("CancelBooking", "booking", bookingService.viewBooking(bookingId));
 	}
 	
@@ -245,8 +267,11 @@ public class BookingController {
 	 */
 	@PostMapping("/booking/confirmcancel")
 	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws InvalidBookingException {
+		logger.info("Cancelling Booking: "+bookingId);
 		bookingService.deleteBooking(bookingId);
+		logger.info("Booking Cancelled.");
 		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
+		logger.info("Returning show booking view.");
 		return new ModelAndView("ShowBooking", "bookings",
 				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
 	}

@@ -5,6 +5,8 @@ package com.cg.frs.configuration;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.AuditorAware;
 
 /**
@@ -15,6 +17,8 @@ import org.springframework.data.domain.AuditorAware;
  */
 public class AuditorAwareImpl implements AuditorAware<String> {
 
+	private static final Logger logger = LoggerFactory.getLogger(AuditorAwareImpl.class);
+	
 	/*	
 	 *  Author: DEVANG
 	 *  Description: Provides a String Optional for the current user.
@@ -25,6 +29,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 	 */
 	@Override
 	public Optional<String> getCurrentAuditor() {
+		logger.info("Returning optional string of current auditor.");
 		return Optional.of("DEVANG");
 	}
 

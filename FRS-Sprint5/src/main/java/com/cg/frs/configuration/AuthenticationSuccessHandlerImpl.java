@@ -18,8 +18,6 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.cg.frs.FlightReservationSystemApplication;
-
 /**
  * @author: DEVANG
  * description: Handles the redirection after successful login.
@@ -30,7 +28,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
-	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(AuthenticationSuccessHandlerImpl.class);
 	
 	/*	
 	 *  Author: DEVANG
@@ -45,18 +43,24 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			Authentication authentication) throws IOException, ServletException {
 		String targetUrl=null;
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		logger.info("Retrieved current authorities.");
 		for (GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN"))
+			if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
 				targetUrl = "/admin";
-			else if (grantedAuthority.getAuthority().equals("ROLE_USER"))
+				logger.info("Admin Role Found.");
+			}else if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
 				targetUrl = "/user";
-			else
+				logger.info("User Role Found.");
+			}else {
+				logger.error("Illegal Role Found.");
 				throw new IllegalStateException();
+			}
 		}
 		if (response.isCommitted()) {
-			logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+			logger.error("Response has already been committed. Unable to redirect to " + targetUrl);
 			return;
 		}
+		logger.info("Redirecting to Target URL: "+targetUrl);
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
 	

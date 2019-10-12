@@ -3,6 +3,8 @@
  */
 package com.cg.frs.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,7 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -21,6 +23,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 
+	private static final Logger logger = LoggerFactory.getLogger(SpringWebSecurity.class);
+	
 	@Autowired
 	UserDetailsService userDetailsService;
 
@@ -31,7 +35,9 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		logger.info("Created Authentication Manager.");
 		auth.userDetailsService(userDetailsService);
+		logger.info("Set UserDetails provider.");
 	}
 
 	/*
@@ -40,6 +46,7 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 	 * Modified: -
 	 */
 	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+		logger.info("Returning AuthenticationSuccessHandler.");
 		return new AuthenticationSuccessHandlerImpl();
 	}
 
@@ -50,11 +57,13 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		logger.info("Configuring Security.");
 		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/admin").hasRole("ADMIN")
 				.antMatchers("/user", "/booking/add", "/booking/addDetails", "/booking/save", "/booking/view",
 						"/booking/cancel", "/booking/cancelview", "/booking/confirmcancel")
 				.hasRole("USER").and().formLogin().loginPage("/login").failureUrl("/login?error=true").successHandler(authenticationSuccessHandler())
 				.and().logout().logoutSuccessUrl("/login?logout=true").and().csrf().disable();
+		logger.info("Configured Security.");
 	}
 
 	/*
@@ -63,7 +72,8 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+		logger.info("Returning BCrypyPasswordEncoder.");
+		return new BCryptPasswordEncoder();
 	}
 
 }

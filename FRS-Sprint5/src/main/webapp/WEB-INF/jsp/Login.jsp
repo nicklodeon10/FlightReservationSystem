@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -19,17 +19,21 @@
 body {
 	background-color: #eeeeee;
 }
+
 footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
+
 a {
 	color: #212121;
 }
+
 .brand-logo {
 	margin-left: 20px;
 }
+
 .card {
 	margin-top: 15vh;
 }
@@ -46,28 +50,25 @@ a {
 		<div class="row">
 			<div class="card col s4 offset-s4 center">
 				<form action="login" method="POST">
-					<%-- <div class="logoutMsg">
-						<% if(param.logout){ %>You have been logged out <% } %>
-					</div> --%>
+					<c:if test="${not empty errorMessage}">
+						<div style="color: red; font-weight: bold; margin: 30px 0px;">${errorMessage}</div>
+					</c:if>
 					<div class="row">
 						<h5>Log In</h5>
 						<div class="input-field col s12">
-							<input id="username" type="text" class="validate"
-								name="username"> <label for="first_name">User
-								Name</label>
+							<input id="username" type="text" class="validate" name="username">
+							<label for="first_name">User Name</label>
 						</div>
 						<div class="input-field col s12">
 							<input id="password" type="password" class="validate"
 								name="password"> <label for="password">Password</label>
 						</div>
 					</div>
-					<%-- <div class="loginError">
-						<% if(param.error){ %>Invalid Username or Password <% } %>
-					</div> --%>
 					<input type="submit" value="Submit"
 						class="waves-effect waves-light btn-large"></input>
 				</form>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 			</div>
 		</div>
 	</div>

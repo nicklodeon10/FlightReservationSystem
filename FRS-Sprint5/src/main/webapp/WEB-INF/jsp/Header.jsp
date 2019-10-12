@@ -15,7 +15,7 @@
 <body>
 	<nav>
 		<div class="nav-wrapper grey darken-4">
-			<a href="backHome" class="brand-logo"> <i
+			<a href="" class="brand-logo"> <i
 				class="large material-icons">airplanemode_active</i>Flight
 				Reservation System
 			</a>

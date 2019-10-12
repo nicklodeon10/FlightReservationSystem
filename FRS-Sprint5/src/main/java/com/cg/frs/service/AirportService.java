@@ -9,21 +9,51 @@ import com.cg.frs.dto.Airport;
 import com.cg.frs.exception.InvalidAirportException;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Service Interface for Airport 
+ * created date: 09/10/2019
+ * modified: -
  */
 public interface AirportService {
 
-	//Service Method to retrieve a list of airports
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves a list of all airports.
+	 *  Input: -
+	 *  Output: Airport List
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: -
+	 */
 	public List<Airport> viewAirport();
 
-	//Service Method to retrieve an airport by its code
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves an Airport by its code.
+	 *  Input: Airport Code String.
+	 *  Output: Airport Object
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: -
+	 */
 	public Airport viewAirport(String airportCode)throws InvalidAirportException;
 
-	//Service Method to validate if airport code is valid
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Validates an airport by its code
+	 *  Input: Airport Code String
+	 *  Output: True if found, else throws Exception.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: 10/10/2019 
+	 */
 	public boolean validateAirportWithCode(String airportCode)throws InvalidAirportException;
 
-	//Service Method to check if two airports are the same
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Checks if two airports are the same.
+	 *  Input: Airport objects for two airports.
+	 *  Output: True if same, else throws Exception.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified 10/10/2019
+	 */
 	public boolean compareAirport(Airport src, Airport dest)throws InvalidAirportException;
 
 }

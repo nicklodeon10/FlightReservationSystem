@@ -13,10 +13,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: UserDetails Model (Required by Spring Security)
+ * created date: 11/10/2019
+ * modified: -
  */
-
 public class UserDetailsImpl implements UserDetails {
 
 	/**

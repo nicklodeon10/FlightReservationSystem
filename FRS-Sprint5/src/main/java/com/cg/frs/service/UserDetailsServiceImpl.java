@@ -11,21 +11,30 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.cg.frs.dao.UserDao;
 import com.cg.frs.dto.User;
 import com.cg.frs.dto.UserDetailsImpl;
+import com.cg.frs.repository.UserRepository;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Service for UserDetails 
+ * created date: 11/10/2019
+ * modified: -
  */
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	UserDao userdao;
-	
+	UserRepository userdao;
+
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves a user and maps it to a UserDetails object.
+	 *  Input: User name string.
+	 *  Output: UserDetails object.
+	 *  Created Date: 11/10/2019
+	 *  Last Modified: - 
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> user=userdao.findByUserName(username);

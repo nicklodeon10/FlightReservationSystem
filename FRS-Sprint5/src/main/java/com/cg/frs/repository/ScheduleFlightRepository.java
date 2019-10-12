@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cg.frs.dao;
+package com.cg.frs.repository;
 
 import java.math.BigInteger;
 
@@ -11,10 +11,11 @@ import org.springframework.stereotype.Repository;
 import com.cg.frs.dto.ScheduleFlight;
 
 /**
- * @author SURYA
- *
+ * @author: DEVANG
+ * description: ScheduleFlight Repository 
+ * created date: 09/10/2019
+ * modified: -
  */
-
 @Repository("scheduleFlightRepository")
 public interface ScheduleFlightRepository extends JpaRepository<ScheduleFlight,BigInteger> {
 

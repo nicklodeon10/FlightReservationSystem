@@ -13,19 +13,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.frs.dao.ScheduleFlightRepository;
-import com.cg.frs.dao.ScheduleRepository;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.repository.ScheduleFlightRepository;
+import com.cg.frs.repository.ScheduleRepository;
 
 /**
- * @author SURYA, DEVANG
- *
+ * @author: DEVANG
+ * description: Implementation of the Service interface for Scheduled Flight.
+ * created date: 10/10/2019
+ * modified: 10/10/2019
  */
-
 @Service("scheduleFlightService")
 @Transactional
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
@@ -41,6 +42,14 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 		return scheduleFlightRepository.save(scheduleflight);
 	}
 
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves a list of scheduled flights against the given inputs.
+	 *  Input: Source Airport, Destination Airport, Date
+	 *  Output: List of Scheduled Flights.
+	 *  Created Date: 10/10/2019
+	 *  Last Modified: 10/10/2019
+	 */
 	@Override
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
 			throws FlightNotFoundException {

@@ -24,10 +24,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Flight Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
  */
-
 @Entity(name = "Flight")
 @EntityListeners({ AuditingEntityListener.class })
 public class Flight {

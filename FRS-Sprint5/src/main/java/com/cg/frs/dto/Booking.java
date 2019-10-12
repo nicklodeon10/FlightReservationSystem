@@ -29,10 +29,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Booking Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
  */
-
 @Entity(name = "Booking")
 @EntityListeners({ AuditingEntityListener.class })
 public class Booking {

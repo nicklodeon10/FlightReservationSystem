@@ -21,15 +21,25 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.cg.frs.FlightReservationSystemApplication;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Handles the redirection after successful login.
+ * created date: 11/10/2019
+ * modified: -
  */
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
 	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
-
+	
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Checks the role of the logged in user and redirects.
+	 *  Input: request, response and authentication objects.
+	 *  Output: -
+	 *  Created Date: 11/10/2019
+	 *  Last Modified: -
+	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
@@ -49,11 +59,13 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		}
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
-
+	
+	//Getter for redirectStrategy object
 	public RedirectStrategy getRedirectStrategy() {
 		return redirectStrategy;
 	}
-
+	
+	//Setter for redirectStrategy object
 	public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
 		this.redirectStrategy = redirectStrategy;
 	}

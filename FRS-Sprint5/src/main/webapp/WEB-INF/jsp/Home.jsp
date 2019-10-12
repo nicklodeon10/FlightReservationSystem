@@ -119,7 +119,7 @@ select {
 		</div>
 		<div class="col s4 center">
 			<span class="or">OR</span><br>
-			<form:form action="logIn" method="GET">
+			<form:form action="login" method="GET">
 				<input type="submit" value="log In"
 					class="waves-effect waves-light btn-large"></input>
 				<br>

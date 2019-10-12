@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -46,9 +47,6 @@ import com.cg.frs.service.UserService;
 
 @Controller
 public class BookingController {
-
-	@Autowired
-	HttpSession session;
 
 	@Autowired
 	BookingService bookingService;
@@ -156,14 +154,14 @@ public class BookingController {
 	 *  Last Modified: - 
 	 */
 	@GetMapping("/booking/addDetails")
-	public ModelAndView addDetailsPage(@RequestParam("schedule_flight_id") BigInteger scheduleFlightId) {
+	public ModelAndView addDetailsPage(@RequestParam("schedule_flight_id") BigInteger scheduleFlightId, HttpServletRequest request) {
 		Booking booking = new Booking();
 		List<Passenger> passList = new ArrayList<>();
 		for (int i = 0; i < 4; i++)
 			passList.add(new Passenger());
 		booking.setPassengerList(passList);
 		logger.info("Setting current flight as: "+scheduleFlightId);
-		session.setAttribute("currentFlight", scheduleFlightId);
+		request.getSession().setAttribute("currentFlight", scheduleFlightId);
 		logger.info("Returning Add Details View.");
 		return new ModelAndView("AddBookingDetails", "booking", booking);
 	}
@@ -177,7 +175,7 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@PostMapping("/booking/save")
-	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result, Principal principal)
+	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result, Principal principal, HttpSession session)
 			throws InvalidBookingException, FlightNotFoundException, UserNotFoundException {
 		if (result.hasErrors()) {
 			logger.info("Found errors in entered details.");

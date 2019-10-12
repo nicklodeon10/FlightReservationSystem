@@ -4,6 +4,7 @@
 package com.cg.frs.controller;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,9 +31,11 @@ import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.exception.InvalidBookingException;
+import com.cg.frs.exception.UserNotFoundException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.ScheduleFlightService;
+import com.cg.frs.service.UserService;
 
 /**
  * @author: DEVANG
@@ -55,6 +58,9 @@ public class BookingController {
 
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
+	
+	@Autowired 
+	UserService userService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 	
@@ -81,8 +87,8 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@GetMapping("/admin")
-	public String adminPanel() {
-		logger.info("Returning Admin Panel View.");
+	public String adminPanel(Principal principal) {
+		logger.info("Returning Admin Panel View for admin: "+principal.getName());
 		return "AdminPanel";
 	}
 	
@@ -95,8 +101,8 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@GetMapping("/user")
-	public String userPanel() {
-		logger.info("Returning User Panel View.");
+	public String userPanel(Principal principal) {
+		logger.info("Returning User Panel View for user: "+principal.getName());
 		return "UserPanel";
 	}
 	
@@ -158,7 +164,6 @@ public class BookingController {
 		booking.setPassengerList(passList);
 		logger.info("Setting current flight as: "+scheduleFlightId);
 		session.setAttribute("currentFlight", scheduleFlightId);
-		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		logger.info("Returning Add Details View.");
 		return new ModelAndView("AddBookingDetails", "booking", booking);
 	}
@@ -172,8 +177,8 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@PostMapping("/booking/save")
-	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result)
-			throws InvalidBookingException, FlightNotFoundException {
+	public ModelAndView saveBooking(@Valid @ModelAttribute("booking") Booking booking, BindingResult result, Principal principal)
+			throws InvalidBookingException, FlightNotFoundException, UserNotFoundException {
 		if (result.hasErrors()) {
 			logger.info("Found errors in entered details.");
 			return new ModelAndView("AddBookingDetails", "booking", booking);
@@ -194,7 +199,7 @@ public class BookingController {
 			}
 			logger.info("Trimmed User List.");
 			booking.setPassengerList(passList);
-			booking.setUserId((BigInteger) session.getAttribute("userId"));
+			booking.setUserId(userService.getUserIdFromName(principal.getName()));
 			booking.setBookingState(true);
 			booking.setBookingDate(LocalDateTime.now());
 			booking.setPassengerCount(passList.size());
@@ -208,7 +213,7 @@ public class BookingController {
 			logger.info("Resetting current flight parameter.");
 			logger.info("Returning show booking view.");
 			return new ModelAndView("ShowBooking", "bookings",
-					bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
+					bookingService.viewBookingsByUser(userService.getUserIdFromName(principal.getName())));
 		}
 	}
 	
@@ -221,11 +226,10 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@GetMapping("/booking/view")
-	public ModelAndView showBooking() throws InvalidBookingException {
-		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
+	public ModelAndView showBooking(Principal principal) throws InvalidBookingException, UserNotFoundException {
 		logger.info("Returning show booking view.");
 		return new ModelAndView("ShowBooking", "bookings",
-				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
+				bookingService.viewBookingsByUser(userService.getUserIdFromName(principal.getName())));
 	}
 	
 	/*	
@@ -266,13 +270,12 @@ public class BookingController {
 	 *  Last Modified: -
 	 */
 	@PostMapping("/booking/confirmcancel")
-	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId) throws InvalidBookingException {
+	public ModelAndView confirmCancel(@RequestParam("booking_id") BigInteger bookingId, Principal principal) throws InvalidBookingException, UserNotFoundException {
 		logger.info("Cancelling Booking: "+bookingId);
 		bookingService.deleteBooking(bookingId);
 		logger.info("Booking Cancelled.");
-		session.setAttribute("userId", BigInteger.valueOf(12345L)); // Remove after adding login
 		logger.info("Returning show booking view.");
 		return new ModelAndView("ShowBooking", "bookings",
-				bookingService.viewBookingsByUser((BigInteger) session.getAttribute("userId")));
+				bookingService.viewBookingsByUser(userService.getUserIdFromName(principal.getName())));
 	}
 }

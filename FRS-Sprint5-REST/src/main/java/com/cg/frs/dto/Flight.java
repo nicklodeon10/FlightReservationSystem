@@ -1,8 +1,8 @@
-/**
- * 
- */
 package com.cg.frs.dto;
-
+/**
+ * @author NAVYA
+ *
+ */
 import java.math.BigInteger;
 
 import javax.persistence.Column;
@@ -10,108 +10,54 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author DEVANG
- *
- */
-
-@Entity(name="Flight")
+@Entity
+@Table(name = "flight")
 public class Flight {
 
+	// private static final Logger logger = LoggerFactory.getLogger(Flight.class);
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="flight_number")
-	private BigInteger flightNumber;
-	@Column(name="flight_model")
-	@NotEmpty(message="Flight Model is Empty")
+	@Column(name = "flight_number")
+	private BigInteger flightId;
+	//@NotEmpty(message = "Don't Leave Flight Model Empty")
+	@Column(name = "flight_model")
 	private String flightModel;
-	@Column(name="carrier_name")
-	@NotEmpty(message="Carrier Name is Empty")
+	//@NotEmpty(message = "Don't Leave Flight Carrier Empty")
+	@Column(name = "carrier_name")
 	private String carrierName;
-	@Column(name="seat_capacity")
-	@NotNull(message="Seat Capacity is Empty")
+	//@NotNull(message = "Enter Seat Capacity")
+	@Column(name = "seat_capacity")
 	private Integer seatCapacity;
-	@Column(name="flightState")
+	//@NotBlank
+	@Column(name = "flightState")
 	private Boolean flightState;
 
 	public Flight() {
 		super();
 	}
 
-	public Flight(BigInteger flightNumber, String flightModel, String carrierName, Integer seatCapacity,
+	public Flight(BigInteger flightId, String flightModel, String carrierName, Integer seatCapacity,
 			Boolean flightState) {
 		super();
-		this.flightNumber = flightNumber;
+		this.flightId = flightId;
 		this.flightModel = flightModel;
 		this.carrierName = carrierName;
 		this.seatCapacity = seatCapacity;
 		this.flightState = flightState;
 	}
 
-	@Override
-	public String toString() {
-		return "Flight [flightNumber=" + flightNumber + ", flightModel=" + flightModel + ", carrierName=" + carrierName
-				+ ", seatCapacity=" + seatCapacity + ", flightState=" + flightState + "]";
+	public BigInteger getFlightId() {
+		return flightId;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((carrierName == null) ? 0 : carrierName.hashCode());
-		result = prime * result + ((flightModel == null) ? 0 : flightModel.hashCode());
-		result = prime * result + ((flightNumber == null) ? 0 : flightNumber.hashCode());
-		result = prime * result + ((flightState == null) ? 0 : flightState.hashCode());
-		result = prime * result + ((seatCapacity == null) ? 0 : seatCapacity.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Flight other = (Flight) obj;
-		if (carrierName == null) {
-			if (other.carrierName != null)
-				return false;
-		} else if (!carrierName.equals(other.carrierName))
-			return false;
-		if (flightModel == null) {
-			if (other.flightModel != null)
-				return false;
-		} else if (!flightModel.equals(other.flightModel))
-			return false;
-		if (flightNumber == null) {
-			if (other.flightNumber != null)
-				return false;
-		} else if (!flightNumber.equals(other.flightNumber))
-			return false;
-		if (flightState == null) {
-			if (other.flightState != null)
-				return false;
-		} else if (!flightState.equals(other.flightState))
-			return false;
-		if (seatCapacity == null) {
-			if (other.seatCapacity != null)
-				return false;
-		} else if (!seatCapacity.equals(other.seatCapacity))
-			return false;
-		return true;
-	}
-
-	public BigInteger getFlightNumber() {
-		return flightNumber;
-	}
-
-	public void setFlightNumber(BigInteger flightNumber) {
-		this.flightNumber = flightNumber;
+	public void setFlightId(BigInteger flightId) {
+		this.flightId = flightId;
 	}
 
 	public String getFlightModel() {
@@ -144,6 +90,12 @@ public class Flight {
 
 	public void setFlightState(Boolean flightState) {
 		this.flightState = flightState;
+	}
+
+	@Override
+	public String toString() {
+		return "Flight [flightId=" + flightId + ", flightModel=" + flightModel + ", carrierName=" + carrierName
+				+ ", seatCapacity=" + seatCapacity + ", flightState=" + flightState + "]";
 	}
 
 }

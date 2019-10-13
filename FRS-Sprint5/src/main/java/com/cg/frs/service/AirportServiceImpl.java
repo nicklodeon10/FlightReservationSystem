@@ -4,6 +4,7 @@
 package com.cg.frs.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.transaction.Transactional;
 
@@ -55,12 +56,14 @@ public class AirportServiceImpl implements AirportService {
 	 */
 	@Override
 	public Airport viewAirport(String airportCode) throws InvalidAirportException {
-		Airport airport=airportDao.findById(airportCode).get();
-		logger.info("Retrieved Airport for code: "+airportCode);
-		if(airport==null) {
+		Airport airport;
+		try {
+			airport=airportDao.findById(airportCode).get();
+		}catch(NoSuchElementException exception) {
 			logger.error("No Airport Found for code: "+airportCode);
 			throw new InvalidAirportException("No Airport Found");
 		}
+		logger.info("Retrieved Airport for code: "+airportCode);
 		logger.info("Returning found Airport.");
 		return airport;
 	}
@@ -90,7 +93,7 @@ public class AirportServiceImpl implements AirportService {
 	 */
 	@Override
 	public boolean compareAirport(Airport src, Airport dest) throws InvalidAirportException {
-		if (src == dest) {
+		if (src.equals(dest)) {
 			logger.error("Airports Compared. Same.");
 			throw new InvalidAirportException("Both Airports are the same.");
 		}

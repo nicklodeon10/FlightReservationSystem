@@ -3,7 +3,10 @@
  */
 package com.cg.frs.controller;
 
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -36,7 +40,9 @@ import com.cg.frs.exception.UserNotFoundException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.ScheduleFlightService;
+import com.cg.frs.service.TicketService;
 import com.cg.frs.service.UserService;
+import com.itextpdf.text.DocumentException;
 
 /**
  * @author: DEVANG description: Controller for Bookings created date: 09/10/2019
@@ -57,6 +63,9 @@ public class BookingController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TicketService ticketService;
 
 	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
@@ -294,4 +303,29 @@ public class BookingController {
 			return new ModelAndView("ErrorPage");
 		}
 	}
+	
+	@GetMapping("/booking/download")
+	public ModelAndView download( HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId, Principal principal) {
+		String filepath;
+		try {
+			logger.info("Generating eTicket for id: "+bookingId);
+			filepath=ticketService.generate(bookingId);
+		} catch (FileNotFoundException | DocumentException | InvalidBookingException e) {
+			logger.error("Error Generating Ticket");
+			return new ModelAndView("ErrorPage");
+		}
+		logger.info("Returning show booking view.");
+		try {
+			return new ModelAndView("ShowBooking", "bookings",
+					bookingService.viewBookingsByUser(userService.getUserIdFromName(principal.getName())));
+		} catch (InvalidBookingException exception) {
+			logger.error("Booking not found.");
+			return new ModelAndView("ErrorPage");
+		} catch (UserNotFoundException exception) {
+			logger.error("User not found.");
+			return new ModelAndView("ErrorPage");
+		}
+	}
+	
 }

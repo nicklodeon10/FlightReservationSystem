@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="show" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -75,9 +76,8 @@ a {
 						${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
 						Arrival:
 						${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
-						Booking State: ${booking.bookingState}
 					</div>
-					<div class="col s6">
+					<div class="col s4">
 						Passenger Details:<br>
 						<show:forEach var="passenger" items="${booking.passengerList}">
 						PNR: ${passenger.pnrNumber}<br>
@@ -86,6 +86,17 @@ a {
 						Passenger UIN: ${passenger.passengerUIN}<br>
 						</show:forEach>
 						<br>
+					</div>
+					<div class="col s2">
+						<show:if test="!${booking.bookingState}">
+							<button class="waves-effect waves-light btn-large red" disabled>Cancelled</button>
+						</show:if>
+						<br>
+						<form:form action="/booking/download" method="GET">
+							<input type="text" hidden="true" name="booking_id"
+									value="${booking.bookingId}" />
+							<button type="submit" class="waves-effect waves-light btn-large green">Download eTicket</button>
+						</form:form>
 					</div>
 				</div>
 			</show:forEach>

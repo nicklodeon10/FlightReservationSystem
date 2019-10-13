@@ -30,7 +30,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 	@Override
 	public Optional<String> getCurrentAuditor() {
 		logger.info("Returning optional string of current auditor.");
-		return Optional.of("DEVANG");
+		return Optional.of(System.getProperty("user.name"));
 	}
 
 }

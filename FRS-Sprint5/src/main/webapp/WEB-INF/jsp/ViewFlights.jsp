@@ -17,13 +17,19 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style type="text/css">
-<
-style>body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
 }
 
-footer {
-	width: 100%;
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -50px;
+}
+
+footer{
+  height: 50px;
 }
 
 a {
@@ -42,7 +48,7 @@ a {
 	<!-- Header -->
 
 	<!-- Body -->
-	<div class="container center">
+	<div class="wrapper container center">
 		<ul class="collection with-header">
 			<li class="collection-header"><h4>Available Flights</h4></li>
 			<show:forEach var="scheduleFlight" items="${scheduleFlightList}">

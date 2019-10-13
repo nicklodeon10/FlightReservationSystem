@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.repository.AirportRepository;

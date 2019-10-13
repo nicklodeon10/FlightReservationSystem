@@ -27,12 +27,19 @@
 </head>
 <title>Bookings</title>
 <style>
-body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
+}
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
 }
 
 footer {
-	width: 100%;
+	height: 50px;
 }
 
 a {
@@ -47,44 +54,43 @@ a {
 	<!-- Header -->
 	<jsp:include page="Header.jsp"></jsp:include>
 	<!-- Header -->
-	<div class="container">
-		<show:forEach var="booking" items="${bookings}">
-			<div class="row">
-				<div class="col s6">
-					Booking Id: ${booking.bookingId}<br> Booking Time:
-					${booking.bookingDate }<br> Booking Cost:
-					${booking.ticketCost}<br> Flight Number:
-					${booking.getScheduleFlight().getScheduleFlightId()}<br>
-					Flight
-					Carrier:${booking.getScheduleFlight().getFlight().getCarrierName()}<br>
-					Flight Model:
-					${booking.getScheduleFlight().getFlight().getFlightModel()}<br>
-					Source:
-					${booking.getScheduleFlight().getSchedule().getSourceAirport().getAirportName()}<br>
-					Destination:
-					${booking.getScheduleFlight().getSchedule().getDestinationAirport().getAirportName()}<br>
-					Departure:
-					${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
-					Arrival:
-					${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
-					Booking State:
-					${booking.bookingState}
-				</div>
-				<div class="col s6">
-					Passenger Details:<br>
-					<show:forEach var="passenger" items="${booking.passengerList}">
+	<div class="wrapper">
+		<div class="container">
+			<show:forEach var="booking" items="${bookings}">
+				<div class="row">
+					<div class="col s6">
+						Booking Id: ${booking.bookingId}<br> Booking Time:
+						${booking.bookingDate }<br> Booking Cost:
+						${booking.ticketCost}<br> Flight Number:
+						${booking.getScheduleFlight().getScheduleFlightId()}<br>
+						Flight
+						Carrier:${booking.getScheduleFlight().getFlight().getCarrierName()}<br>
+						Flight Model:
+						${booking.getScheduleFlight().getFlight().getFlightModel()}<br>
+						Source:
+						${booking.getScheduleFlight().getSchedule().getSourceAirport().getAirportName()}<br>
+						Destination:
+						${booking.getScheduleFlight().getSchedule().getDestinationAirport().getAirportName()}<br>
+						Departure:
+						${booking.getScheduleFlight().getSchedule().getDepartureDateTime()}<br>
+						Arrival:
+						${booking.getScheduleFlight().getSchedule().getArrivalDateTime()}<br>
+						Booking State: ${booking.bookingState}
+					</div>
+					<div class="col s6">
+						Passenger Details:<br>
+						<show:forEach var="passenger" items="${booking.passengerList}">
 						PNR: ${passenger.pnrNumber}<br>
 						Passenger Name: ${passenger.passengerName}<br>
 						Passenger Age: ${passenger.passengerAge}<br>
 						Passenger UIN: ${passenger.passengerUIN}<br>
-					</show:forEach>
-					<br>
+						</show:forEach>
+						<br>
+					</div>
 				</div>
-			</div>
-		</show:forEach>
+			</show:forEach>
+		</div>
 	</div>
-
-
 
 	<!-- Footer -->
 	<jsp:include page="Footer.jsp"></jsp:include>

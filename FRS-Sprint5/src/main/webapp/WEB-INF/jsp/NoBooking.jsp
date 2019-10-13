@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>No Flights Available</title>
+<title>No Bookings Available</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -48,7 +48,7 @@ a {
 	<div class="wrapper">
 	<div class="container center">
 		<ul class="collection with-header">
-			<li class="collection-header"><h4>No Flights Available</h4></li>
+			<li class="collection-header"><h4>No Bookings Available</h4></li>
 			<li><a href="/booking/add">Go Back</a></li>
 		</ul>
 	</div>

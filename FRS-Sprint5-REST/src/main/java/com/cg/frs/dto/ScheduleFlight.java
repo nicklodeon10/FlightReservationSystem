@@ -4,37 +4,63 @@
 package com.cg.frs.dto;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author DEVANG
- *
- */
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity(name="ScheduleFlight")
+/**
+ * @author: DEVANG
+ * description: Scheduled Flight Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
+ */
+@Entity(name = "ScheduleFlight")
+@EntityListeners({ AuditingEntityListener.class })
 public class ScheduleFlight {
 
 	@Id
-	@Column(name="schedule_flight_id")
+	@Column(name = "schedule_flight_id")
 	private BigInteger scheduleFlightId;
 	@OneToOne(fetch = FetchType.EAGER)
 	private Flight flight;
-	@Column(name="available_seats")
+	@Column(name = "available_seats")
 	private Integer availableSeats;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Schedule schedule;
-	@Column(name="ticket_cost")
-	@NotNull(message="Ticket Cost is Empty")
+	@Column(name = "ticket_cost")
+	@NotNull(message = "Ticket Cost is Empty")
 	private Double ticketCost;
-	@Column(name="scheduleFlightState")
+	@Column(name = "scheduleFlightState")
 	private Boolean scheduleFlightState;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public ScheduleFlight() {
 		super();

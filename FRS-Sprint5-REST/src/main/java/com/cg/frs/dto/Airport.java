@@ -9,10 +9,11 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Airport Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
  */
-
 @Entity(name = "Airport")
 public class Airport {
 

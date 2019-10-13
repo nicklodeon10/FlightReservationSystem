@@ -8,30 +8,74 @@ import java.util.List;
 
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.exception.FRSException;
+import com.cg.frs.exception.InvalidBookingException;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Service Interface for Booking.
+ * created date: 09/10/2019
+ * modified: -
  */
 public interface BookingService {
 
-	//Service Method to add a booking
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Sends a booking to the repository.
+	 *  Input: Booking object.
+	 *  Output: Added booking object.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: - 
+	 */
 	public Booking addBooking(Booking booking);
 
-	//Service Method to retrieve a list of all bookings
-	public List<Booking> viewBooking()throws FRSException;
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves the list of all bookings.
+	 *  Input: -
+	 *  Output: List of Bookings.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: -
+	 */
+	public List<Booking> viewBooking()throws InvalidBookingException;
 
-	//Service Method to retrieve a booking by Id
-	public Booking viewBooking(BigInteger bookingId)throws FRSException;
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves a booking by its id.
+	 *  Input: Booking Id.
+	 *  Output: Booking object.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: -
+	 */
+	public Booking viewBooking(BigInteger bookingId)throws InvalidBookingException;
 	
-	//Service Method to retrieve a list of bookings made by userId
-	public List<Booking> viewBookingsByUser(BigInteger userId)throws FRSException;
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Retrieves the bookings made by the user.
+	 *  Input: User Id.
+	 *  Output: List of bookings,
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: - 
+	 */
+	public List<Booking> viewBookingsByUser(BigInteger userId)throws InvalidBookingException;
 
-	//Service Method to delete a booking
-	public boolean deleteBooking(BigInteger bookingId)throws FRSException;
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Cancels a booking.
+	 *  Input: Booking Id.
+	 *  Output: True if boolean is removed.
+	 *  Created Date: 09/10/2019
+	 *  Last Modified: -
+	 */
+	public boolean deleteBooking(BigInteger bookingId)throws InvalidBookingException;
 
-	//Service Method to check if the flight has seats available
-	public boolean validatePassengerCount(ScheduleFlight scheduleFlight, Integer passengerChange)throws FRSException;
+	/*	
+	 *  Author: DEVANG
+	 *  Description: Validates if seats are available in a flight against the current booking.
+	 *  Input: ScheduleFlight object, Passenger Count
+	 *  Output: True if seats are available, else false.
+	 *  Created Date: 09/10/2019 
+	 *  Last Modified: -
+	 */
+	public boolean validatePassengerCount(ScheduleFlight scheduleFlight, Integer passengerChange)throws InvalidBookingException;
 
 }

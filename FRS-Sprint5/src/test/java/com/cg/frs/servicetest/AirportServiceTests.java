@@ -1,4 +1,4 @@
-package com.cg.frs.test;
+package com.cg.frs.servicetest;
 
 import static org.junit.Assert.assertEquals;
 

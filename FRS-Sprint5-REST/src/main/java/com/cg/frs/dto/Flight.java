@@ -4,38 +4,64 @@
 package com.cg.frs.dto;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author DEVANG
- *
- */
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity(name="Flight")
+/**
+ * @author: DEVANG
+ * description: Flight Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
+ */
+@Entity(name = "Flight")
+@EntityListeners({ AuditingEntityListener.class })
 public class Flight {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="flight_number")
+	@Column(name = "flight_number")
 	private BigInteger flightNumber;
-	@Column(name="flight_model")
-	@NotEmpty(message="Flight Model is Empty")
+	@Column(name = "flight_model")
+	@NotEmpty(message = "Flight Model is Empty")
 	private String flightModel;
-	@Column(name="carrier_name")
-	@NotEmpty(message="Carrier Name is Empty")
+	@Column(name = "carrier_name")
+	@NotEmpty(message = "Carrier Name is Empty")
 	private String carrierName;
-	@Column(name="seat_capacity")
-	@NotNull(message="Seat Capacity is Empty")
+	@Column(name = "seat_capacity")
+	@NotNull(message = "Seat Capacity is Empty")
 	private Integer seatCapacity;
-	@Column(name="flightState")
+	@Column(name = "flightState")
 	private Boolean flightState;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public Flight() {
 		super();

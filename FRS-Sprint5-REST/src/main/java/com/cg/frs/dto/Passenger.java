@@ -4,33 +4,65 @@
 package com.cg.frs.dto;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Passenger Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
  */
-
-@Entity(name="Passenger")
+@Entity(name = "Passenger")
+@EntityListeners({ AuditingEntityListener.class })
 public class Passenger {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="pnr_number")
+	@Column(name = "pnr_number")
 	private BigInteger pnrNumber;
-	@Column(name="passenger_name")
+	@Column(name = "passenger_name")
+	@Pattern(regexp = "^[\\p{L} .'-]+$", message = "Name should not contain special characters.")
+	@Size(min = 0, max = 30, message = "Name should be less than 30 characters.")
 	private String passengerName;
-	@Column(name="passenger_age")
+	@Column(name = "passenger_age")
+	@Positive(message = "Age cannot be less than 0.")
 	private Integer passengerAge;
-	@Column(name="passenger_UIN")
+	@Column(name = "passenger_UIN")
 	private BigInteger passengerUIN;
-	@Column(name="passengerState")
+	@Column(name = "passengerState")
 	private Boolean passengerState;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public Passenger() {
 		super();

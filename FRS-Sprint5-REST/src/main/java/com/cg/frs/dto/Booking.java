@@ -5,27 +5,37 @@ package com.cg.frs.dto;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG
+ * description: Booking Model
+ * created date: 09/10/2019
+ * modified: 09/10/2019
  */
-
 @Entity(name = "Booking")
+@EntityListeners({ AuditingEntityListener.class })
 public class Booking {
 
 	@Id
@@ -33,7 +43,6 @@ public class Booking {
 	@Column(name = "booking_id")
 	private BigInteger bookingId;
 	@Column(name = "user_id")
-	@NotNull(message = "User Id is Empty")
 	private BigInteger userId;
 	@Column(name = "booking_date")
 	@DateTimeFormat(pattern = "mm-dd-yyyy")
@@ -41,7 +50,6 @@ public class Booking {
 	@Column(name = "ticket_cost")
 	private Double ticketCost;
 	@Column(name = "passenger_count")
-	@NotNull(message = "No. of passenger is Empty")
 	private Integer passengerCount;
 	@Column(name = "bookingState")
 	private Boolean bookingState;
@@ -49,6 +57,20 @@ public class Booking {
 	private ScheduleFlight scheduleFlight;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Passenger> passengerList;
+	@Column(name = "created_date", nullable = false, updatable = false)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate;
+	@Column(name = "modified_date")
+	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate;
+	@Column(name = "created_by")
+	@CreatedBy
+	private String createdBy;
+	@Column(name = "modified_by")
+	@LastModifiedBy
+	private String modifiedBy;
 
 	public Booking() {
 		super();

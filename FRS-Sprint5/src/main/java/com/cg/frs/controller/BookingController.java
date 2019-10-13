@@ -3,16 +3,18 @@
  */
 package com.cg.frs.controller;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -307,11 +309,34 @@ public class BookingController {
 	@GetMapping("/booking/download")
 	public ModelAndView download( HttpServletRequest request,
             HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId, Principal principal) {
-		String filepath;
+		String filePath;
 		try {
 			logger.info("Generating eTicket for id: "+bookingId);
-			filepath=ticketService.generate(bookingId);
-		} catch (FileNotFoundException | DocumentException | InvalidBookingException e) {
+			filePath=ticketService.generate(bookingId);
+			// get absolute path of the application
+	        ServletContext context = request.getServletContext();      
+	        File downloadFile = new File(filePath);
+	        FileInputStream inputStream = new FileInputStream(downloadFile);
+	        String mimeType = context.getMimeType(filePath);
+	        if (mimeType == null) {
+	            mimeType = "application/octet-stream";
+	        }
+	        logger.info("MIME type: " + mimeType);
+	        response.setContentType(mimeType);
+	        response.setContentLength((int) downloadFile.length());
+	        String headerKey = "Content-Disposition";
+	        String headerValue = String.format("attachment; filename=\"%s\"",
+	                downloadFile.getName());
+	        response.setHeader(headerKey, headerValue);
+	        OutputStream outStream = response.getOutputStream();
+	        byte[] buffer = new byte[4096];
+	        int bytesRead = -1;
+	        while ((bytesRead = inputStream.read(buffer)) != -1) {
+	            outStream.write(buffer, 0, bytesRead);
+	        }
+	        inputStream.close();
+	        outStream.close();
+		} catch (DocumentException | InvalidBookingException | IOException e) {
 			logger.error("Error Generating Ticket");
 			return new ModelAndView("ErrorPage");
 		}

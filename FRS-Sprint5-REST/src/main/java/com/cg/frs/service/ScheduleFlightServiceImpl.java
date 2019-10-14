@@ -80,7 +80,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FlightNotFoundException {
 		if (flightId == null)
 			throw new FlightNotFoundException("Enter flight Id");
-		ScheduleFlight scheduleFlight = scheduleFlightRepository.getOne(flightId);
+		ScheduleFlight scheduleFlight = scheduleFlightRepository.findById(flightId).get();
 		if (scheduleFlight == null)
 			throw new FlightNotFoundException("Enter a valid Flight Id");
 		else

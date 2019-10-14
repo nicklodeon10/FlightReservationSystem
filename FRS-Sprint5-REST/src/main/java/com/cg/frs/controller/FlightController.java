@@ -32,7 +32,6 @@ public class FlightController {
 	@PostMapping(value = "/flight/add")
 	public ResponseEntity<?> addData(@ModelAttribute Flight flight) { // adding the flight
 		Flight flightToBeAdded = flightService.saveFlight(flight);
-
 		if (flightToBeAdded == null) {
 			return new ResponseEntity("Flight not added", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
@@ -54,7 +53,6 @@ public class FlightController {
 	@GetMapping(value = "/flight/search")
 	public ResponseEntity<?> searchData(@RequestParam BigInteger flightId) throws FlightExceptions { // searching flight
 																										// by Id
-
 		Flight flightSearched = flightService.searchFlight(flightId);
 
 		if (flightSearched == null) {

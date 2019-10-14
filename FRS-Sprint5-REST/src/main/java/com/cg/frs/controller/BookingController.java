@@ -4,6 +4,9 @@
 package com.cg.frs.controller;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,10 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.frs.FlightReservationSystemApplication;
+import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
+import com.cg.frs.dto.Passenger;
+import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
+import com.cg.frs.service.ScheduleFlightService;
 
 /**
  * @author DEVANG
@@ -36,82 +45,126 @@ public class BookingController {
 
 	@Autowired
 	BookingService bookingService;
-	
+
 	@Autowired
 	AirportService airportService;
-	
+
+	@Autowired
+	ScheduleFlightService scheduleFlightService;
+
 	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
-	
-	//To add a booking
+
+	// To add a booking
 	@PostMapping("/add")
-	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking) {
+	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking,
+			@RequestParam("flightId") BigInteger flightId) {
+		booking.setUserId(BigInteger.valueOf(1L)); // REMOVE AFTER ADDING AUTHENTICATION
+		booking.setPassengerCount(booking.getPassengerList().size());
+		for (Passenger passenger : booking.getPassengerList())passenger.setPassengerState(true);
+		booking.setBookingDate(LocalDateTime.now());
+		booking.setBookingState(true);
+		try {
+			booking.setScheduleFlight(scheduleFlightService.viewScheduleFlights(flightId));
+			booking.setTicketCost(
+					scheduleFlightService.viewScheduleFlights(flightId).getTicketCost() * booking.getPassengerCount());
+		} catch (FlightNotFoundException e) {
+			logger.error("Flight not found.");
+			return new ResponseEntity("Data not added", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		logger.info("Adding Booking.");
-		booking=bookingService.addBooking(booking);
-		if(booking==null) {
+		booking = bookingService.addBooking(booking);
+		if (booking == null) {
 			logger.error("Unable to add booking.");
 			return new ResponseEntity("Data not added", HttpStatus.INTERNAL_SERVER_ERROR);
-		}else {
+		} else {
 			logger.info("Booking Added.");
 			return new ResponseEntity<Booking>(booking, HttpStatus.OK);
 		}
 	}
-	
-	//To retrieve a booking by userId
+
+	// To retrieve a booking by userId
 	@GetMapping("/getbyuserid")
-	public ResponseEntity<List<Booking>> getBookingsByUser(@RequestParam("userId")BigInteger userId){
+	public ResponseEntity<List<Booking>> getBookingsByUser(@RequestParam("userId") BigInteger userId) {
 		List<Booking> bookingList;
 		try {
 			logger.info("Retrieving Bookings.");
-			bookingList=bookingService.viewBookingsByUser(userId);
-		}catch(InvalidBookingException exception) {
+			bookingList = bookingService.viewBookingsByUser(userId);
+		} catch (InvalidBookingException exception) {
 			logger.error("No Bookings Found.");
 			return new ResponseEntity("No Bookings Found.", HttpStatus.BAD_REQUEST);
 		}
-		logger.info("Returning Bookings by user: "+userId);
+		logger.info("Returning Bookings by user: " + userId);
 		return new ResponseEntity<List<Booking>>(bookingList, HttpStatus.OK);
 	}
-	
-	//To retrieve a booking by userId
+
+	// To retrieve a booking by userId
 	@GetMapping("/getbyid")
-	public ResponseEntity<Booking> getBooking(@RequestParam("userId")BigInteger bookingId){
+	public ResponseEntity<Booking> getBooking(@RequestParam("userId") BigInteger bookingId) {
 		Booking booking;
 		try {
-			logger.info("Retrieving Booking with id: "+bookingId);
-			booking=bookingService.viewBooking(bookingId);
-		}catch(InvalidBookingException exception) {
+			logger.info("Retrieving Booking with id: " + bookingId);
+			booking = bookingService.viewBooking(bookingId);
+		} catch (InvalidBookingException exception) {
 			logger.error("No Bookings Found.");
 			return new ResponseEntity("No Bookings Found.", HttpStatus.BAD_REQUEST);
 		}
-		logger.info("Returning Bookings with id: "+bookingId);
+		logger.info("Returning Bookings with id: " + bookingId);
 		return new ResponseEntity<Booking>(booking, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/getall")
-	public ResponseEntity<List<Booking>> getBookings(){
+	public ResponseEntity<List<Booking>> getBookings() {
 		List<Booking> bookingList;
 		try {
 			logger.info("Retrieving Bookings.");
-			bookingList=bookingService.viewBooking();
-		}catch(InvalidBookingException exception) {
+			bookingList = bookingService.viewBooking();
+		} catch (InvalidBookingException exception) {
 			logger.error("No Bookings Found.");
 			return new ResponseEntity("No Bookings Found.", HttpStatus.BAD_REQUEST);
 		}
 		logger.info("Returning Bookings.");
 		return new ResponseEntity<List<Booking>>(bookingList, HttpStatus.OK);
 	}
-	
-	//To cancel a booking
+
+	// To cancel a booking
 	@DeleteMapping("/delete")
-	public ResponseEntity<Boolean> cancelBooking(@RequestParam("bookingId")BigInteger bookingId) {
+	public ResponseEntity<Boolean> cancelBooking(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
 			logger.info("Cancelling Booking.");
 			bookingService.deleteBooking(bookingId);
-		}catch(InvalidBookingException exception) {
+		} catch (InvalidBookingException exception) {
 			logger.info("Unable to Cancel.");
 			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		logger.info("Booking Cancelled.");
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-	
+
+	@GetMapping("/find")
+	public ResponseEntity<List<ScheduleFlight>> flightSearch(@RequestParam("source_airport") String srcCode,
+			@RequestParam("destination_airport") String destCode, @RequestParam("journeydate") String doj) {
+		logger.info("Preparing Flight Search Parameters.");
+		Airport sourceAirport;
+		Airport destinationAirport;
+		LocalDate journeyDate;
+		try {
+			sourceAirport = airportService.viewAirport(srcCode);
+			destinationAirport = airportService.viewAirport(destCode);
+			journeyDate = LocalDate.parse(doj);
+			logger.info("Prepared Flight Search Parameters.");
+			airportService.compareAirport(sourceAirport, destinationAirport);
+		} catch (InvalidAirportException exception) {
+			logger.error("Airport not found.");
+			return new ResponseEntity("No Airports Found.", HttpStatus.BAD_REQUEST);
+		}
+		logger.info("Returning View Flights View.");
+		try {
+			return new ResponseEntity<List<ScheduleFlight>>(
+					scheduleFlightService.viewScheduleFlights(sourceAirport, destinationAirport, journeyDate),
+					HttpStatus.OK);
+		} catch (FlightNotFoundException e) {
+			logger.error("No Flights Available.");
+			return new ResponseEntity("No Flights Found.", HttpStatus.BAD_REQUEST);
+		}
+	}
 }

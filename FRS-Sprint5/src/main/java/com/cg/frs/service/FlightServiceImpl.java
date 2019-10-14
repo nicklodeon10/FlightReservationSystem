@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.cg.frs.dto.Flight;
 import com.cg.frs.exception.FlightExceptions;
 import com.cg.frs.repository.FlightRepository;
@@ -27,26 +26,22 @@ import com.cg.frs.repository.FlightRepository;
 public class FlightServiceImpl implements FlightService {
 
 	/*
-	 * Author: NAVYA 
-	 * Description: service implementation
-	 *  Created Date: 09/10/2019 
-	 *  Last Modified:
-	 * -
+	 * Author: NAVYA Description: service implementation Created Date: 09/10/2019
+	 * Last Modified: -
 	 */
-	
 
-	 private static final Logger logger = LoggerFactory.getLogger(FlightServiceImpl.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(FlightServiceImpl.class);
+
 	@Autowired
 	FlightRepository flightRepository;
 
 	@Override
 	// Saves the Flight and sets the states to true
 	public Flight addFlight(Flight flight) {
-		
-logger.info("Adding Flight");
+
+		logger.info("Adding Flight");
 		flight.setFlightState(true);
-logger.info("Flight added");
+		logger.info("Flight added");
 		return flightRepository.save(flight);
 	}
 
@@ -84,11 +79,11 @@ logger.info("Flight added");
 	@Override
 	// Modifies the flight by flight id
 	public Flight modifyFlight(Flight flight) throws FlightExceptions {
-	
+
 		logger.info("Searching Flight to modify ");
 		Flight flightToBeModified = flightRepository.findByFlightNumber(flight.getFlightNumber());
 		if (flightToBeModified == null) {
-   
+
 			logger.error("No flight is there ");
 			throw new FlightExceptions("FLIGHT DOESN'T EXISTS TO MODIFY");
 

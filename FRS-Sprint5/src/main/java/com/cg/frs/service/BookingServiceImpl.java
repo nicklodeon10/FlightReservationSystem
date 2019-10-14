@@ -42,6 +42,11 @@ public class BookingServiceImpl implements BookingService {
 	 */
 	@Override
 	public Booking addBooking(Booking booking) throws Exception {
+		BigInteger flightId = booking.getScheduleFlight().getScheduleFlightId();
+		Integer decreaseCount = booking.getPassengerCount();
+		logger.info("Decreasing Available Seats in Flight: "+flightId);
+		scheduleFlightService.viewScheduleFlights(flightId)
+				.setAvailableSeats(scheduleFlightService.viewScheduleFlights(flightId).getAvailableSeats()-decreaseCount);
 		logger.info("Storing Booking.");
 		return bookingRepository.save(booking);
 	}

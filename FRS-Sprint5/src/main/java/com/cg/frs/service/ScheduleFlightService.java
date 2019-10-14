@@ -8,6 +8,7 @@ import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.exception.FrsException;
+import com.cg.frs.exception.InvalidBookingException;
 
 public interface ScheduleFlightService {
 	
@@ -22,6 +23,8 @@ public interface ScheduleFlightService {
 	public ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight);
     
 	public boolean deleteScheduleFlight(BigInteger flightId) throws FrsException;
+	
+	public boolean cancelBookings(BigInteger flightId) throws InvalidBookingException;
 	
 }
 

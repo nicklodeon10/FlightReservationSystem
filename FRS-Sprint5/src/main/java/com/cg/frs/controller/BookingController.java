@@ -65,7 +65,7 @@ public class BookingController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	TicketService ticketService;
 
@@ -197,16 +197,20 @@ public class BookingController {
 			session.setAttribute("currentFlight", null);
 			logger.info("Resetting current flight parameter.");
 			logger.info("Returning show booking view.");
+			List<Booking> allBookings=new ArrayList<Booking>();
 			try {
-				return new ModelAndView("ShowBooking", "bookings",
-						bookingService.viewBookingsByUser(userService.getUserIdFromName(principal.getName())));
-			} catch (InvalidBookingException exception) {
-				logger.error("Booking not found.");
-				return new ModelAndView("ErrorPage");
-			} catch (UserNotFoundException exception) {
-				logger.error("User not found.");
-				return new ModelAndView("ErrorPage");
+				allBookings = bookingService
+						.viewBookingsByUser(userService.getUserIdFromName(principal.getName()));
+			} catch (InvalidBookingException e) {
+				logger.info("No Bookings Found");
+				return new ModelAndView("Error Page");
+			} catch (UserNotFoundException e) {
+				logger.info("No User Found");
+				return new ModelAndView("Error Page");
 			}
+			List<Booking> currentBooking = new ArrayList<Booking>();
+			currentBooking.add(allBookings.get(allBookings.size()-1));
+			return new ModelAndView("ShowBooking", "bookings", currentBooking);
 		}
 	}
 
@@ -285,37 +289,36 @@ public class BookingController {
 			return new ModelAndView("ErrorPage");
 		}
 	}
-	
+
 	@GetMapping("/booking/download")
-	public ModelAndView download( HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId, Principal principal) {
+	public ModelAndView download(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("booking_id") BigInteger bookingId, Principal principal) {
 		String filePath;
 		try {
-			logger.info("Generating eTicket for id: "+bookingId);
-			filePath=ticketService.generate(bookingId);
+			logger.info("Generating eTicket for id: " + bookingId);
+			filePath = ticketService.generate(bookingId);
 			// get absolute path of the application
-	        ServletContext context = request.getServletContext();      
-	        File downloadFile = new File(filePath);
-	        FileInputStream inputStream = new FileInputStream(downloadFile);
-	        String mimeType = context.getMimeType(filePath);
-	        if (mimeType == null) {
-	            mimeType = "application/octet-stream";
-	        }
-	        logger.info("MIME type: " + mimeType);
-	        response.setContentType(mimeType);
-	        response.setContentLength((int) downloadFile.length());
-	        String headerKey = "Content-Disposition";
-	        String headerValue = String.format("attachment; filename=\"%s\"",
-	                downloadFile.getName());
-	        response.setHeader(headerKey, headerValue);
-	        OutputStream outStream = response.getOutputStream();
-	        byte[] buffer = new byte[4096];
-	        int bytesRead = -1;
-	        while ((bytesRead = inputStream.read(buffer)) != -1) {
-	            outStream.write(buffer, 0, bytesRead);
-	        }
-	        inputStream.close();
-	        outStream.close();
+			ServletContext context = request.getServletContext();
+			File downloadFile = new File(filePath);
+			FileInputStream inputStream = new FileInputStream(downloadFile);
+			String mimeType = context.getMimeType(filePath);
+			if (mimeType == null) {
+				mimeType = "application/octet-stream";
+			}
+			logger.info("MIME type: " + mimeType);
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+			OutputStream outStream = response.getOutputStream();
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+			inputStream.close();
+			outStream.close();
 		} catch (DocumentException | InvalidBookingException | IOException e) {
 			logger.error("Error Generating Ticket");
 			return new ModelAndView("ErrorPage");
@@ -332,5 +335,5 @@ public class BookingController {
 			return new ModelAndView("ErrorPage");
 		}
 	}
-	
+
 }

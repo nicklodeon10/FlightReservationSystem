@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
+import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.exception.FrsException;
+import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.repository.ScheduleFlightRepository;
 import com.cg.frs.repository.ScheduleRepository;
 
@@ -27,6 +29,9 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	
 	@Autowired
 	ScheduleRepository scheduleRepository;
+	
+	@Autowired
+	BookingService bookingService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
 
@@ -118,9 +123,26 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 		ScheduleFlight scheduleFlight=scheduleFlightRepository.getOne(flightId);
 		if(scheduleFlight==null)
 			throw new FrsException("Enter a valid Flight Id");
-		else
+		else {
+			try {
+				cancelBookings(flightId);
+			} catch (InvalidBookingException e) {
+				logger.info("No Bookings Found");
+			}
 			scheduleFlightRepository.deleteById(flightId);
+		}
 		return false;
+	}
+
+	@Override
+	public boolean cancelBookings(BigInteger flightId)throws InvalidBookingException {
+		List<Booking> bookingList=bookingService.viewBooking();
+		for(Booking booking: bookingList) {
+			if(booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {
+				bookingService.deleteBooking(booking.getBookingId());
+			}
+		}
+		return true;
 	}
 
 }

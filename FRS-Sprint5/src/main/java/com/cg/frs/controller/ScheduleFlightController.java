@@ -1,8 +1,9 @@
 package com.cg.frs.controller;
 
 import java.math.BigInteger;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,161 +29,150 @@ import com.cg.frs.service.ScheduleFlightService;
 
 @Controller
 public class ScheduleFlightController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightController.class);	
-		@Autowired
-		HttpSession session;
 
-		@Autowired
-		ScheduleFlightService scheduleFlightService;
-		
-		@Autowired
-		FlightService flightService;
-		
-		@Autowired
-		AirportService airportService;
-		/*
-		 * Author Surya
-		 * Created on 08/10/2019
-		 * Last modified on 10/10/2019
-		 * send to the scheduleflight page
-		 */
-		@GetMapping(value="/getScheduleFlightPage")
-		public String getScheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
-			return "ScheduleFlight";
-		}
+	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightController.class);
+	@Autowired
+	HttpSession session;
 
-		/*
-		 * Author Surya
-		 * Created on 08/10/2019
-		 * Last modified on 10/10/2019
-		 * add a scheduleflight
-		 * Input ScheduleFlight object
-		 * Output ScheduleFlight object
-		 */
-		@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
-		public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
-				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
-				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) throws FlightExceptions {
-				Schedule schedule = new Schedule();
-				schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
-				try {
-					schedule.setSourceAirport(airportService.viewAirport(source));
-				} catch (InvalidAirportException e) {
-					return new ModelAndView("ErrorPage");
-				}
-				try {
-					schedule.setDestinationAirport(airportService.viewAirport(destination));
-				} catch (InvalidAirportException e) {
-					return new ModelAndView("ErrorPage");
-				}
-				schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
-				schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
-				scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
-				scheduleFlight.setSchedule(schedule);
-				scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
-				scheduleFlight.setScheduleFlightState(true);
-				try {
-					scheduleFlightService.addScheduleFlight(scheduleFlight);
-				} catch (Exception e) {
-					logger.info("Error Adding Scheduled Flight.");
-					return new ModelAndView("ErrorPage");
-				}
-				return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
-						scheduleFlightService.viewScheduleFlight());
-			}
-		
-		/*
-		 * Author Surya
-		 * Created on 08/10/2019
-		 * Last modified on 10/10/2019
-		 * view scheduleflights
-		 * Input ---
-		 * Output ScheduleFlight object
-		 */
-		@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
-		public ModelAndView getScheduledFlightsPage() {
-				return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
-						scheduleFlightService.viewScheduleFlight());
-		}
-		/*
-		 * Author Surya
-		 * Created on 08/10/2019
-		 * Last modified on 10/10/2019
-		 * modify a scheduleflight
-		 * Input ScheduleFlight object
-		 * Output ScheduleFlight object
-		 */
-		
-		//Send to Modify Scheduled Flight Page
-		@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
-		public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
-				return "ModifyScheduledFlight";
-		}
-		@RequestMapping(value = "/modifyScheduledFlightSearch", method = RequestMethod.GET)
-		public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
-				@RequestParam("modify_schedule_flight_id") BigInteger scheduleFlightId) throws FrsException {
-				return new ModelAndView("ModifyScheduledFlight", "scheduledFlightData",
-						scheduleFlightService.viewScheduleFlights(scheduleFlightId));
-			
-		}
-		
-		@RequestMapping(value = "/scheduledFlightModify", method = RequestMethod.POST)
-		public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
-				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
-				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) throws FrsException, FlightExceptions {
-				Schedule schedule = new Schedule();
-				schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
-				try {
-					schedule.setSourceAirport(airportService.viewAirport(source));
-				} catch (InvalidAirportException e) {
-					logger.error("Error setting source airport.");
-					return "ErrorPage";
-				}
-				try {
-					schedule.setDestinationAirport(airportService.viewAirport(destination));
-				} catch (InvalidAirportException e) {
-					logger.error("Error setting source airport.");
-					return "ErrorPage";
-				}
-				schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
-				schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
-				scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
-				scheduleFlight.setSchedule(schedule);
-				scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
-				scheduleFlight.setScheduleFlightState(true);
-				scheduleFlightService.modifyScheduleFlight(scheduleFlight);
-				return "ModifyScheduledFlight";
-		}
+	@Autowired
+	ScheduleFlightService scheduleFlightService;
 
-		/*
-		 * Author Surya
-		 * Created on 08/10/2019
-		 * Last modified on 10/10/2019
-		 * remove a scheduleflight
-		 * Input BigInteger
-		 * Output ScheduleFlight object
-		 */
-		
-		@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
-		public String getScheduleFlightPage() {
-				return "RemoveScheduledFlight";
-			
-		}
-		@RequestMapping(value = "/scheduledFlightRemoveSearch", method = RequestMethod.GET)
-		public ModelAndView getRemoveScheduledFlightsSearchResult(
-				@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) throws FrsException {
-				return new ModelAndView("RemoveScheduledFlight", "scheduledFlight",
-						scheduleFlightService.viewScheduleFlights(scheduledFlightId));
-			
-		}
+	@Autowired
+	FlightService flightService;
 
-		
-		@RequestMapping(value = "/scheduledFlightRemove", method = RequestMethod.POST)
-		public String scheduledFlightRemove(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) throws FrsException {
-				scheduleFlightService.deleteScheduleFlight(scheduledFlightId);
-				return "RemoveScheduledFlight";
-			
+	@Autowired
+	AirportService airportService;
+
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 send to the
+	 * scheduleflight page
+	 */
+	@GetMapping(value = "/getScheduleFlightPage")
+	public String getScheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
+		return "ScheduleFlight";
+	}
+
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 add a
+	 * scheduleflight Input ScheduleFlight object Output ScheduleFlight object
+	 */
+	@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
+	public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
+			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime)
+			throws FlightExceptions {
+		Schedule schedule = new Schedule();
+		schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+		try {
+			schedule.setSourceAirport(airportService.viewAirport(source));
+		} catch (InvalidAirportException e) {
+			return new ModelAndView("ErrorPage");
 		}
+		try {
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+		} catch (InvalidAirportException e) {
+			return new ModelAndView("ErrorPage");
+		}
+		schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+		schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+		scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
+		scheduleFlight.setSchedule(schedule);
+		scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+		scheduleFlight.setScheduleFlightState(true);
+		try {
+			scheduleFlightService.addScheduleFlight(scheduleFlight);
+		} catch (Exception e) {
+			logger.info("Error Adding Scheduled Flight.");
+			return new ModelAndView("ErrorPage");
+		}
+		List<ScheduleFlight> allFlights = scheduleFlightService.viewScheduleFlight();
+		List<ScheduleFlight> currentFlight = new ArrayList<ScheduleFlight>();
+		currentFlight.add(allFlights.get(allFlights.size()-1));
+		return new ModelAndView("ShowScheduledFlights", "scheduledFlightList", currentFlight);
+	}
+
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 view
+	 * scheduleflights Input --- Output ScheduleFlight object
+	 */
+	@RequestMapping(value = "/showScheduledFlights", method = RequestMethod.GET)
+	public ModelAndView getScheduledFlightsPage() {
+		return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
+				scheduleFlightService.viewScheduleFlight());
+	}
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 modify a
+	 * scheduleflight Input ScheduleFlight object Output ScheduleFlight object
+	 */
+
+	// Send to Modify Scheduled Flight Page
+	@RequestMapping(value = "/modifyScheduledFlight", method = RequestMethod.GET)
+	public String modifyScheduledFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
+		return "ModifyScheduledFlight";
+	}
+
+	@RequestMapping(value = "/modifyScheduledFlightSearch", method = RequestMethod.GET)
+	public ModelAndView modifyScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@RequestParam("modify_schedule_flight_id") BigInteger scheduleFlightId) throws FrsException {
+		return new ModelAndView("ModifyScheduledFlight", "scheduledFlightData",
+				scheduleFlightService.viewScheduleFlights(scheduleFlightId));
+
+	}
+
+	@RequestMapping(value = "/scheduledFlightModify", method = RequestMethod.POST)
+	public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+			@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
+			@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime)
+			throws FrsException, FlightExceptions {
+		Schedule schedule = new Schedule();
+		schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+		try {
+			schedule.setSourceAirport(airportService.viewAirport(source));
+		} catch (InvalidAirportException e) {
+			logger.error("Error setting source airport.");
+			return "ErrorPage";
+		}
+		try {
+			schedule.setDestinationAirport(airportService.viewAirport(destination));
+		} catch (InvalidAirportException e) {
+			logger.error("Error setting source airport.");
+			return "ErrorPage";
+		}
+		schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+		schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+		scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
+		scheduleFlight.setSchedule(schedule);
+		scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+		scheduleFlight.setScheduleFlightState(true);
+		scheduleFlightService.modifyScheduleFlight(scheduleFlight);
+		return "ModifyScheduledFlight";
+	}
+
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 remove a
+	 * scheduleflight Input BigInteger Output ScheduleFlight object
+	 */
+
+	@RequestMapping(value = "/removeScheduledFlight", method = RequestMethod.GET)
+	public String getScheduleFlightPage() {
+		return "RemoveScheduledFlight";
+
+	}
+
+	@RequestMapping(value = "/scheduledFlightRemoveSearch", method = RequestMethod.GET)
+	public ModelAndView getRemoveScheduledFlightsSearchResult(
+			@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId) throws FrsException {
+		return new ModelAndView("RemoveScheduledFlight", "scheduledFlight",
+				scheduleFlightService.viewScheduleFlights(scheduledFlightId));
+
+	}
+
+	@RequestMapping(value = "/scheduledFlightRemove", method = RequestMethod.POST)
+	public String scheduledFlightRemove(@RequestParam("scheduled_flight_id") BigInteger scheduledFlightId)
+			throws FrsException {
+		scheduleFlightService.deleteScheduleFlight(scheduledFlightId);
+		return "RemoveScheduledFlight";
+
+	}
 
 }

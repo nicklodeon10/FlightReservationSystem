@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FrsException;
 import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.repository.BookingRepository;
 
@@ -41,7 +42,12 @@ public class BookingServiceImpl implements BookingService {
 	 * -
 	 */
 	@Override
-	public Booking addBooking(Booking booking) {
+	public Booking addBooking(Booking booking) throws Exception {
+		BigInteger flightId = booking.getScheduleFlight().getScheduleFlightId();
+		Integer decreaseCount = booking.getPassengerCount();
+		logger.info("Decreasing Available Seats in Flight: "+flightId);
+		scheduleFlightService.viewScheduleFlights(flightId)
+				.setAvailableSeats(scheduleFlightService.viewScheduleFlights(flightId).getAvailableSeats()-decreaseCount);
 		logger.info("Storing Booking.");
 		return bookingRepository.save(booking);
 	}

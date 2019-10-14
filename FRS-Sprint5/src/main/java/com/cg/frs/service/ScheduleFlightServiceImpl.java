@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
+import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.exception.FrsException;
+import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.repository.ScheduleFlightRepository;
 import com.cg.frs.repository.ScheduleRepository;
 
@@ -28,7 +30,10 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	@Autowired
 	ScheduleRepository scheduleRepository;
 	
-	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+	@Autowired
+	BookingService bookingService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightServiceImpl.class);
 
 	/*
 	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 add a
@@ -115,12 +120,34 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	public boolean deleteScheduleFlight(BigInteger flightId) throws FrsException {
  		if(flightId==null)
 			throw new FrsException("Enter flight Id");
-		ScheduleFlight scheduleFlight=scheduleFlightRepository.getOne(flightId);
+		ScheduleFlight scheduleFlight=scheduleFlightRepository.findById(flightId).get();
 		if(scheduleFlight==null)
 			throw new FrsException("Enter a valid Flight Id");
-		else
-			scheduleFlightRepository.deleteById(flightId);
-		return false;
+		else {
+			try {
+				cancelBookings(flightId);
+			} catch (InvalidBookingException e) {
+				logger.info("No Bookings Found");
+			}
+			logger.info("Retrieved Scheduled Flight by Flight id: " + flightId);
+			scheduleFlight.setScheduleFlightState(false);;
+			scheduleFlightRepository.save(scheduleFlight);
+			logger.info("Cancelled Scheduled Flight.");
+		}
+		return true;
 	}
+
+	@Override
+	public boolean cancelBookings(BigInteger flightId)throws InvalidBookingException {
+		List<Booking> bookingList=bookingService.viewBooking();
+		for(Booking booking: bookingList) {
+			if(booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {
+				bookingService.deleteBooking(booking.getBookingId());
+			}
+		}
+		return true;
+	}
+	
+	
 
 }

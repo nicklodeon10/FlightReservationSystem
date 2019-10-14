@@ -26,7 +26,7 @@ public interface BookingService {
 	 *  Created Date: 09/10/2019
 	 *  Last Modified: - 
 	 */
-	public Booking addBooking(Booking booking);
+	public Booking addBooking(Booking booking)throws Exception;
 
 	/*	
 	 *  Author: DEVANG

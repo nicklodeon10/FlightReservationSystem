@@ -30,19 +30,19 @@ public class TicketService {
 	@Autowired
 	BookingService bookingService;
 
-	private String FILE;
+	private String file;
 	BigInteger bookingId;
 	
 	public String generate(BigInteger bookingId) throws FileNotFoundException, DocumentException, InvalidBookingException {
 		this.bookingId=bookingId;
 		Document document=new Document();
-		FILE="eTickets/FRSticket"+bookingId+".pdf";
-		PdfWriter.getInstance(document, new FileOutputStream(FILE));
+		file="eTickets/FRSticket"+bookingId+".pdf";
+		PdfWriter.getInstance(document, new FileOutputStream(file));
 		document.open();
 		addMetaData(document);
 		addContent(document);
 		document.close();
-		return FILE;
+		return file;
 	}
 	
 	private void addMetaData(Document document) {

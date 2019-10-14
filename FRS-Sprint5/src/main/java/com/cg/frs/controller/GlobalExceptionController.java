@@ -16,19 +16,16 @@ import com.cg.frs.exception.FlightExceptions;
 
 @ControllerAdvice
 public class GlobalExceptionController {
-	
+
 	@ExceptionHandler(FlightExceptions.class)
 	public ModelAndView handleCustomException(FlightExceptions ex) {
 
 		ModelAndView model = new ModelAndView("ErrorPage");
-		
+
 		model.addObject("errMsg", ex.getErrMsg());
 
 		return model;
 
 	}
 
-	
-	
-	
 }

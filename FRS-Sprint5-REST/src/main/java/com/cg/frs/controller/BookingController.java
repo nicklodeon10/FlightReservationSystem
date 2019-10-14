@@ -3,10 +3,18 @@
  */
 package com.cg.frs.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +41,8 @@ import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.service.AirportService;
 import com.cg.frs.service.BookingService;
 import com.cg.frs.service.ScheduleFlightService;
+import com.cg.frs.service.TicketService;
+import com.itextpdf.text.DocumentException;
 
 /**
  * @author DEVANG
@@ -51,8 +61,11 @@ public class BookingController {
 
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
+	
+	@Autowired
+	TicketService ticketService;
 
-	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
 	// To add a booking
 	@PostMapping("/add")
@@ -166,5 +179,42 @@ public class BookingController {
 			logger.error("No Flights Available.");
 			return new ResponseEntity("No Flights Found.", HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping("download")
+	public ResponseEntity<String> download( HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId) {
+		String filePath;
+		try {
+			logger.info("Generating eTicket for id: "+bookingId);
+			filePath=ticketService.generate(bookingId);
+	        ServletContext context = request.getServletContext();      
+	        File downloadFile = new File(filePath);
+	        FileInputStream inputStream = new FileInputStream(downloadFile);
+	        String mimeType = context.getMimeType(filePath);
+	        if (mimeType == null) {
+	            mimeType = "application/octet-stream";
+	        }
+	        logger.info("MIME type: " + mimeType);
+	        response.setContentType(mimeType);
+	        response.setContentLength((int) downloadFile.length());
+	        String headerKey = "Content-Disposition";
+	        String headerValue = String.format("attachment; filename=\"%s\"",
+	                downloadFile.getName());
+	        response.setHeader(headerKey, headerValue);
+	        OutputStream outStream = response.getOutputStream();
+	        byte[] buffer = new byte[4096];
+	        int bytesRead = -1;
+	        while ((bytesRead = inputStream.read(buffer)) != -1) {
+	            outStream.write(buffer, 0, bytesRead);
+	        }
+	        inputStream.close();
+	        outStream.close();
+		} catch (DocumentException | InvalidBookingException | IOException e) {
+			logger.error("Error Generating Ticket");
+			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		logger.info("Returning show booking view.");
+		return new ResponseEntity<String>("Error",HttpStatus.OK);
 	}
 }

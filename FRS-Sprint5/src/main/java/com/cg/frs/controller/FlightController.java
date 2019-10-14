@@ -29,7 +29,6 @@ import com.cg.frs.service.FlightService;
  */
 @ComponentScan
 @Controller
-
 public class FlightController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FlightController.class);
@@ -92,7 +91,8 @@ public class FlightController {
 
 	// Shows The Searched Flight Details
 	@GetMapping(value = "/flight/found")
-	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightNumber) throws FlightExceptions {
+	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightNumber)
+			throws FlightExceptions {
 
 		return new ModelAndView("SearchFlight", "flight", flightService.searchFlight(flightNumber));
 

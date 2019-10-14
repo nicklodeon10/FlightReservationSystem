@@ -1,6 +1,7 @@
 package com.cg.frs.servicetests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,10 +31,13 @@ public class AirportServiceTests {
 	TestRestTemplate restTemplate;
 	
 	@Test
-	public void testViewAllAirports() {
+	public void testViewAllAirports1() {
 		assertEquals(7, airportService.viewAirport().size());
 	}
-
+	@Test
+	public void testViewAllAirports2() {
+		assertNotNull(airportService.viewAirport());
+	}
 	@Test
 	public void testViewAirport() throws InvalidAirportException {
 		assertEquals("MUM", airportService.viewAirport("MUM").getAirportCode());

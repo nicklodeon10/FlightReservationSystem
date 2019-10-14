@@ -15,16 +15,14 @@ import com.cg.frs.dto.Flight;
 
 public interface FlightDao extends JpaRepository<Flight, BigInteger> {
 
-	
-	
-	//Saves flight
+	// Saves flight
 	public Flight save(Flight flight);
-	//shows all flight where state is true
+
+	// shows all flight where state is true
 	@Query("FROM Flight WHERE flightState=true")
 	public List<Flight> viewAll();
-	//Search flight by id
+
+	// Search flight by id
 	public Flight findByFlightNumber(BigInteger flightId);
-	
-	
-	
+
 }

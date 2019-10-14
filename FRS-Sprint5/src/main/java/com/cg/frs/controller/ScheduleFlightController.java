@@ -68,7 +68,6 @@ public class ScheduleFlightController {
 				try {
 					schedule.setSourceAirport(airportService.viewAirport(source));
 				} catch (InvalidAirportException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {

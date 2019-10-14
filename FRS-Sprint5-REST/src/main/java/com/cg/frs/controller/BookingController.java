@@ -6,7 +6,6 @@ package com.cg.frs.controller;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,6 +27,7 @@ import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.exception.FrsException;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.service.AirportService;
@@ -67,7 +67,7 @@ public class BookingController {
 			booking.setScheduleFlight(scheduleFlightService.viewScheduleFlights(flightId));
 			booking.setTicketCost(
 					scheduleFlightService.viewScheduleFlights(flightId).getTicketCost() * booking.getPassengerCount());
-		} catch (FlightNotFoundException e) {
+		} catch (FrsException e) {
 			logger.error("Flight not found.");
 			return new ResponseEntity("Data not added", HttpStatus.INTERNAL_SERVER_ERROR);
 		}

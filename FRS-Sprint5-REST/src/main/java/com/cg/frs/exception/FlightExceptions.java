@@ -3,6 +3,8 @@
  */
 package com.cg.frs.exception;
 
+
+
 /**
  * @author NAVYA
  *
@@ -17,30 +19,22 @@ public class FlightExceptions extends Exception{
 	private static final long serialVersionUID = 1L;
 
 
-
-	public FlightExceptions(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
-
-	public FlightExceptions(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
-	public FlightExceptions(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
+	private String errMsg;
 
 	
 
-	public FlightExceptions(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
+	public String getErrMsg() {
+		return errMsg;
 	}
 
-	
+	public void setErrMsg(String errMsg) {
+		this.errMsg = errMsg;
+	}
+
+	public FlightExceptions( String errMsg) {
+		
+		this.errMsg = errMsg;
+	}
 	
 	
 	

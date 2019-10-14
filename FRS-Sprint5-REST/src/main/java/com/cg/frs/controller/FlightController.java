@@ -31,7 +31,7 @@ public class FlightController {
 
 	@PostMapping(value = "/flight/add")
 	public ResponseEntity<?> addData(@ModelAttribute Flight flight) { // adding the flight
-		Flight flightToBeAdded = flightService.saveFlight(flight);
+		Flight flightToBeAdded = flightService.addFlight(flight);
 		if (flightToBeAdded == null) {
 			return new ResponseEntity("Flight not added", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {

@@ -18,7 +18,7 @@ import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.repository.AirportRepository;
 
 /**
- * @author: DEVANG
+ * @author: DEVANG, SURYA
  * description: Implementation of Airport Service Interface
  * created date: 09/10/2019
  * modified: -
@@ -33,7 +33,7 @@ public class AirportServiceImpl implements AirportService {
 	private static final Logger logger = LoggerFactory.getLogger(AirportServiceImpl.class);
 
 	/*	
-	 *  Author: DEVANG
+	 *  Author: DEVANG, SURYA
 	 *  Description: Retrieves a list of all airports.
 	 *  Input: -
 	 *  Output: Airport List
@@ -47,7 +47,7 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	/*	
-	 *  Author: DEVANG
+	 *  Author: DEVANG, SURYA
 	 *  Description: Retrieves an Airport by its code.
 	 *  Input: Airport Code String.
 	 *  Output: Airport Object
@@ -69,7 +69,7 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	/*	
-	 *  Author: DEVANG
+	 *  Author: DEVANG, SURYA
 	 *  Description: Validates an airport by its code
 	 *  Input: Airport Code String
 	 *  Output: True if found, else throws Exception.
@@ -84,7 +84,7 @@ public class AirportServiceImpl implements AirportService {
 	}
 
 	/*	
-	 *  Author: DEVANG
+	 *  Author: DEVANG, SURYA
 	 *  Description: Checks if two airports are the same.
 	 *  Input: Airport objects for two airports.
 	 *  Output: True if same, else throws Exception.

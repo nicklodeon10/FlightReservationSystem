@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cg.frs.service;
 
 import java.math.BigInteger;
@@ -8,51 +5,44 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.exception.FrsException;
 import com.cg.frs.repository.ScheduleFlightRepository;
 import com.cg.frs.repository.ScheduleRepository;
 
-/**
- * @author: DEVANG
- * description: Implementation of the Service interface for Scheduled Flight.
- * created date: 10/10/2019
- * modified: 10/10/2019
- */
-@Service("scheduleFlightService")
-@Transactional
+@Service("scheduleflightservice")
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
-
+	
 	@Autowired
 	ScheduleFlightRepository scheduleFlightRepository;
-
+	
 	@Autowired
 	ScheduleRepository scheduleRepository;
-
-	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightServiceImpl.class);
 	
+	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 add a
+	 * scheduleflight Input ScheduleFlight object Output ScheduleFlight object
+	 */
 	@Override
 	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {
 		return scheduleFlightRepository.save(scheduleflight);
 	}
 
-	/*	
-	 *  Author: DEVANG
-	 *  Description: Retrieves a list of scheduled flights against the given inputs.
-	 *  Input: Source Airport, Destination Airport, Date
-	 *  Output: List of Scheduled Flights.
-	 *  Created Date: 10/10/2019
-	 *  Last Modified: 10/10/2019
+	/*
+	 * Author: SURYA,DEVANG Description: Retrieves a list of scheduled flights against the
+	 * given inputs. Input: Source Airport, Destination Airport, Date Output: List
+	 * of Scheduled Flights. Created Date: 10/10/2019 Last Modified: 10/10/2019
 	 */
 	@Override
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
@@ -76,22 +66,34 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 		return extractedFlightList;
 	}
 
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 view a
+	 * scheduleflight Input BigInteger Output ScheduleFlight object
+	 */
 	@Override
-	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FlightNotFoundException {
+	public ScheduleFlight viewScheduleFlights(BigInteger flightId) throws FrsException {
 		if (flightId == null)
-			throw new FlightNotFoundException("Enter flight Id");
-		ScheduleFlight scheduleFlight = scheduleFlightRepository.findById(flightId).get();
+			throw new FrsException("Enter flight Id");
+		ScheduleFlight scheduleFlight = scheduleFlightRepository.getOne(flightId);
 		if (scheduleFlight == null)
-			throw new FlightNotFoundException("Enter a valid Flight Id");
+			throw new FrsException("Enter a valid Flight Id");
 		else
 			return scheduleFlight;
 	}
 
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 view
+	 * scheduleflights Input --- Output ScheduleFlight list
+	 */
 	@Override
 	public List<ScheduleFlight> viewScheduleFlight() {
 		return scheduleFlightRepository.findAll();
 	}
 
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 modify a
+	 * scheduleflight Input ScheduleFlight object Output ScheduleFlight object
+	 */
 	@Override
 	public ScheduleFlight modifyScheduleFlight(ScheduleFlight scheduleFlight) {
 		ScheduleFlight updateScheduleFlight = scheduleFlightRepository.getOne(scheduleFlight.getScheduleFlightId());
@@ -105,13 +107,17 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 		return scheduleFlight;
 	}
 
+	/*
+	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 delete a
+	 * scheduleflight Input BigInteger Output boolean
+	 */
 	@Override
-	public boolean deleteScheduleFlight(BigInteger flightId) throws FRSException {
-		if (flightId == null)
-			throw new FRSException("Enter flight Id");
-		ScheduleFlight scheduleFlight = scheduleFlightRepository.getOne(flightId);
-		if (scheduleFlight == null)
-			throw new FRSException("Enter a valid Flight Id");
+	public boolean deleteScheduleFlight(BigInteger flightId) throws FrsException {
+ 		if(flightId==null)
+			throw new FrsException("Enter flight Id");
+		ScheduleFlight scheduleFlight=scheduleFlightRepository.getOne(flightId);
+		if(scheduleFlight==null)
+			throw new FrsException("Enter a valid Flight Id");
 		else
 			scheduleFlightRepository.deleteById(flightId);
 		return false;

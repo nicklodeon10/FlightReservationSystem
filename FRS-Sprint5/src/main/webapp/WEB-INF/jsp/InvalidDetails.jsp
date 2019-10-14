@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style type="text/css">
+<<<<<<< HEAD
 html, body {
 	background-color: #eeeeee;
 	height: 100%;
@@ -52,6 +53,33 @@ a {
 						details.</h4></li>
 			</ul>
 		</div>
+=======
+<
+style>body {
+	background-color: #eeeeee;
+}
+footer {
+	width: 100%;
+}
+a {
+	color: #212121;
+}
+.collection {
+	margin-top: 100px;
+}
+</style>
+</head>
+<body>
+	<!-- Header -->
+	<jsp:include page="Header.jsp"></jsp:include>
+	<!-- Header -->
+
+	<!-- Body -->
+	<div class="container center">
+		<ul class="collection with-header">
+			<li class="collection-header"><h4>You have entered invalid details.</h4></li>
+		</ul>
+>>>>>>> refs/remotes/origin/Surya
 	</div>
 	<!-- Body -->
 

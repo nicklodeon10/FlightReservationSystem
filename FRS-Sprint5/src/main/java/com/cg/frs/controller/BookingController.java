@@ -34,8 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;
-import com.cg.frs.exception.FRSException;
 import com.cg.frs.exception.FlightNotFoundException;
+import com.cg.frs.exception.FrsException;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.exception.InvalidBookingException;
 import com.cg.frs.exception.UserNotFoundException;
@@ -183,8 +183,8 @@ public class BookingController {
 				if (!passenger.getPassengerName().equals("")) {
 					try {
 						if (passenger.getPassengerAge() == (null) || passenger.getPassengerUIN() == (null))
-							throw new FRSException("Invalid Details Entered.");
-					} catch (FRSException exception) {
+							throw new FrsException("Invalid Details Entered.");
+					} catch (FrsException exception) {
 						logger.info("Invalid Details Entered.");
 						return new ModelAndView("InvalidDetails");
 					}
@@ -206,7 +206,7 @@ public class BookingController {
 			try {
 				booking.setScheduleFlight(
 						scheduleFlightService.viewScheduleFlights((BigInteger) session.getAttribute("currentFlight")));
-			} catch (FlightNotFoundException e) {
+			} catch (FrsException e) {
 				logger.error("Scheduled Flight not found.");
 				return new ModelAndView("ErrorPage");
 			}

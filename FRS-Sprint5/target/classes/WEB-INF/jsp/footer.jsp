@@ -7,7 +7,7 @@
 <title>Footer</title>
 </head>
 <body>
-	<footer class="footer page-footer grey lighten-3">
+	<footer class="page-footer grey lighten-3">
 		<div class="container"></div>
 		<div class="footer-copyright grey darken-4">
 			<div class="container">

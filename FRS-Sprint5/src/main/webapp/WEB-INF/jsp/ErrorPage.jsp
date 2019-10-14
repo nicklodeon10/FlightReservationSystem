@@ -23,11 +23,9 @@ footer {
 </style>
 </head>
 <body>
-
 	<!-- Header -->
 	<jsp:include page="Header.jsp"></jsp:include>
 	<!-- Header -->
-
 	<div class="wrapper">
 		<h1>Something went wrong!</h1>
 		<h2>Our Engineers are on it</h2>
@@ -37,6 +35,37 @@ footer {
 	<!-- Footer -->
 	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<body>
+
+
+
+
 
 </body>
+>>>>>>> origin/Navya
 </html>

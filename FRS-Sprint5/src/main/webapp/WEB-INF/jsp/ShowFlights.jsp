@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="show" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
-<title>FRS: Log In</title>
+<title>FRS: View Flights</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -16,13 +16,12 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style type="text/css">
-body {
+<
+style>body {
 	background-color: #eeeeee;
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
 	width: 100%;
 }
 
@@ -30,12 +29,8 @@ a {
 	color: #212121;
 }
 
-.brand-logo {
-	margin-left: 20px;
-}
-
-.card {
-	margin-top: 15vh;
+.collection {
+	margin-top: 100px;
 }
 </style>
 </head>
@@ -46,29 +41,29 @@ a {
 	<!-- Header -->
 
 	<!-- Body -->
-	<div class="container">
-		<div class="row">
-			<div class="card col s4 offset-s4 center">
-				<form:form action="userLogin" method="GET">
+	<div class="container center">
+		<ul class="collection with-header">
+			<li class="collection-header"><h4>Available Flights</h4></li>
+			<show:forEach var="flight" items="${flightList}">
+				<li class="collection-item">
 					<div class="row">
-						<h5>Log In</h5>
-						<div class="input-field col s12">
-							<input id="user_name" type="text" class="validate"
-								name="user_name"> <label for="first_name">User
-								Name</label>
-						</div>
-						<div class="input-field col s12">
-							<input id="password" type="password" class="validate"
-								name="user_password"> <label for="password">Password</label>
-						</div>
+						Flight Id: ${flight.flightId} <br> Flight Model:
+						${flight.flightModel } <br> Carrier Name:
+						${flight.carrierName } <br> Seat Capacity:
+						${flight.seatCapacity }
 					</div>
-					<input type="submit" value="Submit"
-						class="waves-effect waves-light btn-large"></input>
-				</form:form>
-			</div>
-		</div>
+				</li>
+			</show:forEach>
+		</ul>
 	</div>
 	<!-- Body -->
+
+<button onclick="goBack()" class="waves-effect waves-light btn-large">Go Back</button>
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 
 	<!-- Footer -->
 	<jsp:include page="footer.jsp"></jsp:include>

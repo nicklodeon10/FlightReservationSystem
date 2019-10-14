@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FlightExceptions;
 import com.cg.frs.exception.FrsException;
 import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.service.AirportService;
@@ -62,7 +63,7 @@ public class ScheduleFlightController {
 		@RequestMapping(value = "/addScheduleFlight", method = RequestMethod.POST)
 		public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
-				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
+				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) throws FlightExceptions {
 				Schedule schedule = new Schedule();
 				schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
 				try {
@@ -129,7 +130,7 @@ public class ScheduleFlightController {
 		@RequestMapping(value = "/scheduledFlightModify", method = RequestMethod.POST)
 		public String scheduleFlightModify(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
-				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) throws FrsException {
+				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) throws FrsException, FlightExceptions {
 				Schedule schedule = new Schedule();
 				schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
 				try {

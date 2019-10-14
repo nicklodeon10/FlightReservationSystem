@@ -28,7 +28,7 @@
 				Reservation System
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="home">Home</a></li>
+				<li><a href="/admin">Home</a></li>
 				<li><form:form action="/logout" method="POST">
 						<button class="linkbutton" type="submit">Logout</button>
 					</form:form></li>

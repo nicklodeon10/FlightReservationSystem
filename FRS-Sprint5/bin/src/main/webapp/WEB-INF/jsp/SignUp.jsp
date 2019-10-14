@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
-<title>FRS: Log In</title>
+<title>FRS: Sign Up</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -35,7 +35,11 @@ a {
 }
 
 .card {
-	margin-top: 15vh;
+	margin-top: 10vh;
+}
+
+.input-field {
+	margin-top: -5px;
 }
 </style>
 </head>
@@ -49,26 +53,33 @@ a {
 	<div class="container">
 		<div class="row">
 			<div class="card col s4 offset-s4 center">
-				<form action="login" method="POST">
-					<c:if test="${not empty errorMessage}">
-						<div style="color: red; font-weight: bold; margin: 30px 0px;">${errorMessage}</div>
-					</c:if>
+				<form:form action="/useradd" method="POST" modelAttribute="user">
 					<div class="row">
-						<h5>Log In</h5>
+						<h5>Sign Up</h5>
+						<br>
 						<div class="input-field col s12">
-							<input id="username" type="text" class="validate" name="username">
-							<label for="first_name">User Name</label>
+							<form:input id="user_name" type="text" class="validate"
+								path="userName"></form:input>
+							<label for="first_name">Choose a User Name</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="password" type="password" class="validate"
-								name="password"> <label for="password">Password</label>
+							<form:input id="password" type="password" class="validate"
+								path="userPassword"></form:input>
+							<label for="password">Choose a Password</label>
 						</div>
+						<div class="input-field col s12">
+							<form:input id="phone" type="tel" class="validate"
+								path="userPhone"></form:input>
+							<label for="phone">Enter your Mobile Number</label>
+						</div>
+						<div class="input-field col s12">
+							<form:input id="email" type="email" class="validate" path="email"></form:input>
+							<label for="email">Enter your Email</label>
+						</div>
+						<br> <input type="submit" value="Submit"
+							class="waves-effect waves-light btn-large"></input>
 					</div>
-					<input type="submit" value="Submit"
-						class="waves-effect waves-light btn-large"></input>
-				</form>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+				</form:form>
 			</div>
 		</div>
 	</div>

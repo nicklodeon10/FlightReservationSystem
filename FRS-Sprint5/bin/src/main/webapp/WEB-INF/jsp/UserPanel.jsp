@@ -17,18 +17,29 @@
 	rel="stylesheet">
 
 <style>
-body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
 }
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
+}
+
 footer {
-	width: 100%;
+	height: 50px;
 }
+
 a {
 	color: #212121;
 }
+
 .brand-logo {
 	margin-left: 20px;
 }
+
 .card {
 	margin-top: 25vh;
 }
@@ -37,52 +48,51 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="UserHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
-	<div class="row">
-		<div class="col s8 offset-s2">
-			<div class="row">
-				<div class="col s4">
-					<div class="card center">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img class="activator"
-								src="<c:url value="/resources/user.png" />">
-						</div>
-						<div class="card-content">
-							<a href="addBooking"><span
-								class="card-title activator grey-text text-darken-4">
-									Create<br>Booking
-							</span></a>
-						</div>
-					</div>
-				</div>
-				<div class="col s4">
-					<div class="card center">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img class="activator"
-								src="<c:url value="/resources/user.png" />">
-						</div>
-						<div class="card-content">
-							<a href="showBooking"><span
-								class="card-title activator grey-text text-darken-4">
-									View<br>Booking
-							</span></a>
+	<div class="wrapper">
+		<div class="row">
+			<div class="col s8 offset-s2">
+				<div class="row">
+					<div class="col s4">
+						<div class="card center">
+							<div class="card-image waves-effect waves-block waves-light">
+								<img class="activator" src="user.png">
+							</div>
+							<div class="card-content">
+								<a href="/booking/add"><span
+									class="card-title activator grey-text text-darken-4">
+										Create<br>Booking
+								</span></a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col s4">
-					<div class="card center">
-						<div class="card-image waves-effect waves-block waves-light">
-							<img class="activator"
-								src="<c:url value="/resources/user.png" />">
+					<div class="col s4">
+						<div class="card center">
+							<div class="card-image waves-effect waves-block waves-light">
+								<img class="activator" src="user.png">
+							</div>
+							<div class="card-content">
+								<a href="/booking/view"><span
+									class="card-title activator grey-text text-darken-4">
+										View<br>Booking
+								</span></a>
+							</div>
 						</div>
-						<div class="card-content">
-							<a href="deleteBooking"><span
-								class="card-title activator grey-text text-darken-4">
-									Cancel<br>Booking
-							</span></a>
+					</div>
+					<div class="col s4">
+						<div class="card center">
+							<div class="card-image waves-effect waves-block waves-light">
+								<img class="activator" src="user.png">
+							</div>
+							<div class="card-content">
+								<a href="/booking/cancel"><span
+									class="card-title activator grey-text text-darken-4">
+										Cancel<br>Booking
+								</span></a>
+							</div>
 						</div>
 					</div>
 				</div>

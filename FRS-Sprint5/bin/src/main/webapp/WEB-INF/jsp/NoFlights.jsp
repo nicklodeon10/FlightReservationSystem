@@ -15,13 +15,19 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style type="text/css">
-<
-style>body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
+}
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
 }
 
 footer {
-	width: 100%;
+	height: 50px;
 }
 
 a {
@@ -35,15 +41,17 @@ a {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="UserHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
+	<div class="wrapper">
 	<div class="container center">
 		<ul class="collection with-header">
 			<li class="collection-header"><h4>No Flights Available</h4></li>
 			<li><a href="/booking/add">Go Back</a></li>
 		</ul>
+	</div>
 	</div>
 	<!-- Body -->
 

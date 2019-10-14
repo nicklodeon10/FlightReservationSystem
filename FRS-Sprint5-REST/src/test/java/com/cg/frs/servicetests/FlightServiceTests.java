@@ -58,7 +58,7 @@ public class FlightServiceTests {
 		flight.setFlightState(true);
 	
 		
-		assertEquals(flight,flightService.addFlight(flight));
+		assertEquals(flight,flightService.saveFlight(flight));
 
 	}
 

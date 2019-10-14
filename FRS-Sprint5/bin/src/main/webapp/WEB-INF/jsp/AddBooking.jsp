@@ -18,14 +18,19 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style>
-body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
+}
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+	height: 50px;
 }
 
 a {
@@ -39,58 +44,67 @@ select {
 .label {
 	display: inline-block;
 }
+
+button {
+	margin: 20px;
+}
 </style>
 </head>
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="UserHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
-	<div class="row">
-		<div class="col s6 offset-s3">
-			<form:form action="/booking/find" method="POST">
-				<div class="card">
-					<div class="card-content">
-						<div class="row">
-							<div class="label col s4">Source Airport</div>
-							<div class="input-field col s8">
-								<select name="source_airport" onblur="disableChoice()" id="src">
-									<option selected disabled>Select Source Airport</option>
-									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}">${airport.airportName}
-											,${airport.airportLocation}</option>
-									</jstl:forEach>
-								</select>
+	<div class="wrapper">
+		<div class="row">
+			<div class="col s6 offset-s3">
+				<form:form action="/booking/find" method="POST">
+					<div class="card">
+						<div class="card-content">
+							<div class="row">
+								<div class="input-field col s12">
+									<div class="label">Source Airport</div>
+									<select name="source_airport" onblur="disableChoice()" id="src">
+										<option selected disabled>Select Source Airport</option>
+										<jstl:forEach items="${airportList}" var="airport">
+											<option value="${airport.airportCode}">${airport.airportName}
+												,${airport.airportLocation}</option>
+										</jstl:forEach>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<div class="label">Destination Airport</div>
+									<select name="destination_airport">
+										<option selected disabled>Select Destination Airport</option>
+										<jstl:forEach items="${airportList}" var="airport">
+											<option value="${airport.airportCode}"
+												id="dest${airport.airportCode}">${airport.airportName}
+												,${airport.airportLocation}</option>
+										</jstl:forEach>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<div class="label">Date of Journey</div>
+									<input placeholder="Enter Date of Journey here"
+										id="date_of_journey" type="date" class="validate"
+										name="journeydate">
+								</div>
+							</div>
+							<div class="row">
+								<button type="submit" value="Find Flights"
+									class="waves-effect waves-light btn-large left">Find
+									Flights</button>
 							</div>
 						</div>
-						<div class="row">
-							<div class="label col s4">Destination Airport</div>
-							<div class="input-field col s8">
-								<select name="destination_airport">
-									<option selected disabled>Select Destination Airport</option>
-									<jstl:forEach items="${airportList}" var="airport">
-										<option value="${airport.airportCode}"
-											id="dest${airport.airportCode}">${airport.airportName}
-											,${airport.airportLocation}</option>
-									</jstl:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="label col s4">Date of Journey</div>
-							<div class="input-field col s8">
-								<input placeholder="Enter Date of Journey here"
-									id="date_of_journey" type="date" class="validate"
-									name="journeydate">
-							</div>
-						</div>
-						<button type="submit" value="findFlights"
-							class="waves-effect waves-light btn-large left">findFlights</button>
 					</div>
-				</div>
-			</form:form>
+				</form:form>
+			</div>
 		</div>
 	</div>
 	<!-- Body -->
@@ -121,13 +135,14 @@ select {
 		max = yyyy + '-' + mm + '-' + dd;
 		document.getElementById("date_of_journey").setAttribute("max", max);
 
-		var prev=[];
-		function disableChoice(){
-			for(var i=0; i<prev.length; i++){
-				prev[i].disabled=false;
+		var prev = [];
+		function disableChoice() {
+			for (var i = 0; i < prev.length; i++) {
+				prev[i].disabled = false;
 			}
-			var element=document.getElementById('dest'+document.getElementById('src').value);
-			element.disabled=true;
+			var element = document.getElementById('dest'
+					+ document.getElementById('src').value);
+			element.disabled = true;
 			prev.push(element);
 		}
 	</script>

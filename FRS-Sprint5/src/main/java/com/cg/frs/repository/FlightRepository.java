@@ -13,8 +13,16 @@ import com.cg.frs.dto.Flight;
  *
  */
 
-public interface FlightDao extends JpaRepository<Flight, BigInteger> {
+public interface FlightRepository extends JpaRepository<Flight, BigInteger> {
 
+	/*
+	 * Author: NAVYA 
+	 * Description: Repository of flight for adding,view and find
+	 *  Created Date: 09/10/2019 
+	 *  Last Modified: 14/10/2019
+	 * -
+	 */
+	
 	// Saves flight
 	public Flight save(Flight flight);
 

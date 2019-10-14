@@ -16,7 +16,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cg.frs.dto.Flight;
-import com.cg.frs.repository.FlightDao;
+import com.cg.frs.exception.FlightExceptions;
+import com.cg.frs.repository.FlightRepository;
 import com.cg.frs.service.FlightService;
 
 
@@ -36,7 +37,7 @@ public class FlightServiceTests {
 	FlightService flightService;
 
 	@Autowired
-	FlightDao flightDao;
+	FlightRepository flightRepository;
 
 
 	BigInteger flightId=BigInteger.valueOf(1L);
@@ -64,14 +65,14 @@ public class FlightServiceTests {
 
 
 	@Test
-	public void testViewAllFlight()   {
+	public void testViewAllFlight() throws FlightExceptions   {
 		
-		assertEquals(flightDao.findAll().size(),flightService.viewAllFlight().size());
+		assertEquals(flightRepository.findAll().size(),flightService.viewAllFlight().size());
 		
 	}
 
 	@Test
-	public void testViewFlight()  {
+	public void testViewFlight() throws FlightExceptions  {
 		
 		
 		assertEquals(flightId,flightService.searchFlight(flightId).getFlightNumber());
@@ -79,7 +80,7 @@ public class FlightServiceTests {
 
 
 	@Test
-	public void testRemoveFlight() {
+	public void testRemoveFlight() throws FlightExceptions {
 		
 		assertEquals(true,flightService.deleteFlight(flightId));
 		

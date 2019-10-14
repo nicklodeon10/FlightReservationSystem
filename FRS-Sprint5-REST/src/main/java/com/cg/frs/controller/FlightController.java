@@ -1,4 +1,5 @@
 package com.cg.frs.controller;
+
 /**
  * @author NAVYA
  *
@@ -23,12 +24,13 @@ import com.cg.frs.service.FlightService;
 
 @RestController
 public class FlightController {
-	// private static final Logger logger = LoggerFactory.getLogger(FlightController.class);
+	// private static final Logger logger =
+	// LoggerFactory.getLogger(FlightController.class);
 	@Autowired
 	FlightService flightService;
 
 	@PostMapping(value = "/flight/add")
-	public ResponseEntity<?> addData(@ModelAttribute Flight flight) {		//adding the flight
+	public ResponseEntity<?> addData(@ModelAttribute Flight flight) { // adding the flight
 		Flight flightToBeAdded = flightService.saveFlight(flight);
 
 		if (flightToBeAdded == null) {
@@ -39,7 +41,7 @@ public class FlightController {
 	}
 
 	@GetMapping(value = "/flight/view")
-	public ResponseEntity<?> getAllData() throws FlightExceptions {							//showing all the flights
+	public ResponseEntity<?> getAllData() throws FlightExceptions { // showing all the flights
 
 		List<Flight> flightList = flightService.viewAllFlight();
 		if (flightList.isEmpty()) {
@@ -49,42 +51,41 @@ public class FlightController {
 		}
 	}
 
-	@GetMapping(value="/flight/search")
-	public ResponseEntity<?> searchData(@RequestParam BigInteger flightId) throws FlightExceptions{		//searching flight by Id
-		
-		Flight flightSearched=flightService.searchFlight(flightId);
-		
+	@GetMapping(value = "/flight/search")
+	public ResponseEntity<?> searchData(@RequestParam BigInteger flightId) throws FlightExceptions { // searching flight
+																										// by Id
+
+		Flight flightSearched = flightService.searchFlight(flightId);
+
 		if (flightSearched == null) {
 			return new ResponseEntity("Flight not present", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
 			return new ResponseEntity<Flight>(flightSearched, HttpStatus.OK);
 		}
-		
+
 	}
 
-	@PutMapping(value="/flight/modify")
-	public ResponseEntity<Flight> modifyData(@ModelAttribute Flight flight) throws FlightExceptions{			//modifying the flight
-		
-Flight flightToBeModified=flightService.modifyFlight(flight);
-		
+	@PutMapping(value = "/flight/modify")
+	public ResponseEntity<Flight> modifyData(@ModelAttribute Flight flight) throws FlightExceptions { // modifying the
+																										// flight
+
+		Flight flightToBeModified = flightService.modifyFlight(flight);
+
 		if (flightToBeModified == null) {
 			return new ResponseEntity("Flight not modified", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
 			return new ResponseEntity<Flight>(flightToBeModified, HttpStatus.OK);
 		}
-		
+
 	}
-	
-	
-	@PostMapping(value="/flight/delete")
-	public boolean deleteData(@RequestParam BigInteger flightId) throws FlightExceptions{					//removing flight
-		
-boolean flightToBeDeleted=flightService.deleteFlight(flightId);
-		
+
+	@PostMapping(value = "/flight/delete")
+	public boolean deleteData(@RequestParam BigInteger flightId) throws FlightExceptions { // removing flight
+
+		boolean flightToBeDeleted = flightService.deleteFlight(flightId);
+
 		return flightToBeDeleted;
-		
+
 	}
-	
-	
-	
+
 }

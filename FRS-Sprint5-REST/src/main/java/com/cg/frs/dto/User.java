@@ -134,7 +134,7 @@ public class User {
 		this.email = email;
 	}
 
-	public Boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 

@@ -48,7 +48,7 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
@@ -112,7 +112,7 @@ a {
 									<i class="material-icons small">arrow_drop_down</i>
 								</span>
 								<p>
-									<a href="/addScheduleFlight">Schedule a Flight</a><br> <a
+									<a href="/getScheduleFlightPage">Schedule a Flight</a><br> <a
 										href="/showScheduledFlights">Show all Scheduled Flights</a><br>
 									<a href="/searchScheduledFlights">Search a Flight Schedule</a><br>
 									<a href="/modifyScheduledFlight">Modify a Flight Schedule</a><br>

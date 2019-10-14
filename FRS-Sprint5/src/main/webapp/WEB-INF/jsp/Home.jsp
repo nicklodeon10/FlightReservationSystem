@@ -75,12 +75,12 @@ a {
 						Reservation<br> System
 					</span>
 				</h4>
-				<a href="login">
+				<a href="/login">
 					<button type="button"
 						class="waves-effect waves-light btn-large black">
 						<span class="white-text">Log In</span>
 					</button>
-				</a> <br> <a href="signup">
+				</a> <br> <a href="/signup">
 					<button type="button"
 						class="waves-effect waves-light btn-large black">
 						<span class="white-text">Sign Up</span>

@@ -34,7 +34,7 @@ a {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 	<div class="container center">
 		<div class="jumbotron text-center">
@@ -58,7 +58,7 @@ a {
 			<li class="collection-header"><h4>Available Flights</h4></li>
 			<li class="collection-item">
 				<div class="row">
-					Flight Id: ${flight.flightId} <br> Flight Model:
+					Flight Id: ${flight.flightNumber} <br> Flight Model:
 					${flight.flightModel } <br> Carrier Name: ${flight.carrierName }
 					<br> Seat Capacity: ${flight.seatCapacity }
 				</div>

@@ -41,7 +41,7 @@ a {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="UserHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->

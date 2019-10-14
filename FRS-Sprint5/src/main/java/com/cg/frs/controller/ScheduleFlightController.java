@@ -48,7 +48,6 @@ public class ScheduleFlightController {
 		 */
 		@GetMapping(value="/getScheduleFlightPage")
 		public String getScheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
-			System.out.println("qwerty");
 			return "ScheduleFlight";
 		}
 
@@ -64,8 +63,6 @@ public class ScheduleFlightController {
 		public ModelAndView addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
-				System.out.println("asdftt5h5yh");
-				System.out.println(scheduleFlight);
 				Schedule schedule = new Schedule();
 				schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
 				try {

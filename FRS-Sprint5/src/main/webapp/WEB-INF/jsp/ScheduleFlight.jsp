@@ -44,14 +44,14 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
 	<div class="container">
 		<div class="row">
 			<div class="card col s8 offset-s2 center">
-				<form:form action="addScheduleFlight" method="POST"
+				<form:form action="/addScheduleFlight" method="POST"
 					modelAttribute="scheduleFlight">
 					<div class="row">
 						<h5>Add Flight</h5>

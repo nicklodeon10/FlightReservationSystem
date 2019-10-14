@@ -44,7 +44,7 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
@@ -58,7 +58,7 @@ a {
 			<form:form action="/flight/remove/search" method="GET">
 				<div class="input-field col s6">
 					<input id="id" type="number" class="validate" name="flight_id"
-						value="${flight.flightId}" required> <label class="active">Flight
+						value="${flight.flightNumber}" required> <label class="active">Flight
 						Id</label>
 					<button class="btn waves-effect waves-teal open-button col s6"
 						type="submit">
@@ -78,7 +78,7 @@ a {
 									<br>
 									<div class="input-field col s12">
 										<input name="flight_id" id="flight_number" type="number"
-											class="validate" value="${flight.flightId}" readonly></input>
+											class="validate" value="${flight.flightNumber}" readonly></input>
 										<label for="flight_id">Flight Id</label>
 									</div>
 									<div class="input-field col s12">

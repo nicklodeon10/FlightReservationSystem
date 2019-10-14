@@ -44,7 +44,7 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
@@ -75,7 +75,7 @@ a {
 						<br>
 						<div class="input-field col s12">
 							<form:input id="flight_id" type="number" class="validate"
-								path="flightId" value="${flight.flightId}"
+								path="flightNumber" value="${flight.flightNumber}"
 								readonly="true"></form:input>
 							<label for="flight_id">Flight Id</label>
 						</div>

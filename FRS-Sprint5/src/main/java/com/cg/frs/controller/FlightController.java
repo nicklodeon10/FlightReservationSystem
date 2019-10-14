@@ -92,9 +92,9 @@ public class FlightController {
 
 	// Shows The Searched Flight Details
 	@GetMapping(value = "/flight/found")
-	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightId) throws FlightExceptions {
+	public ModelAndView getSearchFlightsResult(@RequestParam("flight_id") BigInteger flightNumber) throws FlightExceptions {
 
-		return new ModelAndView("SearchFlight", "flight", flightService.searchFlight(flightId));
+		return new ModelAndView("SearchFlight", "flight", flightService.searchFlight(flightNumber));
 
 	}
 
@@ -108,10 +108,10 @@ public class FlightController {
 
 	// Shows The Flight To Be Modified
 	@GetMapping(value = "/flight/modify/search")
-	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
+	public ModelAndView getEditFlightsSearchResult(@RequestParam("flight_id") BigInteger flightNumber,
 			@ModelAttribute("flight") Flight flight) throws FlightExceptions {
 
-		return new ModelAndView("ModifyFlight", "flight", flightService.searchFlight(flightId));
+		return new ModelAndView("ModifyFlight", "flight", flightService.searchFlight(flightNumber));
 
 	}
 
@@ -134,18 +134,16 @@ public class FlightController {
 
 	// Shows The Flight To Be Removed
 	@GetMapping(value = "/flight/remove/search")
-	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightId,
+	public ModelAndView getRemoveFlightsSearchResult(@RequestParam("flight_id") BigInteger flightNumber,
 			@ModelAttribute("flight") Flight flight) throws FlightExceptions {
-
-		return new ModelAndView("RemoveFlight", "flight", flightService.searchFlight(flightId));
-
+		return new ModelAndView("RemoveFlight", "flight", flightService.searchFlight(flightNumber));
 	}
 
 	// Removes The Flight And Returns To--
 	@PostMapping(value = "/flight/removed")
-	public ModelAndView flightRemove(@RequestParam("flight_id") BigInteger flightId) throws FlightExceptions {
+	public ModelAndView flightRemove(@RequestParam("flight_id") BigInteger flightNumber) throws FlightExceptions {
 
-		flightService.deleteFlight(flightId);
+		flightService.deleteFlight(flightNumber);
 		return new ModelAndView("ShowFlights", "flightList", flightService.viewAllFlight());
 
 	}

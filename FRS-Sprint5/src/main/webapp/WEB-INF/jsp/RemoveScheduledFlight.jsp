@@ -44,7 +44,7 @@ a {
 
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 
 	<!-- Body -->
@@ -55,7 +55,7 @@ a {
 		</div>
 
 		<div class="row text center">
-			<form:form action="scheduledFlightRemoveSearch" method="GET">
+			<form:form action="/scheduledFlightRemoveSearch" method="GET">
 				<div class="input-field col s6">
 					<input id="scheduled_flight_id" type="number" class="validate"
 						name="scheduled_flight_id"
@@ -70,7 +70,7 @@ a {
 		</div>
 		<div class="row">
 			<div class="card col s4 offset-s4 center">
-				<form:form action="scheduledFlightRemove" method="POST">
+				<form:form action="/scheduledFlightRemove" method="POST">
 					<div class="row">
 						<form:form action="scheduledFlightRemove" method="GET">
 							<div class="row">

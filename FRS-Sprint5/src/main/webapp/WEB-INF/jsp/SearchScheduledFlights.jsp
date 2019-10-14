@@ -34,7 +34,7 @@ a {
 </head>
 <body>
 	<!-- Header -->
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="AdminHeader.jsp"></jsp:include>
 	<!-- Header -->
 	<div class="container center">
 		<div class="jumbotron text-center">
@@ -43,7 +43,7 @@ a {
 		</div>
 
 		<div class="row text center">
-			<form:form action="scheduledFlightSearch" method="GET">
+			<form:form action="/scheduledFlightSearch" method="GET">
 				<div class="input-field col s6">
 					<input id="id" type="number" class="validate"
 						name="schedule_flight_id"> <label class="active">Flight

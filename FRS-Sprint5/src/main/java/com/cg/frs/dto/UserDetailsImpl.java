@@ -37,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 	public UserDetailsImpl(User user) {
 		this.username = user.getUserName();
 		this.password = user.getUserPassword();
-		this.active = user.isActive();
+		this.active = user.getActive();
 		this.authorities = Arrays.stream(user.getRoles().split(",")).map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 		;

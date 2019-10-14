@@ -53,7 +53,7 @@ a {
 	<div class="container">
 		<div class="row">
 			<div class="card col s4 offset-s4 center">
-				<form:form action="/userAdd" method="POST" modelAttribute="user">
+				<form:form action="/useradd" method="POST" modelAttribute="user">
 					<div class="row">
 						<h5>Sign Up</h5>
 						<br>
@@ -86,7 +86,7 @@ a {
 	<!-- Body -->
 
 	<!-- Footer -->
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
 		

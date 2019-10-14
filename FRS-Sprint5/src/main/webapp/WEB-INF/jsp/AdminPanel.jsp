@@ -70,7 +70,7 @@ a {
 									<i class="material-icons small">arrow_drop_down</i>
 								</span>
 								<p>
-									<a href="/admin/viewallusers">View Registered Users</a>
+									<a href="/admin/userlist">View Registered Users</a>
 								</p>
 							</div>
 						</div>

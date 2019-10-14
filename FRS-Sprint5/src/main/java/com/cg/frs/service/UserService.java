@@ -4,7 +4,9 @@
 package com.cg.frs.service;
 
 import java.math.BigInteger;
+import java.util.List;
 
+import com.cg.frs.dto.User;
 import com.cg.frs.exception.UserNotFoundException;
 
 /**
@@ -13,6 +15,10 @@ import com.cg.frs.exception.UserNotFoundException;
  */
 public interface UserService {
 
-	public BigInteger getUserIdFromName(String username)throws UserNotFoundException;
-	
+	public BigInteger getUserIdFromName(String username) throws UserNotFoundException;
+
+	public User addUser(User user);
+
+	public List<User> viewUser() throws UserNotFoundException;
+
 }

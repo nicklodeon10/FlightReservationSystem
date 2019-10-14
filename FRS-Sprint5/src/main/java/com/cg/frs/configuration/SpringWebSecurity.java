@@ -58,19 +58,19 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.info("Configuring Security.");
-		http.authorizeRequests().antMatchers("/").permitAll()
-				.antMatchers("/admin", "/flight/add", "/flight/added", "/flight/view", "/flight/search",
-						"/flight/found", "/flight/modify", "/flight/modify/search", "/flight/modified",
-						"/flight/remove", "/flight/remove/search", "/flight/removed", "/getScheduleFlightPage",
-						"/addScheduleFlight", "/showScheduledFlights", "/modifyScheduledFlight",
-						"/scheduledFlightModify", "/removeScheduledFlight", "/scheduledFlightRemoveSearch",
-						"/scheduledFlightRemove","/admin/viewallusers")
+		http.authorizeRequests().antMatchers("/", "/useradd").permitAll()
+				.antMatchers("/admin", "/admin/userlist", "/flight/add", "/flight/added", "/flight/view",
+						"/flight/search", "/flight/found", "/flight/modify", "/flight/modify/search",
+						"/flight/modified", "/flight/remove", "/flight/remove/search", "/flight/removed",
+						"/getScheduleFlightPage", "/addScheduleFlight", "/showScheduledFlights",
+						"/modifyScheduledFlight", "/scheduledFlightModify", "/removeScheduledFlight",
+						"/scheduledFlightRemoveSearch", "/scheduledFlightRemove", "/admin/viewallusers")
 				.hasRole("ADMIN")
 				.antMatchers("/user", "/booking/add", "/booking/addDetails", "/booking/save", "/booking/view",
 						"/booking/cancel", "/booking/cancelview", "/booking/confirmcancel")
 				.hasRole("USER").and().formLogin().loginPage("/login").failureUrl("/login?error=true")
-				.successHandler(authenticationSuccessHandler()).and().logout().logoutSuccessUrl("/")
-				.and().csrf().disable();
+				.successHandler(authenticationSuccessHandler()).and().logout().logoutSuccessUrl("/").and().csrf()
+				.disable();
 		logger.info("Configured Security.");
 	}
 

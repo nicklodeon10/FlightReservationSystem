@@ -5,7 +5,7 @@
 <html lang="en-US">
 
 <head>
-<title>Schedule a Flight</title>
+<title>FRS: Sign Up</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial scale=1">
 <link rel="stylesheet"
@@ -21,6 +21,8 @@ body {
 }
 
 footer {
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 }
 
@@ -50,41 +52,29 @@ a {
 	<!-- Body -->
 	<div class="container">
 		<div class="row">
-			<div class="card col s8 offset-s2 center">
-				<form:form action="addScheduleFlight" method="POST"
-					modelAttribute="scheduleFlight">
+			<div class="card col s4 offset-s4 center">
+				<form:form action="userAdd" method="POST" modelAttribute="user">
 					<div class="row">
-						<h5>Add Flight</h5>
+						<h5>Sign Up</h5>
 						<br>
 						<div class="input-field col s12">
-							<form:input id="schedule_flight_number" type="number"
-								class="validate" path="scheduleFlightId"></form:input>
-							<label for="schedule_flight_number">Flight Number</label>
+							<form:input id="user_name" type="text" class="validate"
+								path="userName"></form:input>
+							<label for="first_name">Choose a User Name</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="source_airport" type="text" class="validate"
-								name="source_airport"></input> <label for="source_airport">Source
-								Airport</label>
+							<form:input id="password" type="password" class="validate"
+								path="userPassword"></form:input>
+							<label for="password">Choose a Password</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="destination_airport" type="text" class="validate"
-								name="destination_airport"></input> <label
-								for="destination_airport">Destination Airport</label>
+							<form:input id="phone" type="tel" class="validate"
+								path="userPhone"></form:input>
+							<label for="phone">Enter your Mobile Number</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="departure_time" type="datetime-local" class="validate"
-								name="departure_time" ></input> <label for="departure_time">Departure
-								Time</label>
-						</div>
-						<div class="input-field col s12">
-							<input id="arrival_time" type="datetime-local" class="validate"
-								name="arrival_time"></input> <label for="arrival_time">Arrival
-								Time</label>
-						</div>
-						<div class="input-field col s12">
-							<form:input id="ticket_cost" type="number" class="validate"
-								path="ticketCost"></form:input>
-							<label for="ticket_cost">Ticket Cost</label>
+							<form:input id="email" type="email" class="validate" path="email"></form:input>
+							<label for="email">Enter your Email</label>
 						</div>
 						<br> <input type="submit" value="Submit"
 							class="waves-effect waves-light btn-large"></input>
@@ -96,7 +86,7 @@ a {
 	<!-- Body -->
 
 	<!-- Footer -->
-	<jsp:include page="Footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
 		

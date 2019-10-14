@@ -47,10 +47,6 @@ a {
 .input-field {
 	margin-top: -5px;
 }
-
-#viewBox {
-	display: none;
-}
 </style>
 </head>
 

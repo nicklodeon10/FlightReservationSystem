@@ -72,36 +72,6 @@ public class BookingController {
 	private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
 	/*
-	 * Author: DEVANG Description: Sends the home page view to the client Input: -
-	 * Output: Home Page ModelAndView Created Date: 11/10/2019 Last Modified: -
-	 */
-	@GetMapping("/")
-	public ModelAndView home() {
-		logger.info("Returning Home View.");
-		return new ModelAndView("Home", "airportList", airportService.viewAirport());
-	}
-
-	/*
-	 * Author: DEVANG Description: Sends the admin panel view to the admin Input: -
-	 * Output: - Created Date: 11/10/2019 Last Modified: -
-	 */
-	@GetMapping("/admin")
-	public String adminPanel(Principal principal) {
-		logger.info("Returning Admin Panel View for admin: " + principal.getName());
-		return "AdminPanel";
-	}
-
-	/*
-	 * Author: DEVANG Description: Sends the user panel view to the user Input: -
-	 * Output: - Created Date: 11/10/2019 Last Modified: -
-	 */
-	@GetMapping("/user")
-	public String userPanel(Principal principal) {
-		logger.info("Returning User Panel View for user: " + principal.getName());
-		return "UserPanel";
-	}
-
-	/*
 	 * Author: DEVANG Description: Sends the flight search view to the user Input: -
 	 * Output: Add Booking Page ModelAndView Created Date: 09/10/2019 Last Modified:
 	 * -

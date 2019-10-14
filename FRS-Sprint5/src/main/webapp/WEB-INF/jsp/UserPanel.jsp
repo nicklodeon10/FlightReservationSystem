@@ -62,7 +62,7 @@ a {
 								<img class="activator" src="user.png">
 							</div>
 							<div class="card-content">
-								<a href="addBooking"><span
+								<a href="/booking/add"><span
 									class="card-title activator grey-text text-darken-4">
 										Create<br>Booking
 								</span></a>
@@ -75,7 +75,7 @@ a {
 								<img class="activator" src="user.png">
 							</div>
 							<div class="card-content">
-								<a href="showBooking"><span
+								<a href="/booking/view"><span
 									class="card-title activator grey-text text-darken-4">
 										View<br>Booking
 								</span></a>
@@ -88,7 +88,7 @@ a {
 								<img class="activator" src="user.png">
 							</div>
 							<div class="card-content">
-								<a href="deleteBooking"><span
+								<a href="/booking/cancel"><span
 									class="card-title activator grey-text text-darken-4">
 										Cancel<br>Booking
 								</span></a>

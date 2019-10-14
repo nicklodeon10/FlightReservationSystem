@@ -46,7 +46,7 @@ public class ScheduleFlightController {
 		 * Last modified on 10/10/2019
 		 * send to the scheduleflight page
 		 */
-		@GetMapping(value="/getScheuleFlightPage")
+		@GetMapping(value="/getScheduleFlightPage")
 		public String getScheduleFlightPage(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight) {
 			System.out.println("qwerty");
 			return "ScheduleFlight";
@@ -82,7 +82,6 @@ public class ScheduleFlightController {
 				}
 				schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
 				schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
-				System.out.println(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
 				scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
 				scheduleFlight.setSchedule(schedule);
 				scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -19,21 +19,17 @@
 body {
 	background-color: #eeeeee;
 }
-
 footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
-
 a {
 	color: #212121;
 }
-
 .brand-logo {
 	margin-left: 20px;
 }
-
 .card {
 	margin-top: 15vh;
 }
@@ -49,29 +45,33 @@ a {
 	<div class="container">
 		<div class="row">
 			<div class="card col s4 offset-s4 center">
-				<form:form action="userLogin" method="GET">
+				<form action="login" method="POST">
+					<c:if test="${not empty errorMessage}">
+						<div style="color: red; font-weight: bold; margin: 30px 0px;">${errorMessage}</div>
+					</c:if>
 					<div class="row">
 						<h5>Log In</h5>
 						<div class="input-field col s12">
-							<input id="user_name" type="text" class="validate"
-								name="user_name"> <label for="first_name">User
-								Name</label>
+							<input id="username" type="text" class="validate" name="username">
+							<label for="first_name">User Name</label>
 						</div>
 						<div class="input-field col s12">
 							<input id="password" type="password" class="validate"
-								name="user_password"> <label for="password">Password</label>
+								name="password"> <label for="password">Password</label>
 						</div>
 					</div>
 					<input type="submit" value="Submit"
 						class="waves-effect waves-light btn-large"></input>
-				</form:form>
+				</form>
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 			</div>
 		</div>
 	</div>
 	<!-- Body -->
 
 	<!-- Footer -->
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
 	<script>
 		

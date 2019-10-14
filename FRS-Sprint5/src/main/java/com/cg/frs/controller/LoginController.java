@@ -25,18 +25,15 @@ public class LoginController {
 	 */
 	@GetMapping("/login")
 	public String loginPage(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout, Model model) {
+			Model model) {
 		String errorMessage = null;
 		if (error != null) {
 			logger.error("Incorrect Credentials.");
 			errorMessage = "Username or Password is incorrect !!";
 		}
-		if (logout != null) {
-			logger.info("User logged out.");
-			errorMessage = "You have been successfully logged out !!";
-		}
 		model.addAttribute("errorMessage", errorMessage);
 		logger.info("Viewing Log In Page.");
-		return "Login";
+		return "LogIn";
 	}
+	
 }

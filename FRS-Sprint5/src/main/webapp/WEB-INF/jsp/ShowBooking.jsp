@@ -56,7 +56,7 @@ a {
 	<jsp:include page="Header.jsp"></jsp:include>
 	<!-- Header -->
 	<div class="wrapper">
-		<div class="container">
+		<div class="container" style="margin-top: 25px;">
 			<show:forEach var="booking" items="${bookings}">
 				<div class="row">
 					<div class="col s6">
@@ -88,17 +88,27 @@ a {
 						<br>
 					</div>
 					<div class="col s2">
-						<show:if test="!${booking.bookingState}">
-							<button class="waves-effect waves-light btn-large red" disabled>Cancelled</button>
-						</show:if>
-						<br>
-						<form:form action="/booking/download" method="GET">
-							<input type="text" hidden="true" name="booking_id"
-									value="${booking.bookingId}" />
-							<button type="submit" class="waves-effect waves-light btn-large green">Download eTicket</button>
-						</form:form>
+						<div class="row">
+							<div class="col s12">
+								<show:if test="${!booking.bookingState}">
+									<button class="waves-effect waves-light btn-large red">Cancelled</button>
+								</show:if>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<form:form action="/booking/download" method="GET">
+									<input type="text" hidden="true" name="booking_id"
+										value="${booking.bookingId}" />
+									<button type="submit"
+										class="waves-effect waves-light btn-large green">Download
+										eTicket</button>
+								</form:form>
+							</div>
+						</div>
 					</div>
 				</div>
+				<hr>
 			</show:forEach>
 		</div>
 	</div>

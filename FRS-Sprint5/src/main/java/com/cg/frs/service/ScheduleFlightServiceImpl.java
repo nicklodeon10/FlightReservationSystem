@@ -11,19 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.frs.FlightReservationSystemApplication;
-import com.cg.frs.dao.ScheduleFlightRepository;
-import com.cg.frs.dao.ScheduleRepository;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
 import com.cg.frs.exception.FlightNotFoundException;
 import com.cg.frs.exception.FrsException;
+import com.cg.frs.repository.ScheduleFlightRepository;
+import com.cg.frs.repository.ScheduleRepository;
 
 @Service("scheduleflightservice")
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	
 	@Autowired
 	ScheduleFlightRepository scheduleFlightRepository;
+	
 	@Autowired
 	ScheduleRepository scheduleRepository;
 	

@@ -76,7 +76,7 @@ a {
 	</div>
 
 	<!-- Footer -->
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="Footer.jsp"></jsp:include>
 	<!-- Footer -->
 </body>
 </html>

@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cg.frs.dao.FlightRepository;
 import com.cg.frs.dto.Flight;
+import com.cg.frs.repository.FlightDao;
 
 /**
  * @author Navya
@@ -23,7 +23,7 @@ import com.cg.frs.dto.Flight;
 public class FlightServiceImpl implements FlightService {
 
 	@Autowired
-	FlightRepository flightDao;
+	FlightDao flightDao;
 
 	@Override
 	public Flight addFlight(Flight flight) {

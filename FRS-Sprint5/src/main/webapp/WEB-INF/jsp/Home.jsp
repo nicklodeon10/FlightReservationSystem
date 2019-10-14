@@ -1,4 +1,4 @@
-  
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -21,6 +21,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 }
+
 .wrapper {
 	min-height: 100%;
 	margin-bottom: -50px;
@@ -28,25 +29,32 @@ html, body {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
 footer {
 	height: 50px;
 	width: 100%;
 }
+
 a {
 	color: #212121;
 }
+
 .brand-logo {
 	margin-left: 20px;
 }
+
 .card {
 	margin-top: 15vh;
 }
+
 .card-content {
 	margin-bottom: -30px;
 }
+
 .center {
 	margin-top: 25vh;
 }
+
 .btn-large {
 	margin-top: 15px;
 }

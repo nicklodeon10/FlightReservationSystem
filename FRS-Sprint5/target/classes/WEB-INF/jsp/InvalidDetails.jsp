@@ -15,16 +15,25 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <style type="text/css">
-<
-style>body {
+html, body {
 	background-color: #eeeeee;
+	height: 100%;
+	margin: 0;
 }
+
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -50px;
+}
+
 footer {
-	width: 100%;
+	height: 50px;
 }
+
 a {
 	color: #212121;
 }
+
 .collection {
 	margin-top: 100px;
 }
@@ -36,10 +45,13 @@ a {
 	<!-- Header -->
 
 	<!-- Body -->
-	<div class="container center">
-		<ul class="collection with-header">
-			<li class="collection-header"><h4>You have entered invalid details.</h4></li>
-		</ul>
+	<div class="wrapper">
+		<div class="container center">
+			<ul class="collection with-header">
+				<li class="collection-header"><h4>You have entered invalid
+						details.</h4></li>
+			</ul>
+		</div>
 	</div>
 	<!-- Body -->
 

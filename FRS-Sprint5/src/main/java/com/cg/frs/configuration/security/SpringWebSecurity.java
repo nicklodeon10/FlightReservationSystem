@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cg.frs.configuration;
+package com.cg.frs.configuration.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cg.frs.configuration;
+package com.cg.frs.configuration.auditor;
 
 import java.util.Optional;
 

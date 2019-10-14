@@ -39,7 +39,12 @@ public class UserController {
 	@GetMapping("/")
 	public ModelAndView home() {
 		logger.info("Returning Home View.");
-		return new ModelAndView("Home", "airportList", airportService.viewAirport());
+		try {
+			return new ModelAndView("Home", "airportList", airportService.viewAirport());
+		} catch (Exception e) {
+			logger.error("Error Retrieving Airports.");
+			return new ModelAndView("ErrorPage");
+		}
 	}
 
 	/*
@@ -73,7 +78,12 @@ public class UserController {
 	public String addUser(@ModelAttribute("user") User user) {
 		user.setActive(true);
 		user.setRoles("ROLE_USER");
-		userService.addUser(user);
+		try {
+			userService.addUser(user);
+		} catch (Exception e) {
+			logger.error("Error Adding User.");
+			return "ErrorPage";
+		}
 		return "UserAdded";
 	}
 

@@ -27,20 +27,20 @@ import com.cg.frs.repository.UserRepository;
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
-	public BigInteger getUserIdFromName(String username) throws UserNotFoundException{
+	public BigInteger getUserIdFromName(String username) throws UserNotFoundException {
 		logger.info("Retrieving User.");
 		Optional<User> user;
 		try {
-			user=userRepository.findByUserName(username);
-		}catch(NoSuchElementException exception) {
-			logger.error("User not found: "+username);
+			user = userRepository.findByUserName(username);
+		} catch (NoSuchElementException exception) {
+			logger.error("User not found: " + username);
 			throw new UserNotFoundException("User Not Found.");
 		}
 		logger.info("Returning Found User.");
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User addUser(User user) {
+	public User addUser(User user) throws Exception {
 		logger.info("Adding User.");
 		userRepository.save(user);
 		return user;
@@ -58,9 +58,9 @@ public class UserServiceImpl implements UserService {
 	public List<User> viewUser() throws UserNotFoundException {
 		logger.info("Retrieving Users.");
 		List<User> userList;
-		userList=userRepository.findAll();
+		userList = userRepository.findAll();
 		logger.info("Retrieved All Users.");
-		if(userList.isEmpty()) {
+		if (userList.isEmpty()) {
 			logger.error("No Users Found");
 			throw new UserNotFoundException("No Users found");
 		}

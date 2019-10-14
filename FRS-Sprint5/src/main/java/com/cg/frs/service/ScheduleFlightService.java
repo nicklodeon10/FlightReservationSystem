@@ -11,7 +11,7 @@ import com.cg.frs.exception.FrsException;
 
 public interface ScheduleFlightService {
 	
-	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight);
+	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) throws Exception;
 	
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate) throws FlightNotFoundException;
     

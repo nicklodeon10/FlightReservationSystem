@@ -68,13 +68,12 @@ public class ScheduleFlightController {
 				try {
 					schedule.setSourceAirport(airportService.viewAirport(source));
 				} catch (InvalidAirportException e) {
-					e.printStackTrace();
+					return new ModelAndView("ErrorPage");
 				}
 				try {
 					schedule.setDestinationAirport(airportService.viewAirport(destination));
 				} catch (InvalidAirportException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return new ModelAndView("ErrorPage");
 				}
 				schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
 				schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
@@ -82,7 +81,12 @@ public class ScheduleFlightController {
 				scheduleFlight.setSchedule(schedule);
 				scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
 				scheduleFlight.setScheduleFlightState(true);
-				scheduleFlightService.addScheduleFlight(scheduleFlight);
+				try {
+					scheduleFlightService.addScheduleFlight(scheduleFlight);
+				} catch (Exception e) {
+					logger.info("Error Adding Scheduled Flight.");
+					return new ModelAndView("ErrorPage");
+				}
 				return new ModelAndView("ShowScheduledFlights", "scheduledFlightList",
 						scheduleFlightService.viewScheduleFlight());
 			}
@@ -131,14 +135,14 @@ public class ScheduleFlightController {
 				try {
 					schedule.setSourceAirport(airportService.viewAirport(source));
 				} catch (InvalidAirportException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("Error setting source airport.");
+					return "ErrorPage";
 				}
 				try {
 					schedule.setDestinationAirport(airportService.viewAirport(destination));
 				} catch (InvalidAirportException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("Error setting source airport.");
+					return "ErrorPage";
 				}
 				schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
 				schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));

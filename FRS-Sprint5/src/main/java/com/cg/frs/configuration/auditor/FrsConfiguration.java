@@ -1,4 +1,4 @@
-package com.cg.frs.configuration;
+package com.cg.frs.configuration.auditor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

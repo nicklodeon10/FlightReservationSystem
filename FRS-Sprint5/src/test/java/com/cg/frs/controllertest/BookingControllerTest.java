@@ -37,7 +37,7 @@ public class BookingControllerTest {
 	TestRestTemplate restTemplate;
 	
 	@Test
-	public void testHome() {
+	public void testHome() throws Exception {
 		ModelAndView home=restTemplate.getForObject("/", ModelAndView.class);
 		assertThat(home.equals(new ModelAndView("Home", "airportList", airportService.viewAirport())));
 	}

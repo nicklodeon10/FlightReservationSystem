@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cg.frs.configuration;
+package com.cg.frs.configuration.security;
 
 import java.io.IOException;
 import java.util.Collection;

@@ -43,7 +43,7 @@ public class BookingServiceTests {
 	Booking booking=new Booking();
 	
 	@Test
-	public void testAddBooking() {
+	public void testAddBooking() throws Exception {
 		booking.setBookingState(true);
 		booking.setUserId(userId);
 		assertEquals(booking, bookingService.addBooking(booking));

@@ -79,7 +79,12 @@ public class BookingController {
 	@GetMapping("/booking/add")
 	public ModelAndView bookingSearch() {
 		logger.info("Returning Booking Search View.");
-		return new ModelAndView("AddBooking", "airportList", airportService.viewAirport());
+		try {
+			return new ModelAndView("AddBooking", "airportList", airportService.viewAirport());
+		} catch (Exception e) {
+			logger.error("Error adding Airport.");
+			return new ModelAndView("ErrorPage");
+		}
 	}
 
 	/*
@@ -182,7 +187,12 @@ public class BookingController {
 			}
 			booking.setTicketCost((booking.getScheduleFlight().getTicketCost()) * booking.getPassengerCount());
 			logger.info("Adding Booking.");
-			bookingService.addBooking(booking);
+			try {
+				bookingService.addBooking(booking);
+			} catch (Exception e) {
+				logger.error("Error Adding a Booking.");
+				return new ModelAndView("Error Page");
+			}
 			logger.info("Added Booking.");
 			session.setAttribute("currentFlight", null);
 			logger.info("Resetting current flight parameter.");

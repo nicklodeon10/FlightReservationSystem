@@ -17,7 +17,7 @@ public interface UserService {
 
 	public BigInteger getUserIdFromName(String username) throws UserNotFoundException;
 
-	public User addUser(User user);
+	public User addUser(User user) throws Exception;
 
 	public List<User> viewUser() throws UserNotFoundException;
 

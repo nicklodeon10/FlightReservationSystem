@@ -35,7 +35,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	 * scheduleflight Input ScheduleFlight object Output ScheduleFlight object
 	 */
 	@Override
-	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) {
+	public ScheduleFlight addScheduleFlight(ScheduleFlight scheduleflight) throws Exception {
 		return scheduleFlightRepository.save(scheduleflight);
 	}
 

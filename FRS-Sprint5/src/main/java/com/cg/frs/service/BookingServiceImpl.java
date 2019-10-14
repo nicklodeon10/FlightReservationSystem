@@ -41,7 +41,7 @@ public class BookingServiceImpl implements BookingService {
 	 * -
 	 */
 	@Override
-	public Booking addBooking(Booking booking) {
+	public Booking addBooking(Booking booking) throws Exception {
 		logger.info("Storing Booking.");
 		return bookingRepository.save(booking);
 	}

@@ -30,7 +30,7 @@ public class AirportServiceTests {
 	TestRestTemplate restTemplate;
 	
 	@Test
-	public void testViewAllAirports() {
+	public void testViewAllAirports() throws Exception {
 		assertEquals(7, airportService.viewAirport().size());
 	}
 

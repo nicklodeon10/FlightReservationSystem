@@ -3,25 +3,18 @@
  */
 package com.cg.frs.exception;
 
-
-
 /**
  * @author NAVYA
  *
  */
-public class FlightExceptions extends Exception{
+public class FlightExceptions extends Exception {
 
-	// private static final Logger logger = LoggerFactory.getLogger(FlightExceptions.class);
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	private String errMsg;
-
-	
 
 	public String getErrMsg() {
 		return errMsg;
@@ -31,12 +24,9 @@ public class FlightExceptions extends Exception{
 		this.errMsg = errMsg;
 	}
 
-	public FlightExceptions( String errMsg) {
-		
+	public FlightExceptions(String errMsg) {
+
 		this.errMsg = errMsg;
 	}
-	
-	
-	
-	
+
 }

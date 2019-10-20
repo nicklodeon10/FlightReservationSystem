@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +51,7 @@ import com.itextpdf.text.DocumentException;
 
 @RestController
 @RequestMapping("/booking")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BookingController {
 
 	@Autowired
@@ -159,7 +161,7 @@ public class BookingController {
 
 	@GetMapping("/find")
 	public ResponseEntity<List<ScheduleFlight>> flightSearch(@RequestParam("source_airport") String srcCode,
-			@RequestParam("destination_airport") String destCode, @RequestParam("journeydate") String doj) {
+			@RequestParam("destination_airport") String destCode, @RequestParam("journey_date") String doj) {
 		logger.info("Preparing Flight Search Parameters.");
 		Airport sourceAirport;
 		Airport destinationAirport;

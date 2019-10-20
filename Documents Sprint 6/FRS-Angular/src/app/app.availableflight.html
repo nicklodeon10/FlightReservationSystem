@@ -11,7 +11,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <select class="custom-select">
+                                    <select class="custom-select" [(ngModel)]="src">
                                         <option disabled selected>Source</option>
                                         <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
                                     </select>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <select class="custom-select">
+                                    <select class="custom-select" [(ngModel)]="dest">
                                         <option disabled selected>Destination</option>
                                         <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
                                     </select>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <input class="dateselect" type="date" />
+                                    <input class="dateselect" type="date" [(ngModel)]="journeyDate" />
                                 </div>  
                             </div>
                         </div>
@@ -49,22 +49,22 @@
                 </div>
                 <div class="row" style="margin-top: 30px;">
                     <div class="col-md-3 offset-md-9">
-                        <button type="button" class="findBtn btn btn-success">FIND FLIGHTS</button>
+                        <button type="button" class="findBtn btn btn-success" (click)="findFlights()" >FIND FLIGHTS</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="found-flights">
+        <div *ngIf="displayFlag" class="found-flights">
             <h3>Available Flights:</h3>
             <div class="row" style="margin-top: 50px;">
-                <div class="col-md-6 card flight-card">
-                    Flight Number: <br>
-                    Carrier Name: <br>
-                    Flight Model: <br>
-                    Departure: <br>
-                    Arrival: <br>
-                    Cost/Seat: <br>
-                    Available Seats: <br>
+                <div *ngFor="let scheduledFlight of scheduledFlights" class="col-md-6 card flight-card">
+                    Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
+                    Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
+                    Flight Model: {{scheduledFlight.flight.flightModel}}<br>
+                    Departure: {{scheduledFlight.schedule.departureDateTime}}<br>
+                    Arrival: {{scheduledFlight.schedule.arrivalDateTime}}<br>
+                    Cost/Seat: {{scheduledFlight.ticketCost}}<br>
+                    Available Seats: {{scheduledFlight.availableSeats}}<br>
                     <div class="row">
                         <div class="col-md-4 offset-md-8">
                             <button type="button" class="bookBtn btn btn-success">BOOK NOW</button>

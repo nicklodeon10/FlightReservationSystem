@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http'
-import { rootRenderNodes } from '@angular/core/src/view';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'

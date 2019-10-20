@@ -11,10 +11,16 @@ export class HomeComponent implements OnInit{
 
     airports:Airport[]=[];
 
+    src:string;
+    dest:string;
+    journeyDate:string;
+
     constructor(private airportService:AirportService){}
 
     ngOnInit(){
         this.airportService.getAllAirports().subscribe((data:Airport[])=>this.airports=data);
     }
+
+    findFlights(){}
 
 }

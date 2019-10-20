@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Passenger;

@@ -53,12 +53,7 @@ public class FlightServiceImpl implements FlightService {
 
 	@Override
 	public Flight searchFlight(BigInteger flightId) throws FlightExceptions {		//searching flight with Id
-		// TODO Auto-generated method stub
-		Flight searched=flightRepository.findByFlightNumber(flightId);
-		if(searched.getFlightState()==true) {
-		return flightRepository.findByFlightNumber(flightId);
-		}
-		else throw new FlightExceptions("NO FLIGHT OF THIS NAME");
+		return flightRepository.findById(flightId).get();
 	}
 
 	@Override

@@ -67,7 +67,7 @@
                     Available Seats: {{scheduledFlight.availableSeats}}<br>
                     <div class="row">
                         <div class="col-md-4 offset-md-8">
-                            <button type="button" class="bookBtn btn btn-success">BOOK NOW</button>
+                            <button type="button" class="bookBtn btn btn-success" (click)="enterDetails(scheduledFlight.scheduleFlightId)">BOOK NOW</button>
                         </div>
                     </div>
                 </div>

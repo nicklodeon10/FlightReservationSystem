@@ -1,0 +1,42 @@
+<!-- BODY -->
+<div class="wrapper">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Booking Details:</h3>
+            <h5 style="margin-top: -20px;">You are booking for Flight Number {{flightId}}</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    Passenger Details:
+                    <form>
+                        <div class="row passenger-input">
+                            <input type="number" class="form-control col-md-1" placeholder="1" disabled>
+                            <input type="text" class="form-control col-md-5" id="passengerName" placeholder="Name">
+                            <input type="number" class="form-control col-md-1" id="passengerAge" placeholder="Age">
+                            <input type="text" class="form-control col-md-1" id="passengerGender" placeholder="Gender">
+                            <input type="number" class="form-control col-md-4" id="passengerUIN" placeholder="ID Number">
+                        </div>
+                        <small>*Maximum 4 passengers per booking</small>
+                        <div class="row contact-details">
+                            <div class="col-md-8">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control col-md-12" id="address" placeholder="Address">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="contact">Phone Number</label> 
+                                <input type="number" class="form-control col-md-12" id="contact" placeholder="Contact Number">
+                            </div>
+                            <small style="margin-left: 15px;">*Booking Confirmation will be sent to the above mentioned number</small>
+                        </div>
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-md-3 offset-md-9">
+                                <button type="button" class="confBtn btn btn-success">CONFIRM</button>
+                                <small>By clicking Confirm you agree to our terms and conditions.</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>   
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BODY -->

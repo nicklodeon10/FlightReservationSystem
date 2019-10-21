@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {Airport} from './_model/app.airport'
 import { AirportService } from './_service/app.airportservice';
 
@@ -15,12 +16,14 @@ export class HomeComponent implements OnInit{
     dest:string;
     journeyDate:string;
 
-    constructor(private airportService:AirportService){}
+    constructor(private router:Router, private airportService:AirportService){}
 
     ngOnInit(){
         this.airportService.getAllAirports().subscribe((data:Airport[])=>this.airports=data);
     }
 
-    findFlights(){}
+    findFlights(){
+        this.router.navigate(['/availableflights', this.src, this.dest, this.journeyDate]);
+    }
 
 }

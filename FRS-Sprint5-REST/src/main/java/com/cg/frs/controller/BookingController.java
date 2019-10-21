@@ -115,20 +115,19 @@ public class BookingController {
 		logger.info("Returning Bookings by user: " + userId);
 		return new ResponseEntity<List<Booking>>(bookingList, HttpStatus.OK);
 	}
-
-	// To retrieve a booking by userId
-	@GetMapping("/getbyid")
-	public ResponseEntity<Booking> getBooking(@RequestParam("userId") BigInteger bookingId) {
-		Booking booking;
+	
+	@GetMapping("/getprev")
+	public ResponseEntity<Booking> getLastBooking(@RequestParam("userId") BigInteger userId){
+		List<Booking> bookingList;
 		try {
-			logger.info("Retrieving Booking with id: " + bookingId);
-			booking = bookingService.viewBooking(bookingId);
+			logger.info("Retrieving Bookings.");
+			bookingList = bookingService.viewBookingsByUser(userId);
 		} catch (InvalidBookingException exception) {
 			logger.error("No Bookings Found.");
 			return new ResponseEntity("No Bookings Found.", HttpStatus.BAD_REQUEST);
 		}
-		logger.info("Returning Bookings with id: " + bookingId);
-		return new ResponseEntity<Booking>(booking, HttpStatus.OK);
+		logger.info("Retrieving Last Booking");
+		return new ResponseEntity<Booking>(bookingList.get(bookingList.size()-1), HttpStatus.OK);
 	}
 
 	@GetMapping("/getall")
@@ -146,7 +145,7 @@ public class BookingController {
 	}
 
 	// To cancel a booking
-	@DeleteMapping("/delete")
+	@DeleteMapping("/cancel")
 	public ResponseEntity<Boolean> cancelBooking(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
 			logger.info("Cancelling Booking.");
@@ -190,6 +189,7 @@ public class BookingController {
 	@GetMapping("download")
 	public ResponseEntity<String> download( HttpServletRequest request,
             HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId) {
+		System.out.println("Downloading Ticket");
 		String filePath;
 		try {
 			logger.info("Generating eTicket for id: "+bookingId);

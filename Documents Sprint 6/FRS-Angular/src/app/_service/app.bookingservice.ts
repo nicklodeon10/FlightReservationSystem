@@ -25,4 +25,20 @@ export class BookingService{
         return this.httpClient.post("http://localhost:9088/booking/add/?flightId="+flightId, form);
     }
 
+    getBookingsByUser(userId:number){
+        return this.httpClient.get("http://localhost:9088/booking/getbyuserid?userId="+userId);
+    }
+
+    downloadTicket(bookingId:number){
+        return this.httpClient.get("http://localhost:9088/booking/download?booking_id="+bookingId);
+    }
+
+    cancelTicket(bookingId:number){
+        return this.httpClient.delete("http://localhost:9088/booking/cancel?bookingId="+bookingId);
+    }
+
+    getPreviousBooking(userId:number){
+        return this.httpClient.get("http://localhost:9088/booking/getprev?userId="+userId);
+    }
+
 }

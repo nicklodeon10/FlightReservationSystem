@@ -1,0 +1,38 @@
+    <!-- BODY -->
+    <div class="wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Your Booking has been confirmed.</h3>
+                Booked On: {{prevBooking.bookingDate}}<br><br>
+                <strong>Journey Details:</strong> <br>
+                Source: {{prevBooking.scheduleFlight.schedule.sourceAirport.airportName}}, {{prevBooking.scheduleFlight.schedule.sourceAirport.airportLocation}} <br>
+                Departure: {{prevBooking.scheduleFlight.schedule.departureDateTime}}<br>
+                Destination: {{prevBooking.scheduleFlight.schedule.destinationAirport.airportName}}, {{prevBooking.scheduleFlight.schedule.destinationAirport.airportLocation}}<br>
+                Arrival:{{prevBooking.scheduleFlight.schedule.arrivalDateTime}} <br>
+
+                <br><strong>Flight Details:</strong> <br>
+                Flight Number: {{prevBooking.scheduleFlight.flight.flightNumber}} <br>
+                Flight Model: {{prevBooking.scheduleFlight.flight.flightModel}}<br>
+                Carrier: {{prevBooking.scheduleFlight.flight.carrierName}}<br>
+                 
+                <br><strong>Passenger Details:</strong> <br>
+                <div *ngFor="let passenger of prevBooking.passengerList; let i=index;">
+                    Passenger {{i+1}}:<br>  
+                    PNR: {{passenger.pnrNumber}} <br>
+                    Name: {{passenger.passengerName}}<br>
+                    Age: {{passenger.passengerAge}}<br>
+                    ID: {{passenger.passengerUIN}}<br> 
+                </div>                   
+                <br><strong>Contact Number:</strong> <br>
+                <div *ngIf="prevBooking.bookingState" class="row">
+                    <div class="col-md-2 offset-md-7">
+                        <button type="button" class="cncBtn btn btn-danger" (click)="cancelTicket(prevBooking.bookingId)">Cancel Ticket</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="downBtn btn btn-primary" (click)="downloadTicket(prevBooking.bookingId)">Download eTicket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BODY -->

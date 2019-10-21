@@ -1,0 +1,27 @@
+.wrapper{
+    min-height: 90vh;
+    background-image: url('/assets/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 100vw 65vh;
+    padding-top: 75px;
+}
+.card{
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0%;
+    width: 80vw;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+.card-title{
+    margin-bottom: 20px;
+}
+.downBtn, .cncBtn, .upcBtn{
+    border-radius: 0;
+    width: 100%;
+}
+.title{
+    padding-left: 10vw;
+    margin-bottom: 30px;
+    color: white;
+}

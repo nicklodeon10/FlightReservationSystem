@@ -7,13 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AvailableFlightComponent } from './app.availableflightcomponent';
 import { Routes, RouterModule } from '@angular/router';
 import { BookingDetailComponent } from './app.bookingdetailcomponent';
+import { BookingConfirmationComponent } from './app.bookingconfirmationcomponent';
+import { ShowBookingsComponent } from './app.showbookingscomponent';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'availableflights/:src/:dest/:doj', component: AvailableFlightComponent},
     {path: 'availableflights', component: AvailableFlightComponent},
-    {path: 'enterdetails/:flightId', component: BookingDetailComponent}
+    {path: 'enterdetails/:flightId', component: BookingDetailComponent},
+    {path: 'bookingconfirmation', component: BookingConfirmationComponent},
+    {path: 'showbookings', component: ShowBookingsComponent}
 ]
 
 @NgModule({
@@ -27,7 +31,9 @@ const frsRoutes:Routes=[
         AppComponent,
         HomeComponent,
         AvailableFlightComponent,
-        BookingDetailComponent
+        BookingDetailComponent,
+        BookingConfirmationComponent,
+        ShowBookingsComponent
 		],
     providers: [ ],
     bootstrap: [AppComponent]

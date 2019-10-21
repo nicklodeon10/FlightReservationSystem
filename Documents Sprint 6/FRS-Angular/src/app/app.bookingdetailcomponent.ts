@@ -39,6 +39,7 @@ export class BookingDetailComponent implements OnInit{
     addBooking(){
         this.booking.passengerList=this.passengerList;
         this.bookingService.addBooking(this.passengerList, this.flightId).subscribe();
+        this.router.navigate(['bookingconfirmation']);
     }
 
 }

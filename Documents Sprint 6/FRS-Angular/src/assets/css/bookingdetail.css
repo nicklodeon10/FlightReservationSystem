@@ -30,3 +30,10 @@
 .contact-details{
     margin-top: 20px;
 }
+.addBtn{
+    border-radius: 0;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+}

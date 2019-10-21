@@ -8,14 +8,30 @@
                 <div class="col-md-12">
                     Passenger Details:
                     <form>
-                        <div class="row passenger-input">
-                            <input type="number" class="form-control col-md-1" placeholder="1" disabled>
-                            <input type="text" class="form-control col-md-5" id="passengerName" placeholder="Name">
-                            <input type="number" class="form-control col-md-1" id="passengerAge" placeholder="Age">
+                        <div *ngFor="let passenger of passengerList; let i=index" class="row passenger-input">
+                            <input type="number" class="form-control col-md-1" placeholder="{{i+1}}" disabled>
+                            <input [(ngModel)]="passengerList[i].passengerName" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="passengerName" placeholder="Name">
+                            <input [(ngModel)]="passengerList[i].passengerAge" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-1" id="passengerAge" placeholder="Age">
                             <input type="text" class="form-control col-md-1" id="passengerGender" placeholder="Gender">
-                            <input type="number" class="form-control col-md-4" id="passengerUIN" placeholder="ID Number">
+                            <input [(ngModel)]="passengerList[i].passengerUIN" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-4" id="passengerUIN" placeholder="ID Number">
                         </div>
-                        <small>*Maximum 4 passengers per booking</small>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <small>*Maximum 4 passengers per booking</small>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="addBtn btn btn-info" (click)="addPassenger()">
+                                        <i class="material-icons">exposure_plus_1</i>
+                                </button>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="addBtn btn btn-danger" (click)="removePassenger()">
+                                        <i class="material-icons">exposure_neg_1</i>
+                                </button>
+                            </div>
+                            
+                        </div>
+                        
                         <div class="row contact-details">
                             <div class="col-md-8">
                                 <label for="address">Address</label>
@@ -29,7 +45,7 @@
                         </div>
                         <div class="row" style="margin-top: 30px;">
                             <div class="col-md-3 offset-md-9">
-                                <button type="button" class="confBtn btn btn-success">CONFIRM</button>
+                                <button type="button" class="confBtn btn btn-success" (click)="addBooking()">CONFIRM</button>
                                 <small>By clicking Confirm you agree to our terms and conditions.</small>
                             </div>
                         </div>

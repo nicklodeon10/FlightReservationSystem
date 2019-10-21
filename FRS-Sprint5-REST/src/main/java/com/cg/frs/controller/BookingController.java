@@ -87,7 +87,7 @@ public class BookingController {
 		}
 		logger.info("Adding Booking.");
 		try {
-			booking = bookingService.addBooking(booking);
+			booking = bookingService.addBooking(booking);			
 		} catch (Exception e) {
 			logger.info("Data Not Added.");
 			return new ResponseEntity("Data not added", HttpStatus.INTERNAL_SERVER_ERROR);

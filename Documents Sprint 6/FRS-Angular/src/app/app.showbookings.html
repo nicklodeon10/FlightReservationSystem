@@ -3,7 +3,7 @@
         <div class="title">
             <h3>Your Bookings:</h3>
         </div>
-        <div *ngFor="let booking of bookingsList" class="card">
+        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 2, currentPage: p }" class="card">
                 <div class="card-body">
                     <div *ngIf="booking.bookingState" class="row">
                         <div class="col-md-10">
@@ -51,6 +51,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
         <!-- BODY -->

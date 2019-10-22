@@ -55,9 +55,9 @@
             </div>
         </div>
         <div class="found-flights">
-            <h3 *ngIf="displayFlightsFlag" >Available Flights:</h3>
+            <h3 *ngIf="displayFlag" >Available Flights:</h3>
             <div class="row" style="margin-top: 50px;">
-                <div *ngFor="let scheduledFlight of scheduledFlights" class="col-md-6 card flight-card">
+                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 2, currentPage: p }" class="col-md-6 card flight-card">
                     Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
                     Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
                     Flight Model: {{scheduledFlight.flight.flightModel}}<br>
@@ -71,6 +71,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
     </div>

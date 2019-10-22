@@ -53,3 +53,8 @@
     height: 37px;
     border-color: lightgray;
 }
+.pagination{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}

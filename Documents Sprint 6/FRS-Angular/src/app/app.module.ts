@@ -10,6 +10,7 @@ import { BookingDetailComponent } from './app.bookingdetailcomponent';
 import { BookingConfirmationComponent } from './app.bookingconfirmationcomponent';
 import { ShowBookingsComponent } from './app.showbookingscomponent';
 import { HttpErrorInterceptor } from './http-error.interceptor';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -26,7 +27,8 @@ const frsRoutes:Routes=[
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        RouterModule.forRoot(frsRoutes)    
+        RouterModule.forRoot(frsRoutes),
+        NgxPaginationModule    
     ],
     declarations: [
         AppComponent,

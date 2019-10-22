@@ -21,7 +21,9 @@ export class AvailableFlightComponent implements OnInit{
     displayFlag:boolean=false;
     scheduledFlights:ScheduleFlight[]=[];
 
-    constructor(private route: ActivatedRoute, private router:Router, private airportService:AirportService, private bookingService:BookingService){}
+    pageconfig: any;
+
+    constructor(private route: ActivatedRoute, private router:Router, private airportService:AirportService, private bookingService:BookingService){ }
 
     ngOnInit(){
         this.src=this.route.snapshot.paramMap.get("src");

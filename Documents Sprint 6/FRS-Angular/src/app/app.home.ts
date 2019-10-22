@@ -16,7 +16,16 @@ export class HomeComponent implements OnInit{
     dest:string;
     journeyDate:string;
 
-    constructor(private router:Router, private airportService:AirportService){}
+    minDate:any;
+    maxDate:any;
+
+    errorFlag:boolean=false;
+
+    constructor(private router:Router, private airportService:AirportService){
+        this.minDate=new Date();
+        this.maxDate=new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth()+2);
+    }
 
     ngOnInit(){
         this.airportService.getAllAirports().subscribe((data:Airport[])=>this.airports=data);
@@ -24,6 +33,14 @@ export class HomeComponent implements OnInit{
 
     findFlights(){
         this.router.navigate(['/availableflights', this.src, this.dest, this.journeyDate]);
+    }
+
+    airportCheck(){
+        if(this.src===this.dest){
+            this.errorFlag=true;
+        }else{
+            this.errorFlag=false;
+        }
     }
 
 }

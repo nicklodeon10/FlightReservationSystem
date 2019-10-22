@@ -10,10 +10,10 @@
                     <form>
                         <div *ngFor="let passenger of passengerList; let i=index" class="row passenger-input">
                             <input type="number" class="form-control col-md-1" placeholder="{{i+1}}" disabled>
-                            <input [(ngModel)]="passengerList[i].passengerName" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="passengerName" placeholder="Name">
-                            <input [(ngModel)]="passengerList[i].passengerAge" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-1" id="passengerAge" placeholder="Age">
-                            <input type="text" class="form-control col-md-1" id="passengerGender" placeholder="Gender">
-                            <input [(ngModel)]="passengerList[i].passengerUIN" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-4" id="passengerUIN" placeholder="ID Number">
+                            <input [(ngModel)]="passengerList[i].passengerName" [ngModelOptions]="{standalone: true}" type="text" class="form-control col-md-5" id="passengerName" placeholder="Name" required>
+                            <input [(ngModel)]="passengerList[i].passengerAge" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-1" id="passengerAge" placeholder="Age" required>
+                            <input type="text" class="form-control col-md-1" id="passengerGender" placeholder="Gender" required>
+                            <input [(ngModel)]="passengerList[i].passengerUIN" [ngModelOptions]="{standalone: true}"  type="number" class="form-control col-md-4" id="passengerUIN" placeholder="ID Number" required>
                         </div>
                         <div class="row">
                             <div class="col-md-10">

@@ -49,3 +49,7 @@ hr{
     height: 37px;
     border-color: lightgray;
 }
+.errorMessage{
+    color: red;
+    margin-left: 20px;
+}

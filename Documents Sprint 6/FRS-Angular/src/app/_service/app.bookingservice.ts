@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Booking } from '../_model/app.booking';
 import { Passenger } from '../_model/app.passenger';
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -29,8 +29,10 @@ export class BookingService{
         return this.httpClient.get("http://localhost:9088/booking/getbyuserid?userId="+userId);
     }
 
-    downloadTicket(bookingId:number){
-        return this.httpClient.get("http://localhost:9088/booking/download?booking_id="+bookingId);
+    downloadTicket(bookingId:number): Observable<Blob> {
+        return this.httpClient.get("http://localhost:9088/booking/download?booking_id="+bookingId, {
+            responseType: "blob"
+          });
     }
 
     cancelTicket(bookingId:number){

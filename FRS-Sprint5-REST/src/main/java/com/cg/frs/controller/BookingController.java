@@ -189,7 +189,7 @@ public class BookingController {
 	@GetMapping("download")
 	public ResponseEntity<String> download( HttpServletRequest request,
             HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId) {
-		System.out.println("Downloading Ticket");
+		logger.info("Downloading Ticket");
 		String filePath;
 		try {
 			logger.info("Generating eTicket for id: "+bookingId);
@@ -221,6 +221,6 @@ public class BookingController {
 			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		logger.info("Returning show booking view.");
-		return new ResponseEntity<String>("Error",HttpStatus.OK);
+		return new ResponseEntity<String>("Error", HttpStatus.OK);
 	}
 }

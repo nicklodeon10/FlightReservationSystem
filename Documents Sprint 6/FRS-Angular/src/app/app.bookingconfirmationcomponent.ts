@@ -14,7 +14,7 @@ export class BookingConfirmationComponent implements OnInit{
     prevBooking:Booking;
     userId:number=1;
 
-    constructor(private router:Router ,private bookingService:BookingService){}
+    constructor(private router:Router, private bookingService:BookingService){}
 
     ngOnInit(){
         this.bookingService.getPreviousBooking(this.userId).subscribe((data:Booking)=>this.prevBooking=data);

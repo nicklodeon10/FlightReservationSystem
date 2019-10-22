@@ -54,8 +54,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="displayFlag" class="found-flights">
-            <h3>Available Flights:</h3>
+        <div class="found-flights">
+            <h3 *ngIf="displayFlightsFlag" >Available Flights:</h3>
             <div class="row" style="margin-top: 50px;">
                 <div *ngFor="let scheduledFlight of scheduledFlights" class="col-md-6 card flight-card">
                     Flight Number: {{scheduledFlight.scheduleFlightId}} <br>

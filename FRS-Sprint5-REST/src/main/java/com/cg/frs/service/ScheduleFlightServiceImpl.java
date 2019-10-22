@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Schedule;
@@ -33,7 +32,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	@Autowired
 	BookingService bookingService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightService.class);
 
 	/*
 	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 add a

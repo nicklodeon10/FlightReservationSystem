@@ -5,7 +5,7 @@ import { AirportService } from './_service/app.airportservice';
 
 @Component({
     selector: 'home',
-    templateUrl: 'app.home.html',
+    templateUrl: '/_pages/app.home.html',
     styleUrls: ['../assets/css/home.css']
 })
 export class HomeComponent implements OnInit{
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit{
     }
 
     findFlights(){
-        this.router.navigate(['/availableflights', this.src, this.dest, this.journeyDate]);
+        this.router.navigate(['/booking/availableflights', this.src, this.dest, this.journeyDate]);
     }
 
     airportCheck(){

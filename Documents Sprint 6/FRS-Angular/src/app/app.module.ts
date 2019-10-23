@@ -17,18 +17,41 @@ import { AuthGuardService } from '../app/_service/app.authguardservice';
 import { UserPanelComponent } from './app.userpanelcomponent';
 import { HeaderComponent } from './app.headercomponent';
 import { FooterComponent } from './app.footercomponent';
+import { AdminPageComponent } from 'src/app/app.adminpagecomponent';
+import { ExcelUploadComponent } from './app.exceluploadcomponent';
+import { SearchComponent } from './app.searchcomponent';
+import { ModifyComponent } from './app.modifycomponent';
+import { ShowComponent } from './app.showcomponent';
+import { AddComponent } from "./app.addcomponent";
+import { AddScheduleFlightComponent } from './app.addscheduleflightcomponent';
+import { ShowScheduleFlightComponent } from './app.showscheduleflightcomponent';
+import { SearchScheduleFlightComponent } from './app.searchscheduleflightcomponent';
+import { NotAuthorizedComponent } from './app.notauthorizedcomponent';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ErrorComponent } from './app.errorcomponent';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'availableflights/:src/:dest/:doj', component: AvailableFlightComponent},
-    {path: 'availableflights', component: AvailableFlightComponent, canActivate:[AuthGuardService]},
-    {path: 'enterdetails/:flightId', component: BookingDetailComponent},
-    {path: 'bookingconfirmation', component: BookingConfirmationComponent},
+    {path: 'booking/availableflights/:src/:dest/:doj', component: AvailableFlightComponent},
+    {path: 'booking/availableflights', component: AvailableFlightComponent, canActivate:[AuthGuardService]},
+    {path: 'booking/enterdetails/:flightId', component: BookingDetailComponent},
+    {path: 'booking/confirmation/:bookingId', component: BookingConfirmationComponent},
     {path: 'showbookings', component: ShowBookingsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'logout', component: LogoutComponent},
-    {path: 'userpanel', component: UserPanelComponent}
+    {path: 'userpanel', component: UserPanelComponent},
+    {path: 'flight/add', component: AddComponent},
+    {path: 'flight/view', component: ShowComponent},
+    {path: 'flight/search', component: SearchComponent},
+    {path: 'flight/modify/:flightNumber', component: ModifyComponent},
+    {path: 'adminpanel', component: AdminPageComponent},
+    {path: 'flight/upload', component: ExcelUploadComponent},
+    {path:'scheduleFlight/add',component:AddScheduleFlightComponent},
+    {path:'scheduleFlight/show',component:ShowScheduleFlightComponent},
+    {path:'scheduleFlight/search',component:SearchScheduleFlightComponent},
+    {path: 'noauth', component: NotAuthorizedComponent},
+    {path: '**', component: ErrorComponent}
 ]
 
 @NgModule({
@@ -37,7 +60,10 @@ const frsRoutes:Routes=[
         HttpClientModule,
         FormsModule,
         RouterModule.forRoot(frsRoutes),
-        NgxPaginationModule    
+        NgxPaginationModule,
+        ConfirmationPopoverModule.forRoot({
+            confirmButtonType: 'danger'
+        })
     ],
     declarations: [
         AppComponent,
@@ -50,7 +76,18 @@ const frsRoutes:Routes=[
         LogoutComponent,
         UserPanelComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        AddComponent,
+        ShowComponent,
+        SearchComponent,
+        ModifyComponent,
+        AdminPageComponent,
+        ExcelUploadComponent,
+        AddScheduleFlightComponent,
+        ShowScheduleFlightComponent,
+        SearchScheduleFlightComponent,
+        NotAuthorizedComponent,
+        ErrorComponent
 		],
     providers: [{
         provide: HTTP_INTERCEPTORS,

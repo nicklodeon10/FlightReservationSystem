@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +51,7 @@ public class ScheduleFlightController {
 		 * Output ScheduleFlight object
 		 */
 		@PostMapping(value = "/add")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		public ResponseEntity<ScheduleFlight> addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
 				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
 				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
@@ -93,6 +95,7 @@ public class ScheduleFlightController {
 		 */
 		
 		@GetMapping(value = "/showdata")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		public ResponseEntity<List<ScheduleFlight>> getScheduleFlights() {							
 
 			List<ScheduleFlight> sFlightList = scheduleFlightService.viewScheduleFlight();
@@ -111,6 +114,7 @@ public class ScheduleFlightController {
 		 * Output ScheduleFlight list
 		 */
 		@GetMapping(value="/search")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		public ResponseEntity<ScheduleFlight> searchScheduleFlight(@RequestParam BigInteger flightId) throws FrsException{					
 			ScheduleFlight searchSFlight=scheduleFlightService.viewScheduleFlights(flightId);
 			
@@ -132,6 +136,7 @@ public class ScheduleFlightController {
 		 */
 		
 		@PutMapping(value="/modify")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		public ResponseEntity<ScheduleFlight> modifyScheduleFlight(@ModelAttribute ScheduleFlight scheduleFlight){			
 			
 			ScheduleFlight modifySFlight=scheduleFlightService.modifyScheduleFlight(scheduleFlight);
@@ -154,6 +159,7 @@ public class ScheduleFlightController {
 		 * Output boolean
 		 */
 		@PostMapping(value="/delete")
+		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 		public boolean deleteScheduleFlight(@RequestParam BigInteger flightId) throws FrsException{					//removing flight
 			
 			boolean deleteSFlight=scheduleFlightService.deleteScheduleFlight(flightId);

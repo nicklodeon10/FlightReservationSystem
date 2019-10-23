@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 body{
+    font-family: 'Montserrat', sans-serif;
     background-image: url('/assets/bg.jpg');
     background-repeat: no-repeat;
     background-size: 100vw 75vh;
+}
+hr{
+    border-color: darkgray;
 }

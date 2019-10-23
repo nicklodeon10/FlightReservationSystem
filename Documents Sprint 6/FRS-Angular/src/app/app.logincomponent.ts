@@ -5,7 +5,7 @@ import { User } from './_model/app.user';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'app.login.html',
+  templateUrl: '/_pages/app.login.html',
   styleUrls: ['../assets/css/login.css']
 })
 export class LoginComponent implements OnInit {
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
     if(this.user.roles==="ROLE_USER"){
       sessionStorage.setItem('role','user');
       sessionStorage.setItem('userId',String(this.user.userId));
-      sessionStorage.setItem('contact',String(this.user.userPhone));
-      console.log(sessionStorage.getItem('contact'));
       this.invalidLogin = false;
       this.router.navigate(["/userpanel"]).then(()=>{
         window.location.reload();
@@ -42,7 +40,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('role','admin');
       sessionStorage.setItem('userId',String(this.user.userId));
       this.invalidLogin = false;
-      this.router.navigate(["/home"]).then(()=>{
+      this.router.navigate(["adminpanel"]).then(()=>{
         window.location.reload();
       }); 
     }

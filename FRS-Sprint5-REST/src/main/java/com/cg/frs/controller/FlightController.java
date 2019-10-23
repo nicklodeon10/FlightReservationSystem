@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +54,7 @@ public class FlightController {
 	 */
 
 	@PostMapping(value = "/flight/add")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<?> addData(@ModelAttribute Flight flight) throws FlightExceptions { // adding the flight
 		
 		logger.info("adding flight");
@@ -74,6 +76,7 @@ public class FlightController {
 	 * -
 	 */
 	@GetMapping(value = "/flight/view")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<?> getAllData() throws FlightExceptions { // showing all the flights
 		logger.info("viewing flight");
 		List<Flight> flightList = flightService.viewAllFlight();
@@ -95,6 +98,7 @@ public class FlightController {
 	 * -
 	 */
 	@GetMapping(value = "/flight/search")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<?> searchData(@RequestParam BigInteger flightId) throws FlightExceptions { // searching flight
 		logger.info("search flight");																						// by Id
 		Flight flightSearched = flightService.searchFlight(flightId);
@@ -118,6 +122,7 @@ public class FlightController {
 	 */
 
 	@PutMapping(value = "/flight/modify")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<Flight> modifyData(@ModelAttribute Flight flight) throws FlightExceptions { // modifying the
 																										// flight
 
@@ -143,10 +148,10 @@ public class FlightController {
 	 * -
 	 */
 	@PostMapping(value = "/flight/delete")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public boolean deleteData(@RequestParam BigInteger flightId) throws FlightExceptions { // removing flight
-logger.info("removing flight");
+		logger.info("removing flight");
 		boolean flightToBeDeleted = flightService.deleteFlight(flightId);
-
 		logger.info("flight removed");
 		return flightToBeDeleted;
 

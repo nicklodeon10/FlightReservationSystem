@@ -1,0 +1,175 @@
+
+<html lang="en">
+    <head>
+      <title>Bootstrap Example</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+<style>
+
+
+
+    .container{
+    
+    
+      width: 500px;
+      height: 300px;
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      transform: translate(-50%, -50%);
+    
+    }
+    
+    </style>
+
+
+
+
+
+    <!-- BODY -->
+   
+
+
+
+    <div class="container ">
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="flight/add" (click)="add()" >Add</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/view" (click)="view()">View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
+      </li>
+      
+    </ul>
+
+  
+
+<!-- Tab panes -->
+
+    <h3 style="text-align: center;">Add Flight</h3>
+
+
+
+      
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded " style="height: 35rem;">
+          <div class = "card-wrapper">
+              <div class="row">
+                <div class="col-md-12 align-self-center" >
+      <div class="card ">
+      
+              <div class="card text-center" >
+              <div class="card-body " style="height: 25rem;">
+                  
+
+      <form (ngSubmit)="addFlight()" #addForm="ngForm">
+     
+               <div class="form-group">
+              
+                <label  for="flightModel">Enter Flight Model:</label>
+                 <input type="text" class="form-control" name= "flightModel" [(ngModel)]= model.flightModel #flightModel=ngModel size="10" pattern="[A-Z0-9]+$" placeholder="Enter Flight Model" required >
+                <span *ngIf = "flightModel.touched && flightModel.invalid &&
+                (flightModel.errors.required || flightModel.errors.pattern)" class="alert-danger">
+                  Enter Valid Model with Alphanumeric Code
+                </span>
+              </div>
+
+              <div class="form-group">
+                
+                    <label for="carrierName">Enter Carrier Name:</label>
+                     <input type="text" class="form-control" name= "carrierName" [(ngModel)]= model.carrierName #carrierName=ngModel size="4" pattern="[A-Z]+$" placeholder="Enter Carrier Name" required >
+                    <span *ngIf = "carrierName.touched && carrierName.invalid &&
+                    (carrierName.errors.required || carrierName.errors.pattern)" class="alert-danger">
+                      Enter Valid Carrier Name with All Capitals
+                    </span>
+
+                  </div>
+
+                    <div class="form-group">
+                        <label for="seatCapacity">Enter Seat Capacity:</label>
+                         <input type="number" class="form-control" name= "seatCapacity" [(ngModel)]= model.seatCapacity #seatCapacity=ngModel  placeholder="Enter Seat Capacity" required >
+                        <span *ngIf = "seatCapacity.touched && seatCapacity.invalid &&
+                        (seatCapacity.errors.required || seatCapacity.errors.pattern)" class="alert-danger">
+                          Enter Valid Seat Capacity
+                        </span>
+                      </div>
+            <!-- <tr>
+                <td>Carrier Name:</td>
+                <td>
+                    <input type="text" [(ngModel)]="model.carrierName" />
+                </td>
+            </tr>
+            <tr>
+                <td>Seat Capacity:</td>
+                <td>
+                    <input type="number" [(ngModel)]="model.seatCapacity" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Add Flight" (click)="addFlight()" />
+                </td>
+            </tr> -->
+
+            <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Add</button>
+
+       
+      </form>
+    </div>
+              </div>
+      
+                </div>
+                </div>
+                </div>
+                </div>
+              </div>
+            </div>
+   
+    <!-- BODY -->
+
+  </body>
+  </html>
+
+ 
+      
+          <!-- <H1 >Add Flight</H1>
+          <table>
+    
+            <tr>
+                <td>Flight Model:</td>
+                <td>
+                    <input type="text" [(ngModel)]="model.flightModel" />
+                </td>
+            </tr>
+            <tr>
+                <td>Carrier Name:</td>
+                <td>
+                    <input type="text" [(ngModel)]="model.carrierName" />
+                </td>
+            </tr>
+            <tr>
+                <td>Seat Capacity:</td>
+                <td>
+                    <input type="number" [(ngModel)]="model.seatCapacity" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Add Flight" (click)="addFlight()" />
+                </td>
+            </tr>
+        </table> -->
+       
+            
+
+
+

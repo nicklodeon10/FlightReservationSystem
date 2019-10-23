@@ -1,7 +1,8 @@
 export class Flight{
-    flightNumber:number;
-    flightModel:string;
-    carrierName:string;
-    seatCapacity:number;
-    flightState:boolean;
-}
+
+    'flightNumber':number;
+    'flightModel':string;
+    'carrierName':string;
+    'seatCapacity':number;
+    
+    }

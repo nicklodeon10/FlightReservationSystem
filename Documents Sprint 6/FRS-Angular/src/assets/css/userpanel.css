@@ -1,6 +1,6 @@
 .wrapper{
     min-height: 90vh;
-    padding-top: 30vh;
+    margin-top: 100px;
 }
 
 a {
@@ -10,11 +10,12 @@ a {
 .card {
     width: 100%;
     border-radius: 0%;
-    padding-bottom: 20px;
+    height: 400px;
     text-align: center;
 }
 
 .title{
     text-align: center;
     color: white;
+    margin-bottom: 50px;
 }

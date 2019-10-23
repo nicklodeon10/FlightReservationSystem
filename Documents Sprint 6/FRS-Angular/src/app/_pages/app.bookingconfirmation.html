@@ -24,7 +24,6 @@
                     Age: {{passenger.passengerAge}}<br>
                     ID: {{passenger.passengerUIN}}<br> 
                 </div>                   
-                <br><strong>Contact Number:</strong> <br>
                 <div *ngIf="prevBooking.bookingState" class="row">
                     <div class="col-md-2 offset-md-7">
                         <button type="button" class="cncBtn btn btn-danger" (click)="cancelTicket(prevBooking.bookingId)">Cancel Ticket</button>

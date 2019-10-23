@@ -9,6 +9,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li *ngIf="buttonFlag" class="nav-item" style="margin-right: 30px; margin-top: 8px; color: white;">
+                  <em>Welcome {{username}}</em>
+            </li>
+            <li *ngIf="user" class="nav-item">
+                <button class="btn btn-info">
+                    <a href="userpanel">User Home</a>
+                </button>
+            </li> 
+            <li *ngIf="admin" class="nav-item">
+                <button class="btn btn-info">
+                    <a href="adminpanel">User Home</a>
+                </button>
+            </li>               
             <li *ngIf="!buttonFlag" class="nav-item">
                 <button class="btn btn-success">
                     <a href="login">LOG IN</a>

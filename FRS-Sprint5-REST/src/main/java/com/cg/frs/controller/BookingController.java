@@ -135,6 +135,7 @@ public class BookingController {
 	}
 
 	@GetMapping("/getall")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<List<Booking>> getBookings() {
 		List<Booking> bookingList;
 		try {
@@ -191,7 +192,18 @@ public class BookingController {
 		}
 	}
 	
+	@GetMapping("getbyid")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
+	public ResponseEntity<Booking> getBookingById(@RequestParam("bookingId")BigInteger bookingId){
+		try {
+			return new ResponseEntity<Booking>(bookingService.viewBooking(bookingId), HttpStatus.OK);
+		} catch (InvalidBookingException e) {
+			return new ResponseEntity("Booking not found.", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@GetMapping("download")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<String> download( HttpServletRequest request,
             HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId) {
 		logger.info("Downloading Ticket");

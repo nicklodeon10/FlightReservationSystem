@@ -1,4 +1,5 @@
-    <!-- BODY -->
+ 
+ <!-- BODY -->
     <div class="wrapper">
         <div class="card shadow-lg p-3 mb-5 bg-white rounded">
             <div class="card-body">
@@ -41,52 +42,43 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <input class="dateselect" min="{{minDate | date: 'yyyy-MM-dd'}}" max="{{maxDate | date: 'yyyy-MM-dd'}}" type="date" [(ngModel)]="journeyDate" />
+                                    <input (blur)="enableButton()" class="dateselect" type="date" min="{{minDate | date: 'yyyy-MM-dd'}}" max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="journeyDate" />
                                 </div>  
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row" *ngIf="errorFlag">
-                    <small class="errorMessage">Source and Destination cannot be the same.</small>
-                </div>
+                        <small class="errorMessage">Source and Destination cannot be the same.</small>
+                    </div>
                 <div class="row" style="margin-top: 30px;">
                     <div class="col-md-3 offset-md-9">
-                        <button type="button" class="findBtn btn btn-success" (click)="findFlights()" >FIND FLIGHTS</button>
+                        <button [disabled]="buttonFlag" type="button" class="findBtn btn btn-success" (click)="findFlights()" >FIND FLIGHTS</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card offer-card shadow-lg p-3 mb-5 bg-white rounded">
-            <div class="card-body">
-                <h3 class="card-title">Check out the Best Offers Available</h3>
-                <div class="row">
-                    <div class="col-md-3" style="padding: 5px;">
-                        <img src="assets/offers.jpg"  height=200px>
-                    </div>
-                    <div class="col-md-3" style="padding: 5px;">
-                            <img src="assets/offers.jpg" height=200px>
-                    </div>
-                    <div class="col-md-3" style="padding: 5px;">
-                            <img src="assets/offers.jpg" height=200px>
-                    </div>
-                    <div class="col-md-3" style="padding: 5px;">
-                            <img src="assets/offers.jpg" height=200px>
+        <div class="found-flights" *ngIf="displayFlag">
+            <h3>Available Flights:</h3>
+            <div class="row" style="margin-top: 50px;">
+                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 2, currentPage: p }" class="col-md-6 card flight-card shadow-lg p-3 mb-5 bg-white rounded">
+                    Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
+                    Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
+                    Flight Model: {{scheduledFlight.flight.flightModel}}<br>
+                    Departure: {{scheduledFlight.schedule.departureDateTime}}<br>
+                    Arrival: {{scheduledFlight.schedule.arrivalDateTime}}<br>
+                    Cost/Seat: {{scheduledFlight.ticketCost}}<br>
+                    Available Seats: {{scheduledFlight.availableSeats}}<br>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-8">
+                            <button type="button" class="bookBtn btn btn-success" (click)="enterDetails(scheduledFlight.scheduleFlightId)">BOOK NOW</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bottom-text">
-            <hr>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-            when an unknown printer took a galley of type and scrambled it to make a type 
-            specimen book. It has survived not only five centuries, but also the leap into 
-            electronic typesetting, remaining essentially unchanged.<br>
-            <button type="button" class="btn btn-primary signUpBtn">SIGN UP</button>
+            <div class="row">
+                <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+            </div>
         </div>
     </div>
     <!-- BODY -->
-    <script>
-    
-    </script>

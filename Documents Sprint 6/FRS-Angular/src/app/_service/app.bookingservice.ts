@@ -39,8 +39,8 @@ export class BookingService{
         return this.httpClient.delete("http://localhost:9088/booking/cancel?bookingId="+bookingId);
     }
 
-    getPreviousBooking(userId:number){
-        return this.httpClient.get("http://localhost:9088/booking/getprev?userId="+userId);
+    getPreviousBooking(bookingId:number){
+        return this.httpClient.get("http://localhost:9088/booking/getbyid?bookingId="+bookingId);
     }
 
 }

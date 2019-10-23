@@ -1,0 +1,28 @@
+<br>
+    <h3>Add ScheduleFlight  </h3>
+<br>
+    <div class="container">
+      <form>
+        <label>ScheduleFlightId :</label>
+        <input [(ngModel)]="scheduleFlight.scheduleFlightId" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="scheduleFlightId" placeholder="...">
+        <br>
+        <label>Source Airport :</label>
+        <input  #a  type="text" class="form-control col-md-5"  placeholder="...">
+        <br>
+        <label>Destination Airport :</label>
+        <input  #b  type="text" class="form-control col-md-5"  placeholder="...">
+        <br>
+        <label>Departure Time :</label>
+        <input  #c  type="datetime-local" class="form-control col-md-5"  placeholder="..."  required>
+        <br>
+        <label>Arrival Time :</label>
+        <input  #d  type="datetime-local" class="form-control col-md-5"  placeholder="..."  required>
+        <br>
+        <label>Ticket Cost :</label>
+        <input [(ngModel)]="scheduleFlight.ticketCost" [ngModelOptions]="{standalone: true}" type="number" class="form-control col-md-5" id="ticketCost" placeholder="...">
+        <br>
+        
+        <div class="col-md-3 offset-md-9">
+                <button type="button" class="confBtn btn btn-success" (click)="addScheduleFlight(scheduleFlight,a.value,b.value,c.value,d.value)">ADD SCHEDULE FLIGHTS</button>
+            </div></form>
+            </div>

@@ -1,0 +1,40 @@
+<br>
+    <h3>Look for ScheduleFlight</h3><br>
+    <!--<table class="table table-hover">
+               
+    <tr>
+            <td width="15%"><label for="scheduleFlightId">Enter ScheduleFlight Id:</label></td>
+            <td> <input type="text" name= "scheduleFlightId" [(ngModel)]= scheduleFlightId #scheduleFlightId=ngModel size="4" pattern="[0-9]" placeholder="..." required >
+            <span *ngIf = "scheduleFlightId.touched && scheduleFlightId.invalid &&
+            (scheduleFlightId.errors.required || scheduleFlightId.errors.pattern)" class="alert-warning">
+              Enter Valid 3 digit Id
+            </span></td></tr>-->
+
+    
+    <table>
+        <tr>Enter Schedule Flight Id:  
+            <td><input type="number"  [(ngModel)]="scheduleFlightId" required/></td>
+
+            <td><input type="button" value="Search" (click)="searchScheduleFlight(scheduleFlightId); show=true"/></td>
+        </tr>
+    </table>
+    <table border="1" *ngIf="show">
+        <tr>
+            <th>Schedule Flight Number</th>
+            <th>Source Airport</th>
+            <th>Destination Airport</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Ticket Cost</th>
+        </tr>
+        <tr>
+            <td>{{scheduleFlight.scheduleFlightId}}</td>
+            <td>{{scheduleFlight.schedule.sourceAirport.airportLocation}}</td>
+            <td>{{scheduleFlight.schedule.destinationAirport.airportLocation}}</td>
+            <td>{{scheduleFlight.schedule.departureDateTime}}</td>
+            <td>{{scheduleFlight.schedule.arrivalDateTime}}</td>
+            <td>{{scheduleFlight.ticketCost}}</td>
+            
+            
+        </tr>
+    </table>

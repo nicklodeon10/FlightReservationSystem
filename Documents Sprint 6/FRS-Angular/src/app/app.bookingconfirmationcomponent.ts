@@ -1,24 +1,29 @@
 import {Component, OnInit} from '@angular/core';
 import { BookingService } from './_service/app.bookingservice';
 import { Booking } from './_model/app.booking';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'confirmation',
-    templateUrl: 'app.bookingconfirmation.html',
+    templateUrl: '/_pages/app.bookingconfirmation.html',
     styleUrls: ['../assets/css/bookingconfirmation.css']
 })
 
 export class BookingConfirmationComponent implements OnInit{
 
     prevBooking:Booking;
+    prevBookingId:number;
     userId:number=1;
 
-    constructor(private router:Router, private bookingService:BookingService){}
+    constructor(private route:ActivatedRoute, private router:Router, private bookingService:BookingService){}
 
     ngOnInit(){
-        this.bookingService.getPreviousBooking(this.userId).subscribe((data:Booking)=>this.prevBooking=data);
+        if(sessionStorage.getItem('role')==='admin'){
+            this.router.navigate(['noauth']);
+        }
+        this.prevBookingId=+this.route.snapshot.paramMap.get("bookingId");
+        this.bookingService.getPreviousBooking(this.prevBookingId).subscribe((data:Booking)=>this.prevBooking=data);
     }
 
     cancelTicket(bookingId:number){

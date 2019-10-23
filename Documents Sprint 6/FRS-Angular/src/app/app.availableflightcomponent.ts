@@ -7,7 +7,7 @@ import { ScheduleFlight } from './_model/app.scheduleflight';
 
 @Component({
     selector: "availableflight",
-    templateUrl: 'app.availableflight.html',
+    templateUrl: '/_pages/app.availableflight.html',
     styleUrls: ['../assets/css/availflight.css']
 })
 
@@ -27,6 +27,7 @@ export class AvailableFlightComponent implements OnInit{
     maxDate:any;
 
     errorFlag:boolean=false;
+    buttonFlag:boolean=true;
 
     constructor(private route: ActivatedRoute, private router:Router, private airportService:AirportService, private bookingService:BookingService){
         this.minDate=new Date();
@@ -35,6 +36,9 @@ export class AvailableFlightComponent implements OnInit{
     }
 
     ngOnInit(){
+        if(sessionStorage.getItem('role')==='admin'){
+            this.router.navigate(['noauth']);
+        }
         this.src=this.route.snapshot.paramMap.get("src");
         this.dest=this.route.snapshot.paramMap.get("dest");
         this.journeyDate=this.route.snapshot.paramMap.get("doj");
@@ -50,7 +54,7 @@ export class AvailableFlightComponent implements OnInit{
     }
 
     enterDetails(flightId:number){
-        this.router.navigate(['/enterdetails', flightId]);
+        this.router.navigate(['/booking/enterdetails', flightId]);
     }
 
     airportCheck(){
@@ -60,5 +64,9 @@ export class AvailableFlightComponent implements OnInit{
             this.errorFlag=false;
         }
     }
-
+    
+    enableButton(){
+        console.log("enabe00");
+        this.buttonFlag=this.errorFlag;
+    }
 }

@@ -1,0 +1,23 @@
+.wrapper{
+    min-height: 90vh;
+    background-image: url('/assets/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    padding-top: 30vh;
+}
+
+a {
+	color: #212121;
+}
+
+.card {
+    width: 100%;
+    border-radius: 0%;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+    color: white;
+}

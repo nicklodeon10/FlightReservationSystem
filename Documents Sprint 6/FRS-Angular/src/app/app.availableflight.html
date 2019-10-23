@@ -1,6 +1,7 @@
-    <!-- BODY -->
+ 
+ <!-- BODY -->
     <div class="wrapper">
-        <div class="card">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
             <div class="card-body">
                 <h3 class="card-title">Book Domestic and International Flights</h3>
                 <div class="row">
@@ -11,7 +12,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <select class="custom-select" [(ngModel)]="src">
+                                    <select class="custom-select" [(ngModel)]="src" (blur)="airportCheck()">
                                         <option disabled selected>Source</option>
                                         <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
                                     </select>
@@ -26,7 +27,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <select class="custom-select" [(ngModel)]="dest">
+                                    <select class="custom-select" [(ngModel)]="dest" (blur)="airportCheck()">
                                         <option disabled selected>Destination</option>
                                         <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
                                     </select>
@@ -41,12 +42,15 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <input class="dateselect" type="date" [(ngModel)]="journeyDate" />
+                                    <input class="dateselect" type="date" min="{{minDate | date: 'yyyy-MM-dd'}}" max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="journeyDate" />
                                 </div>  
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row" *ngIf="errorFlag">
+                        <small class="errorMessage">Source and Destination cannot be the same.</small>
+                    </div>
                 <div class="row" style="margin-top: 30px;">
                     <div class="col-md-3 offset-md-9">
                         <button type="button" class="findBtn btn btn-success" (click)="findFlights()" >FIND FLIGHTS</button>
@@ -54,10 +58,10 @@
                 </div>
             </div>
         </div>
-        <div class="found-flights">
-            <h3 *ngIf="displayFlag" >Available Flights:</h3>
+        <div class="found-flights" *ngIf="displayFlag">
+            <h3>Available Flights:</h3>
             <div class="row" style="margin-top: 50px;">
-                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 2, currentPage: p }" class="col-md-6 card flight-card">
+                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 2, currentPage: p }" class="col-md-6 card flight-card shadow-lg p-3 mb-5 bg-white rounded">
                     Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
                     Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
                     Flight Model: {{scheduledFlight.flight.flightModel}}<br>

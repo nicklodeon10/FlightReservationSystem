@@ -23,7 +23,16 @@ export class AvailableFlightComponent implements OnInit{
 
     pageconfig: any;
 
-    constructor(private route: ActivatedRoute, private router:Router, private airportService:AirportService, private bookingService:BookingService){ }
+    minDate:any;
+    maxDate:any;
+
+    errorFlag:boolean=false;
+
+    constructor(private route: ActivatedRoute, private router:Router, private airportService:AirportService, private bookingService:BookingService){
+        this.minDate=new Date();
+        this.maxDate=new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth()+2);
+    }
 
     ngOnInit(){
         this.src=this.route.snapshot.paramMap.get("src");
@@ -42,6 +51,14 @@ export class AvailableFlightComponent implements OnInit{
 
     enterDetails(flightId:number){
         this.router.navigate(['/enterdetails', flightId]);
+    }
+
+    airportCheck(){
+        if(this.src===this.dest){
+            this.errorFlag=true;
+        }else{
+            this.errorFlag=false;
+        }
     }
 
 }

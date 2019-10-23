@@ -3,7 +3,7 @@
         <div class="title">
             <h3>Your Bookings:</h3>
         </div>
-        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 2, currentPage: p }" class="card">
+        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 2, currentPage: p }" class="card shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-body">
                     <div *ngIf="booking.bookingState" class="row">
                         <div class="col-md-10">

@@ -71,6 +71,7 @@ public class BookingController {
 
 	// To add a booking
 	@PostMapping("/add")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking,
 			@RequestParam("flightId") BigInteger flightId) {
 		booking.setUserId(BigInteger.valueOf(1L)); // REMOVE AFTER ADDING AUTHENTICATION
@@ -104,6 +105,7 @@ public class BookingController {
 
 	// To retrieve a booking by userId
 	@GetMapping("/getbyuserid")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<List<Booking>> getBookingsByUser(@RequestParam("userId") BigInteger userId) {
 		List<Booking> bookingList;
 		try {
@@ -118,6 +120,7 @@ public class BookingController {
 	}
 	
 	@GetMapping("/getprev")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> getLastBooking(@RequestParam("userId") BigInteger userId){
 		List<Booking> bookingList;
 		try {
@@ -147,6 +150,7 @@ public class BookingController {
 
 	// To cancel a booking
 	@DeleteMapping("/cancel")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Boolean> cancelBooking(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
 			logger.info("Cancelling Booking.");

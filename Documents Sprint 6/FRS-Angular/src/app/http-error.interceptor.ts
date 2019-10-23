@@ -7,13 +7,17 @@ import {HttpEvent,
     } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {retry, catchError} from 'rxjs/operators';
-//import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class HttpErrorInterceptor implements HttpInterceptor{
 
-    //constructor(public snackBar: MatSnackBar){}
-
     intercept(request:HttpRequest<any>, next:HttpHandler):Observable<HttpEvent<any>>{
+        if (sessionStorage.getItem('username') && sessionStorage.getItem('token')) {
+            request = request.clone({
+              setHeaders: {
+                Authorization: sessionStorage.getItem('token')
+              }
+            })
+          }
         return next.handle(request)
         .pipe(
             retry(1),
@@ -28,7 +32,6 @@ export class HttpErrorInterceptor implements HttpInterceptor{
                     }
                 }
                 window.alert(errorMessage);
-                //this.snackBar.open(errorMessage, 'Close');
                 return throwError(errorMessage);
             })
         )

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { BookingService } from './_service/app.bookingservice';
 import { Booking } from './_model/app.booking';
 import {Router} from '@angular/router';
+import { saveAs } from 'file-saver';
 
 @Component({
     selector: 'confirmation',
@@ -26,7 +27,16 @@ export class BookingConfirmationComponent implements OnInit{
     }
 
     downloadTicket(bookingId:number){
-        this.bookingService.downloadTicket(bookingId).subscribe();
+        this.bookingService.downloadTicket(bookingId).subscribe(
+            response => {
+                var blob = new Blob([response], {type: 'application/pdf'});
+                var filename = 'ticket.pdf';
+                saveAs(blob, filename);
+            },
+            error => {
+                console.error(`Error: ${error.message}`);
+            }
+        );
     }
 
 }

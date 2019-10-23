@@ -73,8 +73,8 @@ public class BookingController {
 	@PostMapping("/add")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking,
-			@RequestParam("flightId") BigInteger flightId) {
-		booking.setUserId(BigInteger.valueOf(1L)); // REMOVE AFTER ADDING AUTHENTICATION
+			@RequestParam("flightId") BigInteger flightId, @RequestParam("userId")BigInteger userId) {
+		booking.setUserId(userId); 	
 		booking.setPassengerCount(booking.getPassengerList().size());
 		for (Passenger passenger : booking.getPassengerList())passenger.setPassengerState(true);
 		booking.setBookingDate(LocalDateTime.now());
@@ -164,7 +164,6 @@ public class BookingController {
 	}
 
 	@GetMapping("/find")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<List<ScheduleFlight>> flightSearch(@RequestParam("source_airport") String srcCode,
 			@RequestParam("destination_airport") String destCode, @RequestParam("journey_date") String doj) {
 		logger.info("Preparing Flight Search Parameters.");

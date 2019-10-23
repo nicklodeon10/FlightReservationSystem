@@ -10,6 +10,7 @@ a:hover{
 
 .navbar-brand{
     font-weight: 700;
+    color: black;
 }
 .logInBtn{
     font-weight: 700;
@@ -23,4 +24,7 @@ a:hover{
 .btn{
     border-radius: 0;
     margin-right: 20px;
+}
+.navbar{
+    background-image: linear-gradient(15deg, #00000025 0%, #00000025 100%);
 }

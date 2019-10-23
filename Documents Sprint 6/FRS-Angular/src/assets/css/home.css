@@ -1,8 +1,5 @@
 .wrapper{
     min-height: 90vh;
-    background-image: url('/assets/bg.jpg');
-    background-repeat: no-repeat;
-    background-size: 100vw 75vh;
     padding-top: 100px;
 }
 .card{

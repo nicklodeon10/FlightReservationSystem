@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
     if(this.user.roles==="ROLE_USER"){
       sessionStorage.setItem('role','user');
       sessionStorage.setItem('userId',String(this.user.userId));
+      sessionStorage.setItem('contact',String(this.user.userPhone));
+      console.log(sessionStorage.getItem('contact'));
       this.invalidLogin = false;
       this.router.navigate(["/userpanel"]).then(()=>{
         window.location.reload();

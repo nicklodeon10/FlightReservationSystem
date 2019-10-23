@@ -14,7 +14,7 @@ export class BookingService{
         return this.httpClient.get("http://localhost:9088/booking/find?source_airport="+src+"&destination_airport="+dest+"&journey_date="+date);
     }
 
-    addBooking(passengerList:Passenger[], flightId:any){
+    addBooking(passengerList:Passenger[], flightId:any, userId:any){
         let form=new FormData();
         //form.append("prodId", data.prodId);
         for(let i=0; i<passengerList.length; i++){
@@ -22,7 +22,7 @@ export class BookingService{
             form.append("passengerList["+i+"].passengerAge", String(passengerList[i].passengerAge));
             form.append("passengerList["+i+"].passengerUIN", String(passengerList[i].passengerUIN));
         }
-        return this.httpClient.post("http://localhost:9088/booking/add/?flightId="+flightId, form);
+        return this.httpClient.post("http://localhost:9088/booking/add/?flightId="+flightId+"&userId="+userId, form);
     }
 
     getBookingsByUser(userId:number){

@@ -15,10 +15,13 @@ export class BookingDetailComponent implements OnInit{
     booking:Booking={bookingId:null, bookingDate:null, bookingState:null, passengerCount:null, userId:null, ticketCost:null, scheduleFlight:null, passengerList:null};
     passengerList:Passenger[]=[{pnrNumber: null, passengerName:"", passengerAge:null, passengerUIN:null, passengerState:true}];
     passengerCount:number=1;
+    address:string;
+    contact:number;
 
     constructor(private route: ActivatedRoute, private router:Router, private bookingService:BookingService){}
 
     ngOnInit(){
+        this.contact=+sessionStorage.getItem(sessionStorage.getItem('contact'));
         this.flightId=+this.route.snapshot.paramMap.get("flightId");
     }
 
@@ -38,8 +41,12 @@ export class BookingDetailComponent implements OnInit{
 
     addBooking(){
         this.booking.passengerList=this.passengerList;
-        this.bookingService.addBooking(this.passengerList, this.flightId).subscribe();
+        this.bookingService.addBooking(this.passengerList, this.flightId, sessionStorage.getItem('userId')).subscribe();
         this.router.navigate(['bookingconfirmation']);
+    }
+
+    validate(){
+
     }
 
 }

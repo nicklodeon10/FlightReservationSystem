@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit{
 
     ngOnInit(){
         this.buttonFlag=this.authenticationService.isUserLoggedIn();
+        console.log(sessionStorage.getItem('token'));
     }
 
 }

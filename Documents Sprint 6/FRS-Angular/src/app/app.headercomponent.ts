@@ -25,7 +25,8 @@ export class HeaderComponent implements OnInit{
         }
         this.buttonFlag=this.authenticationService.isUserLoggedIn();
         this.username=sessionStorage.getItem('username');
-        this.username=this.username.toUpperCase();
+        if(this.username!=null)
+            this.username=this.username.toUpperCase();
     }
 
 }

@@ -29,6 +29,7 @@ import { SearchScheduleFlightComponent } from './app.searchscheduleflightcompone
 import { NotAuthorizedComponent } from './app.notauthorizedcomponent';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ErrorComponent } from './app.errorcomponent';
+import { SignUpComponent } from './app.signupcomponent';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -39,6 +40,7 @@ const frsRoutes:Routes=[
     {path: 'booking/confirmation/:bookingId', component: BookingConfirmationComponent},
     {path: 'showbookings', component: ShowBookingsComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'signup', component: SignUpComponent},
     {path: 'logout', component: LogoutComponent},
     {path: 'userpanel', component: UserPanelComponent},
     {path: 'flight/add', component: AddComponent},
@@ -87,7 +89,8 @@ const frsRoutes:Routes=[
         ShowScheduleFlightComponent,
         SearchScheduleFlightComponent,
         NotAuthorizedComponent,
-        ErrorComponent
+        ErrorComponent,
+        SignUpComponent
 		],
     providers: [{
         provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,27 @@
+<div class="wrapper">
+        <div class="row">
+            <div class="card col-md-4 offset-md-4 shadow-lg p-3 mb-5 bg-white">
+                <h3 style="margin-top: 20px;">Sign Up</h3>
+                <small>With a FRS account you can make bookings and manage
+                    them quickly and easily.
+                </small>
+                <div class="row">
+                    User Name : <input class="form-control" type="text" name="username" [(ngModel)]="user.userName">
+                </div>
+                <div class="row">
+                    Password : <input class="form-control" type="password" name="password" [(ngModel)]="user.userPassword">
+                </div>
+                <div class="row">
+                        Phone No : <input class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
+                </div>
+                <div class="row">
+                    Email : <input class="form-control" type="email" name="email" [(ngModel)]="user.email">
+                </div>
+                <div class="row">
+                    <button class="regBtn btn btn-success">
+                        Register
+                      </button>
+                </div>
+            </div>
+        </div>
+      </div>

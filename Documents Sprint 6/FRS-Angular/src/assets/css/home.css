@@ -42,3 +42,13 @@
     color: red;
     margin-left: 20px;
 }
+
+a {
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+}
+
+a:hover{
+    text-decoration: none;
+}

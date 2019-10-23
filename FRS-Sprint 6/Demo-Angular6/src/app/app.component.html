@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FRS Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+    .navbar-brand{
+        font-weight: 700;
+    }
+    .logInBtn{
+        font-weight: 700;
+        margin-right: 15px;
+        border-radius: 0;
+    }
+    #navbarSupportedContent{
+        position: absolute;
+        right: 0;
+    }
+    #aboutus{
+        position: absolute;
+        right: 100px;
+    }
+    .wrapper{
+        min-height: 90vh;
+        background-image: url('bg.jpg');
+        background-repeat: no-repeat;
+        background-size: 100vw 75vh;
+        padding-top: 150px;
+    }
+    .card{
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 0%;
+        width: 80vw;
+        padding: 20px;
+    }
+    .card-title{
+        margin-bottom: 20px;
+    }
+    .findBtn{
+        width: 100%;
+        height: 50px;
+        border-radius: 0;
+    }
+    .custom-select{
+        border-radius: 0;
+        border-width: 2px;
+    }
+    .offer-card{
+        margin-top: 75px;
+        margin-bottom: 75px;
+    }
+    .bottom-text{
+        margin-bottom: 75px;
+        padding-left: 200px;
+        padding-right: 200px;
+        text-align: center;
+    }
+    hr{
+        border-color: black;
+    }
+    .signUpBtn{
+        margin-top: 25px;
+        height: 50px;
+        width: 150px;
+        border-radius: 0;  
+    }
+    .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+    }
+
+
+
+</style>
+
+</head>
+<body>
+
+    <!-- HEADER -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+        <a class="navbar-brand" href="#">
+                <i class="material-icons">flight_takeoff</i>
+            Flight Reservation System
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <button type="button" class="btn btn-info logInBtn">LOG IN</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- HEADER -->
+
+    <!-- BODY -->
+    <!--<div class="card">
+  <div class="card-body">
+   
+<h3 class="card-title"></h3>-->
+
+<!-- <button type="button" value="Add A Flight" (click)="addFlight()"></button> -->
+
+<!-- <a routerLink="flight/add" routerLinkActive="active">Add A Flight</a> -->
+
+<!--<a routerLink="scheduleFlight/add" routerLinkActive="active-link">Add       </a>  
+   <a routerLink="scheduleFlight/show" routerLinkActive="active-link">View        </a>  
+   <a routerLink="scheduleFlight/search" routerLinkActive="active-link">Search        </a>-->
+   <!--<a routerLink="flight/modify" routerLinkActive="active-link">Modify        </a> -->
+
+ <!--</div>
+</div>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ScheduleFlight</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="scheduleFlight/add">Add</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="scheduleFlight/show">View</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="scheduleFlight/search">Search</a>
+        </li>
+      </ul>
+ 
+    <!-- BODY -->
+
+    <!-- FOOTER -->
+        <footer class="footer mt-auto py-3" style="background-color: black;">
+            <div class="container">
+              <span class="text-muted">Flight Reservation System 2019</span>
+              <a href="#" id="aboutus">About Us</a>
+            </div>
+          </footer>
+    <!-- FOOTER -->
+
+    <script>
+    </script>
+
+</body>
+</html>
+
+<router-outlet></router-outlet>
+
+
+

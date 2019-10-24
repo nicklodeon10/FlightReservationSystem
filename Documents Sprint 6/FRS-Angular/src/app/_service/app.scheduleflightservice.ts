@@ -42,10 +42,10 @@ export class ScheduleFlightService{
     }
     searchScheduleFlight(scheduleFlightId:number){
         
-        return this.myhttp.get("http://localhost:9088/scheduleFlight/search?scheduleFlightId="+scheduleFlightId);
+        return this.myhttp.get("http://localhost:9088/scheduleFlight/search?flightId="+scheduleFlightId);
     }
 
     removeScheduleFlight(scheduleFlightId:number){
-       return this.myhttp.delete("http://localhost:9088/scheduleFlight/delete?scheduleFlightId="+scheduleFlightId);
+       return this.myhttp.delete("http://localhost:9088/scheduleFlight/delete?flightId="+scheduleFlightId);
     }
 }

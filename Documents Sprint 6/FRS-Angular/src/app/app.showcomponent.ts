@@ -4,8 +4,8 @@ import {Router} from '@angular/router';
 import { Flight } from 'src/app/_model/app.flight';
 import { FlightService } from 'src/app/_service/app.flightservice';
 
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Navya
+//Description: view the flight details
 //Created On: 21/10/2019
 
 @Component({
@@ -66,10 +66,13 @@ view(){
 
 }
 
-search(){
 
-    this.router.navigate(['/flight/search']);
 
+
+
+upload(){
+
+  this.router.navigate(['/flight/upload']);
 }
 
 

@@ -3,8 +3,8 @@ import {FileUploader} from 'ng2-file-upload';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
  
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Navya
+//Description: uploads to excel flight
 //Created On: 21/10/2019
 
 @Component({
@@ -52,4 +52,32 @@ export class ExcelUploadComponent  {
         // }
       );
     }
+
+
+
+
+
+    add(){
+
+      this.router.navigate(['/flight/add']);
+  
+  }
+  
+  view(){
+  
+      this.router.navigate(['/flight/view']);
+  
+  }
+  
+  search(){
+  
+      this.router.navigate(['/flight/search']);
+  
+  }
+
+  upload(){
+
+    this.router.navigate(['/flight/upload']);
+  }
+
   }

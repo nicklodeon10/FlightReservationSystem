@@ -7,8 +7,8 @@ import { Schedule } from "./_model/app.schedule";
 import { AirportService } from './_service/app.airportservice';
 import { Airport } from "./_model/app.airport";*/
 
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Surya
+//Description: Component for searching a schedule flight(without validation)
 //Created On: 21/10/2019
 
 
@@ -38,6 +38,8 @@ export class SearchScheduleFlightComponent implements OnInit {
     constructor(private router:Router ,private service:ScheduleFlightService){
 
     }
+
+    //service method call
     searchScheduleFlight(scheduleFlightId:number):any{
         this.show=true;
         console.log(scheduleFlightId);

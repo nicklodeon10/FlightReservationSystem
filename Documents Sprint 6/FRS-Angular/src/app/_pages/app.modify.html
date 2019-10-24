@@ -26,10 +26,15 @@
           transform: translate(-50%, -50%);
         
         }
+
+        .wrapper{
+    min-height: 90vh;
+    padding-top: 75px;
+}
         
         </style>
     
-
+<div class="wrapper">
 
  <div class="container">
 
@@ -43,7 +48,9 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="flight/search">Search</a>
       </li>
-      
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
+      </li>
     </ul>
 
     
@@ -130,6 +137,6 @@
 
         </div></div></div></div></div></div></div></div>
     
-        
+        </div>
     
   

@@ -3,8 +3,8 @@ import { Flight } from 'src/app/_model/app.flight';
 import { FlightService } from 'src/app/_service/app.flightservice';
 import { Router } from '@angular/router';
 
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Navya
+//Description: searches flight by it's id
 //Created On: 21/10/2019
 
 @Component({

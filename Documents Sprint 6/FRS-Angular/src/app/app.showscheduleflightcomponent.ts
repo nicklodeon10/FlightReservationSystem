@@ -5,8 +5,8 @@ import {ScheduleFlight} from './_model/app.scheduleflight';
 import {Router} from '@angular/router';
 //import { routerNgProbeToken } from '@angular/router/src/router_module';
 
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Surya
+//Description: Component for viewing and removing schedule flights
 //Created On: 21/10/2019
 
 @Component({
@@ -22,6 +22,8 @@ export class ShowScheduleFlightComponent implements OnInit{
     constructor(private service:ScheduleFlightService,private router:Router){
         //console.log("NIn gghc in constructor")
        }
+
+       //service method call for viewing
     ngOnInit() {
         if(sessionStorage.getItem('role')==='user'){
             this.router.navigate(['noauth']);
@@ -35,9 +37,11 @@ export class ShowScheduleFlightComponent implements OnInit{
         this.router.navigate(['/scheduleFlight/modify',scheduleFlightId]);
             
     }*/
+
+    //service method call for removing schedule lfights
     removeScheduleFlight(scheduleFlightId:number):any{
-        this.service.removeScheduleFlight(scheduleFlightId).subscribe();
-        location.reload();  
+        this.service.removeScheduleFlight(scheduleFlightId).subscribe(); 
+        location.reload();
     }
    
     

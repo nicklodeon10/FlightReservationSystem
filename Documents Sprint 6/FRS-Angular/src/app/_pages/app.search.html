@@ -29,6 +29,11 @@
         transform: translate(-50%, -50%);
       
       }
+
+      .wrapper{
+    min-height: 90vh;
+    padding-top: 75px;
+}
       
       </style>
 
@@ -41,7 +46,7 @@
    
 
 
-
+<div class="wrapper">
  <div class="container">
 
     <ul class="nav nav-tabs" role="tablist">
@@ -54,7 +59,9 @@
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
       </li>
-      
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
+      </li>
     </ul>
 
     
@@ -123,53 +130,4 @@
             </div></div>
 </div></div>            
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <h1>Search Flight</h1>
-
-<table> 
-
-<tr>
-
-<td>Enter FlightNumber:</td>
-<td><input type="number"  [(ngModel)]="flight.flightNumber"   /></td>
-<td><button type="button" (click)="searchFlight(flight.flightNumber); show=true"></button></td>
-</tr>
-</table>
-
-<table *ngIf="show">
-
-
-    <tr>
-        <th>Flight Id</th>
-        <th>Flight Model</th>
-        <th>Carrier Name</th>
-        <th>Seat Capacity</th>
-    </tr>
-
-    <tr>
-        <td>{{flight.flightNumber}}</td>
-        <td>{{flight.flightModel}}</td>
-        <td>{{flight.carrierName}}</td>
-        <td>{{flight.seatCapacity}}</td>
-        
-    </tr>
-
-
-
-
-
-</table> -->
+</div>

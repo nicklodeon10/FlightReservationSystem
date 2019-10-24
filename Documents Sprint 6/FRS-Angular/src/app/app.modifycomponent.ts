@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FlightService } from 'src/app/_service/app.flightservice';
 import { Flight } from 'src/app/_model/app.flight';
 
-//Author: Devang
-//Description: Component for adding passenger details
+//Author: Navya
+//Description: Updates flight
 //Created On: 21/10/2019
 
 @Component({

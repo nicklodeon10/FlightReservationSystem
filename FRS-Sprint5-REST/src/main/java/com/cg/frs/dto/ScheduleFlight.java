@@ -67,6 +67,14 @@ public class ScheduleFlight {
 	}
 
 	@Override
+	public String toString() {
+		return "ScheduleFlight [scheduleFlightId=" + scheduleFlightId + ", flight=" + flight + ", availableSeats="
+				+ availableSeats + ", schedule=" + schedule + ", ticketCost=" + ticketCost + ", scheduleFlightState="
+				+ scheduleFlightState + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
+				+ ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

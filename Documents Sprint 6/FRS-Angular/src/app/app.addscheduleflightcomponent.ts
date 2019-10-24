@@ -2,9 +2,10 @@ import { Component,OnInit} from '@angular/core';
 import {ScheduleFlightService} from './_service/app.scheduleflightservice';
 import {ScheduleFlight} from './_model/app.scheduleflight';
 import { ActivatedRoute, Router } from "@angular/router";
+import { b } from '@angular/core/src/render3';
 
-//Author: Devang
-//Description: Performs Authentication and user management operations
+//Author: Surya
+//Description: Adds schedule flights from flights
 //Created On: 21/10/2019
 
 @Component({
@@ -34,7 +35,7 @@ export class AddScheduleFlightComponent implements OnInit{
 
    
     
-   
+   //service method call
     addScheduleFlight(scheduleFlight,sa,da,ddt,adt){
         alert(sa+da+ ddt+ adt);
         this.sourceAirport=sa;
@@ -45,7 +46,39 @@ export class AddScheduleFlightComponent implements OnInit{
         //this.service.addScheduleFlight(this.model).subscribe((data)=>this.scheduleFlight=data);
         this.router.navigate(['Adding confirmation']);
         alert("ScheduleFlight Added");
-        location.reload();
+        this.router.navigate(['adminpanel']);
+    }
+
+    buttonFlag:boolean=false;
+    enableButton(){
+        this.buttonFlag=!this.idValid&&!this.airportValid&&!this.costValid;
+    }
+
+    idValid:boolean=false;
+    validateId(){
+        if(this.scheduleFlight.scheduleFlightId>999){
+            this.idValid=true;
+        }else{
+            this.idValid=false;
+        }
+    }
+
+    airportValid:boolean=false;
+    validateAirports(a:string, b:string){
+        if(a===b){
+            this.airportValid=true;
+        }else{
+            this.airportValid=false;
+        }
+    }
+
+    costValid:boolean=false;
+    validateCost(){
+        if(this.scheduleFlight.ticketCost>=20000){
+            this.costValid=true;
+        }else{
+            this.costValid=false;
+        }
     }
     
 }

@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Flight } from 'src/app/_model/app.flight';
 
-//Author: Devang
-//Description: Performs Authentication and user management operations
+//Author: Navya
+//Description: Performs flight service 
 //Created On: 21/10/2019
 
 @Injectable({
@@ -20,31 +20,38 @@ export class FlightService{
 
 
 
+//adding flight data
+    addFlight(data:Flight):Observable<Flight>{
+        console.log(data);
+        let form=new FormData();
+        form.append("flightModel", data.flightModel);
+        form.append("carrierName", data.carrierName);
+        form.append("seatCapacity", String(data.seatCapacity));
 
-    addFlight(data:any):Observable<Flight>{
-
-        return this.myhttp.post<Flight>('http://localhost:9088/flight/add',data);
+        return this.myhttp.post<Flight>('http://localhost:9088/flight/add',form);
         
         }
 
 
-
+// to view flight data
         showFlight(){
 
             return this.myhttp.get('http://localhost:9088/flight/view');
         }
 
-
+// to update flight data
         modifyFlight(data:any){
 
             return this.myhttp.put('http://localhost:9088/flight/modify',data);
         }
 
-        searchFlight(flightNumber:number){
 
-            return this.myhttp.get('http://localhost:9088/flight/search?flightNumber='+flightNumber);
+    // to search flight data
+        searchFlight(fNum:number){
+            return this.myhttp.get('http://localhost:9088/flight/search?flightId='+fNum);
         }
 
+        //to delete flight data
         deleteFlight(flightNumber:number){
 
             return this.myhttp.delete('http://localhost:9088/flight/delete?flightNumber='+flightNumber);

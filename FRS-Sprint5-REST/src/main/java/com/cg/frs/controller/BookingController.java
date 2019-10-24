@@ -71,7 +71,6 @@ public class BookingController {
 
 	// To add a booking
 	@PostMapping("/add")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking,
 			@RequestParam("flightId") BigInteger flightId, @RequestParam("userId") BigInteger userId) {
 		booking.setUserId(userId);
@@ -106,7 +105,6 @@ public class BookingController {
 
 	// To retrieve a booking by userId
 	@GetMapping("/getbyuserid")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<List<Booking>> getBookingsByUser(@RequestParam("userId") BigInteger userId) {
 		List<Booking> bookingList;
 		try {
@@ -122,7 +120,6 @@ public class BookingController {
 
 	//Returns the previous booking
 	@GetMapping("/getprev")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> getLastBooking(@RequestParam("userId") BigInteger userId) {
 		List<Booking> bookingList;
 		try {
@@ -138,7 +135,6 @@ public class BookingController {
 
 	//Retrieves all bookings
 	@GetMapping("/getall")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<List<Booking>> getBookings() {
 		List<Booking> bookingList;
 		try {
@@ -154,7 +150,6 @@ public class BookingController {
 
 	// To cancel a booking
 	@DeleteMapping("/cancel")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Boolean> cancelBooking(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
 			logger.info("Cancelling Booking.");
@@ -198,7 +193,6 @@ public class BookingController {
 
 	//Finds booking by id
 	@GetMapping("getbyid")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> getBookingById(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
 			logger.info("Returning Booking.");
@@ -211,7 +205,6 @@ public class BookingController {
 
 	//Generated ticket pdf and sends it
 	@GetMapping("download")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<String> download(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("booking_id") BigInteger bookingId) {
 		logger.info("Downloading Ticket");

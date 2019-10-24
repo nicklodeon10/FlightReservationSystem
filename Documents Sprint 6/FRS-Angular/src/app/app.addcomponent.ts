@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ɵConsole} from '@angular/core';
 
 
 import { Router } from '@angular/router';
@@ -8,8 +8,8 @@ import { FlightService } from 'src/app/_service/app.flightservice';
 // import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 // import { AbstractControl } from '@angular/forms';
 
-//Author: Devang
-//Description: Performs Authentication and user management operations
+//Author: Navya
+//Description: Adding the flight 
 //Created On: 21/10/2019
 
 @Component({
@@ -23,6 +23,7 @@ export class AddComponent implements OnInit {
       // myForm: FormGroup;
      
     ngOnInit() {
+      
       if(sessionStorage.getItem('role')==='user'){
         this.router.navigate(['noauth']);
       }
@@ -73,6 +74,11 @@ export class AddComponent implements OnInit {
     
         this.router.navigate(['/flight/search']);
     
+    }
+
+    upload(){
+
+      this.router.navigate(['/flight/upload']);
     }
 
 }

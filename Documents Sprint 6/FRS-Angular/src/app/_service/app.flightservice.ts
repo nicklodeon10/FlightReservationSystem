@@ -3,6 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Flight } from 'src/app/_model/app.flight';
 
+//Author: Devang
+//Description: Performs Authentication and user management operations
+//Created On: 21/10/2019
+
 @Injectable({
     providedIn: 'root'
 })

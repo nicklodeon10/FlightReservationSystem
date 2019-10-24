@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { ScheduleFlight } from '../_model/app.scheduleflight';
 
+//Author: Devang
+//Description: Performs Authentication and user management operations
+//Created On: 21/10/2019
 
 @Injectable({
    providedIn:'root' 

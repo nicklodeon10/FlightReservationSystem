@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './_service/app.authenticationservice';
 import { Router } from '@angular/router';
 
+//Author: Devang
+//Description: Component for logout
+//Created On: 21/10/2019
+
 @Component({
   selector: '/_pages/app-logout',
   template: ''

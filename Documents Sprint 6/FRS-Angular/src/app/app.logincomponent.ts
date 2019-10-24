@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from './_service/app.authenticationservice';
 import { User } from './_model/app.user';
 
+//Author: Devang
+//Description: Component for login page
+//Created On: 21/10/2019
+
 @Component({
   selector: 'app-login',
   templateUrl: '/_pages/app.login.html',
@@ -21,6 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  //Checks user authentication
   checkLogin() {
     if (this.loginservice.authenticate(this.username, this.password)) {
       this.loginservice.getRole(this.username).subscribe((data:User)=>{this.user=data; this.redirect();});
@@ -28,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = true
   }
 
+  //redirects according to user role
   redirect(){
     if(this.user.roles==="ROLE_USER"){
       sessionStorage.setItem('role','user');

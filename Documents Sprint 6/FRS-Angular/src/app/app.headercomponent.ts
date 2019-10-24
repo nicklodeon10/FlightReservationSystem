@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { AuthenticationService } from './_service/app.authenticationservice';
 
+//Author: Devang
+//Description: Component for header
+//Created On: 21/10/2019
+
 @Component({
     selector: 'frsheader',
     templateUrl: '/_pages/app.header.html',

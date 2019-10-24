@@ -4,6 +4,10 @@ import { BookingService } from './_service/app.bookingservice';
 import { Booking } from './_model/app.booking';
 import { Passenger } from './_model/app.passenger';
 
+//Author: Devang
+//Description: Component for adding passenger details
+//Created On: 21/10/2019
+
 @Component({
     selector: 'detail',
     templateUrl: '/_pages/app.bookingdetail.html',
@@ -28,6 +32,7 @@ export class BookingDetailComponent implements OnInit{
         this.flightId=+this.route.snapshot.paramMap.get("flightId");
     }
 
+    //Adds a passenger to template
     addPassenger(){
         if(this.passengerCount<=3){
             this.passengerList.push({pnrNumber: null, passengerName:"", passengerAge:null, passengerUIN:null, passengerState:true});
@@ -35,6 +40,7 @@ export class BookingDetailComponent implements OnInit{
         }
     }
 
+    //Removes a passenger from template
     removePassenger(){
         if(this.passengerCount>1){
             this.passengerList.pop();
@@ -42,6 +48,7 @@ export class BookingDetailComponent implements OnInit{
         }
     }
 
+    //Saves the booking
     addBooking(){
         this.booking.passengerList=this.passengerList;
         this.bookingService.addBooking(this.passengerList, this.flightId, sessionStorage.getItem('userId')).subscribe((data:Booking)=>this.booking=data);
@@ -50,6 +57,7 @@ export class BookingDetailComponent implements OnInit{
 
     buttonDisable:boolean=true;
 
+    //Validation
     nameFlag:boolean=true;
     validateName(){
         this.nameFlag=true;
@@ -60,6 +68,7 @@ export class BookingDetailComponent implements OnInit{
         }    
     }
 
+    //Validation
     ageFlag:boolean=true;
     validateAge(){
         this.ageFlag=true;
@@ -73,6 +82,7 @@ export class BookingDetailComponent implements OnInit{
         }  
     }
 
+    //Validation
     uinFlag:boolean=true;
     validateUIN(){
         this.uinFlag=true;
@@ -86,6 +96,7 @@ export class BookingDetailComponent implements OnInit{
         }  
     }
 
+    //Validation
     enableButton(){
         if(this.nameFlag && this.ageFlag && this.uinFlag){
             this.buttonDisable=false;

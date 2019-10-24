@@ -8,6 +8,10 @@ import { FlightService } from 'src/app/_service/app.flightservice';
 // import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 // import { AbstractControl } from '@angular/forms';
 
+//Author: Devang
+//Description: Performs Authentication and user management operations
+//Created On: 21/10/2019
+
 @Component({
     selector: 'add',
   templateUrl: '/_pages/app.add.html'

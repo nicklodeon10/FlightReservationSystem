@@ -4,6 +4,9 @@ import {Router} from '@angular/router';
 import { Flight } from 'src/app/_model/app.flight';
 import { FlightService } from 'src/app/_service/app.flightservice';
 
+//Author: Devang
+//Description: Component for adding passenger details
+//Created On: 21/10/2019
 
 @Component({
     selector: 'show',

@@ -1,6 +1,10 @@
 import {Component , OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
+//Author: Devang
+//Description: Performs Authentication and user management operations
+//Created On: 21/10/2019
+
 @Component({
     selector: 'admin',
     templateUrl: '/_pages/app.adminpage.html'

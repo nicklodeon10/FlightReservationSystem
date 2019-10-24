@@ -5,6 +5,10 @@ import { AirportService } from './_service/app.airportservice';
 import { BookingService } from './_service/app.bookingservice';
 import { ScheduleFlight } from './_model/app.scheduleflight';
 
+//Author: Devang
+//Description: Component for showing available flights for booking to user
+//Created On: 21/10/2019
+
 @Component({
     selector: "availableflight",
     templateUrl: '/_pages/app.availableflight.html',
@@ -48,15 +52,18 @@ export class AvailableFlightComponent implements OnInit{
         this.airportService.getAllAirports().subscribe((data:Airport[])=>this.airports=data);
     }
 
+    //Finds flights to book
     findFlights(){
         this.displayFlag=true;
         this.bookingService.findFlights(this.src, this.dest, this.journeyDate).subscribe((data:ScheduleFlight[])=>this.scheduledFlights=data);
     }
 
+    //Routes to enter details page
     enterDetails(flightId:number){
         this.router.navigate(['/booking/enterdetails', flightId]);
     }
 
+    //Validation
     airportCheck(){
         if(this.src===this.dest){
             this.errorFlag=true;
@@ -65,6 +72,7 @@ export class AvailableFlightComponent implements OnInit{
         }
     }
     
+    //Validation
     enableButton(){
         console.log("enabe00");
         this.buttonFlag=this.errorFlag;

@@ -7,6 +7,10 @@ import { Schedule } from "./_model/app.schedule";
 import { AirportService } from './_service/app.airportservice';
 import { Airport } from "./_model/app.airport";*/
 
+//Author: Devang
+//Description: Component for adding passenger details
+//Created On: 21/10/2019
+
 
 @Component({
     selector:'searchsf',

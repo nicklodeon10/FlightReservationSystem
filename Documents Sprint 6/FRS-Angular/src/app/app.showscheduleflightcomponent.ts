@@ -5,6 +5,9 @@ import {ScheduleFlight} from './_model/app.scheduleflight';
 import {Router} from '@angular/router';
 //import { routerNgProbeToken } from '@angular/router/src/router_module';
 
+//Author: Devang
+//Description: Component for adding passenger details
+//Created On: 21/10/2019
 
 @Component({
     selector:'show',

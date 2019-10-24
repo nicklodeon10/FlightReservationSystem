@@ -4,6 +4,10 @@ import { Booking } from './_model/app.booking';
 import {Router, ActivatedRoute} from '@angular/router';
 import { saveAs } from 'file-saver';
 
+//Author: Devang
+//Description: Confrmation Component for booking
+//Created On: 21/10/2019
+
 @Component({
     selector: 'confirmation',
     templateUrl: '/_pages/app.bookingconfirmation.html',
@@ -26,11 +30,13 @@ export class BookingConfirmationComponent implements OnInit{
         this.bookingService.getPreviousBooking(this.prevBookingId).subscribe((data:Booking)=>this.prevBooking=data);
     }
 
+    //Cancels a ticket
     cancelTicket(bookingId:number){
         this.bookingService.cancelTicket(bookingId).subscribe();
         this.router.navigate(['showbookings']);
     }
 
+    //Downloads a ticket
     downloadTicket(bookingId:number){
         this.bookingService.downloadTicket(bookingId).subscribe(
             response => {

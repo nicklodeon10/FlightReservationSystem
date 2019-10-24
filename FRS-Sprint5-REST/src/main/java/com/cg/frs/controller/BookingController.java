@@ -46,8 +46,8 @@ import com.cg.frs.service.TicketService;
 import com.itextpdf.text.DocumentException;
 
 /**
- * @author DEVANG
- *
+ * @author: DEVANG description: Controller for booking. created date: 09/10/2019
+ *          modified: 23/10/2019
  */
 
 @RestController
@@ -63,7 +63,7 @@ public class BookingController {
 
 	@Autowired
 	ScheduleFlightService scheduleFlightService;
-	
+
 	@Autowired
 	TicketService ticketService;
 
@@ -73,10 +73,11 @@ public class BookingController {
 	@PostMapping("/add")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Booking> addBooking(@ModelAttribute Booking booking,
-			@RequestParam("flightId") BigInteger flightId, @RequestParam("userId")BigInteger userId) {
-		booking.setUserId(userId); 	
+			@RequestParam("flightId") BigInteger flightId, @RequestParam("userId") BigInteger userId) {
+		booking.setUserId(userId);
 		booking.setPassengerCount(booking.getPassengerList().size());
-		for (Passenger passenger : booking.getPassengerList())passenger.setPassengerState(true);
+		for (Passenger passenger : booking.getPassengerList())
+			passenger.setPassengerState(true);
 		booking.setBookingDate(LocalDateTime.now());
 		booking.setBookingState(true);
 		try {
@@ -89,7 +90,7 @@ public class BookingController {
 		}
 		logger.info("Adding Booking.");
 		try {
-			booking = bookingService.addBooking(booking);			
+			booking = bookingService.addBooking(booking);
 		} catch (Exception e) {
 			logger.info("Data Not Added.");
 			return new ResponseEntity("Data not added", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,10 +119,11 @@ public class BookingController {
 		logger.info("Returning Bookings by user: " + userId);
 		return new ResponseEntity<List<Booking>>(bookingList, HttpStatus.OK);
 	}
-	
+
+	//Returns the previous booking
 	@GetMapping("/getprev")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public ResponseEntity<Booking> getLastBooking(@RequestParam("userId") BigInteger userId){
+	public ResponseEntity<Booking> getLastBooking(@RequestParam("userId") BigInteger userId) {
 		List<Booking> bookingList;
 		try {
 			logger.info("Retrieving Bookings.");
@@ -131,9 +133,10 @@ public class BookingController {
 			return new ResponseEntity("No Bookings Found.", HttpStatus.BAD_REQUEST);
 		}
 		logger.info("Retrieving Last Booking");
-		return new ResponseEntity<Booking>(bookingList.get(bookingList.size()-1), HttpStatus.OK);
+		return new ResponseEntity<Booking>(bookingList.get(bookingList.size() - 1), HttpStatus.OK);
 	}
 
+	//Retrieves all bookings
 	@GetMapping("/getall")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<List<Booking>> getBookings() {
@@ -164,6 +167,7 @@ public class BookingController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 
+	//Finds all available flights
 	@GetMapping("/find")
 	public ResponseEntity<List<ScheduleFlight>> flightSearch(@RequestParam("source_airport") String srcCode,
 			@RequestParam("destination_airport") String destCode, @RequestParam("journey_date") String doj) {
@@ -191,51 +195,54 @@ public class BookingController {
 			return new ResponseEntity("No Flights Found.", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	//Finds booking by id
 	@GetMapping("getbyid")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public ResponseEntity<Booking> getBookingById(@RequestParam("bookingId")BigInteger bookingId){
+	public ResponseEntity<Booking> getBookingById(@RequestParam("bookingId") BigInteger bookingId) {
 		try {
+			logger.info("Returning Booking.");
 			return new ResponseEntity<Booking>(bookingService.viewBooking(bookingId), HttpStatus.OK);
 		} catch (InvalidBookingException e) {
+			logger.error("Booking Not Found");
 			return new ResponseEntity("Booking not found.", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
+	//Generated ticket pdf and sends it
 	@GetMapping("download")
 	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public ResponseEntity<String> download( HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("booking_id")BigInteger bookingId) {
+	public ResponseEntity<String> download(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("booking_id") BigInteger bookingId) {
 		logger.info("Downloading Ticket");
 		String filePath;
 		try {
-			logger.info("Generating eTicket for id: "+bookingId);
-			filePath=ticketService.generate(bookingId);
-	        ServletContext context = request.getServletContext();      
-	        File downloadFile = new File(filePath);
-	        FileInputStream inputStream = new FileInputStream(downloadFile);
-	        String mimeType = context.getMimeType(filePath);
-	        if (mimeType == null) {
-	            mimeType = "application/octet-stream";
-	        }
-	        logger.info("MIME type: " + mimeType);
-	        response.setContentType(mimeType);
-	        response.setContentLength((int) downloadFile.length());
-	        String headerKey = "Content-Disposition";
-	        String headerValue = String.format("attachment; filename=\"%s\"",
-	                downloadFile.getName());
-	        response.setHeader(headerKey, headerValue);
-	        OutputStream outStream = response.getOutputStream();
-	        byte[] buffer = new byte[4096];
-	        int bytesRead = -1;
-	        while ((bytesRead = inputStream.read(buffer)) != -1) {
-	            outStream.write(buffer, 0, bytesRead);
-	        }
-	        inputStream.close();
-	        outStream.close();
+			logger.info("Generating eTicket for id: " + bookingId);
+			filePath = ticketService.generate(bookingId);
+			ServletContext context = request.getServletContext();
+			File downloadFile = new File(filePath);
+			FileInputStream inputStream = new FileInputStream(downloadFile);
+			String mimeType = context.getMimeType(filePath);
+			if (mimeType == null) {
+				mimeType = "application/octet-stream";
+			}
+			logger.info("MIME type: " + mimeType);
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+			response.setHeader(headerKey, headerValue);
+			OutputStream outStream = response.getOutputStream();
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				outStream.write(buffer, 0, bytesRead);
+			}
+			inputStream.close();
+			outStream.close();
 		} catch (DocumentException | InvalidBookingException | IOException e) {
 			logger.error("Error Generating Ticket");
-			return new ResponseEntity<String>("Error",HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		logger.info("Returning show booking view.");
 		return new ResponseEntity<String>("Error", HttpStatus.OK);

@@ -3,6 +3,10 @@ import {FileUploader} from 'ng2-file-upload';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
  
+//Author: Devang
+//Description: Component for adding passenger details
+//Created On: 21/10/2019
+
 @Component({
   selector: 'excelupload',
   templateUrl: '/_pages/app.excelupload.html',

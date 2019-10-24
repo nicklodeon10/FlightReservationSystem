@@ -3,6 +3,10 @@ import { User } from './_model/app.user';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './_service/app.authenticationservice';
 
+//Author: Devang
+//Description: Component for adding new user
+//Created On: 21/10/2019
+
 @Component({
     selector: 'signup',
     templateUrl: '/_pages/app.signup.html',
@@ -20,12 +24,14 @@ export class SignUpComponent implements OnInit{
         }
     }
 
+    //Adds a new user
     signUp(){
         console.log(this.user);
         this.loginservice.signUp(this.user).subscribe();
         this.router.navigate(["login"]);
     }
 
+    //Validation
     nameFlag:boolean=false;
     validateName(){
         var flag = /^[a-zA-Z ]+$/.test(this.user.userName);
@@ -36,6 +42,7 @@ export class SignUpComponent implements OnInit{
         }
     }
 
+    //Validation
     phoneFlag:boolean=false;
     validatePhone(){
         let phone=String(this.user.userPhone);
@@ -46,6 +53,7 @@ export class SignUpComponent implements OnInit{
         }
     }
 
+    //Validation
     emailFlag:boolean=false;
     validateEmail(){
         var flag=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email);

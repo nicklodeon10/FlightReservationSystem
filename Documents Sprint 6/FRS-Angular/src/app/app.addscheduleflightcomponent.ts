@@ -3,6 +3,10 @@ import {ScheduleFlightService} from './_service/app.scheduleflightservice';
 import {ScheduleFlight} from './_model/app.scheduleflight';
 import { ActivatedRoute, Router } from "@angular/router";
 
+//Author: Devang
+//Description: Performs Authentication and user management operations
+//Created On: 21/10/2019
+
 @Component({
     selector : 'asf',
     templateUrl : '/_pages/app.addscheduledflight.html'

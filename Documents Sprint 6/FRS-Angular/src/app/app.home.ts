@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import {Airport} from './_model/app.airport'
 import { AirportService } from './_service/app.airportservice';
 
+//Author: Devang
+//Description: Component for Home Page
+//Created On: 21/10/2019
+
 @Component({
     selector: 'home',
     templateUrl: '/_pages/app.home.html',

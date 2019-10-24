@@ -4,6 +4,10 @@ import { BookingService } from './_service/app.bookingservice';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 
+//Author: Devang
+//Description: Component for showing user details
+//Created On: 21/10/2019
+
 @Component({
     selector: 'showbookings',
     templateUrl: '/_pages/app.showbookings.html',
@@ -31,11 +35,13 @@ export class ShowBookingsComponent implements OnInit{
         this.currDate=new Date();
     }
 
+    //Cancels a ticket
     cancelTicket(bookingId:number){
         this.bookingService.cancelTicket(bookingId).subscribe();
         location.reload();
     }
 
+    //Downloads a ticket
     downloadTicket(bookingId:number){
         this.bookingService.downloadTicket(bookingId).subscribe(
             response => {

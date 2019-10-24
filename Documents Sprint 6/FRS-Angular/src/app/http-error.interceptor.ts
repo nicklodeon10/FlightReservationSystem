@@ -8,6 +8,10 @@ import {HttpEvent,
 import {Observable, throwError} from 'rxjs';
 import {retry, catchError} from 'rxjs/operators';
 
+//Author: Devang
+//Description: Error interceptor and to add tokens to requests
+//Created On: 21/10/2019
+
 export class HttpErrorInterceptor implements HttpInterceptor{
 
     intercept(request:HttpRequest<any>, next:HttpHandler):Observable<HttpEvent<any>>{

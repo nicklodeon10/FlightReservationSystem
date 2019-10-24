@@ -56,6 +56,13 @@ public class AuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
+	@PostMapping("/signup")
+	public ResponseEntity<User> registerUser(@RequestBody User user){
+		user.setActive(true);
+		user.setRoles("ROLE_USER");
+		return new ResponseEntity<User>(userService.addUser(user), HttpStatus.OK);
+	}
+	
 	@GetMapping("/getRole")
 	public ResponseEntity<User> getRole(@RequestParam("username") String username){
 		try {

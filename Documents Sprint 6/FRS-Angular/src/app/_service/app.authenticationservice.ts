@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../_model/app.user';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class AuthenticationService {
 
   getRole(username:String){
     return this.httpClient.get('http://localhost:9088/getRole?username='+username);
+  }
+
+  signUp(user:User){
+    return this.httpClient.post('http://localhost:9088/signup',user);
   }
 
 }

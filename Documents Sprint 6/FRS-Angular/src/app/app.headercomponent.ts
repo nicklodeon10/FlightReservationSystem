@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit{
         if(sessionStorage.getItem('role')==='user'){
             this.user=true;
         }else if(sessionStorage.getItem('role')==='admin'){
-            this.user=true;
+            this.admin=true;
         }
         this.buttonFlag=this.authenticationService.isUserLoggedIn();
         this.username=sessionStorage.getItem('username');

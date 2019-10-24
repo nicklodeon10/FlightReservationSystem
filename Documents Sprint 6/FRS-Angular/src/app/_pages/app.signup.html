@@ -6,19 +6,22 @@
                     them quickly and easily.
                 </small>
                 <div class="row">
-                    User Name : <input class="form-control" type="text" name="username" [(ngModel)]="user.userName">
+                    User Name : <input (blur)="validateName()" class="form-control" type="text" name="username" [(ngModel)]="user.userName">
+                    <small *ngIf="nameFlag" style="color: red;">Invalid User Name</small>
                 </div>
                 <div class="row">
                     Password : <input class="form-control" type="password" name="password" [(ngModel)]="user.userPassword">
                 </div>
                 <div class="row">
-                        Phone No : <input class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
+                        Phone No : <input (blur)="validatePhone()" class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
+                        <small *ngIf="phoneFlag" style="color: red;">Invalid Phone Number</small>
                 </div>
                 <div class="row">
-                    Email : <input class="form-control" type="email" name="email" [(ngModel)]="user.email">
+                    Email : <input (blur)="validateEmail()" class="form-control" type="email" name="email" [(ngModel)]="user.email">
+                    <small *ngIf="emailFlag" style="color: red;">Invalid Email</small>
                 </div>
                 <div class="row">
-                    <button class="regBtn btn btn-success">
+                    <button [disabled]="buttonFlag" class="regBtn btn btn-success" (click)="signUp()">
                         Register
                       </button>
                 </div>

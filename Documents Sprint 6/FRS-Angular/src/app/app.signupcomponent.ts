@@ -16,6 +16,9 @@ export class SignUpComponent implements OnInit{
     
     user:User={"userId": null, "userName":"", "userPassword":"", "userPhone": null, "email":"", "active": null, "roles":""};
 
+    public barLabel: string = "Password strength:";
+    public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
+
     constructor(private router: Router, private loginservice: AuthenticationService){}
 
     ngOnInit(){

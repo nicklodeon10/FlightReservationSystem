@@ -10,7 +10,7 @@ import { BookingDetailComponent } from './app.bookingdetailcomponent';
 import { BookingConfirmationComponent } from './app.bookingconfirmationcomponent';
 import { ShowBookingsComponent } from './app.showbookingscomponent';
 import { HttpErrorInterceptor } from './http-error.interceptor';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { LoginComponent } from './app.logincomponent';
 import { LogoutComponent } from './app.logoutcomponent';
 import { AuthGuardService } from '../app/_service/app.authguardservice';
@@ -30,6 +30,7 @@ import { NotAuthorizedComponent } from './app.notauthorizedcomponent';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ErrorComponent } from './app.errorcomponent';
 import { SignUpComponent } from './app.signupcomponent';
+import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -65,7 +66,8 @@ const frsRoutes:Routes=[
         NgxPaginationModule,
         ConfirmationPopoverModule.forRoot({
             confirmButtonType: 'danger'
-        })
+        }),
+        PasswordStrengthBarModule
     ],
     declarations: [
         AppComponent,

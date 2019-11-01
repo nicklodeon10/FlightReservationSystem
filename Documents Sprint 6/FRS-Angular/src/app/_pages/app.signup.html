@@ -10,11 +10,13 @@
                     <small *ngIf="nameFlag" style="color: red;">Invalid User Name</small>
                 </div>
                 <div class="row">
-                    Password : <input class="form-control" type="password" name="password" [(ngModel)]="user.userPassword">
+                    Password : <input class="form-control" type="password" name="password" [(ngModel)]="user.userPassword" #password="ngModel"
+                    minlength="5" maxlength="50" required>
+                    <ng2-password-strength-bar [passwordToCheck]="user.userPassword" [barLabel]="barLabel" [barColors]="myColors"></ng2-password-strength-bar>
                 </div>
                 <div class="row">
-                        Phone No : <input (blur)="validatePhone()" class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
-                        <small *ngIf="phoneFlag" style="color: red;">Invalid Phone Number</small>
+                    Phone No : <input (blur)="validatePhone()" class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
+                    <small *ngIf="phoneFlag" style="color: red;">Invalid Phone Number</small>
                 </div>
                 <div class="row">
                     Email : <input (blur)="validateEmail()" class="form-control" type="email" name="email" [(ngModel)]="user.email">

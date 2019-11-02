@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FileUploader} from 'ng2-file-upload';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
  
 //Author: Navya
@@ -46,10 +46,10 @@ export class ExcelUploadComponent  {
           this.sMsg = data as string;
           console.log (this.sMsg);
         }
-        // ,
-        // (err: HttpErrorResponse) => {
-        //   console.log (err.message);    // Show error, if any.
-        // }
+        ,
+        (err: HttpErrorResponse) => {
+          console.log (err.message);    // Show error, if any.
+        }
       );
     }
 

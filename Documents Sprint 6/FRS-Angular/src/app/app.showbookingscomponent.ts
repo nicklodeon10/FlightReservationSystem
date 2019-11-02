@@ -56,4 +56,34 @@ export class ShowBookingsComponent implements OnInit{
         console.log("Done");
     }
 
+    depSortRevFlag=true;
+    depSortFlag:boolean=false;
+    sortByDeparture(){
+        this.depSortFlag=true;
+        this.dateSortFlag=false;
+        this.bookingsList.sort(
+            (val1, val2)=>
+                String(val1.scheduleFlight.schedule.departureDateTime).localeCompare(String(val2.scheduleFlight.schedule.departureDateTime))
+        );
+        this.depSortRevFlag=!this.depSortRevFlag;
+        if(this.depSortRevFlag){
+            this.bookingsList.reverse();
+        }
+    }
+
+    dateSortRevFlag=true;
+    dateSortFlag:boolean=false;
+    sortByBookingDate(){
+        this.depSortFlag=false;
+        this.dateSortFlag=true;
+        this.bookingsList.sort(
+            (val1, val2)=>
+                String(val1.bookingDate).localeCompare(String(val2.bookingDate))
+        );
+        this.dateSortRevFlag=!this.dateSortRevFlag;
+        if(this.dateSortRevFlag){
+            this.bookingsList.reverse();
+        }
+    }
+
 }

@@ -15,6 +15,11 @@ import {Router} from '@angular/router';
 })
 
 export class ShowScheduleFlightComponent implements OnInit{
+    public popoverTitle: string = 'Cancel ScheduleFlight?';
+    public popoverMessage: string = 'This action cannot be undone.';
+    public confirmClicked: boolean = false;
+    public cancelClicked: boolean = false;
+
     scheduleFlights:ScheduleFlight[]=[];
     
     
@@ -43,6 +48,51 @@ export class ShowScheduleFlightComponent implements OnInit{
         this.service.removeScheduleFlight(scheduleFlightId).subscribe(); 
         location.reload();
     }
+    add(){
+
+        this.router.navigate(['/scheduleFlight/add']);
+    
+    }
+    
+    view(){
+    
+        this.router.navigate(['/scheduleFlight/show']);
+    
+    }
+    
+    search(){
+    
+        this.router.navigate(['/scheduleFlight/search']);
+    
+    }
+    IdSortRev:boolean=true;
+    IdSort:boolean;
+    sortById(){
+        this.IdSort=true;
+        this.scheduleFlights.sort(
+            (val1, val2)=>
+            val1.scheduleFlightId-val2.scheduleFlightId  
+        );
+        this.IdSortRev=!this.IdSortRev;
+        if(this.IdSortRev){
+            this.scheduleFlights.reverse();
+        }
+    }
+    costSortRev:boolean=true;
+    costSort:boolean;
+    sortByCost(){
+        this.costSort=true;
+        
+        this.scheduleFlights.sort(
+            (val1, val2)=>
+            val1.ticketCost-val2.ticketCost  
+        );
+        this.costSortRev=!this.costSortRev;
+        if(this.costSortRev){
+            this.scheduleFlights.reverse();
+        }
+    }
+    
    
     
 }

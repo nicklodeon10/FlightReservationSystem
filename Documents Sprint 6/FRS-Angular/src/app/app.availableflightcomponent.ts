@@ -74,36 +74,7 @@ export class AvailableFlightComponent implements OnInit{
     
     //Validation
     enableButton(){
+        console.log("enabe00");
         this.buttonFlag=this.errorFlag;
-    }
-
-    costSortRev:boolean=true;
-    costSort:boolean;
-    sortByCost(){
-        this.costSort=true;
-        this.depSort=false;
-        this.scheduledFlights.sort(
-            (val1, val2)=>
-            val1.ticketCost-val2.ticketCost  
-        );
-        this.costSortRev=!this.costSortRev;
-        if(this.costSortRev){
-            this.scheduledFlights.reverse();
-        }
-    }
-
-    depSortRev:boolean=true;
-    depSort:boolean;
-    sortByDeparture(){
-        this.depSort=true;
-        this.costSort=false;
-        this.scheduledFlights.sort(
-            (val1, val2)=>    
-            String(val1.schedule.departureDateTime).localeCompare(String(val2.schedule.departureDateTime))
-        );
-        this.depSortRev=!this.depSortRev;
-        if(this.depSortRev){
-            this.scheduledFlights.reverse();
-        }
     }
 }

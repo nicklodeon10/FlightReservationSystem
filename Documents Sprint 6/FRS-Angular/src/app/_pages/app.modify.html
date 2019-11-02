@@ -40,13 +40,13 @@
 
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" href="flight/add" (click)="add()">Add</a>
+        <a class="nav-link " data-toggle="tab" href="flight/add">Add</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" href="flight/view" (click)="view()">View</a>
+        <a class="nav-link " data-toggle="tab" href="flight/view">View</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
+        <a class="nav-link" data-toggle="tab" href="flight/search">Search</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
@@ -130,13 +130,9 @@
                           Enter Valid Seat Capacity
                         </span>
                        
-                       
+                       </div>
 
-                       <button type="submit" [disabled]="!modifyForm.form.valid" class="btn btn-success">Modify</button>
-
-                      </div>
-
-                       
+                       <button type="submit" [disabled]="!modifyForm.valid" class="btn btn-success">Modify</button>
                       </form>
 
         </div></div></div></div></div></div></div></div>

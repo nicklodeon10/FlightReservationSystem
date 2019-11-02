@@ -60,32 +60,17 @@
         </div>
         <div class="found-flights" *ngIf="displayFlag">
             <h3>Available Flights:</h3>
-            <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
-                <button type="button" class="sortBtn btn btn-info" (click)="sortByCost()">Sort By Cost</button>
-                <button type="button" class="sortBtn btn btn-info" (click)="sortByDeparture()">Sort By Departure</button>
-                <small *ngIf="costSort" style="color: white; margin-left: 20px; font-weight: 700;">Sorted By Cost</small>
-                <small *ngIf="depSort" style="color: white; margin-left: 20px; font-weight: 700;">Sorted By Departure Time</small>
-            </div>
             <div class="row" style="margin-top: 50px;">
-                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 4, currentPage: p }" class="col-md-12 card flight-card shadow-lg p-3 mb-5 bg-white">
+                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 2, currentPage: p }" class="col-md-6 card flight-card shadow-lg p-3 mb-5 bg-white rounded">
+                    Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
+                    Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
+                    Flight Model: {{scheduledFlight.flight.flightModel}}<br>
+                    Departure: {{scheduledFlight.schedule.departureDateTime}}<br>
+                    Arrival: {{scheduledFlight.schedule.arrivalDateTime}}<br>
+                    Cost/Seat: {{scheduledFlight.ticketCost}}<br>
+                    Available Seats: {{scheduledFlight.availableSeats}}<br>
                     <div class="row">
-                        <div class="col-md-6">
-                            Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
-                            Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
-                            Flight Model: {{scheduledFlight.flight.flightModel}}<br>            
-                            <span *ngIf="depSort" style="color: red;">Departure: {{scheduledFlight.schedule.departureDateTime}}</span>
-                            <span *ngIf="!depSort">Departure: {{scheduledFlight.schedule.departureDateTime}}</span>
-
-                        </div>
-                        <div class="col-md-6">
-                            Arrival: {{scheduledFlight.schedule.arrivalDateTime}}<br>
-                            <span *ngIf="!costSort">Cost/Seat: {{scheduledFlight.ticketCost}}<br></span>
-                            <span *ngIf="costSort" style="color: red;">Cost/Seat: {{scheduledFlight.ticketCost}}<br></span>
-                            Available Seats: {{scheduledFlight.availableSeats}}<br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 offset-md-10">
+                        <div class="col-md-4 offset-md-8">
                             <button type="button" class="bookBtn btn btn-success" (click)="enterDetails(scheduledFlight.scheduleFlightId)">BOOK NOW</button>
                         </div>
                     </div>

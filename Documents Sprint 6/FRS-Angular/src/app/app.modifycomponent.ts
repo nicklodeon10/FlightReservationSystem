@@ -36,7 +36,6 @@ export class ModifyComponent implements OnInit{
         
             this.service.searchFlight(this.searchNumber).subscribe((flight:Flight)=> this.currFlight=flight);
            
-            
         
             }
 
@@ -52,45 +51,6 @@ export class ModifyComponent implements OnInit{
     
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            add(){
-
-              this.router.navigate(['/flight/add']);
-          
-          }
-          
-          view(){
-          
-              this.router.navigate(['/flight/view']);
-          
-          }
-          
-          search(){
-              
-              this.router.navigate(['/flight/search']);
-          
-          }
-          
-          
-          
-          upload(){
-          
-            this.router.navigate(['/flight/upload']);
-          }
 
 
 

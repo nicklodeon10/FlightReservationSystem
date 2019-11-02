@@ -1,24 +1,46 @@
-<style>
-    .wrapper{
+
+<!-- BODY -->
+
+        
+    <style>
+        .wrapper{
         min-height: 90vh;
-        padding-top: 75px;
+    
     }
-    .card{
-        padding-top: 30px;
-    }
-</style>
-<body>
+        
+        </style> 
+
+   
+ <div class="wrapper">
+
+    <div class="container ">
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="scheduleFlight/add" (click)="add()" >Add</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="scheduleFlight/show" (click)="view()">View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="scheduleFlight/search" (click)="search()">Search</a>
+      </li>
+    </ul>
+   
+
 <div class="wrapper">
     <div class="container card shadow-lg p-3 mb-5 bg-white rounded">
             <br>
             <h3>Look for ScheduleFlight</h3><br>
-            <table>
-                <tr>Enter Schedule Flight Id:  
-                    <td><input type="number"  [(ngModel)]="scheduleFlightId" required/></td>
-        
-                    <td><input type="button" value="Search" (click)="searchScheduleFlight(scheduleFlightId); show=true"/></td>
-                </tr>
-            </table>
+            
+            <form>
+                    <label>ScheduleFlightId :</label>
+                    <input (blur)="validateId()" type="number"  [(ngModel)]="scheduleFlightId" [ngModelOptions]="{standalone: true}" class="form-control col-md-5" id="scheduleFlightId" placeholder="..." />
+                    <small *ngIf="idValid" style="color: red;">Invalid ID. Please enter an id between 1 to 999.</small>
+                    
+                    <input type="button" value="Search" (click)="searchScheduleFlight(scheduleFlightId); show=true"/>
+                    <small *ngIf="idValid" style="color: red;">Invalid ID. Please enter an id between 1 to 999.</small>
+                </form>  
             <table border="1" *ngIf="show">
                 <tr>
                     <th>Schedule Flight Number</th>
@@ -41,4 +63,3 @@
             </table>
     </div>
 </div>
-</body>

@@ -2,13 +2,10 @@ import {Component, OnInit} from '@angular/core'
 import { ScheduleFlight } from './_model/app.scheduleflight';
 import { ScheduleFlightService } from './_service/app.scheduleflightservice';
 import { Router } from '@angular/router';
-/*import { Flight } from "./_model/app.flight";
-import { Schedule } from "./_model/app.schedule";
-import { AirportService } from './_service/app.airportservice';
-import { Airport } from "./_model/app.airport";*/
+
 
 //Author: Surya
-//Description: Component for searching a schedule flight(without validation)
+//Description: Component for searching a schedule flight
 //Created On: 21/10/2019
 
 
@@ -45,15 +42,36 @@ export class SearchScheduleFlightComponent implements OnInit {
         console.log(scheduleFlightId);
         this.service.searchScheduleFlight(scheduleFlightId).subscribe((scheduleFlight:ScheduleFlight)=>this.scheduleFlight=scheduleFlight
         );
-
-        /*validate():any{
-            if(!this.scheduleFlight.scheduleFlightId!='' && this.scheduleFlight.scheduleFlightId.match("[0-9]")){
-            this.status=true;
-            }
-            else{
-            this.status=false;
-            }
-            */
-
     }
+    
+    idValid:boolean=false;
+    validateId(){
+        if(this.scheduleFlight.scheduleFlightId>999){
+            this.idValid=true;
+        }
+        else if(this.scheduleFlight.scheduleFlightId<1){
+            this.idValid=true;
+        }else{
+            this.idValid=false;
+        }
+    }
+        add(){
+
+            this.router.navigate(['/scheduleFlight/add']);
+        
+        }
+        
+        view(){
+        
+            this.router.navigate(['/scheduleFlight/show']);
+        
+        }
+        
+        search(){
+        
+            this.router.navigate(['/scheduleFlight/search']);
+        
+        }
+
+    
 }

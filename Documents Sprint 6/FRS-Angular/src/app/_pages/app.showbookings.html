@@ -2,19 +2,16 @@
     <div class="wrapper">
         <div class="title">
             <h3>Your Bookings:</h3>
-            <button type="button" class="sortBtn btn btn-info" (click)="sortByDeparture()">Sort by Journey Date</button>
-            <button type="button" class="sortBtn btn btn-info" (click)="sortByBookingDate()">Sort by Booking Date</button>
-            <small *ngIf="depSortFlag" style="color: white; font-weight: 700;">Sorted By Journey Date</small>
-            <small *ngIf="dateSortFlag" style="color: white; font-weight: 700;">Sorted By Booking Date</small>
         </div>
-        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 3, currentPage: p }" class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 2, currentPage: p }" class="card shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-body">
                     <div *ngIf="booking.bookingState" class="row">
                         <div class="col-md-10">
-                            <h3 class="card-title">
-                                Booking Id: {{booking.bookingId}}
-                            </h3>
+                            <h3 class="card-title">Booking Id: {{booking.bookingId}}</h3>
                         </div>
+                        <!-- <div class="col-md-2">
+                            <button type="button" class="upcBtn btn btn-success">Upcoming</button>    
+                        </div> -->
                     </div>
                     <div *ngIf="!booking.bookingState" class="row">
                         <div class="col-md-10">
@@ -24,12 +21,10 @@
                             <button type="button" class="upcBtn btn btn-danger">Cancelled</button>    
                         </div>
                     </div>
-                    <span *ngIf="dateSortFlag" style="color: red;">Booked On: {{booking.bookingDate}}<br><br></span>
-                    <span *ngIf="!dateSortFlag">Booked On: {{booking.bookingDate}}<br><br></span>
+                    Booked On: {{booking.bookingDate}}<br><br>
                     <strong>Journey Details:</strong> <br>
                     Source: {{booking.scheduleFlight.schedule.sourceAirport.airportName}}, {{booking.scheduleFlight.schedule.sourceAirport.airportLocation}} <br>
-                    <span *ngIf="depSortFlag" style="color: red;">Departure: {{booking.scheduleFlight.schedule.departureDateTime}}</span>
-                    <span *ngIf="!depSortFlag">Departure: {{booking.scheduleFlight.schedule.departureDateTime}}</span><br>
+                    Departure: {{booking.scheduleFlight.schedule.departureDateTime}}<br>
                     Destination: {{booking.scheduleFlight.schedule.destinationAirport.airportName}}, {{booking.scheduleFlight.schedule.destinationAirport.airportLocation}}<br>
                     Arrival:{{booking.scheduleFlight.schedule.arrivalDateTime}} <br>
 

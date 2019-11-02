@@ -1,29 +1,43 @@
 package com.cg.frs.controller;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.frs.dto.Schedule;
 import com.cg.frs.dto.ScheduleFlight;
-import com.cg.frs.dto.User;
+import com.cg.frs.exception.FlightExceptions;
 import com.cg.frs.exception.FrsException;
+import com.cg.frs.exception.InvalidAirportException;
 import com.cg.frs.service.AirportService;
+import com.cg.frs.service.FlightService;
 import com.cg.frs.service.ScheduleFlightService;
 import com.cg.frs.service.UserService;
+
 @RestController
+@RequestMapping("/scheduleFlight")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ScheduleFlightController {
 
 		@Autowired
 		ScheduleFlightService scheduleFlightService;
+		
+		@Autowired
+		FlightService flightService;
 		
 		@Autowired
 		AirportService airportService;
@@ -38,22 +52,38 @@ public class ScheduleFlightController {
 		 * Output ScheduleFlight object
 		 */
 		@PostMapping(value = "/add")
-		public ResponseEntity<ScheduleFlight> addScheduleFlight(@ModelAttribute ScheduleFlight scheduleFlight) {		
-			ScheduleFlight sFlightToBeAdded = scheduleFlightService.addScheduleFlight(scheduleFlight);
-
-			if (sFlightToBeAdded == null) {
-				return new ResponseEntity("ScheduleFlight not added", HttpStatus.INTERNAL_SERVER_ERROR);
-			} else {
-				return new ResponseEntity<ScheduleFlight>(sFlightToBeAdded, HttpStatus.OK);
+		public ResponseEntity<ScheduleFlight> addScheduleFlight(@ModelAttribute("scheduleFlight") ScheduleFlight scheduleFlight,
+				@RequestParam("source_airport") String source, @RequestParam("destination_airport") String destination,
+				@RequestParam("departure_time") String departureTime, @RequestParam("arrival_time") String arrivalTime) {
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleFlight.getScheduleFlightId());
+			try {
+				schedule.setSourceAirport(airportService.viewAirport(source));
+			} catch (InvalidAirportException e) {
+				return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+			}
+			try {
+				schedule.setDestinationAirport(airportService.viewAirport(destination));
+			} catch (InvalidAirportException e) {
+				return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+			}
+			schedule.setDepartureDateTime(LocalDateTime.parse(departureTime));
+			schedule.setArrivalDateTime(LocalDateTime.parse(arrivalTime));
+			try {
+				scheduleFlight.setFlight(flightService.searchFlight(scheduleFlight.getScheduleFlightId()));
+			} catch (FlightExceptions e1) {
+				return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
+			}
+			scheduleFlight.setSchedule(schedule);
+			scheduleFlight.setAvailableSeats(scheduleFlight.getFlight().getSeatCapacity());
+			scheduleFlight.setScheduleFlightState(true);
+			try {
+				return new ResponseEntity<ScheduleFlight>(scheduleFlightService.addScheduleFlight(scheduleFlight), HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity("Error adding Flight."+e, HttpStatus.BAD_REQUEST);
 			}
 		}
-	
-		@PostMapping(value = "/userAdd")
-		public String addUser(@ModelAttribute User user) {
-			user.setRoles("customer");
-			userService.addUser(user);
-			return "UserAdded";
-		}
+
 		
 		/*
 		 * Author Surya
@@ -87,7 +117,7 @@ public class ScheduleFlightController {
 			ScheduleFlight searchSFlight=scheduleFlightService.viewScheduleFlights(flightId);
 			
 			if (searchSFlight == null) {
-				return new ResponseEntity("Flight not present", HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<ScheduleFlight>(searchSFlight, HttpStatus.OK);
 			}
@@ -125,7 +155,7 @@ public class ScheduleFlightController {
 		 * Input BigInteger
 		 * Output boolean
 		 */
-		@PostMapping(value="/delete")
+		@DeleteMapping(value="/delete")
 		public boolean deleteScheduleFlight(@RequestParam BigInteger flightId) throws FrsException{					//removing flight
 			
 			boolean deleteSFlight=scheduleFlightService.deleteScheduleFlight(flightId);

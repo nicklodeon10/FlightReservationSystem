@@ -10,7 +10,11 @@
         </root>
     </springProfile>
 
+<<<<<<< HEAD
     <springProfile name="production">
+=======
+    <springProfile name="log">
+>>>>>>> e47c533c019ba3ebd9f6e27493c013f3eb7cbc5f
     
     	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 

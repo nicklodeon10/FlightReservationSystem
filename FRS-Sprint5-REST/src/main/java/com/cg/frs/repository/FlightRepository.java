@@ -21,6 +21,6 @@ public interface FlightRepository extends JpaRepository<Flight, BigInteger> {
 	@Query("FROM Flight WHERE flightState=true")
 	public List<Flight> viewAll();
 	
-	public Flight findByFlightNumber(BigInteger Id);	
+	public Flight findByFlightNumber(BigInteger number);	
 	
 }

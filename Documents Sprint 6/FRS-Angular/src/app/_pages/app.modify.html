@@ -1,0 +1,146 @@
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+
+    <!-- BODY -->
+   
+    <style>
+
+
+
+        .container{
+        
+        
+          width: 500px;
+          height: 300px;
+          position: absolute;
+          left: 50%;
+          top: 35%;
+          transform: translate(-50%, -50%);
+        
+        }
+
+        .wrapper{
+    min-height: 90vh;
+    padding-top: 75px;
+}
+        
+        </style>
+    
+<div class="wrapper">
+
+ <div class="container">
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="flight/add" (click)="add()">Add</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="flight/view" (click)="view()">View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
+      </li>
+    </ul>
+
+    
+<!-- Tab panes -->
+
+    
+    
+           
+
+  
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3 style="text-align: center;">Modify Flight</h3>
+
+<div class="card " style="height: 35rem;">
+    <div class = "card-wrapper">
+        <div class="row">
+          <div class="col-md-12 align-self-center" >
+<div class="card ">
+
+        <div class="card text-center" >
+        <div class="card-body " style="height: 25rem;">
+
+<form (ngSubmit)="modifyFlight()" #modifyForm="ngForm">
+    <div class="form-group">
+
+  
+    <label for="flightNumber">Flight Number: {{currFlight.flightNumber}}</label>
+    </div>
+
+    <div class="form-group">
+                <label for="flightModel">Enter Flight Model:</label><br>
+                <input type="text" align="middle" name= "flightModel" [(ngModel)]= currFlight.flightModel #flightModel=ngModel size="5" pattern="[A-Z0-9]+$" placeholder="Enter Flight Model" required ><br>
+                <span *ngIf = "flightModel.touched && flightModel.invalid &&
+                (flightModel.errors.required || flightModel.errors.pattern)" class="alert-warning">
+                  Enter Valid Model with Alphanumeric Code
+                </span>
+</div>
+<div class="form-group">
+                  <label for="carrierName">Enter Carrier Name:</label><br>
+                   <input type="text" align="middle" name= "carrierName" [(ngModel)]= currFlight.carrierName #carrierName=ngModel size="30" pattern="[A-Z]+$" placeholder="Enter Carrier Name" required ><br>
+                  <span *ngIf = "carrierName.touched && carrierName.invalid &&
+                  (carrierName.errors.required || carrierName.errors.pattern)" class="alert-warning">
+                    Enter Valid Carrier Name with All Capitals
+                  </span>
+</div>
+
+<div class="form-group">
+                        <label for="seatCapacity">Enter Seat Capacity:</label><br>
+                         <input type="number" align="middle" name= "seatCapacity" [(ngModel)]= currFlight.seatCapacity #seatCapacity=ngModel  placeholder="Enter Seat Capacity" required >
+                        <span *ngIf = "seatCapacity.touched && seatCapacity.invalid &&
+                        (seatCapacity.errors.required || seatCapacity.errors.pattern)" class="alert-warning">
+                          Enter Valid Seat Capacity
+                        </span>
+                       
+                       
+
+                       <button type="submit" [disabled]="!modifyForm.form.valid" class="btn btn-success">Modify</button>
+
+                      </div>
+
+                       
+                      </form>
+
+        </div></div></div></div></div></div></div></div>
+    
+        </div>
+    
+  

@@ -1,0 +1,99 @@
+ 
+ <!-- BODY -->
+    <div class="wrapper">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h3 class="card-title">Book Domestic and International Flights</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>FROM:</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <select class="custom-select" [(ngModel)]="src" (blur)="airportCheck()">
+                                        <option disabled selected>Source</option>
+                                        <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>TO:</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <select class="custom-select" [(ngModel)]="dest" (blur)="airportCheck()">
+                                        <option disabled selected>Destination</option>
+                                        <option *ngFor="let airport of airports;" value="{{airport.airportCode}}">{{airport.airportName}}, {{airport.airportLocation}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>ON:</strong>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <input (blur)="enableButton()" class="dateselect" type="date" min="{{minDate | date: 'yyyy-MM-dd'}}" max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="journeyDate" />
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="errorFlag">
+                        <small class="errorMessage">Source and Destination cannot be the same.</small>
+                    </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-3 offset-md-9">
+                        <button [disabled]="buttonFlag" type="button" class="findBtn btn btn-success" (click)="findFlights()" >FIND FLIGHTS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="found-flights" *ngIf="displayFlag">
+            <h3>Available Flights:</h3>
+            <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+                <button type="button" class="sortBtn btn btn-info" (click)="sortByCost()">Sort By Cost</button>
+                <button type="button" class="sortBtn btn btn-info" (click)="sortByDeparture()">Sort By Departure</button>
+                <small *ngIf="costSort" style="color: white; margin-left: 20px; font-weight: 700;">Sorted By Cost</small>
+                <small *ngIf="depSort" style="color: white; margin-left: 20px; font-weight: 700;">Sorted By Departure Time</small>
+            </div>
+            <div class="row" style="margin-top: 50px;">
+                <div *ngFor="let scheduledFlight of scheduledFlights | paginate: { itemsPerPage: 4, currentPage: p }" class="col-md-12 card flight-card shadow-lg p-3 mb-5 bg-white">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Flight Number: {{scheduledFlight.scheduleFlightId}} <br>
+                            Carrier Name: {{scheduledFlight.flight.carrierName}} <br>
+                            Flight Model: {{scheduledFlight.flight.flightModel}}<br>            
+                            <span *ngIf="depSort" style="color: red;">Departure: {{scheduledFlight.schedule.departureDateTime}}</span>
+                            <span *ngIf="!depSort">Departure: {{scheduledFlight.schedule.departureDateTime}}</span>
+
+                        </div>
+                        <div class="col-md-6">
+                            Arrival: {{scheduledFlight.schedule.arrivalDateTime}}<br>
+                            <span *ngIf="!costSort">Cost/Seat: {{scheduledFlight.ticketCost}}<br></span>
+                            <span *ngIf="costSort" style="color: red;">Cost/Seat: {{scheduledFlight.ticketCost}}<br></span>
+                            Available Seats: {{scheduledFlight.availableSeats}}<br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 offset-md-10">
+                            <button type="button" class="bookBtn btn btn-success" (click)="enterDetails(scheduledFlight.scheduleFlightId)">BOOK NOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+    <!-- BODY -->

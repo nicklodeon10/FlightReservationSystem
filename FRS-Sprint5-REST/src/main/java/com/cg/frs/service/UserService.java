@@ -20,5 +20,7 @@ public interface UserService {
 	public User addUser(User user);
 
 	public List<User> viewUser() throws UserNotFoundException;
+	
+	public User getUserFromName(String username) throws UserNotFoundException;
 
 }

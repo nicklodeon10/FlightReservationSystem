@@ -1,0 +1,44 @@
+<style>
+    .wrapper{
+        min-height: 90vh;
+        padding-top: 75px;
+    }
+    .card{
+        padding-top: 30px;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <div class="container card shadow-lg p-3 mb-5 bg-white rounded">
+            <br>
+            <h3>Look for ScheduleFlight</h3><br>
+            <table>
+                <tr>Enter Schedule Flight Id:  
+                    <td><input type="number"  [(ngModel)]="scheduleFlightId" required/></td>
+        
+                    <td><input type="button" value="Search" (click)="searchScheduleFlight(scheduleFlightId); show=true"/></td>
+                </tr>
+            </table>
+            <table border="1" *ngIf="show">
+                <tr>
+                    <th>Schedule Flight Number</th>
+                    <th>Source Airport</th>
+                    <th>Destination Airport</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Ticket Cost</th>
+                </tr>
+                <tr>
+                    <td>{{scheduleFlight.scheduleFlightId}}</td>
+                    <td>{{scheduleFlight.schedule.sourceAirport.airportLocation}}</td>
+                    <td>{{scheduleFlight.schedule.destinationAirport.airportLocation}}</td>
+                    <td>{{scheduleFlight.schedule.departureDateTime}}</td>
+                    <td>{{scheduleFlight.schedule.arrivalDateTime}}</td>
+                    <td>{{scheduleFlight.ticketCost}}</td>
+                    
+                    
+                </tr>
+            </table>
+    </div>
+</div>
+</body>

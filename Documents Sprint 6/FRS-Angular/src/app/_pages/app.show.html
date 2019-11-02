@@ -1,0 +1,149 @@
+
+<html lang="en">
+    <head>
+      <title>Bootstrap Example</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+
+    <!-- BODY -->
+   <style>
+    .container{
+    
+    
+      width: 500px;
+      height: 300px;
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      transform: translate(-50%, -50%);
+    
+    }
+
+    .wrapper{
+    min-height: 90vh;
+    padding-top: 75px;
+}
+    
+    </style>
+
+<div class="wrapper">
+
+ <div class="container" >
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab" href="flight/add" (click)="add()">Add</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="flight/view" (click)="view()">View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
+      </li>
+    </ul>
+
+    
+<!-- Tab panes -->
+
+    
+      
+<table class="table table-hover" style="background-color:white">
+   
+  <tr>
+  <th>
+    
+      <button class="btn btn-info" (click)="sortByNumber()">Flight Id:</button>
+      
+    
+    </th>
+  <th>
+    
+      <button class="btn btn-info" > Flight Model:</button>
+      
+   </th>
+
+  <th>
+    
+      <button class="btn btn-info" (click)="sortByName()"> Carrier Name:</button>
+      
+    </th>
+  <th>
+      <button class="btn btn-info" (click)="sortBySeat()"> Seat Capacity:</button>
+      
+      
+    </th>
+  
+  </tr>
+  
+  <tr *ngFor="let flight of flights | paginate: { itemsPerPage: 10, currentPage: p}">
+  <td>{{flight.flightNumber}}</td>
+  <td>{{flight.flightModel}}</td>
+  <td>{{flight.carrierName}}</td>
+  <td>{{flight.seatCapacity}}</td>
+  <td><button type="button" (click)="openModalM(templateM)"  class="btn btn-success">Modify</button>
+    </td>
+  <td><button type="button"  (click)="openModalD(templateD)" class="btn btn-danger" >Delete</button></td>
+  <ng-template #templateM>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Are You Sure?</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Some Changes Are Irreversible... 
+      </div>
+      <div class="text-center" ><button  type="button" (click)="modifyFlight(flight.flightNumber)"  class="btn btn-success" (click)="modalRef.hide()">Modify</button></div>
+    </ng-template>
+  
+    <ng-template #templateD>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Are You Sure?</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Some Changes Are Irreversible... Do you really want to Delete?
+        </div>
+        <div class="text-center" ><button type="button"  (click)="deleteFlight(flight.flightNumber)" class="btn btn-danger" (click)="modalRef.hide()">Delete</button></div>
+      </ng-template>   
+  </tr>
+  
+  </table>
+
+  
+  
+  
+  
+      
+      
+  
+  
+</div>
+
+</div>
+<div class="row">
+  
+  <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+</div>
+
+</body>
+</html>
+
+
+ 
+
+
+
+   

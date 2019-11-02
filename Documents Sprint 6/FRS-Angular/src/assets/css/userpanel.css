@@ -1,0 +1,21 @@
+.wrapper{
+    min-height: 90vh;
+    margin-top: 100px;
+}
+
+a {
+	color: #212121;
+}
+
+.card {
+    width: 100%;
+    border-radius: 0%;
+    height: 400px;
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+}

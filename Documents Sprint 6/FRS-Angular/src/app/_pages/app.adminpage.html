@@ -1,0 +1,64 @@
+
+<style>
+.wrapper{
+  min-height: 90vh;
+    padding-top: 100px;
+}
+
+
+.container{
+
+
+    width: 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+</style>
+
+
+<div class="wrapper">
+    <div class="container">
+        <div class = "card-wrapper">
+            <div class="row">
+              <div class="col-md-12 align-self-center" >
+    <div class="card ">
+    
+            <div class="card text-center" >
+            <div class="card-body ">
+             
+          <h1 class="card-title">Welcome Admin</h1>
+          <small>You can perform the following actions.</small>
+          
+          
+          <!-- <a routerLink="flight/add" routerLinkActive="active">Add Flight</a> 
+          
+           
+             <a routerLink="flight/view" routerLinkActive="active-link">View Flight       </a>  
+             <a routerLink="flight/search" routerLinkActive="active-link">Search Flight        </a>
+             <a routerLink="flight/modify" routerLinkActive="active-link">Modify Flight       </a> -->
+          
+          <br>
+          <br>
+          <button type="button" class="btn btn-link" (click)="addFlight()">Add Flight</button><br>
+          
+          <button type="button" class="btn btn-link" (click)="viewFlight()">View Flight</button> <br>
+          
+          <button type="button" class="btn btn-link" (click)="searchFlight()">Search Flight</button><br> 
+          
+          
+          <button type="button" class="btn btn-link" (click)="addScheduledFlight()">Add Scheduled Flight</button> <br>
+          <button type="button" class="btn btn-link" (click)="viewScheduledFlight()" >View Scheduled Flight</button>  <br>
+          <button type="button" class="btn btn-link" (click)="searchScheduledFlight()" >Search Scheduled Flight</button><br>
+          
+            </div>
+          </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>

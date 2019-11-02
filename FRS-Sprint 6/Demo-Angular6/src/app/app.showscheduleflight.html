@@ -1,0 +1,26 @@
+<br>
+<h3>ScheduleFlights</h3><br>
+<table border="1">
+    <tr>
+        <th>Schedule Flight Number</th>
+        <th>Source Airport</th>
+        <th>Destination Airport</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Ticket Cost</th>
+    </tr>
+    <tr *ngFor="let sf of scheduleFlights">
+        <td>{{sf.scheduleFlightId}}</td>
+        <td>{{sf.schedule.sourceAirport.airportLocation}}</td>
+        <td>{{sf.schedule.destinationAirport.airportLocation}}</td>
+        <td>{{sf.schedule.departureDateTime}}</td>
+        <td>{{sf.schedule.arrivalDateTime}}</td>
+        <td>{{sf.ticketCost}}</td>
+        <td>
+            <!--<button type="button" (click)="modifyScheduleFlight(sf.scheduleFlightId)"> Update</button>-->
+            <button type="button" (click)="removeScheduleFlight(sf.scheduleFlightId)"> Delete</button>
+
+        </td>
+        
+    </tr>
+</table>

@@ -41,8 +41,7 @@
 .flight-card{
     margin: 0;
     border-radius: 0;
-    border-width: 2px;
-    border-color: dimgrey;
+    margin-top: -50px;
 }
 .dateselect{
     border-style: solid;
@@ -58,4 +57,8 @@
 .errorMessage{
     color: red;
     margin-left: 20px;
+}
+.sortBtn{
+    border-radius: 0;
+    margin-right: 20px;
 }

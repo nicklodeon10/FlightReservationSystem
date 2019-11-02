@@ -52,8 +52,8 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public Flight searchFlight(BigInteger flightId) throws FlightExceptions {		//searching flight with Id
-		return flightRepository.findById(flightId).get();
+	public Flight searchFlight(BigInteger flightNumber) throws FlightExceptions {		//searching flight with Id
+		return flightRepository.findByFlightNumber(flightNumber);
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class FlightServiceImpl implements FlightService {
 		// TODO Auto-generated method stub
 		
 		Flight flightToBeModified=flightRepository.findByFlightNumber(flight.getFlightNumber());
+		
         if(flightToBeModified==null) {
 			
 			throw new FlightExceptions("FLIGHT DOESN'T EXISTS TO MODIFY");
@@ -76,9 +77,9 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
-	public boolean deleteFlight(BigInteger flightId) throws FlightExceptions {		//removing flight
+	public boolean deleteFlight(BigInteger flightNumber) throws FlightExceptions {		//removing flight
 		// TODO Auto-generated method stub
-		Flight removedFlight=flightRepository.findByFlightNumber(flightId);
+		Flight removedFlight=flightRepository.findByFlightNumber(flightNumber);
 		 if(removedFlight==null) {
 				
 				throw new FlightExceptions("FLIGHT DOESN'T EXISTS TO DELETE");

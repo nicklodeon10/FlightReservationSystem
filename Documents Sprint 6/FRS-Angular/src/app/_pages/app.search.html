@@ -122,12 +122,48 @@
                             <span>{{flight.seatCapacity}}</span>
                             
                           </div>
-            
-            
-            
+
+                          <div class="form-group" *ngIf="show">
+
+                            <button type="button" (click)="openModalM(templateM)"  class="btn btn-success">Modify</button>
+                            <button type="button" (click)="openModalD(templateD)"  class="btn btn-danger">Delete</button>
+                            <ng-template #templateM>
+                              <div class="modal-header">
+                                <h4 class="modal-title pull-left">Are You Sure?</h4>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Some Changes Are Irreversible... 
+                              </div>
+                              <div class="text-center" ><button  type="button" (click)="modifyFlight(flight.flightNumber)"  class="btn btn-success" (click)="modalRef.hide()">Modify</button></div>
+                            </ng-template>
+                          
+                            <ng-template #templateD>
+                                <div class="modal-header">
+                                  <h4 class="modal-title pull-left">Are You Sure?</h4>
+                                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    Some Changes Are Irreversible... Do you really want to Delete?
+                                </div>
+                                <div class="text-center" ><button type="button"  (click)="deleteFlight(flight.flightNumber)" class="btn btn-danger" (click)="modalRef.hide()">Delete</button></div>
+                              </ng-template>   
+                          </div>
+                         
+            </div>
               </div>
 </div></div></div></div>
             </div></div>
-</div></div>            
-  
 </div>
+
+
+
+
+
+</div>            
+  
+

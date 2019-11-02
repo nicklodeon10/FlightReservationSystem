@@ -48,7 +48,7 @@
             <a class="nav-link" data-toggle="tab" href="flight/search" (click)="search()">Search</a>
           </li>
           <li class="nav-item active">
-                <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="search()">Upload</a>
+                <a class="nav-link" data-toggle="tab" href="flight/upload" (click)="upload()">Upload</a>
               </li>
         </ul>
     
@@ -72,14 +72,29 @@
     
     
                             <ng-container>
+
+
+
+                                <form >
+                                  <tr>
+                                    <td>
                                     <input type="file" id="file" multiple 
-                                        (change)="getFileDetails($event)">
-                            
-                                    <button (click)="uploadFiles()">Upload</button>
+                                        (change)="getFileDetails($event)" accept=".xls,.xlsx,.csv"/>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                    <button (click)="uploadFiles()" class="btn btn-info">Upload</button>
+
+                                  </tr>
+                                  </form>
                                 </ng-container>
     
+
+
+                                
+
     
-    
+                             
     
               </div>
         

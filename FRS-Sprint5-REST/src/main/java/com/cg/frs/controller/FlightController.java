@@ -27,10 +27,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -90,9 +92,9 @@ public class FlightController {
 	 * 09/10/2019 Last Modified: 14/10/2019 -
 	 */
 	@GetMapping(value = "/flight/search")
-	public ResponseEntity<?> searchData(@RequestParam BigInteger flightId) throws FlightExceptions { // searching flight
+	public ResponseEntity<?> searchData(@RequestParam BigInteger flightNumber) throws FlightExceptions { // searching flight
 		logger.info("search flight"); // by Id
-		Flight flightSearched = flightService.searchFlight(flightId);
+		Flight flightSearched = flightService.searchFlight(flightNumber);
 
 		if (flightSearched == null) {
 			logger.error("no flight present");
@@ -110,7 +112,7 @@ public class FlightController {
 	 */
 
 	@PutMapping(value = "/flight/modify")
-	public ResponseEntity<Flight> modifyData(@ModelAttribute Flight flight) throws FlightExceptions { // modifying the
+	public ResponseEntity<Flight> modifyData(@RequestBody Flight flight) throws FlightExceptions { // modifying the
 																										// flight
 
 		logger.info("modifying flight");
@@ -130,10 +132,10 @@ public class FlightController {
 	 * Author: NAVYA Description:Removes The Flight And Returns To show flight
 	 * Created Date: 09/10/2019 Last Modified: 14/10/2019 -
 	 */
-	@PostMapping(value = "/flight/delete")
-	public boolean deleteData(@RequestParam BigInteger flightId) throws FlightExceptions { // removing flight
+	@DeleteMapping(value = "/flight/delete")
+	public boolean deleteData(@RequestParam BigInteger flightNumber) throws FlightExceptions { // removing flight
 		logger.info("removing flight");
-		boolean flightToBeDeleted = flightService.deleteFlight(flightId);
+		boolean flightToBeDeleted = flightService.deleteFlight(flightNumber);
 		logger.info("flight removed");
 		return flightToBeDeleted;
 

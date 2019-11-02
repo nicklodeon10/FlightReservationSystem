@@ -31,6 +31,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ErrorComponent } from './app.errorcomponent';
 import { SignUpComponent } from './app.signupcomponent';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const frsRoutes:Routes=[
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -64,6 +65,7 @@ const frsRoutes:Routes=[
         FormsModule,
         RouterModule.forRoot(frsRoutes),
         NgxPaginationModule,
+        ModalModule.forRoot(),
         ConfirmationPopoverModule.forRoot({
             confirmButtonType: 'danger'
         }),

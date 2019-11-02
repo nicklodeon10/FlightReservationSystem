@@ -102,9 +102,9 @@
 
                     <div class="form-group">
                         <label for="seatCapacity">Enter Seat Capacity:</label>
-                         <input type="number" class="form-control" name= "seatCapacity" [(ngModel)]= model.seatCapacity #seatCapacity=ngModel  placeholder="Enter Seat Capacity" required >
+                         <input type="number" class="form-control" name= "seatCapacity" [(ngModel)]= model.seatCapacity #seatCapacity=ngModel  placeholder="Enter Seat Capacity" required minlength="0" maxlength="3" >
                         <span *ngIf = "seatCapacity.touched && seatCapacity.invalid &&
-                        (seatCapacity.errors.required || seatCapacity.errors.pattern)" class="alert-danger">
+                        (seatCapacity.errors.required  || seatCapacity.errors.minlength || seatCapacity.errors.maxlength)" class="alert-danger">
                           Enter Valid Seat Capacity
                         </span>
                       </div>
@@ -126,7 +126,7 @@
                 </td>
             </tr> -->
 
-            <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Add</button>
+            <button type="submit" [disabled]="!addForm.form.valid" class="btn btn-success">Add</button>
 
        
       </form>

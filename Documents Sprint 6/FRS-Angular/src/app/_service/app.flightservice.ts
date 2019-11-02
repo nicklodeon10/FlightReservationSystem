@@ -41,14 +41,16 @@ export class FlightService{
 
 // to update flight data
         modifyFlight(data:any){
-
+            
             return this.myhttp.put('http://localhost:9088/flight/modify',data);
+            
         }
 
 
     // to search flight data
         searchFlight(fNum:number){
-            return this.myhttp.get('http://localhost:9088/flight/search?flightId='+fNum);
+            
+            return this.myhttp.get('http://localhost:9088/flight/search?flightNumber='+fNum);
         }
 
         //to delete flight data

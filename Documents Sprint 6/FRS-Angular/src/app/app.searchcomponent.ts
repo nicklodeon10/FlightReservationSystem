@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import { Flight } from 'src/app/_model/app.flight';
 import { FlightService } from 'src/app/_service/app.flightservice';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 
 //Author: Navya
 //Description: searches flight by it's id
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 
 export class SearchComponent implements OnInit {
       flight: Flight;
-      
+      modalRef: BsModalRef;
 
     ngOnInit() {
       if(sessionStorage.getItem('role')==='user'){
@@ -23,16 +25,30 @@ export class SearchComponent implements OnInit {
         this.flight = new Flight();
             }
 
-    constructor(private service:FlightService, private router:Router){}   
+    constructor(private service:FlightService, private router:Router,private modalService: BsModalService){}   
     searchFlight(flightNumber: number):any{
         this.service.searchFlight(flightNumber).subscribe((flight:Flight)=> this.flight=flight);
        
     }
 
 
+    modifyFlight(flightNumber:number){
+      this.router.navigate(['/flight/modify',flightNumber]);
+     
+  }
+
+  deleteFlight(flightNumber: number):any{
+      this.service.deleteFlight(flightNumber).subscribe();
+      location.reload();
+  }
 
 
-
+    openModalM(templateM: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(templateM);
+    }
+    openModalD(templateD: TemplateRef<any>) {
+      this.modalRef = this.modalService.show(templateD);
+    }
 
 
 
@@ -58,9 +74,18 @@ export class SearchComponent implements OnInit {
   }
   
   search(){
-  
+      
       this.router.navigate(['/flight/search']);
   
   }
+  
+  
+  
+  upload(){
+  
+    this.router.navigate(['/flight/upload']);
+  }
+  
+  
 
 }

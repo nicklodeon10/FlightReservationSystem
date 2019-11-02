@@ -56,69 +56,88 @@
 <!-- Tab panes -->
 
     
-        
-          <h3 style="text-align: center;">View Flights</h3>
-          <div class="card shadow-lg p-3 mb-5 bg-white rounded"  style="height: 35rem;">
-              <div class = "card-wrapper">
-                  <div class="row">
-                    <div class="col-md-12 align-self-center" >
-          <div class="card ">
-          
-                  <div class="card text-center" >
-                  <div class="card-body " style="height: 25rem;">
-
-<div *ngFor="let flight of flights | paginate: { itemsPerPage: 2, currentPage: p}" >
-
-
-
-  Flight Id: {{flight.flightNumber}}<br>
-  Flight Model: {{flight.flightModel}}<br>
-  Carrier Name: {{flight.carrierName}}<br>
-  Seat Capacity: {{flight.seatCapacity}}<br>
-  
-  
-      <button type="button" (click)="modifyFlight(flight.flightNumber)"  class="btn btn-success">Modify</button>
-     <button type="button"  (click)="deleteFlight(flight.flightNumber)" class="btn btn-danger" >Delete</button><br> <br>
-  
-  
-
-
-</div>
-
-
-
-
-
-
-
-
-          </div>
+      
+<table class="table table-hover" style="background-color:white">
+   
+  <tr>
+  <th>
     
+      <button class="btn btn-info" (click)="sortByNumber()">Flight Id:</button>
+      
+    
+    </th>
+  <th>
+    
+      <button class="btn btn-info" > Flight Model:</button>
+      
+   </th>
 
+  <th>
+    
+      <button class="btn btn-info" (click)="sortByName()"> Carrier Name:</button>
+      
+    </th>
+  <th>
+      <button class="btn btn-info" (click)="sortBySeat()"> Seat Capacity:</button>
+      
+      
+    </th>
+  
+  </tr>
+  
+  <tr *ngFor="let flight of flights | paginate: { itemsPerPage: 10, currentPage: p}">
+  <td>{{flight.flightNumber}}</td>
+  <td>{{flight.flightModel}}</td>
+  <td>{{flight.carrierName}}</td>
+  <td>{{flight.seatCapacity}}</td>
+  <td><button type="button" (click)="openModalM(templateM)"  class="btn btn-success">Modify</button>
+    </td>
+  <td><button type="button"  (click)="openModalD(templateD)" class="btn btn-danger" >Delete</button></td>
+  <ng-template #templateM>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Are You Sure?</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Some Changes Are Irreversible... 
+      </div>
+      <div class="text-center" ><button  type="button" (click)="modifyFlight(flight.flightNumber)"  class="btn btn-success" (click)="modalRef.hide()">Modify</button></div>
+    </ng-template>
+  
+    <ng-template #templateD>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Are You Sure?</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Some Changes Are Irreversible... Do you really want to Delete?
+        </div>
+        <div class="text-center" ><button type="button"  (click)="deleteFlight(flight.flightNumber)" class="btn btn-danger" (click)="modalRef.hide()">Delete</button></div>
+      </ng-template>   
+  </tr>
+  
+  </table>
 
-
-
-
-
-
-
-
-
- 
-  </div>
-  </div>
-</div></div></div>
-
-  <div class="row">
-
-      <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
-    </div>
-
+  
+  
+  
+  
+      
+      
+  
+  
+</div>
 
 </div>
+<div class="row">
+  
+  <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
 </div>
 
-</div>
 </body>
 </html>
 

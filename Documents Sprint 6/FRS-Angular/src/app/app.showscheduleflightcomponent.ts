@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
 })
 
 export class ShowScheduleFlightComponent implements OnInit{
-    public popoverTitle: string = 'Cancel ScheduleFlight?';
+    public popoverTitle: string = 'Cancel Flight?';
     public popoverMessage: string = 'This action cannot be undone.';
     public confirmClicked: boolean = false;
     public cancelClicked: boolean = false;

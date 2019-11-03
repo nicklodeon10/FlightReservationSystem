@@ -36,7 +36,7 @@ import com.cg.frs.service.UserService;
  */
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://52.66.238.169:4200")
 public class AuthenticationController {
 
 	@Autowired

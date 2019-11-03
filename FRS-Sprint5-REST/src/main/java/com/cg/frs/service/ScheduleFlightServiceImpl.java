@@ -141,7 +141,7 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	}
 
 	@Override
-	public boolean cancelBookings(BigInteger flightId) throws InvalidBookingException {
+	public boolean cancelBookings(BigInteger flightId) throws InvalidBookingException, FrsException {
 		List<Booking> bookingList = bookingService.viewBooking();
 		for (Booking booking : bookingList) {
 			if (booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {

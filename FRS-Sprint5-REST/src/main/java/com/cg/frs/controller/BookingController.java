@@ -51,7 +51,7 @@ import com.itextpdf.text.DocumentException;
 
 @RestController
 @RequestMapping("/booking")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://52.66.238.169:4200")
 public class BookingController {
 
 	@Autowired
@@ -153,7 +153,7 @@ public class BookingController {
 		try {
 			logger.info("Cancelling Booking.");
 			bookingService.deleteBooking(bookingId);
-		} catch (InvalidBookingException exception) {
+		} catch (InvalidBookingException | FrsException exception) {
 			logger.info("Unable to Cancel.");
 			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

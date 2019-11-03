@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.ScheduleFlight;
+import com.cg.frs.exception.FrsException;
 import com.cg.frs.exception.InvalidBookingException;
 
 /**
@@ -66,7 +67,7 @@ public interface BookingService {
 	 *  Created Date: 09/10/2019
 	 *  Last Modified: -
 	 */
-	public boolean deleteBooking(BigInteger bookingId)throws InvalidBookingException;
+	public boolean deleteBooking(BigInteger bookingId)throws InvalidBookingException, FrsException;
 
 	/*	
 	 *  Author: DEVANG

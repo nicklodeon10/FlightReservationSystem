@@ -27,7 +27,7 @@ import com.cg.frs.service.AirportService;
 
 @RestController
 @RequestMapping("/airport")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://52.66.238.169:4200")
 public class AirportController {
 
 	@Autowired

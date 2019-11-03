@@ -28,9 +28,14 @@ export class LoginComponent implements OnInit {
   //Checks user authentication
   checkLogin() {
     if (this.loginservice.authenticate(this.username, this.password)) {
-      this.loginservice.getRole(this.username).subscribe((data:User)=>{this.user=data; this.redirect();});
-    } else
-      this.invalidLogin = true
+      this.loginservice.getRole(this.username).subscribe((data:User)=>{
+        this.user=data; 
+        this.redirect();
+      });
+    } else{
+      console.log("Invalid Login Credentials.");
+      this.invalidLogin = true;
+    }
   }
 
   //redirects according to user role

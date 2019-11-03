@@ -30,63 +30,55 @@ import com.cg.frs.service.FlightService;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class FlightServiceTests {
 
-	@Autowired
-	TestRestTemplate restTemplate;
-
-	@Autowired
-	FlightService flightService;
-
-	@Autowired
-	FlightRepository flightRepository;
-
-
-	BigInteger flightId=BigInteger.valueOf(1L);
-	Flight flight=new Flight();
-
-
-
-
-
-	@Test
-	public void testAddFlight() {
-
-		
-		flight.setFlightNumber(flightId);
-		flight.setFlightModel("A202");
-		flight.setCarrierName("AIRWAYS");
-		flight.setSeatCapacity(100);
-		flight.setFlightState(true);
-	
-		
-		assertEquals(flight,flightService.saveFlight(flight));
-
-	}
-
-
-
-	@Test
-	public void testViewAllFlight() throws FlightExceptions   {
-		
-		assertEquals(flightRepository.findAll().size(),flightService.viewAllFlight().size());
-		
-	}
-
-	@Test
-	public void testViewFlight() throws FlightExceptions  {
-		
-		
-		assertEquals(flightId,flightService.searchFlight(flightId).getFlightNumber());
-	}
-
-
-	@Test
-	public void testRemoveFlight() throws FlightExceptions {
-		
-		assertEquals(true,flightService.deleteFlight(flightId));
-		
-		
-	}
-	 
-
+	/*
+	 * @Autowired TestRestTemplate restTemplate;
+	 * 
+	 * @Autowired FlightService flightService;
+	 * 
+	 * @Autowired FlightRepository flightRepository;
+	 * 
+	 * 
+	 * BigInteger flightId=BigInteger.valueOf(1L); Flight flight=new Flight();
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Test public void testAddFlight() {
+	 * 
+	 * 
+	 * flight.setFlightNumber(flightId); flight.setFlightModel("A202");
+	 * flight.setCarrierName("AIRWAYS"); flight.setSeatCapacity(100);
+	 * flight.setFlightState(true);
+	 * 
+	 * 
+	 * assertEquals(flight,flightService.saveFlight(flight));
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * @Test public void testViewAllFlight() throws FlightExceptions {
+	 * 
+	 * assertEquals(flightRepository.findAll().size(),flightService.viewAllFlight().
+	 * size());
+	 * 
+	 * }
+	 * 
+	 * @Test public void testViewFlight() throws FlightExceptions {
+	 * 
+	 * 
+	 * assertEquals(flightId,flightService.searchFlight(flightId).getFlightNumber())
+	 * ; }
+	 * 
+	 * 
+	 * @Test public void testRemoveFlight() throws FlightExceptions {
+	 * 
+	 * assertEquals(true,flightService.deleteFlight(flightId));
+	 * 
+	 * 
+	 * }
+	 * 
+	 */
 	
 }

@@ -47,4 +47,9 @@ export class HomeComponent implements OnInit{
         }
     }
 
+    sendMessage(){
+        alert("Thank You for reaching out to us.");
+        this.router.navigate(["/home"]);
+    }
+
 }

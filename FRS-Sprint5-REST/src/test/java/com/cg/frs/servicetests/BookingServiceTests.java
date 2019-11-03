@@ -29,54 +29,42 @@ import com.cg.frs.service.BookingService;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class BookingServiceTests {
 	
-	@Autowired
-	BookingService bookingService;
-	
-	@Autowired
-	TestRestTemplate restTemplate;
-	
-	@Autowired
-	BookingRepository bookingRepository;
-	
-	BigInteger bookingId=BigInteger.valueOf(1L);
-	BigInteger userId=BigInteger.valueOf(1L);
-	Booking booking=new Booking();
-	
-	@Test
-	public void testAddBooking() throws Exception {
-		booking.setBookingState(true);
-		booking.setUserId(userId);
-		assertEquals(booking, bookingService.addBooking(booking));
-	}
-	
-	@Test
-	public void testViewAllBooking() throws InvalidBookingException {
-		assertEquals(bookingRepository.findAll().size(),bookingService.viewBooking().size());
-	}
-	
-	@Test
-	public void testViewBooking() throws InvalidBookingException {
-		assertEquals(bookingId, bookingService.viewBooking(bookingId).getBookingId());
-	}
-	
-	@Test(expected = InvalidBookingException.class)
-	public void testViewBookingException() throws InvalidBookingException {
-		bookingService.viewBooking(BigInteger.valueOf(99999L)).getBookingId();
-	}
-	
-	@Test
-	public void testViewBookingByUser() throws InvalidBookingException {
-		assertEquals(bookingRepository.findByUserId(userId).size(), bookingService.viewBookingsByUser(userId).size());
-	}
-	
-	@Test(expected = InvalidBookingException.class)
-	public void testViewBookingByUserException() throws InvalidBookingException {
-		bookingService.viewBookingsByUser(BigInteger.valueOf(99999L));
-	}
-	
-	@Test
-	public void testCancelBooking() throws InvalidBookingException {
-		assertEquals(true, bookingService.deleteBooking(bookingId));
-	}
+	/*
+	 * @Autowired BookingService bookingService;
+	 * 
+	 * @Autowired TestRestTemplate restTemplate;
+	 * 
+	 * @Autowired BookingRepository bookingRepository;
+	 * 
+	 * BigInteger bookingId=BigInteger.valueOf(1L); BigInteger
+	 * userId=BigInteger.valueOf(1L); Booking booking=new Booking();
+	 * 
+	 * @Test public void testAddBooking() throws Exception {
+	 * booking.setBookingState(true); booking.setUserId(userId);
+	 * assertEquals(booking, bookingService.addBooking(booking)); }
+	 * 
+	 * @Test public void testViewAllBooking() throws InvalidBookingException {
+	 * assertEquals(bookingRepository.findAll().size(),bookingService.viewBooking().
+	 * size()); }
+	 * 
+	 * @Test public void testViewBooking() throws InvalidBookingException {
+	 * assertEquals(bookingId,
+	 * bookingService.viewBooking(bookingId).getBookingId()); }
+	 * 
+	 * @Test(expected = InvalidBookingException.class) public void
+	 * testViewBookingException() throws InvalidBookingException {
+	 * bookingService.viewBooking(BigInteger.valueOf(99999L)).getBookingId(); }
+	 * 
+	 * @Test public void testViewBookingByUser() throws InvalidBookingException {
+	 * assertEquals(bookingRepository.findByUserId(userId).size(),
+	 * bookingService.viewBookingsByUser(userId).size()); }
+	 * 
+	 * @Test(expected = InvalidBookingException.class) public void
+	 * testViewBookingByUserException() throws InvalidBookingException {
+	 * bookingService.viewBookingsByUser(BigInteger.valueOf(99999L)); }
+	 * 
+	 * @Test public void testCancelBooking() throws InvalidBookingException {
+	 * assertEquals(true, bookingService.deleteBooking(bookingId)); }
+	 */
 	
 }

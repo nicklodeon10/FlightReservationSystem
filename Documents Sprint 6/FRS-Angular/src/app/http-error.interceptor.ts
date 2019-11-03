@@ -26,16 +26,24 @@ export class HttpErrorInterceptor implements HttpInterceptor{
         .pipe(
             retry(1),
             catchError((error: HttpErrorResponse)=>{
+                let errorFlag=true;
                 let errorMessage='';
                 if(error.error instanceof ErrorEvent){
                     errorMessage=`Error: ${error.error.message}`;
                 }else{
                     errorMessage=`${error.error}`;
-                    if(error.status==0){
+                    console.log(errorMessage);
+                    if(error.status==0 || errorMessage==='[object Object]'){
                         errorMessage='Could not connect to Web Service';
+                        errorFlag=false;
+                    }
+                    if(error.status==401){
+                        alert("Invalid Login Credentials.")
                     }
                 }
-                window.alert(errorMessage);
+                if(errorFlag){
+                    window.alert(errorMessage);
+                }
                 return throwError(errorMessage);
             })
         )

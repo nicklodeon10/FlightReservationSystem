@@ -36,10 +36,6 @@ export class ScheduleFlightService{
      
     }
     
-    modifyScheduleFlight(scheduleFlightId:number){
-   
-        return this.myhttp.put("http://localhost:9088/scheduleFlight/modify?scheduleFlightId=",scheduleFlightId);
-    }
     searchScheduleFlight(scheduleFlightId:number){
         
         return this.myhttp.get("http://localhost:9088/scheduleFlight/search?flightId="+scheduleFlightId);

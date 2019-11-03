@@ -67,4 +67,9 @@ export class SignUpComponent implements OnInit{
         }
     }
 
+    buttonFlag:boolean=true;
+    enableButton(){
+        this.buttonFlag=this.nameFlag||this.emailFlag||this.phoneFlag;
+    }
+
 }

@@ -25,7 +25,6 @@ import com.cg.frs.dto.JwtRequest;
 import com.cg.frs.dto.JwtResponse;
 import com.cg.frs.dto.User;
 import com.cg.frs.exception.UserNotFoundException;
-import com.cg.frs.service.BookingServiceImpl;
 import com.cg.frs.service.UserDetailsServiceImpl;
 import com.cg.frs.service.UserService;
 

@@ -6,7 +6,7 @@
                     them quickly and easily.
                 </small>
                 <div class="row">
-                    User Name : <input (blur)="validateName()" class="form-control" type="text" name="username" [(ngModel)]="user.userName">
+                    User Name : <input (blur)="validateName(); enableButton();" class="form-control" type="text" name="username" [(ngModel)]="user.userName">
                     <small *ngIf="nameFlag" style="color: red;">Invalid User Name</small>
                 </div>
                 <div class="row">
@@ -15,11 +15,11 @@
                     <ng2-password-strength-bar [passwordToCheck]="user.userPassword" [barLabel]="barLabel" [barColors]="myColors"></ng2-password-strength-bar>
                 </div>
                 <div class="row">
-                    Phone No : <input (blur)="validatePhone()" class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
+                    Phone No : <input (blur)="validatePhone(); enableButton();" class="form-control" type="number" name="phone" [(ngModel)]="user.userPhone">
                     <small *ngIf="phoneFlag" style="color: red;">Invalid Phone Number</small>
                 </div>
                 <div class="row">
-                    Email : <input (blur)="validateEmail()" class="form-control" type="email" name="email" [(ngModel)]="user.email">
+                    Email : <input (blur)="validateEmail(); enableButton();" class="form-control" type="email" name="email" [(ngModel)]="user.email">
                     <small *ngIf="emailFlag" style="color: red;">Invalid Email</small>
                 </div>
                 <div class="row">

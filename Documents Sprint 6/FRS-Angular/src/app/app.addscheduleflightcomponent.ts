@@ -20,6 +20,10 @@ export class AddScheduleFlightComponent implements OnInit{
     destinationAirport:string;
     departureDateTime:string;
     arrivalDateTime:string;
+
+    minDate:any;
+    maxDate:any;
+    
     scheduleFlight:ScheduleFlight={scheduleFlightId:null, availableSeats:null, ticketCost:null,scheduleFlightState:true,flight:null,schedule:null};
     //schedule:Schedule={scheduleId:null,airport:"",departureDateTime:null,arrivalDateTime:null}
     //flight:Flight={flightNumber:null,flightModel:"",carrierName:"",seatCapacaity:null,flightState:true}
@@ -31,7 +35,11 @@ export class AddScheduleFlightComponent implements OnInit{
     }
 
     
-    constructor(private route: ActivatedRoute, private router:Router, private scheduleFlightService:ScheduleFlightService){}
+    constructor(private route: ActivatedRoute, private router:Router, private scheduleFlightService:ScheduleFlightService){
+        this.minDate=new Date();
+        this.maxDate=new Date();
+        this.maxDate.setMonth(this.maxDate.getMonth()+2);
+    }
 
    
     
@@ -58,6 +66,9 @@ export class AddScheduleFlightComponent implements OnInit{
     validateId(){
         if(this.scheduleFlight.scheduleFlightId>999){
             this.idValid=true;
+        }
+        else if(this.scheduleFlight.scheduleFlightId<1){
+            this.idValid=true;
         }else{
             this.idValid=false;
         }
@@ -65,7 +76,7 @@ export class AddScheduleFlightComponent implements OnInit{
 
     airportValid:boolean=false;
     validateAirports(a:string, b:string){
-        if(a===b){
+        if(a.toLowerCase()===b.toLowerCase()){
             this.airportValid=true;
         }else{
             this.airportValid=false;
@@ -80,5 +91,23 @@ export class AddScheduleFlightComponent implements OnInit{
             this.costValid=false;
         }
     }
+    add(){
+
+        this.router.navigate(['/scheduleFlight/add']);
+    
+    }
+    
+    view(){
+    
+        this.router.navigate(['/scheduleFlight/show']);
+    
+    }
+    
+    search(){
+    
+        this.router.navigate(['/scheduleFlight/search']);
+    
+    }
+
     
 }

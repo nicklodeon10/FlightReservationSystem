@@ -109,7 +109,7 @@ public class BookingServiceImpl implements BookingService {
 	 * True if boolean is removed. Created Date: 09/10/2019 Last Modified: -
 	 */
 	@Override
-	public boolean deleteBooking(BigInteger bookingId) throws InvalidBookingException {
+	public boolean deleteBooking(BigInteger bookingId) throws InvalidBookingException, FrsException {
 		Booking booking;
 		try {
 			booking = bookingRepository.findById(bookingId).get();
@@ -119,6 +119,11 @@ public class BookingServiceImpl implements BookingService {
 		}
 		logger.info("Retrieved Booking by Booking id: " + bookingId);
 		booking.setBookingState(false);
+		BigInteger flightId = booking.getScheduleFlight().getScheduleFlightId();
+		Integer increaseCount = booking.getPassengerCount();
+		logger.info("Decreasing Available Seats in Flight: "+flightId);
+		scheduleFlightService.viewScheduleFlights(flightId)
+				.setAvailableSeats(scheduleFlightService.viewScheduleFlights(flightId).getAvailableSeats()+increaseCount);
 		bookingRepository.save(booking);
 		logger.info("Cancelled Booking.");
 		return true;

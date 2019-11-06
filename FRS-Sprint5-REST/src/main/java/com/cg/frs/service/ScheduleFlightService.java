@@ -24,7 +24,7 @@ public interface ScheduleFlightService {
     
 	public boolean deleteScheduleFlight(BigInteger flightId) throws FrsException;
 	
-	public boolean cancelBookings(BigInteger flightId)throws InvalidBookingException;
+	public boolean cancelBookings(BigInteger flightId)throws InvalidBookingException, FrsException;
 	
 }
 

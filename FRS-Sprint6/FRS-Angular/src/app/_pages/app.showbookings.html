@@ -1,0 +1,68 @@
+    <!-- BODY -->
+    <div class="wrapper">
+        <div class="title">
+            <h3>Your Bookings:</h3>
+            <button type="button" class="sortBtn btn btn-info" (click)="sortByDeparture()">Sort by Journey Date</button>
+            <button type="button" class="sortBtn btn btn-info" (click)="sortByBookingDate()">Sort by Booking Date</button>
+            <small *ngIf="depSortFlag" style="color: white; font-weight: 700;">Sorted By Journey Date</small>
+            <small *ngIf="dateSortFlag" style="color: white; font-weight: 700;">Sorted By Booking Date</small>
+        </div>
+        <div *ngFor="let booking of bookingsList | paginate: { itemsPerPage: 3, currentPage: p }" class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <div *ngIf="booking.bookingState" class="row">
+                        <div class="col-md-10">
+                            <h3 class="card-title">
+                                Booking Id: {{booking.bookingId}}
+                            </h3>
+                        </div>
+                    </div>
+                    <div *ngIf="!booking.bookingState" class="row">
+                        <div class="col-md-10">
+                            <h3 class="card-title">Booking Id: {{booking.bookingId}}</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="upcBtn btn btn-danger">Cancelled</button>    
+                        </div>
+                    </div>
+                    <span *ngIf="dateSortFlag" style="color: red;">Booked On: {{booking.bookingDate}}<br><br></span>
+                    <span *ngIf="!dateSortFlag">Booked On: {{booking.bookingDate}}<br><br></span>
+                    <strong>Journey Details:</strong> <br>
+                    Source: {{booking.scheduleFlight.schedule.sourceAirport.airportName}}, {{booking.scheduleFlight.schedule.sourceAirport.airportLocation}} <br>
+                    <span *ngIf="depSortFlag" style="color: red;">Departure: {{booking.scheduleFlight.schedule.departureDateTime}}</span>
+                    <span *ngIf="!depSortFlag">Departure: {{booking.scheduleFlight.schedule.departureDateTime}}</span><br>
+                    Destination: {{booking.scheduleFlight.schedule.destinationAirport.airportName}}, {{booking.scheduleFlight.schedule.destinationAirport.airportLocation}}<br>
+                    Arrival:{{booking.scheduleFlight.schedule.arrivalDateTime}} <br>
+
+                    <br><strong>Flight Details:</strong> <br>
+                    Flight Number: {{booking.scheduleFlight.flight.flightNumber}} <br>
+                    Flight Model: {{booking.scheduleFlight.flight.flightModel}}<br>
+                    Carrier: {{booking.scheduleFlight.flight.carrierName}}<br>
+                    
+                    <br><strong>Passenger Details:</strong> <br>
+                    <div *ngFor="let passenger of booking.passengerList; let i=index;">
+                        Passenger {{i+1}}:<br>  
+                        PNR: {{passenger.pnrNumber}} <br>
+                        Name: {{passenger.passengerName}}<br>
+                        Age: {{passenger.passengerAge}}<br>
+                        ID: {{passenger.passengerUIN}}<br> 
+                    </div>                   
+                    <div *ngIf="booking.bookingState" class="row">
+                        <div class="col-md-2 offset-md-7">
+                            <button mwlConfirmationPopover
+                            [popoverTitle]="popoverTitle"
+                            [popoverMessage]="popoverMessage"
+                            placement="left"
+                            (confirm)="cancelTicket(booking.bookingId)"
+                            (cancel)="cancelClicked = true" type="button" class="cncBtn btn btn-danger">Cancel Ticket</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="downBtn btn btn-primary" (click)="downloadTicket(booking.bookingId)">Download eTicket</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+        <!-- BODY -->

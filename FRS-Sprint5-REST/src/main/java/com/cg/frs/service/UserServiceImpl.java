@@ -68,4 +68,10 @@ public class UserServiceImpl implements UserService {
 		return userList;
 	}
 
+	@Override
+	public User getUserFromName(String username) throws UserNotFoundException {
+		User user=userRepository.findByUserName(username).get();
+		return user;
+	}
+
 }

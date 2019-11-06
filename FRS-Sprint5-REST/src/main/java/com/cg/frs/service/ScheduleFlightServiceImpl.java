@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.frs.FlightReservationSystemApplication;
 import com.cg.frs.dto.Airport;
 import com.cg.frs.dto.Booking;
 import com.cg.frs.dto.Schedule;
@@ -23,17 +22,17 @@ import com.cg.frs.repository.ScheduleRepository;
 
 @Service("scheduleflightservice")
 public class ScheduleFlightServiceImpl implements ScheduleFlightService {
-	
+
 	@Autowired
 	ScheduleFlightRepository scheduleFlightRepository;
-	
+
 	@Autowired
 	ScheduleRepository scheduleRepository;
-	
+
 	@Autowired
 	BookingService bookingService;
-	
-	private static final Logger logger = LoggerFactory.getLogger(FlightReservationSystemApplication.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(ScheduleFlightService.class);
 
 	/*
 	 * Author Surya Created on 08/10/2019 Last modified on 10/10/2019 add a
@@ -45,25 +44,32 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	}
 
 	/*
-	 * Author: SURYA,DEVANG Description: Retrieves a list of scheduled flights against the
-	 * given inputs. Input: Source Airport, Destination Airport, Date Output: List
-	 * of Scheduled Flights. Created Date: 10/10/2019 Last Modified: 10/10/2019
+	 * Author: SURYA,DEVANG Description: Retrieves a list of scheduled flights
+	 * against the given inputs. Input: Source Airport, Destination Airport, Date
+	 * Output: List of Scheduled Flights. Created Date: 10/10/2019 Last Modified:
+	 * 10/10/2019
 	 */
 	@Override
 	public List<ScheduleFlight> viewScheduleFlights(Airport source, Airport destination, LocalDate flightDate)
 			throws FlightNotFoundException {
-		List<ScheduleFlight> scheduleFlightList=scheduleFlightRepository.findAll();
+		logger.info("" + source);
+		logger.info("" + destination);
+		logger.info("" + flightDate);
+		List<ScheduleFlight> scheduleFlightList = scheduleFlightRepository.findAll();
 		logger.info("Retrieved list of all scheduled flights.");
-		List<ScheduleFlight> extractedFlightList=new ArrayList<>();
-		for(ScheduleFlight scheduleFlight: scheduleFlightList) {
-			if(scheduleFlight.getSchedule().getSourceAirport().equals(source) 
-					&& scheduleFlight.getSchedule().getDestinationAirport().equals(destination)
-					&& scheduleFlight.getSchedule().getDepartureDateTime().toLocalDate().equals(flightDate)) {
-				extractedFlightList.add(scheduleFlight);
+		List<ScheduleFlight> extractedFlightList = new ArrayList<>();
+		for (ScheduleFlight scheduleFlight : scheduleFlightList) {
+			if (scheduleFlight.getSchedule().getSourceAirport().equals(source)
+					&& scheduleFlight.getSchedule().getDestinationAirport().equals(destination)) {
+				System.out.println("Schedule"+scheduleFlight.getSchedule().getDepartureDateTime().toLocalDate());
+				System.out.println("User"+flightDate);
+				if(scheduleFlight.getSchedule().getDepartureDateTime().toLocalDate().equals(flightDate))
+					extractedFlightList.add(scheduleFlight);
 			}
 		}
 		logger.info("Extracted list of scheduled flights as per parameters.");
-		if(extractedFlightList.size()==0) {
+		System.out.println(extractedFlightList);
+		if (extractedFlightList.size() == 0) {
 			logger.error("No Flights Found.");
 			throw new FlightNotFoundException("No Flights Found");
 		}
@@ -118,10 +124,10 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	 */
 	@Override
 	public boolean deleteScheduleFlight(BigInteger flightId) throws FrsException {
- 		if(flightId==null)
+		if (flightId == null)
 			throw new FrsException("Enter flight Id");
-		ScheduleFlight scheduleFlight=scheduleFlightRepository.getOne(flightId);
-		if(scheduleFlight==null)
+		ScheduleFlight scheduleFlight = scheduleFlightRepository.getOne(flightId);
+		if (scheduleFlight == null)
 			throw new FrsException("Enter a valid Flight Id");
 		else {
 			try {
@@ -135,10 +141,10 @@ public class ScheduleFlightServiceImpl implements ScheduleFlightService {
 	}
 
 	@Override
-	public boolean cancelBookings(BigInteger flightId)throws InvalidBookingException {
-		List<Booking> bookingList=bookingService.viewBooking();
-		for(Booking booking: bookingList) {
-			if(booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {
+	public boolean cancelBookings(BigInteger flightId) throws InvalidBookingException, FrsException {
+		List<Booking> bookingList = bookingService.viewBooking();
+		for (Booking booking : bookingList) {
+			if (booking.getScheduleFlight().getScheduleFlightId().equals(flightId)) {
 				bookingService.deleteBooking(booking.getBookingId());
 			}
 		}
